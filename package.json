@@ -1,0 +1,35 @@
+{
+  "name": "geoguessr-trainer",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.22"
+  },
+  "scripts": {
+    "dev": "vite trainer-app",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint trainer-app scripts",
+    "validate:data": "tsx scripts/validate-content.ts"
+  },
+  "dependencies": {
+    "@svg-maps/france.departments": "^1.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.13.9",
+    "@vitest/coverage-v8": "^4.1.11",
+    "eslint": "^10.8.0",
+    "globals": "^17.7.0",
+    "tsx": "^4.23.12",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.68.0",
+    "vite": "^8.2.0",
+    "vitest": "^4.1.11",
+    "zod": "^4.4.3"
+  }
+}
