@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { Country } from '../../types/geo';
+import { LANGS, SOURCE_LANG } from '../../types/i18n';
 
 /*
  * Zod schemas mirroring `types/geo.ts`, plus `validateCountry`, which adds the
@@ -53,7 +54,36 @@ export const PhoneDataSchema = z.object({
 });
 
 const StudySetSchema = z.enum(['reg', 'dep', 'city', 'riv', 'tel', 'nom']);
-const TermSchema = z.object({ one: nonEmpty, many: nonEmpty });
+const PluralFormsSchema = z
+  .object({ zero: nonEmpty, one: nonEmpty, two: nonEmpty, few: nonEmpty, many: nonEmpty })
+  .partial()
+  .extend({ other: nonEmpty });
+const TermSchema = z.object({ one: nonEmpty, many: nonEmpty, counted: PluralFormsSchema.optional() });
+
+const DataTextSchema = z.object({
+  phoneZones: z.record(z.string(), z.object({ name: nonEmpty.optional(), description: z.string() })).optional(),
+  namePatterns: z
+    .record(z.string(), z.object({ label: nonEmpty.optional(), where: z.string(), origin: z.string() }))
+    .optional(),
+  rivers: z.record(z.string(), z.object({ flowsInto: nonEmpty })).optional(),
+});
+
+/** A country's interface text in one language. */
+export const CountryCopySchema = z.object({
+  countryName: nonEmpty,
+  subtitle: nonEmpty,
+  setLabels: z.partialRecord(StudySetSchema, nonEmpty),
+  regionTerm: TermSchema,
+  departmentTerm: TermSchema,
+  seatLabel: nonEmpty,
+  plateLabel: nonEmpty.optional(),
+  codeLabel: nonEmpty.optional(),
+  allAreas: nonEmpty,
+  tips: z.partialRecord(StudySetSchema, nonEmpty),
+  phoneHint: z.string(),
+  credits: nonEmpty,
+  data: DataTextSchema.optional(),
+});
 
 /** Country-level settings and interface text. */
 export const CountryMetaSchema = z.object({
@@ -67,18 +97,8 @@ export const CountryMetaSchema = z.object({
     locations: z.array(z.object({ id: nonEmpty, name: z.string(), path: nonEmpty })).min(1),
     affine: z.array(z.array(z.number()).length(3)).length(2).optional(),
   }),
-  copy: z.object({
-    subtitle: nonEmpty,
-    setLabels: z.partialRecord(StudySetSchema, nonEmpty),
-    regionTerm: TermSchema,
-    departmentTerm: TermSchema,
-    seatLabel: nonEmpty,
-    plateLabel: nonEmpty.optional(),
-    allAreas: nonEmpty,
-    tips: z.partialRecord(StudySetSchema, nonEmpty),
-    phoneHint: z.string(),
-    credits: nonEmpty,
-  }),
+  /** Every supported language is required: a missing one fails as `copy.<lang>`. */
+  copy: z.object(Object.fromEntries(LANGS.map((lang) => [lang, CountryCopySchema]))),
 });
 
 export const NameTownSchema = z.object({
@@ -137,6 +157,32 @@ function duplicates<T>(list: T[], key: (item: T) => string): string[] {
     seen.add(k);
   }
   return [...dup];
+}
+
+/**
+ * Every non-source language must translate the English text of every phone zone, name
+ * pattern and river (`copy.<lang>.data`), and may not translate ids that do not exist.
+ */
+function dataTextErrors(country: Country): string[] {
+  const errors: string[] = [];
+  const parts = [
+    ['phoneZones', 'phone zone', country.phone.zones.map((z) => z.zone)],
+    ['namePatterns', 'name pattern', country.namePatterns.map((p) => p.id)],
+    ['rivers', 'river', country.rivers.rivers.map((r) => r.id)],
+  ] as const;
+  for (const lang of LANGS) {
+    const text = country.copy[lang].data ?? {};
+    for (const [part, label, ids] of parts) {
+      const given = text[part] ?? {};
+      if (lang !== SOURCE_LANG)
+        for (const id of ids)
+          if (!given[id]) errors.push(`${label} ${id} has no ${lang} text in copy.${lang}.data.${part}`);
+      for (const id of Object.keys(given))
+        if (!(ids as readonly string[]).includes(id))
+          errors.push(`copy.${lang}.data.${part} translates unknown ${label} ${id}`);
+    }
+  }
+  return errors;
 }
 
 /** Checks a country's data: schema shape first, then references between its parts. */
@@ -266,15 +312,22 @@ export function validateCountry(country: Country): ValidationResult {
     nom: country.namePatterns.length,
   };
   for (const set of country.sets) {
-    if (!country.copy.setLabels[set]) errors.push(`set ${set} has no label in copy.setLabels`);
-    if (!country.copy.tips[set]) errors.push(`set ${set} has no tip in copy.tips`);
+    for (const lang of LANGS) {
+      if (!country.copy[lang].setLabels[set]) errors.push(`set ${set} has no label in copy.${lang}.setLabels`);
+      if (!country.copy[lang].tips[set]) errors.push(`set ${set} has no tip in copy.${lang}.tips`);
+    }
     if (!setData[set]) errors.push(`set ${set} is offered but has no data`);
   }
+  errors.push(...dataTextErrors(country));
   for (const code of Object.keys(country.phone.localPrefixes ?? {})) {
     if (!departmentCodes.has(code)) errors.push(`local prefixes given for unknown department ${code}`);
   }
-  if (country.copy.plateLabel && !country.departments.some((d) => d.plate))
-    warnings.push('copy.plateLabel is set but no department has a plate');
+  for (const lang of LANGS) {
+    if (country.copy[lang].plateLabel && !country.departments.some((d) => d.plate))
+      warnings.push(`copy.${lang}.plateLabel is set but no department has a plate`);
+    if (!!country.copy[lang].plateLabel !== !!country.copy[SOURCE_LANG].plateLabel)
+      errors.push(`copy.${lang}.plateLabel must be set exactly when copy.${SOURCE_LANG}.plateLabel is`);
+  }
 
   // The outline against the data (compared upper-cased: outline ids may differ in case).
   const outlineIds = new Set(country.outline.locations.map((l) => l.id.toUpperCase()));

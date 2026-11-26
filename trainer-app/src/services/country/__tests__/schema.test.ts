@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { france } from '../../../data/france';
+import { peru } from '../../../data/peru';
 import type { Country } from '../../../types/geo';
 import { RiverSchema, validateCountry } from '../schema';
 
@@ -8,6 +9,12 @@ const clone = (): Country => structuredClone(france);
 describe('validateCountry(france)', () => {
   it('has no errors', () => {
     expect(validateCountry(france).errors).toEqual([]);
+  });
+});
+
+describe('validateCountry(peru)', () => {
+  it('has no errors', () => {
+    expect(validateCountry(peru).errors).toEqual([]);
   });
 });
 
@@ -132,6 +139,49 @@ describe('validateCountry warnings', () => {
         (w) => w.startsWith(`department ${france.departments[0].code} `) && w.includes('not in the outline'),
       ),
     ).toBe(true);
+  });
+});
+
+describe('validateCountry on missing translations', () => {
+  const errorsOf = (mutate: (c: Country) => void) => {
+    const c = structuredClone(france);
+    mutate(c);
+    return validateCountry(c).errors;
+  };
+
+  it('flags a country without copy for a supported language', () => {
+    const errors = errorsOf((c) => delete (c.copy as Partial<Country['copy']>).be);
+    expect(errors.some((e) => e.startsWith('country[0].copy.be'))).toBe(true);
+  });
+
+  it('flags a set without a label or tip in one language', () => {
+    const errors = errorsOf((c) => {
+      delete c.copy.be.setLabels.riv;
+      delete c.copy.be.tips.riv;
+    });
+    expect(errors).toContain('set riv has no label in copy.be.setLabels');
+    expect(errors).toContain('set riv has no tip in copy.be.tips');
+  });
+
+  it('flags data text missing in a non-source language', () => {
+    const errors = errorsOf((c) => {
+      delete c.copy.be.data!.phoneZones!['04'];
+      delete c.copy.be.data!.namePatterns!.p3;
+      delete c.copy.be.data!.rivers!.r7;
+    });
+    expect(errors).toContain('phone zone 04 has no be text in copy.be.data.phoneZones');
+    expect(errors).toContain('name pattern p3 has no be text in copy.be.data.namePatterns');
+    expect(errors).toContain('river r7 has no be text in copy.be.data.rivers');
+  });
+
+  it('flags translations of ids that do not exist', () => {
+    const errors = errorsOf((c) => (c.copy.be.data!.rivers!.r99 = { flowsInto: 'мора' }));
+    expect(errors).toContain('copy.be.data.rivers translates unknown river r99');
+  });
+
+  it('flags a plate label present in one language only', () => {
+    const errors = errorsOf((c) => delete c.copy.be.plateLabel);
+    expect(errors).toContain('copy.be.plateLabel must be set exactly when copy.en.plateLabel is');
   });
 });
 

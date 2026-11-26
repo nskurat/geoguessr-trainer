@@ -12,6 +12,8 @@
  *   tel  "Z<zone>_<copy>" for find-the-zone questions (each zone asked 3 times),
  *        "z<zone>" for zone answer choices, department codes otherwise.
  */
+import { t, termFor, th } from '../i18n';
+import { en, type MessageKey } from '../i18n/en';
 import type { CountryIndex } from '../services/country/countryIndex';
 import {
   fitProjection,
@@ -36,7 +38,7 @@ import {
 } from '../services/practice/spacedRepetition';
 import type { TrainerStorage } from '../services/storage/trainerStorage';
 import type { Point } from '../types/geo';
-import type { Outcome, StudySet } from '../types/trainer';
+import type { Outcome, QuestionKind, StudySet } from '../types/trainer';
 import { escapeHtml as esc } from '../utils/html';
 import { smoothPath } from '../utils/svgPath';
 
@@ -67,16 +69,13 @@ const tip = $('#tip');
 const OUTCOME_COLORS = ['var(--ok)', 'var(--y)', 'var(--or)', 'var(--red)'];
 
 /** Heading of a study set, from the country's copy. */
-const setLabel = (set: StudySet) => ix.country.copy.setLabels[set] ?? set;
+const setLabel = (set: StudySet) => ix.copy.setLabels[set] ?? set;
 
-/** Labels of the four question-type buttons (find, name, town, dot); empty keeps the default. */
-const KIND_LABELS: Partial<Record<StudySet, string[]>> = {
-  riv: ['Find on map', 'Name it', 'Place towns'],
-  tel: ['Find the zone', 'Which zone?', ''],
-  nom: ['Ending → area', 'Area → ending', 'Real towns'],
-  city: ['Distance', 'Name it', '', 'Pick the dot'],
-};
-const DEFAULT_KIND_LABELS = ['Find on map', 'Name it', ''];
+/** Label of a question-type button: a set-specific one (`kind.tel.find`) or the default (`kind.find`). */
+function kindLabel(set: StudySet, kind: QuestionKind): string {
+  const specific = `kind.${set}.${kind}`;
+  return t((specific in en ? specific : `kind.${kind}`) as MessageKey);
+}
 
 /* ---------- state ---------- */
 
@@ -145,7 +144,7 @@ const distanceQuestion = () =>
 /** Whether department codes are meaningful to players and shown (France's numbers). */
 const codesShown = () => ix.country.departmentCodes === 'shown';
 /** "département", "region": the second-level term inside a sentence. */
-const depTerm = () => ix.country.copy.departmentTerm.one.toLowerCase();
+const depTerm = () => ix.copy.departmentTerm.one.toLowerCase();
 
 /** Find-the-zone question ids are "Z<zone>_<copy>"; zone answer choices are "z<zone>". */
 const zoneOfQuestion = (u: string): string | undefined => {
@@ -552,7 +551,7 @@ function nameOf(u: string, how: NameStyle = ''): string {
   if (ix.patternById[u]) return ix.patternById[u].label;
   if (ix.nameTownById[u]) return ix.nameTownById[u].name;
   const questionZone = zoneOfQuestion(u);
-  if (questionZone) return 'Zone ' + questionZone + ' · ' + ix.phoneZoneById[questionZone].name;
+  if (questionZone) return t('name.zone', { zone: questionZone, name: ix.phoneZoneById[questionZone].name });
   const choiceZone = zoneOfChoice(u);
   if (choiceZone) return how === 'full' ? choiceZone + ' · ' + ix.phoneZoneById[choiceZone].name : choiceZone;
   return ix.cityById[u].name;
@@ -790,10 +789,8 @@ function syncControls(): void {
   show('#scopeL', !(set === 'reg' || set === 'riv' || isZoneSet()));
   show('#kindSeg [data-v=town]', set === 'riv' || set === 'nom');
   show('#kindSeg [data-v=dot]', set === 'city');
-  const labels = KIND_LABELS[set] || DEFAULT_KIND_LABELS;
-  [...$('#kindSeg').children].forEach((b, i) => {
-    if (labels[i]) b.textContent = labels[i];
-  });
+  for (const b of $('#kindSeg').children)
+    b.textContent = kindLabel(set, (b as HTMLElement).dataset.v as QuestionKind);
   show('#rselL', set === 'riv' && (mode === 'learn' || kind === 'town'));
   selectEl('#rsel').value = settings.river;
   show('#sizeL', mode === 'practice');
@@ -807,13 +804,18 @@ function syncControls(): void {
   selectEl('#labs').value = settings.labels;
 }
 
-function bindControls(): void {
+/** Options of the Area and River filters (their "all" option is translated). */
+function renderOptions(): void {
   selectEl('#scope').innerHTML =
-    `<option value="all">${esc(ix.country.copy.allAreas)}</option>` +
+    `<option value="all">${esc(ix.copy.allAreas)}</option>` +
     ix.regions.map((r) => `<option value="${r.key}">${esc(r.name)}</option>`).join('');
   selectEl('#rsel').innerHTML =
-    '<option value="all">All rivers</option>' +
+    `<option value="all">${esc(t('ctl.allRivers'))}</option>` +
     ix.rivers.map((r) => `<option value="${r.id}">${esc(r.name)}</option>`).join('');
+}
+
+function bindControls(): void {
+  renderOptions();
 
   for (const [id, key] of SEGMENTS)
     $(id).addEventListener('click', (e) => {
@@ -951,7 +953,7 @@ function recordProgress(u: string, o: Outcome): void {
 function resetProgress(button: HTMLElement): void {
   if (!button.dataset.armed) {
     button.dataset.armed = '1';
-    button.textContent = 'Tap again to reset ' + setLabel(settings.set);
+    button.textContent = t('progress.resetConfirm', { set: setLabel(settings.set) });
     return;
   }
   for (const k of Object.keys(progress)) if (k.startsWith(settings.set + '|')) delete progress[k];
@@ -1086,10 +1088,14 @@ function click(e: PointerEvent): void {
       r.outcome = o;
       const where =
         settings.set === 'tel'
-          ? 'Zone ' + zoneOfQuestion(current) + ': ' + ix.phoneZoneById[zoneOfQuestion(current)!].description + '.'
-          : 'Area: ' + ix.patternById[ix.nameTownById[current]?.pattern ?? current].where + '.';
+          ? t('fb.zoneWhere', {
+              zone: zoneOfQuestion(current)!,
+              description: ix.phoneZoneById[zoneOfQuestion(current)!].description,
+            })
+          : t('fb.areaWhere', { where: ix.patternById[ix.nameTownById[current]?.pattern ?? current].where });
+      const verdict = o === 0 ? t('fb.correct') : o < 3 ? t('fb.tryN', { n: o + 1 }) + '.' : t('fb.missed');
       r.feedback = {
-        text: (o === 0 ? 'Correct! ' : o < 3 ? 'Got it on try ' + (o + 1) + '. ' : 'Missed. ') + where,
+        text: verdict + ' ' + where,
         tone: o === 0 ? 'ok' : o < 3 ? 'mid' : 'no',
       };
       colorize();
@@ -1104,7 +1110,7 @@ function click(e: PointerEvent): void {
     r.tries++;
     flash(u);
     if (r.tries >= 3) {
-      r.feedback = { text: 'Not there.', tone: 'no' };
+      r.feedback = { text: t('fb.notThere'), tone: 'no' };
       panel();
       later(() => done(3), 660);
       return;
@@ -1114,12 +1120,10 @@ function click(e: PointerEvent): void {
     r.feedback = {
       text:
         settings.set === 'tel'
-          ? 'No: ' + d.name + ' is ' + ix.zoneOfDepartment[u] + '.'
-          : 'Not there. ' +
-            d.name +
-            (ps.length
-              ? ' is ' + ps.map((p) => shortPattern(p.label)).join(' / ') + ' country.'
-              : ' has none of these patterns.'),
+          ? t('fb.telWrong', { name: d.name, zone: ix.zoneOfDepartment[u] })
+          : ps.length
+            ? t('fb.nomWrong', { name: d.name, patterns: ps.map((p) => shortPattern(p.label)).join(' / ') })
+            : t('fb.nomWrongNone', { name: d.name }),
       tone: 'no',
     };
     panel();
@@ -1166,7 +1170,7 @@ function click(e: PointerEvent): void {
   if (u === current) {
     const o = r.tries as Outcome;
     finishItem(o);
-    r.feedback = { text: o === 0 ? 'Correct!' : 'Got it on try ' + (o + 1), tone: o === 0 ? 'ok' : 'mid' };
+    r.feedback = { text: o === 0 ? t('fb.correct') : t('fb.tryN', { n: o + 1 }), tone: o === 0 ? 'ok' : 'mid' };
     r.current = null;
     colorize();
     panel();
@@ -1174,11 +1178,11 @@ function click(e: PointerEvent): void {
     return;
   }
   r.tries++;
-  r.feedback = { text: 'That’s ' + nameOf(u, 'full'), tone: 'no' };
+  r.feedback = { text: t('fb.thats', { name: nameOf(u, 'full') }), tone: 'no' };
   flash(u);
   if (r.tries >= 3) {
     r.locked = true;
-    r.feedback = { text: 'It’s the blinking one. Click it to continue.', tone: 'no' };
+    r.feedback = { text: t('fb.blinking'), tone: 'no' };
   }
   colorize();
   panel();
@@ -1220,7 +1224,7 @@ function choose(u: string, button: HTMLElement): void {
     finishItem(o);
     button.classList.add('ok');
     r.waiting = true;
-    r.feedback = { text: o === 0 ? 'Correct!' : 'Right, on try ' + (o + 1), tone: o === 0 ? 'ok' : 'mid' };
+    r.feedback = { text: o === 0 ? t('fb.correct') : t('fb.rightOnTry', { n: o + 1 }), tone: o === 0 ? 'ok' : 'mid' };
     colorize();
     panel();
     later(next, o === 0 ? 500 : 900);
@@ -1231,12 +1235,12 @@ function choose(u: string, button: HTMLElement): void {
   if (r.tries >= 2) {
     finishItem(3);
     r.waiting = true;
-    r.feedback = { text: 'It was ' + nameOf(rightChoice(), how), tone: 'no' };
+    r.feedback = { text: t('fb.itWas', { name: nameOf(rightChoice(), how) }), tone: 'no' };
     colorize();
     panel();
     return;
   }
-  r.feedback = { text: 'Not ' + nameOf(u, how), tone: 'no' };
+  r.feedback = { text: t('fb.not', { name: nameOf(u, how) }), tone: 'no' };
   panel();
 }
 
@@ -1251,18 +1255,20 @@ function panel(): void {
   const prompt = $('#prompt');
   const more = $('#more');
   if (!projection) {
-    prompt.innerHTML = '<p class="k">Loading</p>';
+    prompt.innerHTML = `<p class="k">${esc(t('panel.loading'))}</p>`;
     more.innerHTML = '';
     return;
   }
   const { set, kind } = settings;
 
   if (settings.mode === 'learn') {
-    const scopeText =
-      set !== 'reg' && settings.scope !== 'all' ? ' in ' + ix.regionByKey[settings.scope].name : '';
+    const heading =
+      set !== 'reg' && settings.scope !== 'all'
+        ? t('learn.inScope', { set: setLabel(set), area: ix.regionByKey[settings.scope].name })
+        : setLabel(set);
     const n = pool().length;
     if (set === 'riv' && !selected && settings.river !== 'all') selected = settings.river;
-    prompt.innerHTML = `<p class="k">Learn</p><p class="target">${esc(setLabel(set))}${esc(scopeText)}<small>${n} to learn. Hover or tap the map for details; drag to pan, scroll or pinch to zoom.</small></p>${infoHtml()}<div class="row"><button class="btn pri" id="go">Start practising</button></div>${progressHtml()}`;
+    prompt.innerHTML = `<p class="k">${esc(t('learn.heading'))}</p><p class="target">${esc(heading)}<small>${esc(t('learn.count', { count: n }))}</small></p>${infoHtml()}<div class="row"><button class="btn pri" id="go">${esc(t('learn.start'))}</button></div>${progressHtml()}`;
     $('#go').onclick = () => {
       settings.mode = 'practice';
       changed(false);
@@ -1285,11 +1291,11 @@ function panel(): void {
     const total = r.items.length;
     const pct = Math.round((100 * r.score) / total);
     const misses = r.items.filter((u) => missed(r.first[u]));
-    prompt.innerHTML = `<p class="k">Round complete</p><p class="target">${r.score} / ${total}<small>right first time (${pct}%)</small></p>${misses.length ? `<p class="k" style="margin-top:10px">To review (${misses.length})</p><div class="missed chips">${misses.map((u) => `<span>${esc(nameOf(u, 'full'))}</span>`).join('')}</div>` : '<p class="fb ok">Perfect round.</p>'}<div class="row">${misses.length ? '<button class="btn pri" id="rm">Practise the missed ones</button>' : ''}<button class="btn" id="nr">New round</button></div>`;
+    prompt.innerHTML = `<p class="k">${esc(t('round.complete'))}</p><p class="target">${r.score} / ${total}<small>${esc(t('round.firstTime', { pct }))}</small></p>${misses.length ? `<p class="k" style="margin-top:10px">${esc(t('round.toReview', { count: misses.length }))}</p><div class="missed chips">${misses.map((u) => `<span>${esc(nameOf(u, 'full'))}</span>`).join('')}</div>` : `<p class="fb ok">${esc(t('round.perfect'))}</p>`}<div class="row">${misses.length ? `<button class="btn pri" id="rm">${esc(t('round.practiseMissed'))}</button>` : ''}<button class="btn" id="nr">${esc(t('round.new'))}</button></div>`;
     if (misses.length) $('#rm').onclick = () => start(misses);
     $('#nr').onclick = () => start();
     const st = stats(pool());
-    $('#nr').textContent = st.due ? 'Next round (' + st.due + ' due)' : 'Next round';
+    $('#nr').textContent = st.due ? t('round.nextDue', { count: st.due }) : t('round.next');
     more.innerHTML = statsHtml();
     return;
   }
@@ -1297,16 +1303,10 @@ function panel(): void {
   const cur = (r.current || r.last)!;
   r.last = cur;
   let heading =
-    kind === 'find' || kind === 'dot' ? 'Find' : kind === 'town' ? 'Place this town' : 'Name this';
-  if (set === 'tel')
-    heading = kind === 'find' ? `Tap a ${depTerm()} where landlines start with` : 'Which phone zone?';
+    kind === 'find' || kind === 'dot' ? t('q.find') : kind === 'town' ? t('q.placeTown') : t('q.name');
+  if (set === 'tel') heading = kind === 'find' ? t('q.telFind', { term: depTerm() }) : t('q.telName');
   if (set === 'nom')
-    heading =
-      kind === 'find'
-        ? 'Where are names like this common?'
-        : kind === 'town'
-          ? 'Where would you find this town?'
-          : 'Which ending is typical here?';
+    heading = kind === 'find' ? t('q.nomFind') : kind === 'town' ? t('q.nomTown') : t('q.nomName');
 
   let target: string;
   let sub: string;
@@ -1315,62 +1315,58 @@ function panel(): void {
     sub =
       set === 'city'
         ? kind === 'dot'
-          ? 'Tap its dot.'
-          : 'Tap where you think it is.'
+          ? t('sub.dot')
+          : t('sub.city')
         : set === 'riv'
-          ? 'Tap the river.'
+          ? t('sub.river')
           : set === 'dep' && r.askBy === 'num'
-            ? `${ix.country.copy.departmentTerm.one} number`
+            ? (ix.copy.codeLabel ?? t('sub.codeNumber', { term: ix.copy.departmentTerm.one }))
             : '';
   } else if (set === 'tel') {
-    target = kind === 'find' ? zoneOfQuestion(cur)! : `The blue ${depTerm()}`;
+    target = kind === 'find' ? zoneOfQuestion(cur)! : esc(t('target.blueTerm', { term: depTerm() }));
     sub =
       kind === 'find'
-        ? `Tap any ${depTerm()} in that zone.`
-        : `Pick the zone, or press 1–${r.choices?.length ?? 5}.`;
+        ? t('sub.telFind', { term: depTerm() })
+        : t('sub.pickZone', { count: r.choices?.length ?? 5 });
   } else if (set === 'nom') {
     if (kind === 'find') {
       target = esc(ix.patternById[cur].label);
-      sub = `Tap a ${depTerm()} in that area.`;
+      sub = t('sub.nomFind', { term: depTerm() });
     } else if (kind === 'town') {
       const town = ix.nameTownById[cur];
       target = esc(town.name);
-      sub = r.waiting ? 'Pattern: ' + ix.patternById[town.pattern].label : 'Tap the area its name points to.';
+      sub = r.waiting ? t('sub.pattern', { label: ix.patternById[town.pattern].label }) : t('sub.nomTown');
     } else {
-      target = 'The blue area';
-      sub = 'Pick the ending, or press 1–4.';
+      target = esc(t('target.blueArea'));
+      sub = t('sub.pickEnding');
     }
   } else if (kind === 'town') {
     const town = ix.riverTownById[cur];
     target = emphasizeJoiner(town.name);
     sub = r.waiting
-      ? 'On the ' + town.rivers.map((id) => ix.riverById[id].name).join(' and ')
-      : 'Tap where it is. The rivers are drawn without names.';
+      ? t('sub.onRivers', {
+          rivers: town.rivers.map((id) => ix.riverById[id].name).join(t('list.and')),
+          count: town.rivers.length,
+        })
+      : t('sub.riverTown');
   } else {
-    target =
+    target = esc(
       set === 'city'
-        ? 'The blue dot'
+        ? t('target.blueDot')
         : set === 'reg'
-          ? `The blue ${ix.country.copy.regionTerm.one.toLowerCase()}`
+          ? t('target.blueTerm', { term: ix.copy.regionTerm.one.toLowerCase() })
           : set === 'riv'
-            ? 'The pink river'
-            : `The blue ${depTerm()}`;
-    sub = 'Pick the right answer, or press 1–4.';
+            ? t('target.pinkRiver')
+            : t('target.blueTerm', { term: depTerm() }),
+    );
+    sub = t('sub.pickAnswer');
   }
 
   const feedback: Feedback | null =
     r.feedback ||
     (distanceQuestion() && r.waiting
       ? {
-          text:
-            `${Math.round(r.distanceKm)} km away` +
-            (r.outcome === 0
-              ? ', spot on.'
-              : r.outcome === 1
-                ? ', close.'
-                : r.outcome === 2
-                  ? ', getting there.'
-                  : '.'),
+          text: t(`fb.distance${r.outcome}`, { km: Math.round(r.distanceKm) }),
           tone: (['ok', 'ok', 'mid', 'no'] as const)[r.outcome],
         }
       : null);
@@ -1394,7 +1390,7 @@ function panel(): void {
     r.waiting &&
     (distanceQuestion() || (isZoneSet() && kind !== 'name') || (kind === 'name' && r.tries >= 2));
   const nextButton = needsNext
-    ? '<div class="row"><button class="btn pri" id="nextBtn">Next <kbd>Enter</kbd></button></div>'
+    ? `<div class="row"><button class="btn pri" id="nextBtn">${esc(t('next'))} <kbd>Enter</kbd></button></div>`
     : '';
   prompt.innerHTML = `<p class="k">${heading}</p><p class="target">${target}${sub ? `<small>${esc(sub)}</small>` : ''}</p>${choices}<p class="fb ${feedback ? feedback.tone : ''}">${feedback ? esc(feedback.text) : ''}</p>${nextButton}`;
   prompt
@@ -1416,11 +1412,11 @@ function progressHtml(): string {
       : pool();
   const st = stats(items);
   if (!st.total) return '';
-  const kindLabel =
+  const kindText =
     settings.mode === 'practice'
       ? ' (' + esc(document.querySelector('#kindSeg [aria-pressed=true]')?.textContent || '') + ')'
       : '';
-  return `<p class="k" style="margin-top:12px">Your progress in ${esc(setLabel(settings.set))}${kindLabel}</p><div class="prog"><i style="width:${(100 * st.solid) / st.total}%;background:var(--ok)"></i></div><div class="stats"><span>${st.solid} / ${st.total} solid</span><span>${st.due} due · ${st.fresh} new</span></div><p class="hint">Items you get right move to longer review gaps (10 min, 1 h, 1 day, 3 days, a week); a miss sends them back to the start. Each round picks due and missed items first. Saved in this browser.</p><div class="row"><button class="btn" id="srReset" style="flex:0 0 auto">Reset progress</button></div>`;
+  return `<p class="k" style="margin-top:12px">${esc(t('progress.title', { set: setLabel(settings.set) }))}${kindText}</p><div class="prog"><i style="width:${(100 * st.solid) / st.total}%;background:var(--ok)"></i></div><div class="stats"><span>${esc(t('progress.solid', { solid: st.solid, total: st.total }))}</span><span>${esc(t('progress.dueNew', { due: st.due, fresh: st.fresh }))}</span></div><p class="hint">${esc(t('progress.hint'))}</p><div class="row"><button class="btn" id="srReset" style="flex:0 0 auto">${esc(t('progress.reset'))}</button></div>`;
 }
 
 function statsHtml(): string {
@@ -1429,14 +1425,14 @@ function statsHtml(): string {
   const done = Object.keys(r.first).length;
   const bandsHint =
     settings.set === 'city' && settings.kind === 'find'
-      ? `Within ${CITY_DISTANCE_BANDS[0]} km counts as right; ${CITY_DISTANCE_BANDS[1]} km as close.`
+      ? t('stats.bands', { right: CITY_DISTANCE_BANDS[0], close: CITY_DISTANCE_BANDS[1] })
       : settings.kind === 'town' && settings.set === 'riv'
-        ? `Within ${RIVER_TOWN_DISTANCE_BANDS[0]} km counts as right; ${RIVER_TOWN_DISTANCE_BANDS[1]} km as close.`
+        ? t('stats.bands', { right: RIVER_TOWN_DISTANCE_BANDS[0], close: RIVER_TOWN_DISTANCE_BANDS[1] })
         : '';
-  return `<div class="card"><p class="k">This round</p><div class="prog"><i style="width:${(100 * done) / total}%"></i></div><div class="stats"><span>${done} / ${total} seen</span><span>${r.score} right first time</span></div>
- <div class="legend"><span><i style="background:var(--ok)"></i>1st try</span><span><i style="background:var(--y)"></i>2nd</span><span><i style="background:var(--or)"></i>3rd</span><span><i style="background:var(--red)"></i>missed</span></div>
- <p class="hint">Misses come back later in the round. Change the round size in the bar above. ${bandsHint}</p>
- <div class="row"><button class="btn" id="rs">Restart round</button></div>${progressHtml()}</div>${tipsHtml()}`;
+  return `<div class="card"><p class="k">${esc(t('stats.thisRound'))}</p><div class="prog"><i style="width:${(100 * done) / total}%"></i></div><div class="stats"><span>${esc(t('stats.seen', { done, total }))}</span><span>${esc(t('stats.firstTime', { count: r.score }))}</span></div>
+ <div class="legend"><span><i style="background:var(--ok)"></i>${esc(t('legend.first'))}</span><span><i style="background:var(--y)"></i>${esc(t('legend.second'))}</span><span><i style="background:var(--or)"></i>${esc(t('legend.third'))}</span><span><i style="background:var(--red)"></i>${esc(t('legend.missed'))}</span></div>
+ <p class="hint">${esc(t('stats.hint'))} ${esc(bandsHint)}</p>
+ <div class="row"><button class="btn" id="rs">${esc(t('stats.restart'))}</button></div>${progressHtml()}</div>${tipsHtml()}`;
 }
 
 function infoHtml(): string {
@@ -1446,7 +1442,7 @@ function infoHtml(): string {
         (z) =>
           `<div><i style="background:${hueFill(z.hue)}"></i><span><b>${z.zone}</b> ${esc(z.name)}: ${esc(z.description)}</span></div>`,
       )
-      .join('')}</div><p class="hint">${esc(ix.country.copy.phoneHint)}</p>`;
+      .join('')}</div><p class="hint">${esc(ix.copy.phoneHint)}</p>`;
     return (selected && ix.departmentByCode[selected] ? infoCard() : '') + `${CARD}${legend}</div>`;
   }
   if (settings.set === 'nom') {
@@ -1458,66 +1454,85 @@ function infoHtml(): string {
 }
 
 function infoCard(): string {
-  if (!selected) return `${CARD}<p>Nothing selected yet.</p></div>`;
+  if (!selected) return `${CARD}<p>${esc(t('info.nothing'))}</p></div>`;
   const u = selected;
   let h = '';
   const d = ix.departmentByCode[u];
   if (ix.regionByKey[u]) {
     const r = ix.regionByKey[u];
-    h = `<h3>${esc(r.name)}</h3><p>Capital <b>${esc(r.capital)}</b> · ${r.codes.length} ${esc(ix.country.copy.departmentTerm.many.toLowerCase())}</p><div class="chips">${r.codes.map((c) => `<button data-u="${c}">${codesShown() ? c + ' ' : ''}${esc(ix.departmentByCode[c].name)}</button>`).join('')}</div>`;
+    const units = termFor(ix.copy.departmentTerm, r.codes.length);
+    h = `<h3>${esc(r.name)}</h3><p>${th('info.region', { capital: r.capital, count: r.codes.length, units })}</p><div class="chips">${r.codes.map((c) => `<button data-u="${c}">${codesShown() ? c + ' ' : ''}${esc(ix.departmentByCode[c].name)}</button>`).join('')}</div>`;
   } else if (settings.set === 'tel' && d) {
     const z = ix.zoneOfDepartment[d.code];
     const local = localPrefixes(d.code);
-    h = `<h3>${esc(nameOf(d.code, 'full'))}</h3><p>Landlines start with <b>${z}</b> (${esc(ix.phoneZoneById[z].name)})</p>${local.length ? `<p>Local prefixes <b>${local.map((p) => z + ' ' + p).join(', ')}</b></p>` : ''}`;
+    h = `<h3>${esc(nameOf(d.code, 'full'))}</h3><p>${th('info.landlines', { zone: z, name: ix.phoneZoneById[z].name })}</p>${local.length ? `<p>${th('info.localPrefixes', { prefixes: local.map((p) => z + ' ' + p).join(', ') })}</p>` : ''}`;
   } else if (settings.set === 'nom' && d) {
     const ps = patternsIn(d.code);
-    h = `<h3>${esc(nameOf(d.code, 'full'))}</h3><p>${ps.length ? 'Typical endings here:' : 'None of these patterns is typical here.'}</p><div class="chips">${ps.map((p) => `<button data-u="${p.id}">${esc(p.label)}</button>`).join('')}</div>`;
+    h = `<h3>${esc(nameOf(d.code, 'full'))}</h3><p>${esc(ps.length ? t('info.typicalEndings') : t('info.noPatterns'))}</p><div class="chips">${ps.map((p) => `<button data-u="${p.id}">${esc(p.label)}</button>`).join('')}</div>`;
   } else if (d) {
     const cities = ix.cities.filter((c) => c.code === d.code);
-    const { seatLabel, regionTerm, plateLabel } = ix.country.copy;
-    h = `<h3>${esc(nameOf(d.code, 'full'))}</h3><p>${esc(seatLabel)} <b>${esc(d.prefecture)}</b></p><p>${esc(regionTerm.one)} <b>${esc(ix.regionByKey[d.region].name)}</b></p>${plateLabel && d.plate ? `<p>${esc(plateLabel)} <b>${esc(d.plate)}</b></p>` : ''}${cities.length ? `<p>Cities here: <b>${cities.map((c) => esc(c.name)).join(', ')}</b></p>` : ''}`;
+    const { seatLabel, regionTerm, plateLabel } = ix.copy;
+    h = `<h3>${esc(nameOf(d.code, 'full'))}</h3><p>${esc(seatLabel)} <b>${esc(d.prefecture)}</b></p><p>${esc(regionTerm.one)} <b>${esc(ix.regionByKey[d.region].name)}</b></p>${plateLabel && d.plate ? `<p>${esc(plateLabel)} <b>${esc(d.plate)}</b></p>` : ''}${cities.length ? `<p>${th('info.citiesHere', { cities: cities.map((c) => c.name).join(', ') })}</p>` : ''}`;
   } else if (ix.patternById[u]) {
     const p = ix.patternById[u];
-    h = `<h3>${esc(p.label)}</h3><p><b>${esc(p.where)}</b></p><p>${esc(p.origin)}</p><p style="margin-top:6px">Examples: <b>${p.towns
-      .filter((t) => !t.extra)
-      .map((t) => esc(t.name))
-      .join(
-        ', ',
-      )}</b></p><p class="hint">Real towns practice also uses towns not shown here, so you learn the pattern, not the list.</p>`;
+    const towns = p.towns
+      .filter((town) => !town.extra)
+      .map((town) => town.name)
+      .join(', ');
+    h = `<h3>${esc(p.label)}</h3><p><b>${esc(p.where)}</b></p><p>${esc(p.origin)}</p><p style="margin-top:6px">${th('info.examples', { towns })}</p><p class="hint">${esc(t('info.examplesHint'))}</p>`;
   } else if (ix.riverById[u]) {
     const r = ix.riverById[u];
-    h = `<h3>${esc(r.name)}</h3><p><b>${r.lengthKm} km</b> long${r.lengthIsTotal ? ` (in total, not just in ${esc(ix.country.name)})` : ''}, flows into <b>${esc(r.flowsInto)}</b></p><p style="margin-top:6px">Towns on it, source to mouth:</p><div class="chips">${r.towns.map((t) => `<span>${emphasizeJoiner(ix.riverTownById[t].name)}</span>`).join('')}</div>`;
+    const length = th(r.lengthIsTotal ? 'info.riverLengthTotal' : 'info.riverLength', {
+      km: r.lengthKm,
+      country: ix.copy.countryName,
+      into: r.flowsInto,
+    });
+    h = `<h3>${esc(r.name)}</h3><p>${length}</p><p style="margin-top:6px">${esc(t('info.riverTowns'))}</p><div class="chips">${r.towns.map((t) => `<span>${emphasizeJoiner(ix.riverTownById[t].name)}</span>`).join('')}</div>`;
   } else if (ix.cityById[u]) {
     const c = ix.cityById[u];
     const cd = ix.departmentByCode[c.code];
-    const { departmentTerm, regionTerm } = ix.country.copy;
+    const { departmentTerm, regionTerm } = ix.copy;
     h = `<h3>${esc(c.name)}</h3><p>${esc(departmentTerm.one)} <b>${codesShown() ? cd.code + ' ' : ''}${esc(cd.name)}</b></p><p>${esc(regionTerm.one)} <b>${esc(ix.regionByKey[c.region].name)}</b></p>`;
   }
   return `${CARD}${h}</div>`;
 }
 
 function tipsHtml(): string {
-  const text = ix.country.copy.tips[settings.set] ?? '';
-  return `<div class="card"><p class="k">How to use it</p><p style="margin:0;font-size:15px">${text}</p></div>`;
+  const text = ix.copy.tips[settings.set] ?? '';
+  return `<div class="card"><p class="k">${esc(t('tips.heading'))}</p><p style="margin:0;font-size:15px">${text}</p></div>`;
 }
 
 /* ---------- start ---------- */
 
 /** Title, subtitle, set buttons, area labels and credits for the country. */
 function renderChrome(): void {
-  const { country } = ix;
-  const { copy } = country;
-  document.title = `${country.name} map trainer`;
-  $('#countryName').textContent = country.name;
+  const { copy } = ix;
+  const name = copy.countryName;
+  document.title = t('app.title', { country: name });
+  $('#title').innerHTML = th('app.h1', { country: name });
   $('#subtitle').textContent = copy.subtitle;
-  svg.setAttribute('aria-label', `Map of ${country.name}`);
-  $('#setSeg').innerHTML = country.sets
+  svg.setAttribute('aria-label', t('map.label', { country: name }));
+  $('#setSeg').innerHTML = ix.country.sets
     .map((set) => `<button data-v="${set}">${esc(setLabel(set))}</button>`)
     .join('');
   $('#telfLabel').textContent = copy.departmentTerm.many;
   // Department numbers only mean something where codes are shown.
   selectEl('#labs').querySelector<HTMLOptionElement>('option[value=num]')!.hidden = !codesShown();
   $('#credits').innerHTML = copy.credits;
+}
+
+/**
+ * Switches the running trainer to `index` (the same country in another language): text is
+ * re-rendered, while the map, settings and the round in progress are kept.
+ */
+export function relocalizeTrainer(index: CountryIndex): void {
+  if (!ix) return;
+  ix = index;
+  tip.style.display = 'none';
+  renderChrome();
+  renderOptions();
+  syncControls();
+  panel();
 }
 
 export function startTrainer(index: CountryIndex, trainerStorage: TrainerStorage): void {

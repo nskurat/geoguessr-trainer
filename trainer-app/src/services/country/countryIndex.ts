@@ -1,6 +1,7 @@
 import type {
   City,
   Country,
+  CountryCopy,
   Department,
   NamePattern,
   NameTown,
@@ -9,6 +10,7 @@ import type {
   River,
   RiverTown,
 } from '../../types/geo';
+import { SOURCE_LANG, type Lang } from '../../types/i18n';
 
 export interface IndexedDepartment extends Department {
   /** Key of the region it belongs to. */
@@ -26,9 +28,15 @@ export interface IndexedRiverTown extends RiverTown {
   rivers: string[];
 }
 
-/** A country's data with lookups and back-references, built once at start-up. */
+/**
+ * A country's data in one interface language, with lookups and back-references. Built at
+ * start-up and again when the language changes; ids are the same in every language.
+ */
 export interface CountryIndex {
   country: Country;
+  lang: Lang;
+  /** The country's interface text in `lang`. */
+  copy: CountryCopy;
   regions: Region[];
   regionByKey: Record<string, Region>;
   departments: IndexedDepartment[];
@@ -54,8 +62,37 @@ export interface CountryIndex {
 const byKey = <T>(items: T[], key: (item: T) => string): Record<string, T> =>
   Object.fromEntries(items.map((item) => [key(item), item]));
 
-/** Builds the lookups. Throws if the data references something that does not exist. */
-export function indexCountry(country: Country): CountryIndex {
+/**
+ * The data's English text (phone zones, name patterns, rivers) replaced by `lang`'s
+ * translations from the country's copy. Items without a translation keep the data's text.
+ */
+export function localizeData(
+  country: Country,
+  lang: Lang,
+): { zones: PhoneZone[]; namePatterns: NamePattern[]; rivers: River[] } {
+  const text = country.copy[lang].data ?? {};
+  return {
+    zones: country.phone.zones.map((z) => {
+      const tr = text.phoneZones?.[z.zone];
+      return tr ? { ...z, name: tr.name ?? z.name, description: tr.description } : z;
+    }),
+    namePatterns: country.namePatterns.map((p) => {
+      const tr = text.namePatterns?.[p.id];
+      return tr ? { ...p, label: tr.label ?? p.label, where: tr.where, origin: tr.origin } : p;
+    }),
+    rivers: country.rivers.rivers.map((r) => {
+      const tr = text.rivers?.[r.id];
+      return tr ? { ...r, flowsInto: tr.flowsInto } : r;
+    }),
+  };
+}
+
+/**
+ * Builds the lookups for `lang` (default English). Throws if the data references
+ * something that does not exist.
+ */
+export function indexCountry(country: Country, lang: Lang = SOURCE_LANG): CountryIndex {
+  const { zones, namePatterns, rivers } = localizeData(country, lang);
   const regionOf: Record<string, string> = {};
   for (const r of country.regions) for (const code of r.codes) regionOf[code] = r.key;
 
@@ -74,42 +111,44 @@ export function indexCountry(country: Country): CountryIndex {
 
   const zoneOfDepartment = country.phone.zoneByDepartement;
   const departmentsInZone = Object.fromEntries(
-    country.phone.zones.map((z) => [
+    zones.map((z) => [
       z.zone,
       Object.keys(zoneOfDepartment).filter((c) => zoneOfDepartment[c] === z.zone),
     ]),
   );
 
-  const nameTowns = country.namePatterns.flatMap((p) => p.towns.map((t) => ({ ...t, pattern: p.id })));
+  const nameTowns = namePatterns.flatMap((p) => p.towns.map((t) => ({ ...t, pattern: p.id })));
 
   const riverTowns = country.rivers.towns.map((t) => ({
     ...t,
-    rivers: country.rivers.rivers.filter((r) => r.towns.includes(t.id)).map((r) => r.id),
+    rivers: rivers.filter((r) => r.towns.includes(t.id)).map((r) => r.id),
   }));
   const riverTownById = byKey(riverTowns, (t) => t.id);
-  for (const r of country.rivers.rivers)
+  for (const r of rivers)
     for (const t of r.towns)
       if (!riverTownById[t]) throw new Error(`${country.id}: river ${r.name} has unknown town ${t}`);
 
   return {
     country,
+    lang,
+    copy: country.copy[lang],
     regions: country.regions,
     regionByKey: byKey(country.regions, (r) => r.key),
     departments,
     departmentByCode,
     cities,
     cityById: byKey(cities, (c) => c.id),
-    phoneZones: country.phone.zones,
-    phoneZoneById: byKey(country.phone.zones, (z) => z.zone),
+    phoneZones: zones,
+    phoneZoneById: byKey(zones, (z) => z.zone),
     zoneOfDepartment,
     departmentsInZone,
     borderDepartments: country.phone.borderDepartements,
-    namePatterns: country.namePatterns,
-    patternById: byKey(country.namePatterns, (p) => p.id),
+    namePatterns,
+    patternById: byKey(namePatterns, (p) => p.id),
     nameTowns,
     nameTownById: byKey(nameTowns, (t) => t.id),
-    rivers: country.rivers.rivers,
-    riverById: byKey(country.rivers.rivers, (r) => r.id),
+    rivers,
+    riverById: byKey(rivers, (r) => r.id),
     riverTowns,
     riverTownById,
   };
