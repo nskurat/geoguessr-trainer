@@ -60,7 +60,8 @@ function renderCountryPicker(current: string): void {
 function bindCountryPicker(current: string): void {
   const select = document.querySelector<HTMLSelectElement>('#country')!;
   renderCountryPicker(current);
-  document.querySelector<HTMLElement>('#countryL')!.style.display = COUNTRIES.length > 1 ? '' : 'none';
+  // With several countries, the country name in the title is the picker (see renderChrome).
+  document.querySelector<HTMLElement>('#countryPick')!.hidden = COUNTRIES.length < 2;
   select.onchange = () => {
     // A fresh page per country keeps the trainer's state simple; the URL stays shareable
     // and keeps ?lang, so the language carries over.

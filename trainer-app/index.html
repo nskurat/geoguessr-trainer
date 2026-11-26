@@ -15,15 +15,16 @@
       <header>
         <div>
           <h1 id="title"><span class="country"></span> <span>map trainer</span></h1>
+          <!-- With several countries, the country name in the title is this picker (moved in by the trainer). -->
+          <span id="countryPick" class="country-pick" hidden
+            ><select id="country" class="country" aria-label="Country"></select
+            ><span class="chev" aria-hidden="true">▾</span></span
+          >
           <p class="sub" id="subtitle"></p>
         </div>
         <div class="seg big" id="setSeg" role="group" aria-label="What to study" data-i18n-aria="bar.whatToStudy"></div>
       </header>
       <div class="bar">
-        <label class="l" id="countryL"
-          ><span data-i18n="bar.country">Country</span>
-          <select id="country"></select
-        ></label>
         <div class="seg" id="modeSeg" role="group" aria-label="Mode" data-i18n-aria="bar.mode">
           <button data-v="learn" data-i18n="mode.learn">Learn</button
           ><button data-v="practice" data-i18n="mode.practice">Practice</button>

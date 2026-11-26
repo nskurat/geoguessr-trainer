@@ -786,6 +786,7 @@ function syncControls(): void {
     for (const b of $(id).children)
       b.setAttribute('aria-pressed', String((b as HTMLElement).dataset.v === settings[key]));
   show('#kindSeg', mode === 'practice');
+  $('.app').classList.toggle('learning', mode === 'learn');
   show('#scopeL', !(set === 'reg' || set === 'riv' || isZoneSet()));
   show('#kindSeg [data-v=town]', set === 'riv' || set === 'nom');
   show('#kindSeg [data-v=dot]', set === 'city');
@@ -1022,6 +1023,7 @@ function next(): void {
   if (settings.kind === 'name') r.choices = choicesFor(r.current);
   colorize();
   panel();
+  keepQuizInView();
 }
 
 function choicesFor(answer: string): string[] {
@@ -1246,6 +1248,22 @@ function choose(u: string, button: HTMLElement): void {
 
 /* ---------- panel ---------- */
 
+/** Touch-only devices have no keyboard shortcuts to advertise. */
+const touchOnly = () => matchMedia('(hover: none) and (pointer: coarse)').matches;
+
+/**
+ * On narrow screens the prompt sits above the map; bring both into view when a
+ * question starts, unless they already are.
+ */
+function keepQuizInView(): void {
+  if (!matchMedia('(max-width: 880px)').matches) return;
+  const prompt = $('#prompt').getBoundingClientRect();
+  const map = $('#box').getBoundingClientRect();
+  if (prompt.top >= 0 && map.bottom <= window.innerHeight) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top: window.scrollY + prompt.top - 8, behavior: reduce ? 'auto' : 'smooth' });
+}
+
 /** Bolds the river joiner in a town name: Bar<b>-sur-</b>Seine. */
 const emphasizeJoiner = (name: string) => esc(name).replace(/(-sur-|-en-|-sous-)/, '<b>$1</b>');
 
@@ -1327,7 +1345,9 @@ function panel(): void {
     sub =
       kind === 'find'
         ? t('sub.telFind', { term: depTerm() })
-        : t('sub.pickZone', { count: r.choices?.length ?? 5 });
+        : touchOnly()
+          ? t('sub.pickZoneTouch')
+          : t('sub.pickZone', { count: r.choices?.length ?? 5 });
   } else if (set === 'nom') {
     if (kind === 'find') {
       target = esc(ix.patternById[cur].label);
@@ -1338,7 +1358,7 @@ function panel(): void {
       sub = r.waiting ? t('sub.pattern', { label: ix.patternById[town.pattern].label }) : t('sub.nomTown');
     } else {
       target = esc(t('target.blueArea'));
-      sub = t('sub.pickEnding');
+      sub = touchOnly() ? t('sub.pickEndingTouch') : t('sub.pickEnding');
     }
   } else if (kind === 'town') {
     const town = ix.riverTownById[cur];
@@ -1359,7 +1379,7 @@ function panel(): void {
             ? t('target.pinkRiver')
             : t('target.blueTerm', { term: depTerm() }),
     );
-    sub = t('sub.pickAnswer');
+    sub = touchOnly() ? t('sub.pickAnswerTouch') : t('sub.pickAnswer');
   }
 
   const feedback: Feedback | null =
@@ -1509,7 +1529,15 @@ function renderChrome(): void {
   const { copy } = ix;
   const name = copy.countryName;
   document.title = t('app.title', { country: name });
+  // With several countries the picker stands in for the name; keep it across re-renders.
+  const pick = document.querySelector<HTMLElement>('#countryPick');
+  pick?.remove();
   $('#title').innerHTML = th('app.h1', { country: name });
+  if (pick) {
+    if (pick.hidden) $('#title').after(pick);
+    else $('#title .country').replaceChildren(pick);
+    pick.querySelector('select')!.setAttribute('aria-label', t('bar.country'));
+  }
   $('#subtitle').textContent = copy.subtitle;
   svg.setAttribute('aria-label', t('map.label', { country: name }));
   $('#setSeg').innerHTML = ix.country.sets

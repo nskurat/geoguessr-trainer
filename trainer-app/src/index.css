@@ -284,6 +284,45 @@ select:focus-visible {
 h1 .country {
   color: inherit;
 }
+/* The country name in the title doubles as the country picker. */
+.country-pick {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  border-bottom: 3px dashed var(--line);
+}
+.country-pick[hidden] {
+  display: none;
+}
+h1 select.country {
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  min-height: 0;
+  /* A 40 px tall tap area without changing the title's layout. */
+  padding: 8px 0.15em 8px 0;
+  margin: -8px 0;
+  max-width: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  field-sizing: content;
+}
+.country-pick .chev {
+  font-size: 0.5em;
+  color: var(--mute);
+  margin-right: 0.25em;
+  pointer-events: none;
+}
+/* Touch-only devices have no keyboard shortcuts to advertise. */
+@media (hover: none) and (pointer: coarse) {
+  kbd {
+    display: none;
+  }
+}
 #lp text {
   fill: var(--mute);
   font-weight: 600;
@@ -551,6 +590,10 @@ kbd {
     grid-template-rows: auto;
     grid-template-areas: "prompt" "map" "more";
   }
+  /* Learning is about the map: show it first, the info card below. */
+  .app.learning {
+    grid-template-areas: "map" "prompt" "more";
+  }
   .mapbox {
     height: 64vh;
     min-height: 360px;
@@ -560,12 +603,9 @@ kbd {
   .wrap {
     padding-top: 10px;
   }
-  /* Phones: the language picker shares the first row with the country picker (both are
-     app preferences), so it adds no row. It lists languages by their own names, so the
-     word "Language" can go (it stays the accessible name). */
-  #countryL {
-    order: -2;
-  }
+  /* Phones: the language picker leads the bar (an app preference, like the country in the
+     title), so it adds no row. It lists languages by their own names, so the word
+     "Language" can go (it stays the accessible name). */
   #langL {
     order: -1;
   }
@@ -591,16 +631,16 @@ kbd {
     margin-bottom: 8px;
   }
   .seg button {
-    min-height: 36px;
+    min-height: 40px;
     font-size: 14px;
   }
   .seg.big button {
-    min-height: 38px;
+    min-height: 40px;
     font-size: 14px;
     padding: 0 10px;
   }
   select {
-    min-height: 38px;
+    min-height: 40px;
   }
   .card {
     padding: 12px 14px;
