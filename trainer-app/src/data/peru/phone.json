@@ -1,0 +1,32 @@
+{
+  "zones": [
+    { "zone": "01", "name": "Lima", "description": "Lima Metropolitana, Callao and the provinces of the Lima region (Huacho, Huaral, Barranca, Cañete)", "hue": 210 },
+    { "zone": "041", "name": "Amazonas", "description": "Amazonas (Chachapoyas, Bagua)", "hue": 136 },
+    { "zone": "042", "name": "San Martín", "description": "San Martín (Moyobamba, Tarapoto, Juanjuí)", "hue": 145 },
+    { "zone": "043", "name": "Áncash", "description": "Áncash (Huaraz, Chimbote, Callejón de Huaylas)", "hue": 154 },
+    { "zone": "044", "name": "La Libertad", "description": "La Libertad (Trujillo, Pacasmayo, Huamachuco)", "hue": 163 },
+    { "zone": "051", "name": "Puno", "description": "Puno (Puno, Juliaca, Lake Titicaca)", "hue": 18 },
+    { "zone": "052", "name": "Tacna", "description": "Tacna", "hue": 25 },
+    { "zone": "053", "name": "Moquegua", "description": "Moquegua (Moquegua, Ilo)", "hue": 32 },
+    { "zone": "054", "name": "Arequipa", "description": "Arequipa (Arequipa, Camaná, Mollendo)", "hue": 39 },
+    { "zone": "056", "name": "Ica", "description": "Ica (Ica, Chincha, Pisco, Nasca)", "hue": 46 },
+    { "zone": "061", "name": "Ucayali", "description": "Ucayali (Pucallpa)", "hue": 262 },
+    { "zone": "062", "name": "Huánuco", "description": "Huánuco (Huánuco, Tingo María)", "hue": 268 },
+    { "zone": "063", "name": "Pasco", "description": "Pasco (Cerro de Pasco, Oxapampa)", "hue": 274 },
+    { "zone": "064", "name": "Junín", "description": "Junín (Huancayo, Tarma, La Oroya, Satipo)", "hue": 280 },
+    { "zone": "065", "name": "Loreto", "description": "Loreto (Iquitos, Yurimaguas)", "hue": 286 },
+    { "zone": "066", "name": "Ayacucho", "description": "Ayacucho (Ayacucho, Huanta, Puquio)", "hue": 292 },
+    { "zone": "067", "name": "Huancavelica", "description": "Huancavelica", "hue": 298 },
+    { "zone": "072", "name": "Tumbes", "description": "Tumbes", "hue": 70 },
+    { "zone": "073", "name": "Piura", "description": "Piura (Piura, Sullana, Talara, Paita)", "hue": 77 },
+    { "zone": "074", "name": "Lambayeque", "description": "Lambayeque (Chiclayo)", "hue": 84 },
+    { "zone": "076", "name": "Cajamarca", "description": "Cajamarca (Cajamarca, Jaén, Chota)", "hue": 91 },
+    { "zone": "082", "name": "Madre de Dios", "description": "Madre de Dios (Puerto Maldonado)", "hue": 330 },
+    { "zone": "083", "name": "Apurímac", "description": "Apurímac (Abancay, Andahuaylas)", "hue": 339 },
+    { "zone": "084", "name": "Cusco", "description": "Cusco (Cusco, Sicuani, Quillabamba)", "hue": 348 }
+  ],
+  "zoneByDepartement": {
+    "AMA": "041", "ANC": "043", "APU": "083", "ARE": "054", "AYA": "066", "CAJ": "076", "CUS": "084", "HUV": "067", "HUC": "062", "ICA": "056", "JUN": "064", "LAL": "044", "LAM": "074", "LIM": "01", "LMA": "01", "LOR": "065", "MDD": "082", "MOQ": "053", "PAS": "063", "PIU": "073", "PUN": "051", "SAM": "042", "TAC": "052", "TUM": "072", "UCA": "061"
+  },
+  "borderDepartements": []
+}

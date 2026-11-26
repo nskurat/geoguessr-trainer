@@ -1,0 +1,37 @@
+[
+  {
+    "key": "LYC",
+    "name": "Lima y Callao",
+    "capital": "Lima",
+    "hue": 210,
+    "codes": ["LMA", "LIM"]
+  },
+  {
+    "key": "NOR",
+    "name": "Norte",
+    "capital": "Trujillo",
+    "hue": 30,
+    "codes": ["TUM", "PIU", "LAM", "LAL", "CAJ", "ANC"]
+  },
+  {
+    "key": "CEN",
+    "name": "Centro",
+    "capital": "Huancayo",
+    "hue": 280,
+    "codes": ["HUC", "PAS", "JUN", "HUV", "AYA"]
+  },
+  {
+    "key": "SUR",
+    "name": "Sur",
+    "capital": "Arequipa",
+    "hue": 350,
+    "codes": ["ICA", "APU", "CUS", "ARE", "PUN", "MOQ", "TAC"]
+  },
+  {
+    "key": "ORI",
+    "name": "Oriente",
+    "capital": "Iquitos",
+    "hue": 135,
+    "codes": ["AMA", "SAM", "LOR", "UCA", "MDD"]
+  }
+]

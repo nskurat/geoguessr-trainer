@@ -1,0 +1,289 @@
+{
+  "rivers": [
+    {
+      "id": "r0",
+      "name": "Amazonas",
+      "lengthKm": 7062,
+      "lengthIsTotal": true,
+      "flowsInto": "the Atlantic (via Brazil)",
+      "course": [],
+      "towns": ["t0", "t1", "t2", "t3"]
+    },
+    {
+      "id": "r1",
+      "name": "Ucayali",
+      "lengthKm": 1771,
+      "flowsInto": "the Marañón, forming the Amazonas near Nauta",
+      "course": [],
+      "towns": ["t4", "t5", "t6", "t7"]
+    },
+    {
+      "id": "r2",
+      "name": "Huallaga",
+      "lengthKm": 1138,
+      "flowsInto": "the Marañón",
+      "course": [],
+      "towns": ["t8", "t9", "t10", "t11", "t12", "t13", "t14", "t15", "t16", "t17"]
+    },
+    {
+      "id": "r3",
+      "name": "Urubamba",
+      "lengthKm": 862,
+      "flowsInto": "the Tambo, forming the Ucayali at Atalaya",
+      "course": [[-14.48, -70.99], [-14.272, -71.229], [-14.101, -71.431], [-13.686, -71.623], [-13.424, -71.858], [-13.323, -71.956], [-13.304, -72.117], [-13.258, -72.263], [-13.155, -72.525], [-12.868, -72.693], [-12.768, -72.577], [-12.238, -72.822], [-11.72, -72.946], [-11.147, -73.036], [-10.702, -73.754]],
+      "towns": ["t18", "t19", "t20", "t21", "t22", "t23", "t24", "t25", "t26", "t4"]
+    },
+    {
+      "id": "r4",
+      "name": "Santa",
+      "lengthKm": 347,
+      "flowsInto": "the Pacific",
+      "course": [],
+      "towns": ["t27", "t28", "t29", "t30", "t31", "t32"]
+    },
+    {
+      "id": "r5",
+      "name": "Rímac",
+      "lengthKm": 160,
+      "flowsInto": "the Pacific at Callao",
+      "course": [[-11.599, -76.193], [-11.759, -76.3], [-11.845, -76.386], [-11.912, -76.529], [-11.924, -76.665], [-11.936, -76.697], [-11.983, -76.767], [-12.028, -76.917], [-12.035, -77.027], [-12.032, -77.137]],
+      "towns": ["t33", "t34", "t35", "t36", "t37", "t38"]
+    }
+  ],
+  "towns": [
+    {
+      "id": "t0",
+      "name": "Iquitos",
+      "lat": -3.75,
+      "lon": -73.25
+    },
+    {
+      "id": "t1",
+      "name": "Indiana",
+      "lat": -3.498,
+      "lon": -73.044
+    },
+    {
+      "id": "t2",
+      "name": "Caballococha",
+      "lat": -3.906,
+      "lon": -70.516
+    },
+    {
+      "id": "t3",
+      "name": "Santa Rosa",
+      "lat": -4.228,
+      "lon": -69.956
+    },
+    {
+      "id": "t4",
+      "name": "Atalaya",
+      "lat": -10.733,
+      "lon": -73.75
+    },
+    {
+      "id": "t5",
+      "name": "Pucallpa",
+      "lat": -8.383,
+      "lon": -74.55
+    },
+    {
+      "id": "t6",
+      "name": "Contamana",
+      "lat": -7.333,
+      "lon": -75.017
+    },
+    {
+      "id": "t7",
+      "name": "Requena",
+      "lat": -5.057,
+      "lon": -73.852
+    },
+    {
+      "id": "t8",
+      "name": "Ambo",
+      "lat": -10.131,
+      "lon": -76.205
+    },
+    {
+      "id": "t9",
+      "name": "Huánuco",
+      "lat": -9.929,
+      "lon": -76.24
+    },
+    {
+      "id": "t10",
+      "name": "Tingo María",
+      "lat": -9.295,
+      "lon": -75.998
+    },
+    {
+      "id": "t11",
+      "name": "Aucayacu",
+      "lat": -8.932,
+      "lon": -76.116
+    },
+    {
+      "id": "t12",
+      "name": "Tocache",
+      "lat": -8.189,
+      "lon": -76.514
+    },
+    {
+      "id": "t13",
+      "name": "Juanjuí",
+      "lat": -7.18,
+      "lon": -76.726
+    },
+    {
+      "id": "t14",
+      "name": "Bellavista",
+      "lat": -7.067,
+      "lon": -76.585
+    },
+    {
+      "id": "t15",
+      "name": "Picota",
+      "lat": -6.921,
+      "lon": -76.33
+    },
+    {
+      "id": "t16",
+      "name": "Chazuta",
+      "lat": -6.571,
+      "lon": -76.138
+    },
+    {
+      "id": "t17",
+      "name": "Yurimaguas",
+      "lat": -5.9,
+      "lon": -76.083
+    },
+    {
+      "id": "t18",
+      "name": "Combapata",
+      "lat": -14.101,
+      "lon": -71.431
+    },
+    {
+      "id": "t19",
+      "name": "Urcos",
+      "lat": -13.686,
+      "lon": -71.623
+    },
+    {
+      "id": "t20",
+      "name": "Pisac",
+      "lat": -13.424,
+      "lon": -71.858
+    },
+    {
+      "id": "t21",
+      "name": "Calca",
+      "lat": -13.323,
+      "lon": -71.956
+    },
+    {
+      "id": "t22",
+      "name": "Urubamba",
+      "lat": -13.304,
+      "lon": -72.117
+    },
+    {
+      "id": "t23",
+      "name": "Ollantaytambo",
+      "lat": -13.258,
+      "lon": -72.263
+    },
+    {
+      "id": "t24",
+      "name": "Aguas Calientes",
+      "lat": -13.155,
+      "lon": -72.525
+    },
+    {
+      "id": "t25",
+      "name": "Quillabamba",
+      "lat": -12.868,
+      "lon": -72.693
+    },
+    {
+      "id": "t26",
+      "name": "Sepahua",
+      "lat": -11.147,
+      "lon": -73.036
+    },
+    {
+      "id": "t27",
+      "name": "Recuay",
+      "lat": -9.722,
+      "lon": -77.456
+    },
+    {
+      "id": "t28",
+      "name": "Huaraz",
+      "lat": -9.533,
+      "lon": -77.533
+    },
+    {
+      "id": "t29",
+      "name": "Carhuaz",
+      "lat": -9.281,
+      "lon": -77.646
+    },
+    {
+      "id": "t30",
+      "name": "Yungay",
+      "lat": -9.139,
+      "lon": -77.745
+    },
+    {
+      "id": "t31",
+      "name": "Caraz",
+      "lat": -9.048,
+      "lon": -77.811
+    },
+    {
+      "id": "t32",
+      "name": "Santa",
+      "lat": -8.988,
+      "lon": -78.614
+    },
+    {
+      "id": "t33",
+      "name": "San Mateo de Huanchor",
+      "lat": -11.759,
+      "lon": -76.3
+    },
+    {
+      "id": "t34",
+      "name": "Matucana",
+      "lat": -11.845,
+      "lon": -76.386
+    },
+    {
+      "id": "t35",
+      "name": "San Bartolomé",
+      "lat": -11.912,
+      "lon": -76.529
+    },
+    {
+      "id": "t36",
+      "name": "Chosica",
+      "lat": -11.936,
+      "lon": -76.697
+    },
+    {
+      "id": "t37",
+      "name": "Chaclacayo",
+      "lat": -11.983,
+      "lon": -76.767
+    },
+    {
+      "id": "t38",
+      "name": "Lima",
+      "lat": -12.06,
+      "lon": -77.037
+    }
+  ]
+}

@@ -121,7 +121,7 @@ describe('validateCountry warnings', () => {
 
   it('warns about outline and data mismatches in both directions, ignoring case', () => {
     const warnings = warningsOf((c) => {
-      c.outline.locations.push({ id: 'zz', name: 'Extra', path: '' });
+      c.outline.locations.push({ id: 'zz', name: 'Extra', path: 'M0 0h1v1z' });
       c.outline.locations = c.outline.locations.filter(
         (l) => l.id.toUpperCase() !== c.departments[0].code.toUpperCase(),
       );

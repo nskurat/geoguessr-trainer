@@ -80,6 +80,18 @@ export function fitProjection(anchors: Anchor[], refLat: number): Projection {
       pts = pts.filter((_, i) => err[i] < 2 * rms);
     }
   }
+  return projectionFromAffine(A, refLat);
+}
+
+/**
+ * The projection `A · mercatorPlane(lat, lon, refLat)` for a known affine
+ * A = [[a, b, c], [d, e, f]], e.g. one an outline was generated with.
+ */
+export function projectionFromAffine(A: number[][], refLat: number): Projection {
+  const apply = (p: Point): Point => [
+    A[0][0] * p[0] + A[0][1] * p[1] + A[0][2],
+    A[1][0] * p[0] + A[1][1] * p[1] + A[1][2],
+  ];
   const [a, b] = A[0];
   const [c, d] = A[1];
   const det = a * d - b * c;

@@ -37,6 +37,7 @@ Opens the Vite dev server at `http://localhost:5173`.
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run lint` | ESLint |
 | `npm run validate:data` | Validate every country's data (zod schemas + referential checks) |
+| `npm run build:outline -- <country>` | Build a country's outline and river courses from Natural Earth |
 
 There is one `package.json`, at the repo root — `trainer-app/` holds the app's
 source but is not a separate npm package.

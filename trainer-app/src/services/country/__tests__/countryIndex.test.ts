@@ -7,6 +7,8 @@ function fixture(): Country {
   return {
     id: 'testland',
     name: 'Testland',
+    sets: ['reg', 'dep'],
+    departmentCodes: 'shown',
     projectionRefLat: 45,
     regionLabelOffsets: {},
     outline: { viewBox: '0 0 10 10', locations: [] },
@@ -72,7 +74,17 @@ function fixture(): Country {
         { id: 't2', name: 'Other', lat: 3, lon: 3 },
       ],
     },
-    copy: { allAreas: 'All', tips: {}, phoneHint: '' },
+    copy: {
+      subtitle: 'Test country.',
+      setLabels: { reg: 'Regions', dep: 'Units' },
+      regionTerm: { one: 'Region', many: 'Regions' },
+      departmentTerm: { one: 'Unit', many: 'Units' },
+      seatLabel: 'Seat',
+      allAreas: 'All',
+      tips: { reg: 'Tip.', dep: 'Tip.' },
+      phoneHint: '',
+      credits: 'Test data.',
+    },
   };
 }
 

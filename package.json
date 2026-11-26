@@ -14,17 +14,26 @@
     "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
     "lint": "eslint trainer-app scripts",
-    "validate:data": "tsx scripts/validate-content.ts"
+    "validate:data": "tsx scripts/validate-content.ts",
+    "build:outline": "tsx scripts/build-outline.ts"
   },
   "dependencies": {
     "@svg-maps/france.departments": "^1.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/geojson": "^7946.0.16",
     "@types/node": "^22.13.9",
+    "@types/topojson-client": "^3.1.5",
+    "@types/topojson-server": "^3.0.4",
+    "@types/topojson-simplify": "^3.0.3",
+    "@types/topojson-specification": "^1.0.5",
     "@vitest/coverage-v8": "^4.1.11",
     "eslint": "^10.8.0",
     "globals": "^17.7.0",
+    "topojson-client": "^3.1.0",
+    "topojson-server": "^3.0.1",
+    "topojson-simplify": "^3.0.3",
     "tsx": "^4.23.12",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.68.0",

@@ -9,10 +9,11 @@
  * (warnings alone do not fail). To validate another country, add it to COUNTRIES.
  */
 import { france } from '../trainer-app/src/data/france/index';
+import { peru } from '../trainer-app/src/data/peru/index';
 import { validateCountry } from '../trainer-app/src/services/country/schema';
 import type { Country } from '../trainer-app/src/types/geo';
 
-const COUNTRIES: Country[] = [france];
+const COUNTRIES: Country[] = [france, peru];
 
 let failed = false;
 for (const country of COUNTRIES) {
