@@ -60,13 +60,32 @@ body {
   margin: 0 auto;
   padding: 18px max(3vw, 12px) 36px;
 }
+/* Title on the left, the app preferences (country, language) top right, the study sets
+   below. On phones the preferences become the first row (see the 600 px query). */
 header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "title prefs"
+    "sets sets";
+  align-items: start;
   gap: 12px 24px;
   margin-bottom: 14px;
+}
+.titlebox {
+  grid-area: title;
+}
+.prefs {
+  grid-area: prefs;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px 14px;
+}
+#setSeg {
+  grid-area: sets;
+  justify-self: start;
 }
 h1 {
   font-size: clamp(26px, 3.4vw, 38px);
@@ -133,11 +152,6 @@ select {
   min-height: 44px;
   padding: 0 10px;
   max-width: 100%;
-}
-/* The language picker is an app preference, not a study control: it sits at the end
-   of the bar, pushed right, so the study controls keep their places in every language. */
-#langL {
-  margin-left: auto;
 }
 label.l {
   font-size: 13px;
@@ -283,39 +297,6 @@ select:focus-visible {
 }
 h1 .country {
   color: inherit;
-}
-/* The country name in the title doubles as the country picker. */
-.country-pick {
-  position: relative;
-  display: inline-flex;
-  align-items: baseline;
-  border-bottom: 3px dashed var(--line);
-}
-.country-pick[hidden] {
-  display: none;
-}
-h1 select.country {
-  font: inherit;
-  letter-spacing: inherit;
-  color: var(--ink);
-  background: transparent;
-  border: 0;
-  border-radius: 6px;
-  min-height: 0;
-  /* A 40 px tall tap area without changing the title's layout. */
-  padding: 8px 0.15em 8px 0;
-  margin: -8px 0;
-  max-width: none;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  field-sizing: content;
-}
-.country-pick .chev {
-  font-size: 0.5em;
-  color: var(--mute);
-  margin-right: 0.25em;
-  pointer-events: none;
 }
 /* Touch-only devices have no keyboard shortcuts to advertise. */
 @media (hover: none) and (pointer: coarse) {
@@ -603,13 +584,18 @@ kbd {
   .wrap {
     padding-top: 10px;
   }
-  /* Phones: the language picker leads the bar (an app preference, like the country in the
-     title), so it adds no row. It lists languages by their own names, so the word
-     "Language" can go (it stays the accessible name). */
-  #langL {
-    order: -1;
+  /* Phones: the preferences are the first row, country left and language right. The
+     selects show the country and the language by name, so the words "Country" and
+     "Language" can go (they stay the accessible names). */
+  header {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "prefs" "title" "sets";
+    gap: 8px;
   }
-  #langL > span {
+  .prefs {
+    justify-content: space-between;
+  }
+  .prefs .l > span {
     position: absolute;
     width: 1px;
     height: 1px;

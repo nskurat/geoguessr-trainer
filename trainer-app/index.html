@@ -13,13 +13,19 @@
   <body>
     <div class="wrap">
       <header>
-        <div>
+        <!-- App preferences, not study controls: top right on desktop, the first row on phones. -->
+        <div class="prefs">
+          <label class="l" id="countryL"
+            ><span data-i18n="bar.country">Country</span>
+            <select id="country"></select
+          ></label>
+          <label class="l" id="langL"
+            ><span data-i18n="bar.language">Language</span>
+            <select id="lang"></select
+          ></label>
+        </div>
+        <div class="titlebox">
           <h1 id="title"><span class="country"></span> <span>map trainer</span></h1>
-          <!-- With several countries, the country name in the title is this picker (moved in by the trainer). -->
-          <span id="countryPick" class="country-pick" hidden
-            ><select id="country" class="country" aria-label="Country"></select
-            ><span class="chev" aria-hidden="true">▾</span></span
-          >
           <p class="sub" id="subtitle"></p>
         </div>
         <div class="seg big" id="setSeg" role="group" aria-label="What to study" data-i18n-aria="bar.whatToStudy"></div>
@@ -74,10 +80,6 @@
             <option value="off" data-i18n="ctl.labelsOff">Off</option>
           </select></label
         >
-        <label class="l" id="langL"
-          ><span data-i18n="bar.language">Language</span>
-          <select id="lang"></select
-        ></label>
       </div>
       <div class="app">
         <div class="mapbox" id="box">

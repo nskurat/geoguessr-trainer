@@ -86,12 +86,16 @@ Sources: [skarnik.by](https://www.skarnik.by) (Russian–Belarusian), [slounik.o
 
 Decided with the `ux-expert` skill:
 
-- **Placement:** a "Language / Мова" select at the end of the control bar, pushed right on
-  desktop; on phones (≤ 600 px) it moves up beside the Country picker, its visible label
-  hidden (still the accessible name), so the bar gains no row. Languages are listed by
-  their own names (English, Беларуская), so anyone can find theirs.
-  Rejected: a header corner toggle (collides with the longer Belarusian title at 390 px);
-  an EN/BE segmented toggle (does not scale to more languages).
+- **Placement:** the Country and Language pickers are app preferences, not study controls,
+  so they sit together in the top-right corner of the header, as labelled selects like the
+  rest of the bar; the title is plain text again. On phones (≤ 600 px) they are the first
+  row of the page (country left, language right, 40 px tall) with their visible labels
+  hidden (still the accessible names). Languages are listed by their own names (English,
+  Беларуская), so anyone can find theirs.
+  Rejected: the country name in the title as a picker (a weak affordance that read as a
+  broken heading, and it split the Belarusian «Францыя:» from its colon); the language
+  picker in the study bar (mixed with study controls, below the sets); an EN/BE segmented
+  toggle (does not scale to more languages).
 - **Behaviour:** switching re-renders in place: the map, settings and the round in
   progress are kept (place names do not change). The Country picker still reloads and
   keeps `?lang`.
