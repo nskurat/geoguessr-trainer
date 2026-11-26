@@ -1,0 +1,986 @@
+[
+  {
+    "id": "p0",
+    "label": "Plou-, Ker-, Tré-, Lan-, Loc-",
+    "where": "Bretagne, mostly the west (Breton-speaking Lower Brittany)",
+    "origin": "Breton words: plou parish, ker village, tré hamlet, lan hermitage, loc holy place",
+    "codes": ["22", "29", "56"],
+    "towns": [
+      {
+        "id": "n0",
+        "name": "Plougastel-Daoulas",
+        "lat": 48.373,
+        "lon": -4.37,
+        "extra": false
+      },
+      {
+        "id": "n1",
+        "name": "Ploërmel",
+        "lat": 47.932,
+        "lon": -2.397,
+        "extra": false
+      },
+      {
+        "id": "n2",
+        "name": "Kerlouan",
+        "lat": 48.645,
+        "lon": -4.366,
+        "extra": false
+      },
+      {
+        "id": "n3",
+        "name": "Trégastel",
+        "lat": 48.818,
+        "lon": -3.506,
+        "extra": false
+      },
+      {
+        "id": "n4",
+        "name": "Landerneau",
+        "lat": 48.451,
+        "lon": -4.25,
+        "extra": false
+      },
+      {
+        "id": "n5",
+        "name": "Locronan",
+        "lat": 48.097,
+        "lon": -4.209,
+        "extra": false
+      },
+      {
+        "id": "n6",
+        "name": "Plouescat",
+        "lat": 48.658,
+        "lon": -4.17,
+        "extra": true
+      },
+      {
+        "id": "n7",
+        "name": "Trébeurden",
+        "lat": 48.77,
+        "lon": -3.567,
+        "extra": true
+      },
+      {
+        "id": "n8",
+        "name": "Landivisiau",
+        "lat": 48.509,
+        "lon": -4.069,
+        "extra": true
+      },
+      {
+        "id": "n9",
+        "name": "Locmariaquer",
+        "lat": 47.569,
+        "lon": -2.946,
+        "extra": true
+      },
+      {
+        "id": "n10",
+        "name": "Ploudalmézeau",
+        "lat": 48.541,
+        "lon": -4.657,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p1",
+    "label": "-heim, -willer, -dorf",
+    "where": "Alsace and the German-speaking east of Moselle",
+    "origin": "Germanic: heim home, weiler hamlet, dorf village",
+    "codes": ["67", "68", "57"],
+    "towns": [
+      {
+        "id": "n11",
+        "name": "Molsheim",
+        "lat": 48.542,
+        "lon": 7.492,
+        "extra": false
+      },
+      {
+        "id": "n12",
+        "name": "Guebwiller",
+        "lat": 47.909,
+        "lon": 7.211,
+        "extra": false
+      },
+      {
+        "id": "n13",
+        "name": "Bischwiller",
+        "lat": 48.767,
+        "lon": 7.858,
+        "extra": false
+      },
+      {
+        "id": "n14",
+        "name": "Ingwiller",
+        "lat": 48.873,
+        "lon": 7.479,
+        "extra": false
+      },
+      {
+        "id": "n15",
+        "name": "Mittelbergheim",
+        "lat": 48.398,
+        "lon": 7.443,
+        "extra": false
+      },
+      {
+        "id": "n16",
+        "name": "Eguisheim",
+        "lat": 48.043,
+        "lon": 7.307,
+        "extra": true
+      },
+      {
+        "id": "n17",
+        "name": "Bergheim",
+        "lat": 48.205,
+        "lon": 7.364,
+        "extra": true
+      },
+      {
+        "id": "n18",
+        "name": "Rosheim",
+        "lat": 48.496,
+        "lon": 7.47,
+        "extra": true
+      },
+      {
+        "id": "n19",
+        "name": "Bischheim",
+        "lat": 48.616,
+        "lon": 7.752,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p2",
+    "label": "-ange, -ing, -troff",
+    "where": "Moselle and northern Lorraine",
+    "origin": "Germanic -ingen and -dorf, frenchified as -ange",
+    "codes": ["57", "54"],
+    "towns": [
+      {
+        "id": "n20",
+        "name": "Hayange",
+        "lat": 49.329,
+        "lon": 6.062,
+        "extra": false
+      },
+      {
+        "id": "n21",
+        "name": "Hagondange",
+        "lat": 49.254,
+        "lon": 6.168,
+        "extra": false
+      },
+      {
+        "id": "n22",
+        "name": "Freyming-Merlebach",
+        "lat": 49.146,
+        "lon": 6.788,
+        "extra": false
+      },
+      {
+        "id": "n23",
+        "name": "Créhange",
+        "lat": 49.057,
+        "lon": 6.581,
+        "extra": false
+      },
+      {
+        "id": "n24",
+        "name": "Volmerange-les-Mines",
+        "lat": 49.444,
+        "lon": 6.081,
+        "extra": false
+      },
+      {
+        "id": "n25",
+        "name": "Talange",
+        "lat": 49.236,
+        "lon": 6.172,
+        "extra": true
+      },
+      {
+        "id": "n26",
+        "name": "Algrange",
+        "lat": 49.361,
+        "lon": 6.05,
+        "extra": true
+      },
+      {
+        "id": "n27",
+        "name": "Boulange",
+        "lat": 49.383,
+        "lon": 5.95,
+        "extra": true
+      },
+      {
+        "id": "n28",
+        "name": "Stiring-Wendel",
+        "lat": 49.2,
+        "lon": 6.93,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p3",
+    "label": "-hem, -becque, -zeele, -kerque",
+    "where": "French Flanders (north of Nord and Pas-de-Calais)",
+    "origin": "Flemish: hem home, beek brook, zele dwelling, kerk church",
+    "codes": ["59", "62"],
+    "towns": [
+      {
+        "id": "n29",
+        "name": "Hazebrouck",
+        "lat": 50.724,
+        "lon": 2.538,
+        "extra": false
+      },
+      {
+        "id": "n30",
+        "name": "Steenvoorde",
+        "lat": 50.811,
+        "lon": 2.583,
+        "extra": false
+      },
+      {
+        "id": "n31",
+        "name": "Bollezeele",
+        "lat": 50.867,
+        "lon": 2.348,
+        "extra": false
+      },
+      {
+        "id": "n32",
+        "name": "Steenbecque",
+        "lat": 50.674,
+        "lon": 2.484,
+        "extra": false
+      },
+      {
+        "id": "n33",
+        "name": "Leffrinckoucke",
+        "lat": 51.035,
+        "lon": 2.464,
+        "extra": false
+      },
+      {
+        "id": "n34",
+        "name": "Zegerscappel",
+        "lat": 50.885,
+        "lon": 2.398,
+        "extra": true
+      },
+      {
+        "id": "n35",
+        "name": "Hondschoote",
+        "lat": 50.979,
+        "lon": 2.585,
+        "extra": true
+      },
+      {
+        "id": "n36",
+        "name": "Ledringhem",
+        "lat": 50.857,
+        "lon": 2.442,
+        "extra": true
+      },
+      {
+        "id": "n37",
+        "name": "Rubrouck",
+        "lat": 50.838,
+        "lon": 2.351,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p4",
+    "label": "-court",
+    "where": "Picardie, Champagne, Lorraine and Artois",
+    "origin": "Frankish-era estate: court farmyard, usually after a personal name",
+    "codes": ["02", "08", "10", "51", "52", "54", "55", "60", "62", "80", "88"],
+    "towns": [
+      {
+        "id": "n38",
+        "name": "Achicourt",
+        "lat": 50.274,
+        "lon": 2.757,
+        "extra": false
+      },
+      {
+        "id": "n39",
+        "name": "Liancourt",
+        "lat": 49.33,
+        "lon": 2.466,
+        "extra": false
+      },
+      {
+        "id": "n40",
+        "name": "Gondrecourt-le-Château",
+        "lat": 48.514,
+        "lon": 5.51,
+        "extra": false
+      },
+      {
+        "id": "n41",
+        "name": "Maricourt",
+        "lat": 49.982,
+        "lon": 2.794,
+        "extra": false
+      },
+      {
+        "id": "n42",
+        "name": "Méricourt",
+        "lat": 50.401,
+        "lon": 2.866,
+        "extra": true
+      },
+      {
+        "id": "n43",
+        "name": "Bettancourt-la-Ferrée",
+        "lat": 48.649,
+        "lon": 4.97,
+        "extra": true
+      },
+      {
+        "id": "n44",
+        "name": "Ribécourt-Dreslincourt",
+        "lat": 49.511,
+        "lon": 2.921,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p5",
+    "label": "-ville",
+    "where": "Normandie above all, also Lorraine and the north",
+    "origin": "Latin villa, rural estate; very dense in Normandie and the Pays de Caux",
+    "codes": ["14", "27", "50", "61", "76", "54", "55", "88"],
+    "towns": [
+      {
+        "id": "n45",
+        "name": "Deauville",
+        "lat": 49.36,
+        "lon": 0.075,
+        "extra": false
+      },
+      {
+        "id": "n46",
+        "name": "Granville",
+        "lat": 48.838,
+        "lon": -1.597,
+        "extra": false
+      },
+      {
+        "id": "n47",
+        "name": "Yerville",
+        "lat": 49.668,
+        "lon": 0.896,
+        "extra": false
+      },
+      {
+        "id": "n48",
+        "name": "Bacqueville-en-Caux",
+        "lat": 49.788,
+        "lon": 1.004,
+        "extra": false
+      },
+      {
+        "id": "n49",
+        "name": "Lunéville",
+        "lat": 48.59,
+        "lon": 6.497,
+        "extra": false
+      },
+      {
+        "id": "n50",
+        "name": "Hermanville-sur-Mer",
+        "lat": 49.285,
+        "lon": -0.316,
+        "extra": true
+      },
+      {
+        "id": "n51",
+        "name": "Blainville-sur-Mer",
+        "lat": 49.066,
+        "lon": -1.584,
+        "extra": true
+      },
+      {
+        "id": "n52",
+        "name": "Tourville-la-Rivière",
+        "lat": 49.33,
+        "lon": 1.103,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p6",
+    "label": "-y",
+    "where": "Île-de-France, Bourgogne, Champagne, Picardie",
+    "origin": "Gallo-Roman -acum, evolved to -y in the north and centre",
+    "codes": ["75", "77", "78", "91", "92", "93", "94", "95", "21", "58", "71", "89", "10", "51", "02", "60", "45"],
+    "towns": [
+      {
+        "id": "n53",
+        "name": "Juvisy-sur-Orge",
+        "lat": 48.689,
+        "lon": 2.377,
+        "extra": false
+      },
+      {
+        "id": "n54",
+        "name": "Clichy",
+        "lat": 48.904,
+        "lon": 2.306,
+        "extra": false
+      },
+      {
+        "id": "n55",
+        "name": "Givry",
+        "lat": 46.782,
+        "lon": 4.743,
+        "extra": false
+      },
+      {
+        "id": "n56",
+        "name": "Chagny",
+        "lat": 46.91,
+        "lon": 4.753,
+        "extra": false
+      },
+      {
+        "id": "n57",
+        "name": "Vitry-le-François",
+        "lat": 48.725,
+        "lon": 4.585,
+        "extra": false
+      },
+      {
+        "id": "n58",
+        "name": "Torcy",
+        "lat": 48.85,
+        "lon": 2.651,
+        "extra": true
+      },
+      {
+        "id": "n59",
+        "name": "Joigny",
+        "lat": 47.982,
+        "lon": 3.397,
+        "extra": true
+      },
+      {
+        "id": "n60",
+        "name": "Paray-le-Monial",
+        "lat": 46.451,
+        "lon": 4.12,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p7",
+    "label": "-é",
+    "where": "The west: Anjou, Maine, Touraine, eastern Bretagne, Poitou",
+    "origin": "The same -acum ending, evolved to -é in the west",
+    "codes": ["35", "44", "49", "53", "72", "37", "79", "85", "86"],
+    "towns": [
+      {
+        "id": "n61",
+        "name": "Vitré",
+        "lat": 48.124,
+        "lon": -1.209,
+        "extra": false
+      },
+      {
+        "id": "n62",
+        "name": "Ernée",
+        "lat": 48.297,
+        "lon": -0.932,
+        "extra": false
+      },
+      {
+        "id": "n63",
+        "name": "Sablé-sur-Sarthe",
+        "lat": 47.84,
+        "lon": -0.333,
+        "extra": false
+      },
+      {
+        "id": "n64",
+        "name": "Chemillé",
+        "lat": 47.213,
+        "lon": -0.728,
+        "extra": false
+      },
+      {
+        "id": "n65",
+        "name": "Doué-la-Fontaine",
+        "lat": 47.193,
+        "lon": -0.275,
+        "extra": true
+      },
+      {
+        "id": "n66",
+        "name": "Martigné-Ferchaud",
+        "lat": 47.832,
+        "lon": -1.319,
+        "extra": true
+      },
+      {
+        "id": "n67",
+        "name": "Cossé-le-Vivien",
+        "lat": 47.946,
+        "lon": -0.912,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p8",
+    "label": "-ac",
+    "where": "The southwest and centre-south: Limousin, Périgord, Quercy, Auvergne, Charentes, Bordelais",
+    "origin": "The same -acum ending, kept as -ac in Occitan lands",
+    "codes": ["15", "16", "17", "19", "23", "24", "33", "46", "47", "12", "63", "43", "87"],
+    "towns": [
+      {
+        "id": "n68",
+        "name": "Bergerac",
+        "lat": 44.853,
+        "lon": 0.483,
+        "extra": false
+      },
+      {
+        "id": "n69",
+        "name": "Figeac",
+        "lat": 44.608,
+        "lon": 2.032,
+        "extra": false
+      },
+      {
+        "id": "n70",
+        "name": "Aurillac",
+        "lat": 44.926,
+        "lon": 2.44,
+        "extra": false
+      },
+      {
+        "id": "n71",
+        "name": "Cognac",
+        "lat": 45.696,
+        "lon": -0.329,
+        "extra": false
+      },
+      {
+        "id": "n72",
+        "name": "Gaillac",
+        "lat": 43.902,
+        "lon": 1.897,
+        "extra": false
+      },
+      {
+        "id": "n73",
+        "name": "Pauillac",
+        "lat": 45.199,
+        "lon": -0.748,
+        "extra": false
+      },
+      {
+        "id": "n74",
+        "name": "Jarnac",
+        "lat": 45.681,
+        "lon": -0.174,
+        "extra": true
+      },
+      {
+        "id": "n75",
+        "name": "Souillac",
+        "lat": 44.897,
+        "lon": 1.476,
+        "extra": true
+      },
+      {
+        "id": "n76",
+        "name": "Mauriac",
+        "lat": 45.218,
+        "lon": 2.334,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p9",
+    "label": "-ieu, -ieux",
+    "where": "Lyonnais, Ain, Bugey, northern Isère, the Loire valley around Saint-Étienne",
+    "origin": "The same -acum ending in Franco-Provençal country",
+    "codes": ["01", "38", "69", "42"],
+    "towns": [
+      {
+        "id": "n77",
+        "name": "Meximieux",
+        "lat": 45.905,
+        "lon": 5.194,
+        "extra": false
+      },
+      {
+        "id": "n78",
+        "name": "Ambérieu-en-Bugey",
+        "lat": 45.958,
+        "lon": 5.358,
+        "extra": false
+      },
+      {
+        "id": "n79",
+        "name": "Crémieu",
+        "lat": 45.725,
+        "lon": 5.248,
+        "extra": false
+      },
+      {
+        "id": "n80",
+        "name": "Vénissieux",
+        "lat": 45.697,
+        "lon": 4.887,
+        "extra": false
+      },
+      {
+        "id": "n81",
+        "name": "Andrézieux-Bouthéon",
+        "lat": 45.526,
+        "lon": 4.26,
+        "extra": false
+      },
+      {
+        "id": "n82",
+        "name": "Grézieu-la-Varenne",
+        "lat": 45.749,
+        "lon": 4.69,
+        "extra": true
+      },
+      {
+        "id": "n83",
+        "name": "Bourgoin-Jallieu",
+        "lat": 45.586,
+        "lon": 5.274,
+        "extra": true
+      },
+      {
+        "id": "n84",
+        "name": "Tignieu-Jameyzieu",
+        "lat": 45.736,
+        "lon": 5.183,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p10",
+    "label": "-az, -oz, -ex, -ix",
+    "where": "Savoie, Haute-Savoie, Pays de Gex",
+    "origin": "Savoyard spellings; the final letter is usually silent",
+    "codes": ["73", "74", "01"],
+    "towns": [
+      {
+        "id": "n85",
+        "name": "La Clusaz",
+        "lat": 45.905,
+        "lon": 6.424,
+        "extra": false
+      },
+      {
+        "id": "n86",
+        "name": "Chamonix-Mont-Blanc",
+        "lat": 45.924,
+        "lon": 6.87,
+        "extra": false
+      },
+      {
+        "id": "n87",
+        "name": "Gex",
+        "lat": 46.333,
+        "lon": 6.058,
+        "extra": false
+      },
+      {
+        "id": "n88",
+        "name": "La Giettaz",
+        "lat": 45.859,
+        "lon": 6.495,
+        "extra": true
+      },
+      {
+        "id": "n89",
+        "name": "Praz-sur-Arly",
+        "lat": 45.837,
+        "lon": 6.573,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p11",
+    "label": "-argues",
+    "where": "Eastern Languedoc: Gard and Hérault",
+    "origin": "Occitan form of the Latin -anicus ending",
+    "codes": ["30", "34"],
+    "towns": [
+      {
+        "id": "n90",
+        "name": "Vendargues",
+        "lat": 43.656,
+        "lon": 3.97,
+        "extra": false
+      },
+      {
+        "id": "n91",
+        "name": "Marsillargues",
+        "lat": 43.664,
+        "lon": 4.177,
+        "extra": false
+      },
+      {
+        "id": "n92",
+        "name": "Lansargues",
+        "lat": 43.652,
+        "lon": 4.073,
+        "extra": false
+      },
+      {
+        "id": "n93",
+        "name": "Aimargues",
+        "lat": 43.684,
+        "lon": 4.21,
+        "extra": false
+      },
+      {
+        "id": "n94",
+        "name": "Caissargues",
+        "lat": 43.798,
+        "lon": 4.38,
+        "extra": true
+      },
+      {
+        "id": "n95",
+        "name": "Bouillargues",
+        "lat": 43.799,
+        "lon": 4.426,
+        "extra": true
+      },
+      {
+        "id": "n96",
+        "name": "Baillargues",
+        "lat": 43.661,
+        "lon": 4.013,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p12",
+    "label": "-os, -osse, -ost",
+    "where": "Gascony: Landes, Béarn, Bigorre, Gers, southern Gironde",
+    "origin": "Pre-Latin Aquitanian ending, related to Basque",
+    "codes": ["40", "64", "65", "32", "33"],
+    "towns": [
+      {
+        "id": "n97",
+        "name": "Biscarrosse",
+        "lat": 44.394,
+        "lon": -1.164,
+        "extra": false
+      },
+      {
+        "id": "n98",
+        "name": "Hossegor",
+        "lat": 43.664,
+        "lon": -1.397,
+        "extra": false
+      },
+      {
+        "id": "n99",
+        "name": "Tarnos",
+        "lat": 43.541,
+        "lon": -1.461,
+        "extra": false
+      },
+      {
+        "id": "n100",
+        "name": "Andernos-les-Bains",
+        "lat": 44.745,
+        "lon": -1.09,
+        "extra": false
+      },
+      {
+        "id": "n101",
+        "name": "Seignosse",
+        "lat": 43.69,
+        "lon": -1.374,
+        "extra": true
+      },
+      {
+        "id": "n102",
+        "name": "Ibos",
+        "lat": 43.233,
+        "lon": 0.007,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p13",
+    "label": "tx, -berry, -guy (Basque)",
+    "where": "French Basque Country, western Pyrénées-Atlantiques",
+    "origin": "Basque spelling: tx, berri new, Itsas sea",
+    "codes": ["64"],
+    "towns": [
+      {
+        "id": "n103",
+        "name": "Itxassou",
+        "lat": 43.329,
+        "lon": -1.405,
+        "extra": false
+      },
+      {
+        "id": "n104",
+        "name": "Irissarry",
+        "lat": 43.262,
+        "lon": -1.24,
+        "extra": false
+      },
+      {
+        "id": "n105",
+        "name": "Ainhoa",
+        "lat": 43.308,
+        "lon": -1.499,
+        "extra": false
+      },
+      {
+        "id": "n106",
+        "name": "Urrugne",
+        "lat": 43.362,
+        "lon": -1.7,
+        "extra": false
+      },
+      {
+        "id": "n107",
+        "name": "Iholdy",
+        "lat": 43.278,
+        "lon": -1.177,
+        "extra": true
+      },
+      {
+        "id": "n108",
+        "name": "Ahetze",
+        "lat": 43.405,
+        "lon": -1.57,
+        "extra": true
+      },
+      {
+        "id": "n109",
+        "name": "Bidarray",
+        "lat": 43.268,
+        "lon": -1.348,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p14",
+    "label": "-o, -acciu (Italian-looking)",
+    "where": "Corse",
+    "origin": "Corsican, close to Tuscan Italian",
+    "codes": ["2A", "2B"],
+    "towns": [
+      {
+        "id": "n110",
+        "name": "Porto-Vecchio",
+        "lat": 41.591,
+        "lon": 9.279,
+        "extra": false
+      },
+      {
+        "id": "n111",
+        "name": "Bonifacio",
+        "lat": 41.387,
+        "lon": 9.159,
+        "extra": false
+      },
+      {
+        "id": "n112",
+        "name": "Propriano",
+        "lat": 41.676,
+        "lon": 8.903,
+        "extra": false
+      },
+      {
+        "id": "n113",
+        "name": "Calvi",
+        "lat": 42.567,
+        "lon": 8.757,
+        "extra": false
+      },
+      {
+        "id": "n114",
+        "name": "Ghisonaccia",
+        "lat": 42.016,
+        "lon": 9.405,
+        "extra": true
+      },
+      {
+        "id": "n115",
+        "name": "Piana",
+        "lat": 42.236,
+        "lon": 8.646,
+        "extra": true
+      },
+      {
+        "id": "n116",
+        "name": "Lucciana",
+        "lat": 42.546,
+        "lon": 9.418,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p15",
+    "label": "Ll-, -à (Catalan)",
+    "where": "Pyrénées-Orientales (Roussillon)",
+    "origin": "Catalan spelling",
+    "codes": ["66"],
+    "towns": [
+      {
+        "id": "n117",
+        "name": "Llupia",
+        "lat": 42.62,
+        "lon": 2.77,
+        "extra": false
+      },
+      {
+        "id": "n118",
+        "name": "Llauro",
+        "lat": 42.549,
+        "lon": 2.744,
+        "extra": false
+      },
+      {
+        "id": "n119",
+        "name": "Llo",
+        "lat": 42.454,
+        "lon": 2.065,
+        "extra": false
+      }
+    ]
+  }
+]

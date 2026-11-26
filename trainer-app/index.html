@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>France map trainer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div>
+          <h1>France <span>map trainer</span></h1>
+          <p class="sub">
+            Regions, départements, cities, rivers, phone zones and place-name endings: learn them, then drill
+            until they stick.
+          </p>
+        </div>
+        <div class="seg big" id="setSeg" role="group" aria-label="What to study">
+          <button data-v="reg">Regions</button><button data-v="dep">Départements</button
+          ><button data-v="city">Cities</button><button data-v="riv">Rivers</button
+          ><button data-v="tel">Phone codes</button><button data-v="nom">Name endings</button>
+        </div>
+      </header>
+      <div class="bar">
+        <div class="seg" id="modeSeg" role="group" aria-label="Mode">
+          <button data-v="learn">Learn</button><button data-v="practice">Practice</button>
+        </div>
+        <div class="seg" id="kindSeg" role="group" aria-label="Question type">
+          <button data-v="find">Find on map</button><button data-v="name">Name it</button
+          ><button data-v="town">Place towns</button><button data-v="dot">Pick the dot</button>
+        </div>
+        <label class="l" id="scopeL"
+          >Area
+          <select id="scope"></select
+        ></label>
+        <label class="l" id="rselL"
+          >River
+          <select id="rsel"></select
+        ></label>
+        <label class="l" id="sizeL"
+          >Round
+          <select id="size">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="40">40</option>
+            <option value="all">All</option>
+          </select></label
+        >
+        <label class="l" id="telfL"
+          >Départements
+          <select id="telf">
+            <option value="border">Near zone borders</option>
+            <option value="all">All</option>
+          </select></label
+        >
+        <label class="l" id="askL"
+          >Ask by
+          <select id="ask">
+            <option value="name">Name</option>
+            <option value="num">Number</option>
+            <option value="mix">Mixed</option>
+          </select></label
+        >
+        <label class="l" id="labL"
+          >Labels
+          <select id="labs">
+            <option value="auto">Auto</option>
+            <option value="num">Numbers</option>
+            <option value="name">Names</option>
+            <option value="off">Off</option>
+          </select></label
+        >
+      </div>
+      <div class="app">
+        <div class="mapbox" id="box">
+          <svg id="map" viewBox="0 0 613 585" preserveAspectRatio="xMidYMid meet" aria-label="Map of France">
+            <g id="land"></g>
+            <g id="riv"></g>
+            <g id="rvl" class="lab"></g>
+            <g id="tw" class="lab cty"></g>
+            <g id="zl" class="lab"></g>
+            <g id="nx" class="lab cty"></g>
+            <g id="labD" class="lab"></g>
+            <g id="labR" class="lab"></g>
+            <g id="cty" class="lab cty"></g>
+            <g id="fx"></g>
+          </svg>
+          <div class="msg" id="msg">Loading the map…</div>
+          <div class="tip" id="tip"></div>
+          <div class="tools">
+            <button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button
+            ><button id="zre" aria-label="Reset view" style="font-size: 15px">⤢</button>
+          </div>
+        </div>
+        <div id="prompt" class="card"></div>
+        <div id="more"></div>
+      </div>
+      <p class="hint credits">
+        Département outlines:
+        <a href="https://github.com/VictorCazanave/svg-maps/tree/master/packages/france.departments"
+          >France departments map</a
+        >
+        by Victor Cazanave (svg-maps), licensed
+        <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Phone zones follow the Wikipedia
+        table of French area codes. Coordinates, river courses and place-name patterns are approximate and
+        compiled for study, not survey-grade.
+      </p>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+[
+  {
+    "key": "ARA",
+    "name": "Auvergne-Rhône-Alpes",
+    "capital": "Lyon",
+    "hue": 205,
+    "codes": ["01", "03", "07", "15", "26", "38", "42", "43", "63", "69", "73", "74"]
+  },
+  {
+    "key": "BFC",
+    "name": "Bourgogne-Franche-Comté",
+    "capital": "Dijon",
+    "hue": 330,
+    "codes": ["21", "25", "39", "58", "70", "71", "89", "90"]
+  },
+  {
+    "key": "BRE",
+    "name": "Bretagne",
+    "capital": "Rennes",
+    "hue": 95,
+    "codes": ["22", "29", "35", "56"]
+  },
+  {
+    "key": "CVL",
+    "name": "Centre-Val de Loire",
+    "capital": "Orléans",
+    "hue": 48,
+    "codes": ["18", "28", "36", "37", "41", "45"]
+  },
+  {
+    "key": "COR",
+    "name": "Corse",
+    "capital": "Ajaccio",
+    "hue": 300,
+    "codes": ["2A", "2B"]
+  },
+  {
+    "key": "GES",
+    "name": "Grand Est",
+    "capital": "Strasbourg",
+    "hue": 265,
+    "codes": ["08", "10", "51", "52", "54", "55", "57", "67", "68", "88"]
+  },
+  {
+    "key": "HDF",
+    "name": "Hauts-de-France",
+    "capital": "Lille",
+    "hue": 185,
+    "codes": ["02", "59", "60", "62", "80"]
+  },
+  {
+    "key": "IDF",
+    "name": "Île-de-France",
+    "capital": "Paris",
+    "hue": 350,
+    "codes": ["75", "77", "78", "91", "92", "93", "94", "95"]
+  },
+  {
+    "key": "NOR",
+    "name": "Normandie",
+    "capital": "Rouen",
+    "hue": 130,
+    "codes": ["14", "27", "50", "61", "76"]
+  },
+  {
+    "key": "NAQ",
+    "name": "Nouvelle-Aquitaine",
+    "capital": "Bordeaux",
+    "hue": 20,
+    "codes": ["16", "17", "19", "23", "24", "33", "40", "47", "64", "79", "86", "87"]
+  },
+  {
+    "key": "OCC",
+    "name": "Occitanie",
+    "capital": "Toulouse",
+    "hue": 0,
+    "codes": ["09", "11", "12", "30", "31", "32", "34", "46", "48", "65", "66", "81", "82"]
+  },
+  {
+    "key": "PDL",
+    "name": "Pays de la Loire",
+    "capital": "Nantes",
+    "hue": 160,
+    "codes": ["44", "49", "53", "72", "85"]
+  },
+  {
+    "key": "PAC",
+    "name": "Provence-Alpes-Côte d'Azur",
+    "capital": "Marseille",
+    "hue": 225,
+    "codes": ["04", "05", "06", "13", "83", "84"]
+  }
+]
