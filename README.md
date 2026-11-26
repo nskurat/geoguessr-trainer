@@ -9,6 +9,8 @@ regions, départements, cities, rivers, landline phone zones and place-name endi
 Every topic has a **Learn** mode (explore the map) and a **Practice** mode (several
 question types, rounds, and spaced repetition in a Leitner system kept in your
 browser's localStorage). It runs entirely in the browser — no backend.
+The interface is available in **English** and **Belarusian** (pick it in the bar, or
+open the site with `?lang=be`).
 
 For the codebase layout, conventions and constraints, see [AGENTS.md](AGENTS.md) —
 that's the file kept current for both contributors and coding agents. This README
