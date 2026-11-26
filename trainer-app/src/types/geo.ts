@@ -1,3 +1,4 @@
+import type { Lang, PluralForms } from './i18n';
 import type { StudySet } from './trainer';
 
 /**
@@ -129,10 +130,32 @@ export interface MapOutline {
 export interface Term {
   one: string;
   many: string;
+  /**
+   * Lower-case forms after a number ("13 départements"), by plural category. Needed where
+   * the noun's form depends on the number (Belarusian: 1 рэгіён, 2 рэгіёны, 5 рэгіёнаў);
+   * without it `many` is lower-cased.
+   */
+  counted?: PluralForms;
 }
 
-/** Interface text that depends on the country. */
+/**
+ * Translations of the English text inside a country's data files (phone zones, name
+ * patterns, rivers), keyed by id. Place names inside them stay as in the data. Required
+ * for every item in each non-source language (`npm run validate:data` checks it).
+ */
+export interface DataText {
+  /** By zone. `name` defaults to the data's (Peru's zones are named after regions). */
+  phoneZones?: Record<string, { name?: string; description: string }>;
+  /** By pattern id. `label` defaults to the data's (only notes like "(Basque)" need one). */
+  namePatterns?: Record<string, { label?: string; where: string; origin: string }>;
+  /** By river id. */
+  rivers?: Record<string, { flowsInto: string }>;
+}
+
+/** Interface text that depends on the country, in one language. */
 export interface CountryCopy {
+  /** The country's name in this language (exonym), for the title and picker. */
+  countryName: string;
   /** One sentence under the title. */
   subtitle: string;
   /** Button label and heading of each enabled study set. */
@@ -145,6 +168,8 @@ export interface CountryCopy {
   seatLabel: string;
   /** Label before `Department.plate`, e.g. "Plates end in". */
   plateLabel?: string;
+  /** Under a department code asked by number; defaults to "<Term> number" (`sub.codeNumber`). */
+  codeLabel?: string;
   /** Label of the "whole country" option of the Area filter. */
   allAreas: string;
   /** "How to use it" card text per study set. */
@@ -153,10 +178,13 @@ export interface CountryCopy {
   phoneHint: string;
   /** Footer credits, as trusted HTML authored in the country's data module. */
   credits: string;
+  /** Translations of the data files' English text; omitted in the source language. */
+  data?: DataText;
 }
 
 export interface Country {
   id: string;
+  /** English name, for tooling output; the interface uses `copy[lang].countryName`. */
   name: string;
   /** Study sets offered for this country, in display order: only those worth drilling for it. */
   sets: StudySet[];
@@ -173,5 +201,6 @@ export interface Country {
   phone: PhoneData;
   namePatterns: NamePattern[];
   rivers: RiverData;
-  copy: CountryCopy;
+  /** Interface text per language (`data/<country>/copy.<lang>.ts`); every language is required. */
+  copy: Record<Lang, CountryCopy>;
 }

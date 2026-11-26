@@ -1,7 +1,7 @@
 import type { City, Country, Department, LatLon, PhoneData, Region } from '../../types/geo';
-import type { StudySet } from '../../types/trainer';
 import cities from './cities.json';
-import copy from './copy.json';
+import { copyBe } from './copy.be';
+import { copyEn } from './copy.en';
 import departments from './departments.json';
 import outline from './outline.json';
 import phone from './phone.json';
@@ -20,7 +20,7 @@ const courses: Record<string, number[][]> = riverCourses;
 export const peru: Country = {
   id: 'peru',
   name: 'Peru',
-  sets: copy.sets as StudySet[],
+  sets: ['reg', 'dep', 'city', 'tel', 'riv'],
   departmentCodes: 'hidden',
   projectionRefLat: outline.refLat,
   regionLabelOffsets: {},
@@ -38,16 +38,5 @@ export const peru: Country = {
     })),
     towns: rivers.towns,
   },
-  copy: {
-    subtitle: copy.subtitle,
-    setLabels: copy.setLabels,
-    regionTerm: copy.regionTerm,
-    departmentTerm: copy.departmentTerm,
-    seatLabel: copy.seatLabel,
-    allAreas: copy.allAreas,
-    tips: copy.tips,
-    phoneHint: copy.phoneHint,
-    credits:
-      'Region outlines and most river courses: <a href="https://www.naturalearthdata.com/">Natural Earth</a> (public domain); Callao is shown together with Lima Metropolitana. Area codes, cities and river towns are compiled from Wikipedia and GeoGuessr guides (see RESEARCH.md in the repository). Coordinates and courses are approximate and compiled for study, not survey-grade.',
-  },
+  copy: { en: copyEn, be: copyBe },
 };

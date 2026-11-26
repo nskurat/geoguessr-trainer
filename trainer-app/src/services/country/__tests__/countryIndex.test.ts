@@ -75,15 +75,35 @@ function fixture(): Country {
       ],
     },
     copy: {
-      subtitle: 'Test country.',
-      setLabels: { reg: 'Regions', dep: 'Units' },
-      regionTerm: { one: 'Region', many: 'Regions' },
-      departmentTerm: { one: 'Unit', many: 'Units' },
-      seatLabel: 'Seat',
-      allAreas: 'All',
-      tips: { reg: 'Tip.', dep: 'Tip.' },
-      phoneHint: '',
-      credits: 'Test data.',
+      en: {
+        countryName: 'Testland',
+        subtitle: 'Test country.',
+        setLabels: { reg: 'Regions', dep: 'Units' },
+        regionTerm: { one: 'Region', many: 'Regions' },
+        departmentTerm: { one: 'Unit', many: 'Units' },
+        seatLabel: 'Seat',
+        allAreas: 'All',
+        tips: { reg: 'Tip.', dep: 'Tip.' },
+        phoneHint: '',
+        credits: 'Test data.',
+      },
+      be: {
+        countryName: 'Тэстленд',
+        subtitle: 'Тэставая краіна.',
+        setLabels: { reg: 'Рэгіёны', dep: 'Адзінкі' },
+        regionTerm: { one: 'Рэгіён', many: 'Рэгіёны' },
+        departmentTerm: { one: 'Адзінка', many: 'Адзінкі' },
+        seatLabel: 'Цэнтр',
+        allAreas: 'Усё',
+        tips: { reg: 'Парада.', dep: 'Парада.' },
+        phoneHint: '',
+        credits: 'Тэставыя даныя.',
+        data: {
+          phoneZones: { '01': { name: 'А', description: 'поўнач' }, '02': { description: 'поўдзень' } },
+          namePatterns: { p: { where: 'поўдзень', origin: 'лацінскае' } },
+          rivers: { r1: { flowsInto: 'мора' }, r2: { flowsInto: 'Alpha' } },
+        },
+      },
     },
   };
 }
@@ -146,6 +166,36 @@ describe('indexCountry', () => {
     const c = fixture();
     c.rivers.rivers[0].towns.push('ghost');
     expect(() => indexCountry(c)).toThrow(/river Alpha has unknown town ghost/);
+  });
+});
+
+describe('indexCountry in another language', () => {
+  const index = indexCountry(fixture(), 'be');
+
+  it('uses that language’s copy', () => {
+    expect(index.lang).toBe('be');
+    expect(index.copy.countryName).toBe('Тэстленд');
+  });
+
+  it('translates the data’s text, keeping what has no translation', () => {
+    expect(index.phoneZoneById['01']).toMatchObject({ name: 'А', description: 'поўнач', hue: 0 });
+    expect(index.phoneZoneById['02']).toMatchObject({ name: 'B', description: 'поўдзень' });
+    expect(index.patternById.p).toMatchObject({ label: '-ac', where: 'поўдзень', origin: 'лацінскае' });
+    expect(index.riverById.r1.flowsInto).toBe('мора');
+  });
+
+  it('keeps ids, names and references', () => {
+    expect(index.riverById.r1.name).toBe('Alpha');
+    expect(index.riverTownById.tx.rivers).toEqual(['r1', 'r2']);
+    expect(index.nameTownById.pt.pattern).toBe('p');
+    expect(index.departmentsInZone['01']).toEqual(['01', '02']);
+  });
+
+  it('defaults to English', () => {
+    const en = indexCountry(fixture());
+    expect(en.lang).toBe('en');
+    expect(en.phoneZoneById['01'].description).toBe('');
+    expect(en.riverById.r1.flowsInto).toBe('sea');
   });
 });
 
