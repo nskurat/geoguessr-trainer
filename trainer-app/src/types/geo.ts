@@ -1,3 +1,5 @@
+import type { StudySet } from './trainer';
+
 /**
  * Country-agnostic geography types. A country is described entirely by data
  * (see `data/<country>/index.ts`); the trainer code never names a country.
@@ -28,6 +30,8 @@ export interface Department {
   prefecture: string;
   lat: number;
   lon: number;
+  /** What its licence plates show (France: the code at the right; Peru: none verified). */
+  plate?: string;
 }
 
 export interface City {
@@ -54,8 +58,13 @@ export interface PhoneData {
   zones: PhoneZone[];
   /** Department code → landline prefix. */
   zoneByDepartement: Record<string, string>;
-  /** Departments on or near a zone border, drilled by the "Near zone borders" filter. */
+  /** Departments on or near a zone border, drilled by the "Near zone borders" filter. Empty hides the filter. */
   borderDepartements: string[];
+  /**
+   * Finer local prefixes per department (France: the two digits after 0Z). Shown as small
+   * labels in learn mode and in the info card; never quizzed.
+   */
+  localPrefixes?: Record<string, string[]>;
 }
 
 export interface NameTown {
@@ -108,21 +117,51 @@ export interface RiverData {
 export interface MapOutline {
   viewBox: string;
   locations: { id: string; name: string; path: string }[];
+  /**
+   * When the outline was generated with the trainer's own projection
+   * (`scripts/build-outline.ts`), the exact affine from `mercatorPlane(lat, lon, refLat)`
+   * to SVG units, as [[a, b, c], [d, e, f]]. Without it the projection is fitted from anchors.
+   */
+  affine?: number[][];
+}
+
+/** A term in its singular and plural forms, e.g. Département / Départements. */
+export interface Term {
+  one: string;
+  many: string;
 }
 
 /** Interface text that depends on the country. */
 export interface CountryCopy {
+  /** One sentence under the title. */
+  subtitle: string;
+  /** Button label and heading of each enabled study set. */
+  setLabels: Partial<Record<StudySet, string>>;
+  /** Top-level areas (régions in France). */
+  regionTerm: Term;
+  /** Second-level areas (départements in France). */
+  departmentTerm: Term;
+  /** Label of a department's administrative seat, e.g. "Prefecture" or "Capital". */
+  seatLabel: string;
+  /** Label before `Department.plate`, e.g. "Plates end in". */
+  plateLabel?: string;
   /** Label of the "whole country" option of the Area filter. */
   allAreas: string;
   /** "How to use it" card text per study set. */
-  tips: Record<string, string>;
+  tips: Partial<Record<StudySet, string>>;
   /** Shown under the phone-zone legend. */
   phoneHint: string;
+  /** Footer credits, as trusted HTML authored in the country's data module. */
+  credits: string;
 }
 
 export interface Country {
   id: string;
   name: string;
+  /** Study sets offered for this country, in display order: only those worth drilling for it. */
+  sets: StudySet[];
+  /** Whether department codes mean something to players (France's numbers do; Peru's do not). */
+  departmentCodes: 'shown' | 'hidden';
   /** Latitude at which the projection is undistorted, roughly the country's middle. */
   projectionRefLat: number;
   /** Nudges, in map units, for region labels whose area-weighted centre sits badly. */

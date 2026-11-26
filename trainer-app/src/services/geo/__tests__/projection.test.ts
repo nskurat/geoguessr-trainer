@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { fitProjection, haversineKm, mercatorPlane, solve3, type Anchor } from '../projection';
+import {
+  fitProjection,
+  haversineKm,
+  mercatorPlane,
+  projectionFromAffine,
+  solve3,
+  type Anchor,
+} from '../projection';
 
 const REF_LAT = 46.5;
 
@@ -139,5 +146,22 @@ describe('haversineKm', () => {
 
   it('covers a degree of latitude at about 111 km', () => {
     expect(haversineKm(0, 0, 1, 0)).toBeCloseTo(111.19, 1);
+  });
+});
+
+describe('projectionFromAffine', () => {
+  it('applies the given affine to mercatorPlane coordinates and inverts it', () => {
+    const A = [
+      [32, 0, 2600],
+      [0, -32, 7],
+    ];
+    const p = projectionFromAffine(A, -9.2);
+    const [mx, my] = mercatorPlane(-12.046, -77.043, -9.2);
+    const [x, y] = p.project(-12.046, -77.043);
+    expect(x).toBeCloseTo(32 * mx + 2600, 9);
+    expect(y).toBeCloseTo(-32 * my + 7, 9);
+    const [lat, lon] = p.unproject(x, y);
+    expect(lat).toBeCloseTo(-12.046, 6);
+    expect(lon).toBeCloseTo(-77.043, 6);
   });
 });

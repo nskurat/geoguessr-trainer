@@ -13,6 +13,7 @@ import cities from './cities.json';
 import departments from './departements.json';
 import namePatterns from './placeNames.json';
 import phone from './phone.json';
+import localPrefixes from './phonePrefixes.json';
 import regions from './regions.json';
 import rivers from './rivers.json';
 
@@ -25,19 +26,37 @@ import rivers from './rivers.json';
 export const france: Country = {
   id: 'france',
   name: 'France',
+  sets: ['reg', 'dep', 'city', 'riv', 'tel', 'nom'],
+  departmentCodes: 'shown',
   projectionRefLat: 46.5,
   regionLabelOffsets: { IDF: { dy: -4 }, COR: { dx: 2 } },
   outline,
   regions: regions as Region[],
-  departments: departments as Department[],
+  departments: (departments as Department[]).map((d) => ({ ...d, plate: d.code })),
   cities: cities as City[],
-  phone: phone as PhoneData,
+  phone: { ...(phone as PhoneData), localPrefixes },
   namePatterns: namePatterns as NamePattern[],
   rivers: {
     rivers: rivers.rivers.map((r) => ({ ...r, course: r.course as LatLon[] })),
     towns: rivers.towns,
   } satisfies RiverData,
   copy: {
+    subtitle:
+      'Regions, départements, cities, rivers, phone zones and place-name endings: learn them, then drill until they stick.',
+    setLabels: {
+      reg: 'Regions',
+      dep: 'Départements',
+      city: 'Cities',
+      riv: 'Rivers',
+      tel: 'Phone codes',
+      nom: 'Name endings',
+    },
+    regionTerm: { one: 'Region', many: 'Regions' },
+    departmentTerm: { one: 'Département', many: 'Départements' },
+    seatLabel: 'Prefecture',
+    plateLabel: 'Plates end in',
+    credits:
+      'Département outlines: <a href="https://github.com/VictorCazanave/svg-maps/tree/master/packages/france.departments">France departments map</a> by Victor Cazanave (svg-maps), licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Phone zones follow the Wikipedia table of French area codes. Coordinates, river courses and place-name patterns are approximate and compiled for study, not survey-grade.',
     allAreas: 'All of France',
     phoneHint:
       'Since 2023 a new or moved number can keep any prefix, but most businesses still have their original local one, so it remains a strong clue on signs.',

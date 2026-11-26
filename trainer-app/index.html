@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>France map trainer</title>
+    <title>Map trainer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap"
@@ -14,19 +14,16 @@
     <div class="wrap">
       <header>
         <div>
-          <h1>France <span>map trainer</span></h1>
-          <p class="sub">
-            Regions, départements, cities, rivers, phone zones and place-name endings: learn them, then drill
-            until they stick.
-          </p>
+          <h1><span id="countryName" class="country"></span> <span>map trainer</span></h1>
+          <p class="sub" id="subtitle"></p>
         </div>
-        <div class="seg big" id="setSeg" role="group" aria-label="What to study">
-          <button data-v="reg">Regions</button><button data-v="dep">Départements</button
-          ><button data-v="city">Cities</button><button data-v="riv">Rivers</button
-          ><button data-v="tel">Phone codes</button><button data-v="nom">Name endings</button>
-        </div>
+        <div class="seg big" id="setSeg" role="group" aria-label="What to study"></div>
       </header>
       <div class="bar">
+        <label class="l" id="countryL"
+          >Country
+          <select id="country"></select
+        ></label>
         <div class="seg" id="modeSeg" role="group" aria-label="Mode">
           <button data-v="learn">Learn</button><button data-v="practice">Practice</button>
         </div>
@@ -52,7 +49,7 @@
           </select></label
         >
         <label class="l" id="telfL"
-          >Départements
+          ><span id="telfLabel"></span>
           <select id="telf">
             <option value="border">Near zone borders</option>
             <option value="all">All</option>
@@ -78,12 +75,13 @@
       </div>
       <div class="app">
         <div class="mapbox" id="box">
-          <svg id="map" viewBox="0 0 613 585" preserveAspectRatio="xMidYMid meet" aria-label="Map of France">
+          <svg id="map" viewBox="0 0 613 585" preserveAspectRatio="xMidYMid meet" aria-label="Map">
             <g id="land"></g>
             <g id="riv"></g>
             <g id="rvl" class="lab"></g>
             <g id="tw" class="lab cty"></g>
             <g id="zl" class="lab"></g>
+            <g id="lp" class="lab"></g>
             <g id="nx" class="lab cty"></g>
             <g id="labD" class="lab"></g>
             <g id="labR" class="lab"></g>
@@ -100,16 +98,7 @@
         <div id="prompt" class="card"></div>
         <div id="more"></div>
       </div>
-      <p class="hint credits">
-        Département outlines:
-        <a href="https://github.com/VictorCazanave/svg-maps/tree/master/packages/france.departments"
-          >France departments map</a
-        >
-        by Victor Cazanave (svg-maps), licensed
-        <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Phone zones follow the Wikipedia
-        table of French area codes. Coordinates, river courses and place-name patterns are approximate and
-        compiled for study, not survey-grade.
-      </p>
+      <p class="hint credits" id="credits"></p>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

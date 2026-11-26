@@ -13,7 +13,12 @@
  *        "z<zone>" for zone answer choices, department codes otherwise.
  */
 import type { CountryIndex } from '../services/country/countryIndex';
-import { fitProjection, haversineKm, type Projection } from '../services/geo/projection';
+import {
+  fitProjection,
+  haversineKm,
+  projectionFromAffine,
+  type Projection,
+} from '../services/geo/projection';
 import { pickChoices, pickPatternChoices } from '../services/practice/distractors';
 import { createRound, recordOutcome, type RoundState } from '../services/practice/round';
 import {
@@ -55,19 +60,14 @@ const riverLabels = $<SVGGElement>('#rvl');
 const riverTownLayer = $<SVGGElement>('#tw');
 const zoneLabels = $<SVGGElement>('#zl');
 const nameTownLayer = $<SVGGElement>('#nx');
+const prefixLabels = $<SVGGElement>('#lp');
 const tip = $('#tip');
 
 /** Map colours of the four outcomes: first try, second, third, missed. */
 const OUTCOME_COLORS = ['var(--ok)', 'var(--y)', 'var(--or)', 'var(--red)'];
 
-const TITLES: Record<StudySet, string> = {
-  reg: 'Regions',
-  dep: 'Départements',
-  city: 'Cities',
-  riv: 'Rivers',
-  tel: 'Phone codes',
-  nom: 'Name endings',
-};
+/** Heading of a study set, from the country's copy. */
+const setLabel = (set: StudySet) => ix.country.copy.setLabels[set] ?? set;
 
 /** Labels of the four question-type buttons (find, name, town, dot); empty keeps the default. */
 const KIND_LABELS: Partial<Record<StudySet, string[]>> = {
@@ -142,6 +142,19 @@ const distanceQuestion = () =>
   (settings.set === 'city' && settings.kind === 'find') ||
   (settings.set === 'riv' && settings.kind === 'town');
 
+/** Whether department codes are meaningful to players and shown (France's numbers). */
+const codesShown = () => ix.country.departmentCodes === 'shown';
+/** "département", "region": the second-level term inside a sentence. */
+const depTerm = () => ix.country.copy.departmentTerm.one.toLowerCase();
+
+/** Find-the-zone question ids are "Z<zone>_<copy>"; zone answer choices are "z<zone>". */
+const zoneOfQuestion = (u: string): string | undefined => {
+  const zone = /^Z(.+)_\d+$/.exec(u)?.[1];
+  return zone && ix.phoneZoneById[zone] ? zone : undefined;
+};
+const zoneOfChoice = (u: string): string | undefined =>
+  u.startsWith('z') && ix.phoneZoneById[u.slice(1)] ? u.slice(1) : undefined;
+
 /* ---------- map building ---------- */
 
 function weightedCentre(codes: string[]): { x: number; y: number } {
@@ -191,10 +204,13 @@ function build(): void {
   }
 
   const placed = ix.departments.filter((d) => boxes[d.code]);
-  projection = fitProjection(
-    placed.map((d) => ({ lat: d.lat, lon: d.lon, x: boxes[d.code].cx, y: boxes[d.code].cy })),
-    country.projectionRefLat,
-  );
+  const affine = country.outline.affine;
+  projection = affine
+    ? projectionFromAffine(affine, country.projectionRefLat)
+    : fitProjection(
+        placed.map((d) => ({ lat: d.lat, lon: d.lon, x: boxes[d.code].cx, y: boxes[d.code].cy })),
+        country.projectionRefLat,
+      );
   const project = projection.project;
   const dot = (attr: string, id: string, name: string, lat: number, lon: number, extra = '') => {
     const p = project(lat, lon);
@@ -239,6 +255,13 @@ function build(): void {
     })
     .join('');
   nameTownLayer.innerHTML = ix.nameTowns.map((t) => dot('data-n', t.id, t.name, t.lat, t.lon)).join('');
+  prefixLabels.innerHTML = placed
+    .filter((d) => localPrefixes(d.code).length)
+    .map(
+      (d) =>
+        `<text x="${boxes[d.code].cx}" y="${boxes[d.code].cy}">${esc(localPrefixes(d.code).join(' '))}</text>`,
+    )
+    .join('');
   $('#msg').style.display = 'none';
 }
 
@@ -274,8 +297,10 @@ function scaleLabels(): void {
     });
     g.querySelectorAll('text').forEach((t) => set(t, 'dx', 7 / z));
   }
-  set(zoneLabels, 'font-size', 30 / z);
+  set(zoneLabels, 'font-size', (ix.phoneZones.length <= 8 ? 30 : 15) / z);
   set(zoneLabels, 'stroke-width', 4 / z);
+  set(prefixLabels, 'font-size', 8 / z);
+  set(prefixLabels, 'stroke-width', 2.5 / z);
   set(riverLabels, 'font-size', 12.5 / z);
   set(riverLabels, 'stroke-width', 3 / z);
   riverLabels.querySelectorAll('text').forEach((t) => set(t, 'dy', -9 / z));
@@ -480,13 +505,19 @@ function hover(e: PointerEvent): void {
   else tip.style.display = 'none';
 }
 
+/** Finer local prefixes of a department (France: the two digits after 0Z); shown, never quizzed. */
+const localPrefixes = (code: string) => ix.country.phone.localPrefixes?.[code] ?? [];
+
 /** A pattern label without its parenthesised note, e.g. "-o, -acciu". */
 const shortPattern = (label: string) => label.split(' (')[0];
 const patternsIn = (code: string) => ix.namePatterns.filter((p) => p.codes.includes(code));
 
 function tipText(u: string): string {
   const d = ix.departmentByCode[u];
-  if (settings.set === 'tel' && d) return nameOf(u, 'full') + ' → ' + ix.zoneOfDepartment[u];
+  if (settings.set === 'tel' && d) {
+    const local = localPrefixes(u);
+    return nameOf(u, 'full') + ' → ' + ix.zoneOfDepartment[u] + (local.length ? ' ' + local.join('/') : '');
+  }
   if (settings.set === 'nom' && d) {
     const ps = patternsIn(u);
     return d.name + (ps.length ? ': ' + ps.map((p) => shortPattern(p.label)).join(' / ') : '');
@@ -511,6 +542,7 @@ function nameOf(u: string, how: NameStyle = ''): string {
   if (ix.regionByKey[u]) return ix.regionByKey[u].name;
   const d = ix.departmentByCode[u];
   if (d) {
+    if (!codesShown()) return d.name;
     if (how === 'num') return d.code;
     if (how === 'name') return d.name;
     return d.code + ' · ' + d.name;
@@ -519,14 +551,10 @@ function nameOf(u: string, how: NameStyle = ''): string {
   if (ix.riverTownById[u]) return ix.riverTownById[u].name;
   if (ix.patternById[u]) return ix.patternById[u].label;
   if (ix.nameTownById[u]) return ix.nameTownById[u].name;
-  if (/^Z0\d/.test(u)) {
-    const z = u.slice(1, 3);
-    return 'Zone ' + z + ' · ' + ix.phoneZoneById[z].name;
-  }
-  if (/^z0\d/.test(u)) {
-    const z = u.slice(1, 3);
-    return how === 'full' ? z + ' · ' + ix.phoneZoneById[z].name : z;
-  }
+  const questionZone = zoneOfQuestion(u);
+  if (questionZone) return 'Zone ' + questionZone + ' · ' + ix.phoneZoneById[questionZone].name;
+  const choiceZone = zoneOfChoice(u);
+  if (choiceZone) return how === 'full' ? choiceZone + ' · ' + ix.phoneZoneById[choiceZone].name : choiceZone;
   return ix.cityById[u].name;
 }
 
@@ -540,7 +568,8 @@ const hueFill = (hue: number) => `hsl(${hue} var(--rs) var(--rl))`;
 
 /** The departments a zone-set item covers: a phone zone, a pattern's area, or a town's pattern area. */
 function zoneOf(u: string): string[] {
-  if (/^Z/.test(u)) return ix.departmentsInZone[u.slice(1, 3)];
+  const zone = zoneOfQuestion(u);
+  if (zone) return ix.departmentsInZone[zone];
   if (ix.patternById[u]) return ix.patternById[u].codes;
   if (ix.nameTownById[u]) return ix.patternById[ix.nameTownById[u].pattern].codes;
   return [];
@@ -602,6 +631,7 @@ function colorize(): void {
   const isRiver = set === 'riv';
   for (const g of [riverLayer, riverLabels, riverTownLayer]) g.style.display = isRiver ? '' : 'none';
   zoneLabels.style.display = set === 'tel' && learn ? '' : 'none';
+  prefixLabels.style.display = set === 'tel' && learn ? '' : 'none';
   nameTownLayer.style.display = set === 'nom' ? '' : 'none';
   if (isRiver) {
     const town = round?.current ? ix.riverTownById[round.current] : undefined;
@@ -633,7 +663,15 @@ function updateLabels(): void {
   const learn = settings.mode === 'learn';
   const { set } = settings;
   const z = zoom();
-  const depMode = settings.labels === 'auto' ? (z >= 2.6 ? 'name' : 'num') : settings.labels;
+  const depMode = !codesShown()
+    ? settings.labels === 'off'
+      ? 'off'
+      : 'name'
+    : settings.labels === 'auto'
+      ? z >= 2.6
+        ? 'name'
+        : 'num'
+      : settings.labels;
   const shown = (u: string) => !!round && round.shown[u] != null;
 
   for (const t of children(depLabels)) {
@@ -645,7 +683,9 @@ function updateLabels(): void {
       show = inScope && (learn ? depMode !== 'off' : shown(code));
     }
     t.style.display = show ? '' : 'none';
-    if (show) t.textContent = learn ? (depMode === 'name' ? d.name : d.code) : d.code + ' ' + d.name;
+    if (show) t.textContent = learn ? (depMode === 'name' ? d.name : d.code) : codesShown()
+        ? d.code + ' ' + d.name
+        : d.name;
   }
   for (const t of children(regionLabels)) {
     t.style.display = set === 'reg' && (learn || shown(t.dataset.r!)) ? '' : 'none';
@@ -758,9 +798,9 @@ function syncControls(): void {
   selectEl('#rsel').value = settings.river;
   show('#sizeL', mode === 'practice');
   selectEl('#size').value = settings.size;
-  show('#telfL', set === 'tel' && mode === 'practice' && kind === 'name');
+  show('#telfL', set === 'tel' && mode === 'practice' && kind === 'name' && ix.borderDepartments.length > 0);
   selectEl('#telf').value = settings.phoneFilter;
-  show('#askL', set === 'dep' && mode === 'practice');
+  show('#askL', set === 'dep' && mode === 'practice' && codesShown());
   show('#labL', set === 'dep' && mode === 'learn');
   selectEl('#scope').value = settings.scope;
   selectEl('#ask').value = settings.ask;
@@ -815,6 +855,7 @@ function bindControls(): void {
 const validValues = () => ({
   regionKeys: ix.regions.map((r) => r.key),
   riverIds: ix.rivers.map((r) => r.id),
+  sets: ix.country.sets,
 });
 
 function changed(rezoom: boolean): void {
@@ -865,10 +906,12 @@ function pool(): string[] {
     return kind === 'name'
       ? ix.departments
           .filter(
-            (d) => boxes[d.code] && (settings.phoneFilter === 'all' || ix.borderDepartments.includes(d.code)),
+            (d) => boxes[d.code] && (settings.phoneFilter === 'all' ||
+                !ix.borderDepartments.length ||
+                ix.borderDepartments.includes(d.code)),
           )
           .map((d) => d.code)
-      : [0, 1, 2].flatMap((i) => ix.phoneZones.map((z) => 'Z' + z.zone + '_' + i));
+      : zoneQuestionCopies().flatMap((i) => ix.phoneZones.map((z) => 'Z' + z.zone + '_' + i));
   }
   if (set === 'nom')
     return kind === 'town' && mode === 'practice'
@@ -892,7 +935,12 @@ const rightChoice = () =>
 const isRight = (u: string) => u === rightChoice();
 
 /** Progress key; the three copies of a find-the-zone question share one record. */
-const progressKeyOf = (u: string) => settings.set + '|' + (/^Z0/.test(u) ? u.slice(0, 3) : u);
+const progressKeyOf = (u: string) => {
+  const zone = zoneOfQuestion(u);
+  return settings.set + '|' + (zone ? 'Z' + zone : u);
+};
+/** Few zones are each asked three times per round; many zones once. */
+const zoneQuestionCopies = () => (ix.phoneZones.length <= 8 ? [0, 1, 2] : [0]);
 
 function recordProgress(u: string, o: Outcome): void {
   const key = progressKeyOf(u);
@@ -903,7 +951,7 @@ function recordProgress(u: string, o: Outcome): void {
 function resetProgress(button: HTMLElement): void {
   if (!button.dataset.armed) {
     button.dataset.armed = '1';
-    button.textContent = 'Tap again to reset ' + TITLES[settings.set];
+    button.textContent = 'Tap again to reset ' + setLabel(settings.set);
     return;
   }
   for (const k of Object.keys(progress)) if (k.startsWith(settings.set + '|')) delete progress[k];
@@ -962,7 +1010,7 @@ function next(): void {
   r.feedback = null;
   r.seq++;
   r.askBy =
-    settings.set === 'dep'
+    settings.set === 'dep' && codesShown()
       ? settings.ask === 'mix'
         ? Math.random() < 0.5
           ? 'num'
@@ -976,7 +1024,18 @@ function next(): void {
 
 function choicesFor(answer: string): string[] {
   const { set } = settings;
-  if (set === 'tel') return ix.phoneZones.map((z) => 'z' + z.zone);
+  if (set === 'tel') {
+    const zones = ix.phoneZones.map((z) => 'z' + z.zone);
+    if (zones.length <= 5) return zones;
+    // Many zones: four options, preferring codes with the same first digit.
+    return pickChoices({
+      answer: zoneAnswer(),
+      roundItems: zones,
+      allItems: zones,
+      groupOf: (u) => u.slice(1, 2),
+      rng: Math.random,
+    });
+  }
   if (set === 'nom') return pickPatternChoices(answer, ix.namePatterns, Math.random);
   const allItems =
     set === 'riv'
@@ -1026,7 +1085,7 @@ function click(e: PointerEvent): void {
       r.outcome = o;
       const where =
         settings.set === 'tel'
-          ? 'Zone ' + current.slice(1, 3) + ': ' + ix.phoneZoneById[current.slice(1, 3)].description + '.'
+          ? 'Zone ' + zoneOfQuestion(current) + ': ' + ix.phoneZoneById[zoneOfQuestion(current)!].description + '.'
           : 'Area: ' + ix.patternById[ix.nameTownById[current]?.pattern ?? current].where + '.';
       r.feedback = {
         text: (o === 0 ? 'Correct! ' : o < 3 ? 'Got it on try ' + (o + 1) + '. ' : 'Missed. ') + where,
@@ -1202,7 +1261,7 @@ function panel(): void {
       set !== 'reg' && settings.scope !== 'all' ? ' in ' + ix.regionByKey[settings.scope].name : '';
     const n = pool().length;
     if (set === 'riv' && !selected && settings.river !== 'all') selected = settings.river;
-    prompt.innerHTML = `<p class="k">Learn</p><p class="target">${TITLES[set]}${esc(scopeText)}<small>${n} to learn. Hover or tap the map for details; drag to pan, scroll or pinch to zoom.</small></p>${infoHtml()}<div class="row"><button class="btn pri" id="go">Start practising</button></div>${progressHtml()}`;
+    prompt.innerHTML = `<p class="k">Learn</p><p class="target">${esc(setLabel(set))}${esc(scopeText)}<small>${n} to learn. Hover or tap the map for details; drag to pan, scroll or pinch to zoom.</small></p>${infoHtml()}<div class="row"><button class="btn pri" id="go">Start practising</button></div>${progressHtml()}`;
     $('#go').onclick = () => {
       settings.mode = 'practice';
       changed(false);
@@ -1239,7 +1298,7 @@ function panel(): void {
   let heading =
     kind === 'find' || kind === 'dot' ? 'Find' : kind === 'town' ? 'Place this town' : 'Name this';
   if (set === 'tel')
-    heading = kind === 'find' ? 'Tap a département where landlines start with' : 'Which phone zone?';
+    heading = kind === 'find' ? `Tap a ${depTerm()} where landlines start with` : 'Which phone zone?';
   if (set === 'nom')
     heading =
       kind === 'find'
@@ -1260,15 +1319,18 @@ function panel(): void {
         : set === 'riv'
           ? 'Tap the river.'
           : set === 'dep' && r.askBy === 'num'
-            ? 'Département number'
+            ? `${ix.country.copy.departmentTerm.one} number`
             : '';
   } else if (set === 'tel') {
-    target = kind === 'find' ? cur.slice(1, 3) : 'The blue département';
-    sub = kind === 'find' ? 'Tap any département in that zone.' : 'Pick the zone, or press 1–5.';
+    target = kind === 'find' ? zoneOfQuestion(cur)! : `The blue ${depTerm()}`;
+    sub =
+      kind === 'find'
+        ? `Tap any ${depTerm()} in that zone.`
+        : `Pick the zone, or press 1–${r.choices?.length ?? 5}.`;
   } else if (set === 'nom') {
     if (kind === 'find') {
       target = esc(ix.patternById[cur].label);
-      sub = 'Tap a département in that area.';
+      sub = `Tap a ${depTerm()} in that area.`;
     } else if (kind === 'town') {
       const town = ix.nameTownById[cur];
       target = esc(town.name);
@@ -1291,7 +1353,7 @@ function panel(): void {
           ? 'The blue region'
           : set === 'riv'
             ? 'The pink river'
-            : 'The blue département';
+            : `The blue ${depTerm()}`;
     sub = 'Pick the right answer, or press 1–4.';
   }
 
@@ -1355,7 +1417,7 @@ function progressHtml(): string {
     settings.mode === 'practice'
       ? ' (' + esc(document.querySelector('#kindSeg [aria-pressed=true]')?.textContent || '') + ')'
       : '';
-  return `<p class="k" style="margin-top:12px">Your progress in ${esc(TITLES[settings.set])}${kindLabel}</p><div class="prog"><i style="width:${(100 * st.solid) / st.total}%;background:var(--ok)"></i></div><div class="stats"><span>${st.solid} / ${st.total} solid</span><span>${st.due} due · ${st.fresh} new</span></div><p class="hint">Items you get right move to longer review gaps (10 min, 1 h, 1 day, 3 days, a week); a miss sends them back to the start. Each round picks due and missed items first. Saved in this browser.</p><div class="row"><button class="btn" id="srReset" style="flex:0 0 auto">Reset progress</button></div>`;
+  return `<p class="k" style="margin-top:12px">Your progress in ${esc(setLabel(settings.set))}${kindLabel}</p><div class="prog"><i style="width:${(100 * st.solid) / st.total}%;background:var(--ok)"></i></div><div class="stats"><span>${st.solid} / ${st.total} solid</span><span>${st.due} due · ${st.fresh} new</span></div><p class="hint">Items you get right move to longer review gaps (10 min, 1 h, 1 day, 3 days, a week); a miss sends them back to the start. Each round picks due and missed items first. Saved in this browser.</p><div class="row"><button class="btn" id="srReset" style="flex:0 0 auto">Reset progress</button></div>`;
 }
 
 function statsHtml(): string {
@@ -1399,16 +1461,18 @@ function infoCard(): string {
   const d = ix.departmentByCode[u];
   if (ix.regionByKey[u]) {
     const r = ix.regionByKey[u];
-    h = `<h3>${esc(r.name)}</h3><p>Capital <b>${esc(r.capital)}</b> · ${r.codes.length} départements</p><div class="chips">${r.codes.map((c) => `<button data-u="${c}">${c} ${esc(ix.departmentByCode[c].name)}</button>`).join('')}</div>`;
+    h = `<h3>${esc(r.name)}</h3><p>Capital <b>${esc(r.capital)}</b> · ${r.codes.length} ${esc(ix.country.copy.departmentTerm.many.toLowerCase())}</p><div class="chips">${r.codes.map((c) => `<button data-u="${c}">${codesShown() ? c + ' ' : ''}${esc(ix.departmentByCode[c].name)}</button>`).join('')}</div>`;
   } else if (settings.set === 'tel' && d) {
     const z = ix.zoneOfDepartment[d.code];
-    h = `<h3>${d.code} · ${esc(d.name)}</h3><p>Landlines start with <b>${z}</b> (${esc(ix.phoneZoneById[z].name)})</p>`;
+    const local = localPrefixes(d.code);
+    h = `<h3>${esc(nameOf(d.code, 'full'))}</h3><p>Landlines start with <b>${z}</b> (${esc(ix.phoneZoneById[z].name)})</p>${local.length ? `<p>Local prefixes <b>${local.map((p) => z + ' ' + p).join(', ')}</b></p>` : ''}`;
   } else if (settings.set === 'nom' && d) {
     const ps = patternsIn(d.code);
-    h = `<h3>${d.code} · ${esc(d.name)}</h3><p>${ps.length ? 'Typical endings here:' : 'None of these patterns is typical here.'}</p><div class="chips">${ps.map((p) => `<button data-u="${p.id}">${esc(p.label)}</button>`).join('')}</div>`;
+    h = `<h3>${esc(nameOf(d.code, 'full'))}</h3><p>${ps.length ? 'Typical endings here:' : 'None of these patterns is typical here.'}</p><div class="chips">${ps.map((p) => `<button data-u="${p.id}">${esc(p.label)}</button>`).join('')}</div>`;
   } else if (d) {
     const cities = ix.cities.filter((c) => c.code === d.code);
-    h = `<h3>${d.code} · ${esc(d.name)}</h3><p>Prefecture <b>${esc(d.prefecture)}</b></p><p>Region <b>${esc(ix.regionByKey[d.region].name)}</b></p><p>Plates end in <b>${d.code}</b></p>${cities.length ? `<p>Cities here: <b>${cities.map((c) => esc(c.name)).join(', ')}</b></p>` : ''}`;
+    const { seatLabel, regionTerm, plateLabel } = ix.country.copy;
+    h = `<h3>${esc(nameOf(d.code, 'full'))}</h3><p>${esc(seatLabel)} <b>${esc(d.prefecture)}</b></p><p>${esc(regionTerm.one)} <b>${esc(ix.regionByKey[d.region].name)}</b></p>${plateLabel && d.plate ? `<p>${esc(plateLabel)} <b>${esc(d.plate)}</b></p>` : ''}${cities.length ? `<p>Cities here: <b>${cities.map((c) => esc(c.name)).join(', ')}</b></p>` : ''}`;
   } else if (ix.patternById[u]) {
     const p = ix.patternById[u];
     h = `<h3>${esc(p.label)}</h3><p><b>${esc(p.where)}</b></p><p>${esc(p.origin)}</p><p style="margin-top:6px">Examples: <b>${p.towns
@@ -1423,7 +1487,8 @@ function infoCard(): string {
   } else if (ix.cityById[u]) {
     const c = ix.cityById[u];
     const cd = ix.departmentByCode[c.code];
-    h = `<h3>${esc(c.name)}</h3><p>Département <b>${cd.code} ${esc(cd.name)}</b></p><p>Region <b>${esc(ix.regionByKey[c.region].name)}</b></p>`;
+    const { departmentTerm, regionTerm } = ix.country.copy;
+    h = `<h3>${esc(c.name)}</h3><p>${esc(departmentTerm.one)} <b>${codesShown() ? cd.code + ' ' : ''}${esc(cd.name)}</b></p><p>${esc(regionTerm.one)} <b>${esc(ix.regionByKey[c.region].name)}</b></p>`;
   }
   return `${CARD}${h}</div>`;
 }
@@ -1435,10 +1500,30 @@ function tipsHtml(): string {
 
 /* ---------- start ---------- */
 
+/** Title, subtitle, set buttons, area labels and credits for the country. */
+function renderChrome(): void {
+  const { country } = ix;
+  const { copy } = country;
+  document.title = `${country.name} map trainer`;
+  $('#countryName').textContent = country.name;
+  $('#subtitle').textContent = copy.subtitle;
+  svg.setAttribute('aria-label', `Map of ${country.name}`);
+  $('#setSeg').innerHTML = country.sets
+    .map((set) => `<button data-v="${set}">${esc(setLabel(set))}</button>`)
+    .join('');
+  $('#telfLabel').textContent = copy.departmentTerm.many;
+  // Department numbers only mean something where codes are shown.
+  selectEl('#labs').querySelector<HTMLOptionElement>('option[value=num]')!.hidden = !codesShown();
+  $('#credits').innerHTML = copy.credits;
+}
+
 export function startTrainer(index: CountryIndex, trainerStorage: TrainerStorage): void {
   ix = index;
   storage = trainerStorage;
   settings = normalizeSettings(storage.loadSettings(), validValues());
+  if (settings.set !== 'riv' && settings.set !== 'nom' && settings.kind === 'town') settings.kind = 'find';
+  if (settings.set !== 'city' && settings.kind === 'dot') settings.kind = 'find';
+  renderChrome();
   progress = storage.loadProgress();
   bindControls();
   bindPointer();

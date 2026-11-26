@@ -26,6 +26,7 @@ export const DepartmentSchema = z.object({
   prefecture: nonEmpty,
   lat,
   lon,
+  plate: nonEmpty.optional(),
 });
 
 export const CitySchema = z.object({
@@ -48,6 +49,36 @@ export const PhoneDataSchema = z.object({
   zones: z.array(PhoneZoneSchema),
   zoneByDepartement: z.record(z.string(), z.string()),
   borderDepartements: z.array(z.string()),
+  localPrefixes: z.record(z.string(), z.array(nonEmpty).min(1)).optional(),
+});
+
+const StudySetSchema = z.enum(['reg', 'dep', 'city', 'riv', 'tel', 'nom']);
+const TermSchema = z.object({ one: nonEmpty, many: nonEmpty });
+
+/** Country-level settings and interface text. */
+export const CountryMetaSchema = z.object({
+  id: z.string().regex(/^[a-z-]+$/),
+  name: nonEmpty,
+  sets: z.array(StudySetSchema).min(1),
+  departmentCodes: z.enum(['shown', 'hidden']),
+  projectionRefLat: lat,
+  outline: z.object({
+    viewBox: z.string().regex(/^-?[\d.]+[ ,]-?[\d.]+[ ,][\d.]+[ ,][\d.]+$/),
+    locations: z.array(z.object({ id: nonEmpty, name: z.string(), path: nonEmpty })).min(1),
+    affine: z.array(z.array(z.number()).length(3)).length(2).optional(),
+  }),
+  copy: z.object({
+    subtitle: nonEmpty,
+    setLabels: z.partialRecord(StudySetSchema, nonEmpty),
+    regionTerm: TermSchema,
+    departmentTerm: TermSchema,
+    seatLabel: nonEmpty,
+    plateLabel: nonEmpty.optional(),
+    allAreas: nonEmpty,
+    tips: z.partialRecord(StudySetSchema, nonEmpty),
+    phoneHint: z.string(),
+    credits: nonEmpty,
+  }),
 });
 
 export const NameTownSchema = z.object({
@@ -122,6 +153,7 @@ export function validateCountry(country: Country): ValidationResult {
       }
     });
   };
+  check('country', CountryMetaSchema, [country]);
   check('regions', RegionSchema, country.regions);
   check('departments', DepartmentSchema, country.departments);
   check('cities', CitySchema, country.cities);
@@ -222,6 +254,27 @@ export function validateCountry(country: Country): ValidationResult {
   for (const t of country.rivers.towns) {
     if (!usedTowns.has(t.id)) warnings.push(`river town ${t.name} (${t.id}) is on no river`);
   }
+
+  // Every offered set needs its label, tip and data; codes in local prefixes must exist.
+  if (new Set(country.sets).size !== country.sets.length) errors.push('sets has duplicates');
+  const setData: Record<string, number> = {
+    reg: country.regions.length,
+    dep: country.departments.length,
+    city: country.cities.length,
+    riv: country.rivers.rivers.length,
+    tel: country.phone.zones.length,
+    nom: country.namePatterns.length,
+  };
+  for (const set of country.sets) {
+    if (!country.copy.setLabels[set]) errors.push(`set ${set} has no label in copy.setLabels`);
+    if (!country.copy.tips[set]) errors.push(`set ${set} has no tip in copy.tips`);
+    if (!setData[set]) errors.push(`set ${set} is offered but has no data`);
+  }
+  for (const code of Object.keys(country.phone.localPrefixes ?? {})) {
+    if (!departmentCodes.has(code)) errors.push(`local prefixes given for unknown department ${code}`);
+  }
+  if (country.copy.plateLabel && !country.departments.some((d) => d.plate))
+    warnings.push('copy.plateLabel is set but no department has a plate');
 
   // The outline against the data (compared upper-cased: outline ids may differ in case).
   const outlineIds = new Set(country.outline.locations.map((l) => l.id.toUpperCase()));

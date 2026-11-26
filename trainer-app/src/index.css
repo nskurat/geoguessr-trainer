@@ -272,6 +272,13 @@ select:focus-visible {
   border-radius: 3px;
   transform: translateY(1px);
 }
+h1 .country {
+  color: inherit;
+}
+#lp text {
+  fill: var(--mute);
+  font-weight: 600;
+}
 #rvl text {
   fill: var(--river);
   font-style: italic;

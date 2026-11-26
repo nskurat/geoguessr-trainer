@@ -44,16 +44,17 @@ const oneOf = <T extends string>(allowed: readonly T[], value: unknown, fallback
 
 /**
  * Settings from whatever was persisted, falling back to the default for any
- * field that is missing or no longer valid (e.g. a region key from older data).
+ * field that is missing or no longer valid (e.g. a region key from older data, or a
+ * study set the country does not offer).
  */
 export function normalizeSettings(
   raw: unknown,
-  valid: { regionKeys: string[]; riverIds: string[] },
+  valid: { regionKeys: string[]; riverIds: string[]; sets?: readonly StudySet[] },
 ): Settings {
   const r = (raw && typeof raw === 'object' ? raw : {}) as Record<string, unknown>;
   const d = DEFAULT_SETTINGS;
   return {
-    set: oneOf(STUDY_SETS, r.set, d.set),
+    set: oneOf(valid.sets ?? STUDY_SETS, r.set, (valid.sets ?? STUDY_SETS)[0]),
     mode: oneOf(MODES, r.mode, d.mode),
     kind: oneOf(QUESTION_KINDS, r.kind, d.kind),
     scope: oneOf(['all', ...valid.regionKeys], r.scope, d.scope),
