@@ -1032,7 +1032,8 @@ function choicesFor(answer: string): string[] {
       answer: zoneAnswer(),
       roundItems: zones,
       allItems: zones,
-      groupOf: (u) => u.slice(1, 2),
+      // First significant digit: "z044" and "z043" are both northern codes.
+      groupOf: (u) => u.slice(1).replace(/^0+/, '').charAt(0),
       rng: Math.random,
     });
   }
