@@ -1529,15 +1529,7 @@ function renderChrome(): void {
   const { copy } = ix;
   const name = copy.countryName;
   document.title = t('app.title', { country: name });
-  // With several countries the picker stands in for the name; keep it across re-renders.
-  const pick = document.querySelector<HTMLElement>('#countryPick');
-  pick?.remove();
   $('#title').innerHTML = th('app.h1', { country: name });
-  if (pick) {
-    if (pick.hidden) $('#title').after(pick);
-    else $('#title .country').replaceChildren(pick);
-    pick.querySelector('select')!.setAttribute('aria-label', t('bar.country'));
-  }
   $('#subtitle').textContent = copy.subtitle;
   svg.setAttribute('aria-label', t('map.label', { country: name }));
   $('#setSeg').innerHTML = ix.country.sets
