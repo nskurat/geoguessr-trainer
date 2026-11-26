@@ -1,0 +1,177 @@
+[
+  {
+    "code": "AMA",
+    "name": "Amazonas",
+    "prefecture": "Chachapoyas",
+    "lat": -6.217,
+    "lon": -77.85
+  },
+  {
+    "code": "ANC",
+    "name": "Áncash",
+    "prefecture": "Huaraz",
+    "lat": -9.533,
+    "lon": -77.533
+  },
+  {
+    "code": "APU",
+    "name": "Apurímac",
+    "prefecture": "Abancay",
+    "lat": -13.633,
+    "lon": -72.883
+  },
+  {
+    "code": "ARE",
+    "name": "Arequipa",
+    "prefecture": "Arequipa",
+    "lat": -16.399,
+    "lon": -71.537
+  },
+  {
+    "code": "AYA",
+    "name": "Ayacucho",
+    "prefecture": "Ayacucho",
+    "lat": -13.163,
+    "lon": -74.224
+  },
+  {
+    "code": "CAJ",
+    "name": "Cajamarca",
+    "prefecture": "Cajamarca",
+    "lat": -7.157,
+    "lon": -78.517
+  },
+  {
+    "code": "CUS",
+    "name": "Cusco",
+    "prefecture": "Cusco",
+    "lat": -13.517,
+    "lon": -71.979
+  },
+  {
+    "code": "HUC",
+    "name": "Huánuco",
+    "prefecture": "Huánuco",
+    "lat": -9.929,
+    "lon": -76.24
+  },
+  {
+    "code": "HUV",
+    "name": "Huancavelica",
+    "prefecture": "Huancavelica",
+    "lat": -12.786,
+    "lon": -74.976
+  },
+  {
+    "code": "ICA",
+    "name": "Ica",
+    "prefecture": "Ica",
+    "lat": -14.067,
+    "lon": -75.733
+  },
+  {
+    "code": "JUN",
+    "name": "Junín",
+    "prefecture": "Huancayo",
+    "lat": -12.067,
+    "lon": -75.217
+  },
+  {
+    "code": "LAL",
+    "name": "La Libertad",
+    "prefecture": "Trujillo",
+    "lat": -8.112,
+    "lon": -79.029
+  },
+  {
+    "code": "LAM",
+    "name": "Lambayeque",
+    "prefecture": "Chiclayo",
+    "lat": -6.772,
+    "lon": -79.838
+  },
+  {
+    "code": "LIM",
+    "name": "Lima Provincias",
+    "prefecture": "Huacho",
+    "lat": -11.107,
+    "lon": -77.605
+  },
+  {
+    "code": "LMA",
+    "name": "Lima Metropolitana y Callao",
+    "prefecture": "Lima",
+    "lat": -12.06,
+    "lon": -77.037
+  },
+  {
+    "code": "LOR",
+    "name": "Loreto",
+    "prefecture": "Iquitos",
+    "lat": -3.75,
+    "lon": -73.25
+  },
+  {
+    "code": "MDD",
+    "name": "Madre de Dios",
+    "prefecture": "Puerto Maldonado",
+    "lat": -12.6,
+    "lon": -69.183
+  },
+  {
+    "code": "MOQ",
+    "name": "Moquegua",
+    "prefecture": "Moquegua",
+    "lat": -17.2,
+    "lon": -70.933
+  },
+  {
+    "code": "PAS",
+    "name": "Pasco",
+    "prefecture": "Cerro de Pasco",
+    "lat": -10.686,
+    "lon": -76.263
+  },
+  {
+    "code": "PIU",
+    "name": "Piura",
+    "prefecture": "Piura",
+    "lat": -5.2,
+    "lon": -80.633
+  },
+  {
+    "code": "PUN",
+    "name": "Puno",
+    "prefecture": "Puno",
+    "lat": -15.843,
+    "lon": -70.024
+  },
+  {
+    "code": "SAM",
+    "name": "San Martín",
+    "prefecture": "Moyobamba",
+    "lat": -6.033,
+    "lon": -76.967
+  },
+  {
+    "code": "TAC",
+    "name": "Tacna",
+    "prefecture": "Tacna",
+    "lat": -18.015,
+    "lon": -70.249
+  },
+  {
+    "code": "TUM",
+    "name": "Tumbes",
+    "prefecture": "Tumbes",
+    "lat": -3.571,
+    "lon": -80.46
+  },
+  {
+    "code": "UCA",
+    "name": "Ucayali",
+    "prefecture": "Pucallpa",
+    "lat": -8.383,
+    "lon": -74.55
+  }
+]

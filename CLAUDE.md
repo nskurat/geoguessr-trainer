@@ -5,9 +5,9 @@ it is loaded into every session. Open work and settled decisions live in `docs/b
 
 ## What this is
 
-A static, client-only map trainer for GeoGuessr-style geography, starting with France:
-regions, départements, cities, rivers, landline phone zones and place-name endings. Each
-topic has a Learn mode (explore the map) and a Practice mode (several question types,
+A static, client-only map trainer for GeoGuessr-style geography, for France and Peru:
+regions, departments, cities, rivers, landline phone zones and place-name endings (each
+country offers only the topics worth drilling there). Each topic has a Learn mode (explore the map) and a Practice mode (several question types,
 rounds, spaced repetition in a Leitner system kept in localStorage). It began as a
 single-file claude.ai artifact. No backend. More countries will follow: the code is
 country-agnostic and each country is a data folder. Deployed to GitHub Pages at
@@ -42,7 +42,7 @@ scripts/build-outline.ts      Builds a country's outline + river courses from Na
 trainer-app/
   index.html            Single page: header, control bar, map container, side panel
   src/
-    main.ts             Entry: picks the country (France), builds the index, starts the trainer
+    main.ts             Entry: picks the country (?country=, last used, else France), loads it, starts the trainer
     index.css           All styles; colour tokens on :root with light/dark themes
     app/trainer.ts      The imperative UI (map rendering, pan/zoom, controls, practice flow, panel).
                         Temporary shape: to be split into components in the planned React port

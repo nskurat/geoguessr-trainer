@@ -1,0 +1,634 @@
+[
+  {
+    "id": "c0",
+    "name": "Lima",
+    "code": "LMA",
+    "lat": -12.06,
+    "lon": -77.037,
+    "tier": 1
+  },
+  {
+    "id": "c1",
+    "name": "Callao",
+    "code": "LMA",
+    "lat": -12.052,
+    "lon": -77.139,
+    "tier": 1
+  },
+  {
+    "id": "c2",
+    "name": "Arequipa",
+    "code": "ARE",
+    "lat": -16.399,
+    "lon": -71.537,
+    "tier": 1
+  },
+  {
+    "id": "c3",
+    "name": "Trujillo",
+    "code": "LAL",
+    "lat": -8.112,
+    "lon": -79.029,
+    "tier": 1
+  },
+  {
+    "id": "c4",
+    "name": "Chiclayo",
+    "code": "LAM",
+    "lat": -6.772,
+    "lon": -79.838,
+    "tier": 1
+  },
+  {
+    "id": "c5",
+    "name": "Piura",
+    "code": "PIU",
+    "lat": -5.2,
+    "lon": -80.633,
+    "tier": 1
+  },
+  {
+    "id": "c6",
+    "name": "Iquitos",
+    "code": "LOR",
+    "lat": -3.75,
+    "lon": -73.25,
+    "tier": 1
+  },
+  {
+    "id": "c7",
+    "name": "Cusco",
+    "code": "CUS",
+    "lat": -13.517,
+    "lon": -71.979,
+    "tier": 1
+  },
+  {
+    "id": "c8",
+    "name": "Huancayo",
+    "code": "JUN",
+    "lat": -12.067,
+    "lon": -75.217,
+    "tier": 1
+  },
+  {
+    "id": "c9",
+    "name": "Chimbote",
+    "code": "ANC",
+    "lat": -9.075,
+    "lon": -78.594,
+    "tier": 1
+  },
+  {
+    "id": "c10",
+    "name": "Pucallpa",
+    "code": "UCA",
+    "lat": -8.383,
+    "lon": -74.55,
+    "tier": 1
+  },
+  {
+    "id": "c11",
+    "name": "Tacna",
+    "code": "TAC",
+    "lat": -18.015,
+    "lon": -70.249,
+    "tier": 1
+  },
+  {
+    "id": "c12",
+    "name": "Ica",
+    "code": "ICA",
+    "lat": -14.067,
+    "lon": -75.733,
+    "tier": 1
+  },
+  {
+    "id": "c13",
+    "name": "Juliaca",
+    "code": "PUN",
+    "lat": -15.49,
+    "lon": -70.13,
+    "tier": 1
+  },
+  {
+    "id": "c14",
+    "name": "Puno",
+    "code": "PUN",
+    "lat": -15.843,
+    "lon": -70.024,
+    "tier": 1
+  },
+  {
+    "id": "c15",
+    "name": "Cajamarca",
+    "code": "CAJ",
+    "lat": -7.157,
+    "lon": -78.517,
+    "tier": 1
+  },
+  {
+    "id": "c16",
+    "name": "Ayacucho",
+    "code": "AYA",
+    "lat": -13.163,
+    "lon": -74.224,
+    "tier": 1
+  },
+  {
+    "id": "c17",
+    "name": "Tarapoto",
+    "code": "SAM",
+    "lat": -6.483,
+    "lon": -76.367,
+    "tier": 1
+  },
+  {
+    "id": "c18",
+    "name": "Huánuco",
+    "code": "HUC",
+    "lat": -9.929,
+    "lon": -76.24,
+    "tier": 1
+  },
+  {
+    "id": "c19",
+    "name": "Huaraz",
+    "code": "ANC",
+    "lat": -9.533,
+    "lon": -77.533,
+    "tier": 1
+  },
+  {
+    "id": "c20",
+    "name": "Tumbes",
+    "code": "TUM",
+    "lat": -3.571,
+    "lon": -80.46,
+    "tier": 1
+  },
+  {
+    "id": "c21",
+    "name": "Chachapoyas",
+    "code": "AMA",
+    "lat": -6.217,
+    "lon": -77.85,
+    "tier": 2
+  },
+  {
+    "id": "c22",
+    "name": "Bagua Grande",
+    "code": "AMA",
+    "lat": -5.757,
+    "lon": -78.445,
+    "tier": 2
+  },
+  {
+    "id": "c23",
+    "name": "Caraz",
+    "code": "ANC",
+    "lat": -9.048,
+    "lon": -77.811,
+    "tier": 2
+  },
+  {
+    "id": "c24",
+    "name": "Carhuaz",
+    "code": "ANC",
+    "lat": -9.281,
+    "lon": -77.646,
+    "tier": 2
+  },
+  {
+    "id": "c25",
+    "name": "Casma",
+    "code": "ANC",
+    "lat": -9.474,
+    "lon": -78.311,
+    "tier": 2
+  },
+  {
+    "id": "c26",
+    "name": "Huarmey",
+    "code": "ANC",
+    "lat": -10.069,
+    "lon": -78.16,
+    "tier": 2
+  },
+  {
+    "id": "c27",
+    "name": "Abancay",
+    "code": "APU",
+    "lat": -13.633,
+    "lon": -72.883,
+    "tier": 2
+  },
+  {
+    "id": "c28",
+    "name": "Andahuaylas",
+    "code": "APU",
+    "lat": -13.658,
+    "lon": -73.383,
+    "tier": 2
+  },
+  {
+    "id": "c29",
+    "name": "Camaná",
+    "code": "ARE",
+    "lat": -16.624,
+    "lon": -72.711,
+    "tier": 2
+  },
+  {
+    "id": "c30",
+    "name": "Mollendo",
+    "code": "ARE",
+    "lat": -17.023,
+    "lon": -72.015,
+    "tier": 2
+  },
+  {
+    "id": "c31",
+    "name": "Chivay",
+    "code": "ARE",
+    "lat": -15.633,
+    "lon": -71.6,
+    "tier": 2
+  },
+  {
+    "id": "c32",
+    "name": "Huanta",
+    "code": "AYA",
+    "lat": -12.94,
+    "lon": -74.248,
+    "tier": 2
+  },
+  {
+    "id": "c33",
+    "name": "Puquio",
+    "code": "AYA",
+    "lat": -14.694,
+    "lon": -74.124,
+    "tier": 2
+  },
+  {
+    "id": "c34",
+    "name": "Jaén",
+    "code": "CAJ",
+    "lat": -5.708,
+    "lon": -78.808,
+    "tier": 2
+  },
+  {
+    "id": "c35",
+    "name": "Chota",
+    "code": "CAJ",
+    "lat": -6.561,
+    "lon": -78.649,
+    "tier": 2
+  },
+  {
+    "id": "c36",
+    "name": "Sicuani",
+    "code": "CUS",
+    "lat": -14.272,
+    "lon": -71.229,
+    "tier": 2
+  },
+  {
+    "id": "c37",
+    "name": "Urubamba",
+    "code": "CUS",
+    "lat": -13.304,
+    "lon": -72.117,
+    "tier": 2
+  },
+  {
+    "id": "c38",
+    "name": "Quillabamba",
+    "code": "CUS",
+    "lat": -12.868,
+    "lon": -72.693,
+    "tier": 2
+  },
+  {
+    "id": "c39",
+    "name": "Huancavelica",
+    "code": "HUV",
+    "lat": -12.786,
+    "lon": -74.976,
+    "tier": 2
+  },
+  {
+    "id": "c40",
+    "name": "Tingo María",
+    "code": "HUC",
+    "lat": -9.295,
+    "lon": -75.998,
+    "tier": 2
+  },
+  {
+    "id": "c41",
+    "name": "Chincha Alta",
+    "code": "ICA",
+    "lat": -13.42,
+    "lon": -76.14,
+    "tier": 2
+  },
+  {
+    "id": "c42",
+    "name": "Pisco",
+    "code": "ICA",
+    "lat": -13.71,
+    "lon": -76.2,
+    "tier": 2
+  },
+  {
+    "id": "c43",
+    "name": "Nasca",
+    "code": "ICA",
+    "lat": -14.829,
+    "lon": -74.944,
+    "tier": 2
+  },
+  {
+    "id": "c44",
+    "name": "Jauja",
+    "code": "JUN",
+    "lat": -11.775,
+    "lon": -75.5,
+    "tier": 2
+  },
+  {
+    "id": "c45",
+    "name": "Tarma",
+    "code": "JUN",
+    "lat": -11.419,
+    "lon": -75.691,
+    "tier": 2
+  },
+  {
+    "id": "c46",
+    "name": "La Oroya",
+    "code": "JUN",
+    "lat": -11.522,
+    "lon": -75.91,
+    "tier": 2
+  },
+  {
+    "id": "c47",
+    "name": "Satipo",
+    "code": "JUN",
+    "lat": -11.254,
+    "lon": -74.637,
+    "tier": 2
+  },
+  {
+    "id": "c48",
+    "name": "Pacasmayo",
+    "code": "LAL",
+    "lat": -7.4,
+    "lon": -79.57,
+    "tier": 2
+  },
+  {
+    "id": "c49",
+    "name": "Chepén",
+    "code": "LAL",
+    "lat": -7.227,
+    "lon": -79.43,
+    "tier": 2
+  },
+  {
+    "id": "c50",
+    "name": "Huamachuco",
+    "code": "LAL",
+    "lat": -7.812,
+    "lon": -78.049,
+    "tier": 2
+  },
+  {
+    "id": "c51",
+    "name": "Lambayeque",
+    "code": "LAM",
+    "lat": -6.7,
+    "lon": -79.9,
+    "tier": 2
+  },
+  {
+    "id": "c52",
+    "name": "Olmos",
+    "code": "LAM",
+    "lat": -5.985,
+    "lon": -79.745,
+    "tier": 2
+  },
+  {
+    "id": "c53",
+    "name": "Huacho",
+    "code": "LIM",
+    "lat": -11.107,
+    "lon": -77.605,
+    "tier": 2
+  },
+  {
+    "id": "c54",
+    "name": "Barranca",
+    "code": "LIM",
+    "lat": -10.754,
+    "lon": -77.761,
+    "tier": 2
+  },
+  {
+    "id": "c55",
+    "name": "Huaral",
+    "code": "LIM",
+    "lat": -11.501,
+    "lon": -77.209,
+    "tier": 2
+  },
+  {
+    "id": "c56",
+    "name": "Chancay",
+    "code": "LIM",
+    "lat": -11.565,
+    "lon": -77.271,
+    "tier": 2
+  },
+  {
+    "id": "c57",
+    "name": "San Vicente de Cañete",
+    "code": "LIM",
+    "lat": -13.083,
+    "lon": -76.4,
+    "tier": 2
+  },
+  {
+    "id": "c58",
+    "name": "Chilca",
+    "code": "LIM",
+    "lat": -12.519,
+    "lon": -76.739,
+    "tier": 2
+  },
+  {
+    "id": "c59",
+    "name": "Yurimaguas",
+    "code": "LOR",
+    "lat": -5.9,
+    "lon": -76.083,
+    "tier": 2
+  },
+  {
+    "id": "c60",
+    "name": "Nauta",
+    "code": "LOR",
+    "lat": -4.508,
+    "lon": -73.583,
+    "tier": 2
+  },
+  {
+    "id": "c61",
+    "name": "Puerto Maldonado",
+    "code": "MDD",
+    "lat": -12.6,
+    "lon": -69.183,
+    "tier": 2
+  },
+  {
+    "id": "c62",
+    "name": "Iñapari",
+    "code": "MDD",
+    "lat": -10.948,
+    "lon": -69.576,
+    "tier": 2
+  },
+  {
+    "id": "c63",
+    "name": "Moquegua",
+    "code": "MOQ",
+    "lat": -17.2,
+    "lon": -70.933,
+    "tier": 2
+  },
+  {
+    "id": "c64",
+    "name": "Ilo",
+    "code": "MOQ",
+    "lat": -17.646,
+    "lon": -71.345,
+    "tier": 2
+  },
+  {
+    "id": "c65",
+    "name": "Cerro de Pasco",
+    "code": "PAS",
+    "lat": -10.686,
+    "lon": -76.263,
+    "tier": 2
+  },
+  {
+    "id": "c66",
+    "name": "Sullana",
+    "code": "PIU",
+    "lat": -4.904,
+    "lon": -80.685,
+    "tier": 2
+  },
+  {
+    "id": "c67",
+    "name": "Talara",
+    "code": "PIU",
+    "lat": -4.58,
+    "lon": -81.272,
+    "tier": 2
+  },
+  {
+    "id": "c68",
+    "name": "Paita",
+    "code": "PIU",
+    "lat": -5.091,
+    "lon": -81.106,
+    "tier": 2
+  },
+  {
+    "id": "c69",
+    "name": "Máncora",
+    "code": "PIU",
+    "lat": -4.106,
+    "lon": -81.047,
+    "tier": 2
+  },
+  {
+    "id": "c70",
+    "name": "Chulucanas",
+    "code": "PIU",
+    "lat": -5.096,
+    "lon": -80.165,
+    "tier": 2
+  },
+  {
+    "id": "c71",
+    "name": "Ilave",
+    "code": "PUN",
+    "lat": -16.084,
+    "lon": -69.638,
+    "tier": 2
+  },
+  {
+    "id": "c72",
+    "name": "Ayaviri",
+    "code": "PUN",
+    "lat": -14.882,
+    "lon": -70.59,
+    "tier": 2
+  },
+  {
+    "id": "c73",
+    "name": "Desaguadero",
+    "code": "PUN",
+    "lat": -16.566,
+    "lon": -69.042,
+    "tier": 2
+  },
+  {
+    "id": "c74",
+    "name": "Moyobamba",
+    "code": "SAM",
+    "lat": -6.033,
+    "lon": -76.967,
+    "tier": 2
+  },
+  {
+    "id": "c75",
+    "name": "Juanjuí",
+    "code": "SAM",
+    "lat": -7.18,
+    "lon": -76.726,
+    "tier": 2
+  },
+  {
+    "id": "c76",
+    "name": "Tocache",
+    "code": "SAM",
+    "lat": -8.189,
+    "lon": -76.514,
+    "tier": 2
+  },
+  {
+    "id": "c77",
+    "name": "Nueva Cajamarca",
+    "code": "SAM",
+    "lat": -5.941,
+    "lon": -77.308,
+    "tier": 2
+  },
+  {
+    "id": "c78",
+    "name": "Aguaytía",
+    "code": "UCA",
+    "lat": -9.037,
+    "lon": -75.507,
+    "tier": 2
+  }
+]

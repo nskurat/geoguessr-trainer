@@ -1351,7 +1351,7 @@ function panel(): void {
       set === 'city'
         ? 'The blue dot'
         : set === 'reg'
-          ? 'The blue region'
+          ? `The blue ${ix.country.copy.regionTerm.one.toLowerCase()}`
           : set === 'riv'
             ? 'The pink river'
             : `The blue ${depTerm()}`;
@@ -1377,7 +1377,9 @@ function panel(): void {
 
   let choices = '';
   if (kind === 'name' && r.choices) {
-    const how: NameStyle = set === 'dep' ? r.askBy : set === 'tel' ? 'full' : '';
+    // Zones named after their region (Peru) would give the answer away, so show codes only.
+    const how: NameStyle =
+      set === 'dep' ? r.askBy : set === 'tel' && ix.phoneZones.length <= 5 ? 'full' : '';
     choices =
       '<div class="choices">' +
       r.choices

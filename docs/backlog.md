@@ -17,15 +17,20 @@ visual design stays the artifact's (see Settled decisions); this is a structural
 - Add jsdom component tests per stage; pure logic keeps its node-environment unit tests.
 - To decide: routing (country in the URL) now or with multi-country support below.
 
-## Multi-country support
+## Multi-country follow-ups
 
-- Country picker / route; `main.ts` currently picks France directly.
-- Generalise the France-specific UI labels still in `app/trainer.ts` ("Départements",
-  "Département number", "Plates end in", region / département terminology) into the
-  country's `copy`.
-- Per-country progress keys already exist (`geotrainer_<country>_progress`).
-- Agent skills for researching and building a new country's data (sources, outline
-  package, validation) — planned, not started.
+- Interface language switch (English, Belarusian), with language files structured so more
+  languages are easy to add; country copy needs per-language text too. In progress in a
+  separate session.
+- Peru signals the engine can't express yet (see `data/peru/RESEARCH.md` §8): landscape
+  zones (costa / sierra / selva and sub-zones), highway numbers and km markers, coverage
+  gaps (Iquitos is an isolated island of coverage), pole stickers, the Moquegua bollard,
+  Lima's inverted-J lamp posts, mototaxi types, crops and soil, volcanoes, Titicaca brick.
+- Peru data gaps: Mantaro course (U-shaped lower course not mapped reliably), Chira towns,
+  and a few hand-drawn course stretches (Urubamba source, Quillabamba–Sepahua) accurate to
+  only a few km.
+- Small units are hard to hit at full-map zoom (Paris petite couronne; Lima y Callao is
+  fine). Consider a larger hit area or auto-zoom for tiny departments.
 
 ## Known issues and ideas
 
@@ -37,6 +42,16 @@ visual design stays the artifact's (see Settled decisions); this is a structural
   separate localStorage).
 
 ## Settled decisions
+
+- A country offers only the study sets worth drilling for it (`Country.sets`, decided with
+  the `geoguessr-pro` skill). Peru skips name endings: Quechua endings cover the whole sierra
+  and don't split it.
+- Peru: Callao is merged into Lima Metropolitana ("Lima Metropolitana y Callao") — Natural
+  Earth's Callao boundary is wrong and the two are indistinguishable on Street View. The
+  top-level grouping (Lima y Callao, Norte, Centro, Sur, Oriente) is a study grouping, not
+  an official one. Plate letters are left out: the registry-zone letters are shared between
+  regions, changed by 2024–2025 decrees, and blurred on Street View.
+- France's local phone prefixes (0Z AB) are shown, never quizzed.
 
 - No framework in the first cut, to keep behaviour identical to the artifact.
 - Map outlines are bundled from npm (`@svg-maps/france.departments`) instead of loaded from
