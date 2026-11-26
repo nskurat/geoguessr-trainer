@@ -1,0 +1,164 @@
+import type { Message } from '../types/i18n';
+
+/*
+ * English interface strings: the source of truth for every message key. Other
+ * languages are typed `Messages`, so a key missing there is a type error.
+ *
+ * - `{name}` is a parameter. Plural messages are objects keyed by CLDR category
+ *   (`one`, `few`, `many`, `other`) and pick their form from the `count` parameter.
+ * - Keys used with `th()` are trusted HTML (only `<b>`, `<span>`); parameters are
+ *   escaped. Every other key is plain text.
+ * - Country-specific words (régions, départements, …) are not here: they come from
+ *   each country's copy (`data/<country>/copy.<lang>.ts`) and are passed in as `{term}`.
+ */
+export const en = {
+  // Page
+  'app.title': '{country} map trainer',
+  'app.h1': '<span class="country">{country}</span> <span>map trainer</span>',
+  'app.loadingMap': 'Loading the map…',
+  'app.startFailed': 'The trainer could not start. Reload the page to try again.',
+  'map.label': 'Map of {country}',
+  'map.zoomIn': 'Zoom in',
+  'map.zoomOut': 'Zoom out',
+  'map.reset': 'Reset view',
+
+  // Control bar
+  'bar.whatToStudy': 'What to study',
+  'bar.mode': 'Mode',
+  'bar.kind': 'Question type',
+  'bar.country': 'Country',
+  'bar.language': 'Language',
+  'mode.learn': 'Learn',
+  'mode.practice': 'Practice',
+  'kind.find': 'Find on map',
+  'kind.name': 'Name it',
+  'kind.town': 'Place towns',
+  'kind.dot': 'Pick the dot',
+  'kind.tel.find': 'Find the zone',
+  'kind.tel.name': 'Which zone?',
+  'kind.nom.find': 'Ending → area',
+  'kind.nom.name': 'Area → ending',
+  'kind.nom.town': 'Real towns',
+  'kind.city.find': 'Distance',
+  'ctl.area': 'Area',
+  'ctl.river': 'River',
+  'ctl.allRivers': 'All rivers',
+  'ctl.round': 'Round',
+  'ctl.all': 'All',
+  'ctl.nearBorders': 'Near zone borders',
+  'ctl.askBy': 'Ask by',
+  'ctl.askName': 'Name',
+  'ctl.askNumber': 'Number',
+  'ctl.askMixed': 'Mixed',
+  'ctl.labels': 'Labels',
+  'ctl.labelsAuto': 'Auto',
+  'ctl.labelsNumbers': 'Numbers',
+  'ctl.labelsNames': 'Names',
+  'ctl.labelsOff': 'Off',
+
+  // Learn panel
+  'panel.loading': 'Loading',
+  'learn.heading': 'Learn',
+  'learn.inScope': '{set} in {area}',
+  'learn.count': '{count} to learn. Hover or tap the map for details; drag to pan, scroll or pinch to zoom.',
+  'learn.start': 'Start practising',
+  'tips.heading': 'How to use it',
+
+  // Questions
+  'q.find': 'Find',
+  'q.placeTown': 'Place this town',
+  'q.name': 'Name this',
+  'q.telFind': 'Tap a {term} where landlines start with',
+  'q.telName': 'Which phone zone?',
+  'q.nomFind': 'Where are names like this common?',
+  'q.nomTown': 'Where would you find this town?',
+  'q.nomName': 'Which ending is typical here?',
+  'target.blueTerm': 'The blue {term}',
+  'target.blueArea': 'The blue area',
+  'target.blueDot': 'The blue dot',
+  'target.pinkRiver': 'The pink river',
+  'sub.dot': 'Tap its dot.',
+  'sub.city': 'Tap where you think it is.',
+  'sub.river': 'Tap the river.',
+  'sub.codeNumber': '{term} number',
+  'sub.telFind': 'Tap any {term} in that zone.',
+  'sub.pickZone': 'Pick the zone, or press 1–{count}.',
+  'sub.pickZoneTouch': 'Pick the zone.',
+  'sub.nomFind': 'Tap a {term} in that area.',
+  'sub.pattern': 'Pattern: {label}',
+  'sub.nomTown': 'Tap the area its name points to.',
+  'sub.pickEnding': 'Pick the ending, or press 1–4.',
+  'sub.pickEndingTouch': 'Pick the ending.',
+  'sub.onRivers': 'On the {rivers}',
+  'sub.riverTown': 'Tap where it is. The rivers are drawn without names.',
+  'sub.pickAnswer': 'Pick the right answer, or press 1–4.',
+  'sub.pickAnswerTouch': 'Pick the right answer.',
+  'list.and': ' and ',
+  'name.zone': 'Zone {zone} · {name}',
+  'next': 'Next',
+
+  // Feedback
+  'fb.correct': 'Correct!',
+  'fb.tryN': 'Got it on try {n}',
+  'fb.missed': 'Missed.',
+  'fb.zoneWhere': 'Zone {zone}: {description}.',
+  'fb.areaWhere': 'Area: {where}.',
+  'fb.notThere': 'Not there.',
+  'fb.telWrong': 'No: {name} is {zone}.',
+  'fb.nomWrong': 'Not there. {name} is {patterns} country.',
+  'fb.nomWrongNone': 'Not there. {name} has none of these patterns.',
+  'fb.thats': 'That’s {name}',
+  'fb.blinking': 'It’s the blinking one. Click it to continue.',
+  'fb.rightOnTry': 'Right, on try {n}',
+  'fb.itWas': 'It was {name}',
+  'fb.not': 'Not {name}',
+  'fb.distance0': '{km} km away, spot on.',
+  'fb.distance1': '{km} km away, close.',
+  'fb.distance2': '{km} km away, getting there.',
+  'fb.distance3': '{km} km away.',
+
+  // Round and progress
+  'round.complete': 'Round complete',
+  'round.firstTime': 'right first time ({pct}%)',
+  'round.toReview': 'To review ({count})',
+  'round.perfect': 'Perfect round.',
+  'round.practiseMissed': 'Practise the missed ones',
+  'round.new': 'New round',
+  'round.next': 'Next round',
+  'round.nextDue': 'Next round ({count} due)',
+  'stats.thisRound': 'This round',
+  'stats.seen': '{done} / {total} seen',
+  'stats.firstTime': '{count} right first time',
+  'stats.hint': 'Misses come back later in the round. Change the round size in the bar above.',
+  'stats.bands': 'Within {right} km counts as right; {close} km as close.',
+  'stats.restart': 'Restart round',
+  'legend.first': '1st try',
+  'legend.second': '2nd',
+  'legend.third': '3rd',
+  'legend.missed': 'missed',
+  'progress.title': 'Your progress in {set}',
+  'progress.solid': '{solid} / {total} solid',
+  'progress.dueNew': '{due} due · {fresh} new',
+  'progress.hint':
+    'Items you get right move to longer review gaps (10 min, 1 h, 1 day, 3 days, a week); a miss sends them back to the start. Each round picks due and missed items first. Saved in this browser.',
+  'progress.reset': 'Reset progress',
+  'progress.resetConfirm': 'Tap again to reset {set}',
+
+  // Info card
+  'info.nothing': 'Nothing selected yet.',
+  'info.region': 'Capital <b>{capital}</b> · {count} {units}',
+  'info.landlines': 'Landlines start with <b>{zone}</b> ({name})',
+  'info.localPrefixes': 'Local prefixes <b>{prefixes}</b>',
+  'info.typicalEndings': 'Typical endings here:',
+  'info.noPatterns': 'None of these patterns is typical here.',
+  'info.citiesHere': 'Cities here: <b>{cities}</b>',
+  'info.examples': 'Examples: <b>{towns}</b>',
+  'info.examplesHint': 'Real towns practice also uses towns not shown here, so you learn the pattern, not the list.',
+  'info.riverLength': '<b>{km} km</b> long, flows into <b>{into}</b>',
+  'info.riverLengthTotal': '<b>{km} km</b> long (in total, not just in {country}), flows into <b>{into}</b>',
+  'info.riverTowns': 'Towns on it, source to mouth:',
+} as const satisfies Record<string, Message>;
+
+export type MessageKey = keyof typeof en;
+/** A full catalogue: every key of the English one, each a plain or plural message. */
+export type Messages = Record<MessageKey, Message>;

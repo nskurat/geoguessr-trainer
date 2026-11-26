@@ -1,0 +1,167 @@
+import type { Messages } from './en';
+
+/*
+ * Belarusian interface strings, official orthography (наркамаўка). Typed against the
+ * English catalogue, so a missing key is a type error. Apostrophe: ’ (U+2019); quotes:
+ * «ёлачкі». Terms and the dictionary checks behind them: ./README.md.
+ *
+ * Grammar notes for editors:
+ * - Country terms ({term}) come from the country's copy in the nominative; sentences put
+ *   them only where the accusative equals the nominative (masculine inanimate:
+ *   рэгіён, дэпартамент). "The blue X" is phrased "Сінім на карце" to avoid agreement.
+ * - Counts use plural forms (one / few / many; other for fractions).
+ * - Ordinals after "з": "з 2-й спробы" (другой), "з 3-й спробы" (трэцяй).
+ */
+export const be: Messages = {
+  // Page
+  'app.title': '{country}: трэнажор па карце',
+  'app.h1': '<span class="country">{country}</span>: <span>трэнажор па карце</span>',
+  'app.loadingMap': 'Карта загружаецца…',
+  'app.startFailed': 'Не ўдалося запусціць трэнажор. Перазагрузіце старонку і паспрабуйце яшчэ раз.',
+  'map.label': 'Карта: {country}',
+  'map.zoomIn': 'Павялічыць',
+  'map.zoomOut': 'Паменшыць',
+  'map.reset': 'Скінуць маштаб',
+
+  // Control bar
+  'bar.whatToStudy': 'Што вывучаць',
+  'bar.mode': 'Рэжым',
+  'bar.kind': 'Тып пытанняў',
+  'bar.country': 'Краіна',
+  'bar.language': 'Мова',
+  'mode.learn': 'Вывучэнне',
+  'mode.practice': 'Практыка',
+  'kind.find': 'Знайсці на карце',
+  'kind.name': 'Назваць',
+  'kind.town': 'Размясціць гарады',
+  'kind.dot': 'Выбраць кропку',
+  'kind.tel.find': 'Знайсці зону',
+  'kind.tel.name': 'Якая зона?',
+  'kind.nom.find': 'Заканчэнне → мясцовасць',
+  'kind.nom.name': 'Мясцовасць → заканчэнне',
+  'kind.nom.town': 'Сапраўдныя назвы',
+  'kind.city.find': 'Адлегласць',
+  'ctl.area': 'Тэрыторыя',
+  'ctl.river': 'Рака',
+  'ctl.allRivers': 'Усе рэкі',
+  'ctl.round': 'Раўнд',
+  'ctl.all': 'Усе',
+  'ctl.nearBorders': 'Каля межаў зон',
+  'ctl.askBy': 'Пытаць',
+  'ctl.askName': 'Назву',
+  'ctl.askNumber': 'Нумар',
+  'ctl.askMixed': 'Уперамешку',
+  'ctl.labels': 'Подпісы',
+  'ctl.labelsAuto': 'Аўтаматычна',
+  'ctl.labelsNumbers': 'Нумары',
+  'ctl.labelsNames': 'Назвы',
+  'ctl.labelsOff': 'Без подпісаў',
+
+  // Learn panel
+  'panel.loading': 'Загрузка',
+  'learn.heading': 'Вывучэнне',
+  'learn.inScope': '{set}: {area}',
+  'learn.count': {
+    one: '{count} аб’ект для вывучэння. Навядзіце курсор або націсніце на карту, каб убачыць падрабязнасці; перацягвайце, каб зрушыць карту; пракручвайце або звядзіце пальцы, каб змяніць маштаб.',
+    few: '{count} аб’екты для вывучэння. Навядзіце курсор або націсніце на карту, каб убачыць падрабязнасці; перацягвайце, каб зрушыць карту; пракручвайце або звядзіце пальцы, каб змяніць маштаб.',
+    many: '{count} аб’ектаў для вывучэння. Навядзіце курсор або націсніце на карту, каб убачыць падрабязнасці; перацягвайце, каб зрушыць карту; пракручвайце або звядзіце пальцы, каб змяніць маштаб.',
+    other: '{count} аб’екта для вывучэння. Навядзіце курсор або націсніце на карту, каб убачыць падрабязнасці; перацягвайце, каб зрушыць карту; пракручвайце або звядзіце пальцы, каб змяніць маштаб.',
+  },
+  'learn.start': 'Пачаць практыку',
+  'tips.heading': 'Як карыстацца',
+
+  // Questions
+  'q.find': 'Знайдзіце',
+  'q.placeTown': 'Пакажыце, дзе гэты горад',
+  'q.name': 'Назавіце',
+  'q.telFind': 'Націсніце на {term}, дзе стацыянарныя нумары пачынаюцца з',
+  'q.telName': 'Якая тэлефонная зона?',
+  'q.nomFind': 'Дзе часта сустракаюцца такія назвы?',
+  'q.nomTown': 'Дзе можа быць гэты населены пункт?',
+  'q.nomName': 'Якое заканчэнне тут тыповае?',
+  'target.blueTerm': 'Сінім на карце',
+  'target.blueArea': 'Сінім на карце',
+  'target.blueDot': 'Сіняя кропка',
+  'target.pinkRiver': 'Ружовая рака',
+  'sub.dot': 'Націсніце на яго кропку.',
+  'sub.city': 'Націсніце там, дзе, на вашу думку, ён знаходзіцца.',
+  'sub.river': 'Націсніце на раку.',
+  'sub.codeNumber': '{term}: нумар',
+  'sub.telFind': 'Націсніце ў любым месцы гэтай зоны.',
+  'sub.pickZone': 'Выберыце зону або націсніце 1–{count}.',
+  'sub.pickZoneTouch': 'Выберыце зону.',
+  'sub.nomFind': 'Націсніце ў межах гэтай мясцовасці.',
+  'sub.pattern': 'Тып назвы: {label}',
+  'sub.nomTown': 'Націсніце на мясцовасць, на якую паказвае назва.',
+  'sub.pickEnding': 'Выберыце заканчэнне або націсніце 1–4.',
+  'sub.pickEndingTouch': 'Выберыце заканчэнне.',
+  'sub.onRivers': { one: 'На рацэ {rivers}', few: 'На рэках {rivers}', many: 'На рэках {rivers}', other: 'На рэках {rivers}' },
+  'sub.riverTown': 'Націсніце там, дзе ён знаходзіцца. Рэкі намаляваныя без назваў.',
+  'sub.pickAnswer': 'Выберыце правільны адказ або націсніце 1–4.',
+  'sub.pickAnswerTouch': 'Выберыце правільны адказ.',
+  'list.and': ' і ',
+  'name.zone': 'Зона {zone} · {name}',
+  'next': 'Далей',
+
+  // Feedback
+  'fb.correct': 'Правільна!',
+  'fb.tryN': 'Правільна з {n}-й спробы',
+  'fb.missed': 'Промах.',
+  'fb.zoneWhere': 'Зона {zone}: {description}.',
+  'fb.areaWhere': 'Мясцовасць: {where}.',
+  'fb.notThere': 'Не тут.',
+  'fb.telWrong': 'Не: {name} — гэта зона {zone}.',
+  'fb.nomWrong': 'Не тут. {name}: тут тыповыя {patterns}.',
+  'fb.nomWrongNone': 'Не тут. Для {name} ніводзін з гэтых тыпаў назваў не тыповы.',
+  'fb.thats': 'Гэта {name}',
+  'fb.blinking': 'Правільны адказ мігае. Націсніце на яго, каб працягнуць.',
+  'fb.rightOnTry': 'Правільна, з {n}-й спробы',
+  'fb.itWas': 'Правільны адказ: {name}',
+  'fb.not': 'Не {name}',
+  'fb.distance0': '{km} км ад цэлі, вельмі дакладна.',
+  'fb.distance1': '{km} км ад цэлі, блізка.',
+  'fb.distance2': '{km} км ад цэлі, ужо нядрэнна.',
+  'fb.distance3': '{km} км ад цэлі.',
+
+  // Round and progress
+  'round.complete': 'Раўнд скончаны',
+  'round.firstTime': 'правільна з першага разу ({pct}%)',
+  'round.toReview': 'Паўтарыць ({count})',
+  'round.perfect': 'Бездакорны раўнд.',
+  'round.practiseMissed': 'Папрактыкаваць памылкі',
+  'round.new': 'Новы раўнд',
+  'round.next': 'Наступны раўнд',
+  'round.nextDue': 'Наступны раўнд (да паўтору: {count})',
+  'stats.thisRound': 'Гэты раўнд',
+  'stats.seen': 'Пройдзена {done} / {total}',
+  'stats.firstTime': 'З першага разу: {count}',
+  'stats.hint': 'Памылкі вяртаюцца пазней у гэтым раўндзе. Памер раўнда мяняецца ў панэлі вышэй.',
+  'stats.bands': 'Да {right} км — правільна; да {close} км — блізка.',
+  'stats.restart': 'Пачаць раўнд нанова',
+  'legend.first': '1-я спроба',
+  'legend.second': '2-я',
+  'legend.third': '3-я',
+  'legend.missed': 'промах',
+  'progress.title': 'Ваш прагрэс: {set}',
+  'progress.solid': 'Засвоена {solid} / {total}',
+  'progress.dueNew': 'Да паўтору {due} · новых {fresh}',
+  'progress.hint':
+    'Інтэрвальнае паўтарэнне: пасля правільнага адказу пытанне вяртаецца праз усё даўжэйшы інтэрвал (10 хв, 1 гадз, 1 дзень, 3 дні, тыдзень), а памылка вяртае яго да пачатку. Кожны раўнд спачатку бярэ тое, што пара паўтарыць, і тое, дзе былі памылкі. Прагрэс захоўваецца ў гэтым браўзеры.',
+  'progress.reset': 'Скінуць прагрэс',
+  'progress.resetConfirm': 'Націсніце яшчэ раз, каб скінуць: {set}',
+
+  // Info card
+  'info.nothing': 'Пакуль нічога не выбрана.',
+  'info.region': 'Адміністрацыйны цэнтр <b>{capital}</b> · {count} {units}',
+  'info.landlines': 'Стацыянарныя нумары пачынаюцца з <b>{zone}</b> ({name})',
+  'info.localPrefixes': 'Мясцовыя прэфіксы <b>{prefixes}</b>',
+  'info.typicalEndings': 'Тыповыя заканчэнні тут:',
+  'info.noPatterns': 'Ніводзін з гэтых тыпаў назваў тут не тыповы.',
+  'info.citiesHere': 'Гарады тут: <b>{cities}</b>',
+  'info.examples': 'Прыклады: <b>{towns}</b>',
+  'info.examplesHint':
+    'Практыка «Сапраўдныя назвы» выкарыстоўвае і населеныя пункты, якіх тут няма, каб вы вывучалі мадэль, а не спіс.',
+  'info.riverLength': 'Даўжыня <b>{km} км</b>, упадае ў <b>{into}</b>',
+  'info.riverLengthTotal': 'Даўжыня <b>{km} км</b> (агульная, не толькі ў межах краіны), упадае ў <b>{into}</b>',
+  'info.riverTowns': 'Гарады на ёй ад вытоку да вусця:',
+};

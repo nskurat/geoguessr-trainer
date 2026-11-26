@@ -19,9 +19,6 @@ visual design stays the artifact's (see Settled decisions); this is a structural
 
 ## Multi-country follow-ups
 
-- Interface language switch (English, Belarusian), with language files structured so more
-  languages are easy to add; country copy needs per-language text too. In progress in a
-  separate session.
 - Peru signals the engine can't express yet (see `data/peru/RESEARCH.md` §8): landscape
   zones (costa / sierra / selva and sub-zones), highway numbers and km markers, coverage
   gaps (Iquitos is an isolated island of coverage), pole stickers, the Moquegua bollard,
@@ -34,6 +31,20 @@ visual design stays the artifact's (see Settled decisions); this is a structural
   the lower-priority label until zoomed).
 - Small units are hard to hit at full-map zoom (Paris petite couronne; Lima y Callao is
   fine). Consider a larger hit area or auto-zoom for tiny departments.
+
+## Interface languages follow-ups
+
+- Taraškievica (`be-tarask`) as a separate language variant; the current Belarusian is the
+  official orthography. Needs its own catalogue and copies (дэпартамэнт, ідэнтычнасьць…).
+- Belarusian text was checked against dictionaries (`src/i18n/README.md`), not by a native
+  reviewer; a native read of the tips and name-pattern texts is worth doing.
+- Belarusian sentences assume masculine inanimate country terms (accusative = nominative).
+  A country whose term is feminine (e.g. правінцыя) needs case forms in `Term`.
+- After a live language switch, the feedback line of the question on screen stays in the
+  previous language until the next question (it is computed when answering).
+- Optional Belarusian exonyms for well-known places (Парыж, Луара) as a learner aid; place
+  names are deliberately kept official today.
+- React port: the active language becomes context; `relocalizeTrainer` goes away.
 
 ## Known issues and ideas
 
@@ -64,3 +75,6 @@ visual design stays the artifact's (see Settled decisions); this is a structural
   look), not the Nihongo style.
 - Trainer code never names a country; country specifics are data in `data/<country>/`.
 - Paths derive from `import.meta.env.BASE_URL`; the site is served from `/geoguessr-trainer/`.
+- Interface languages: English (source) and Belarusian in the official orthography; place
+  names stay official (Latin script); country copy is per language in
+  `data/<country>/copy.<lang>.ts`, loaded with the country; switching re-renders in place.

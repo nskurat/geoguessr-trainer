@@ -147,7 +147,7 @@ Amazonas (Andean Chachapoyas but selva Bagua) and Ayacucho.
   points, mouth at Callao (−12.032, −77.137; L — en WP's "mouth" coordinate is actually
   Chosica). Mantaro left out: its U-shaped lower course could not be waypointed reliably
   (its source −10.921, −76.279 and mouth −12.263, −73.979 are known from es/en WP).
-- **phone.json** — §5. **regions.json** — §6. **copy.json** — tips written from this brief.
+- **phone.json** — §5. **regions.json** — §6. **copy.en.ts** (and its translations, copy.<lang>.ts) — tips written from this brief.
 - Plonk It Peru guide: https://www.plonkit.net/peru (updated 2026-06-23)
 - https://en.wikipedia.org/wiki/Telephone_numbers_in_Peru
 - https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Peru ;
