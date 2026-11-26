@@ -94,6 +94,8 @@ agent skills to help build future countries are planned.
 ## Where things are recorded
 
 - Open work, known issues, deferred ideas and settled decisions: `docs/backlog.md` (the only tracker).
+- Role skills: `.claude/skills/geoguessr-pro` (which signals to drill per country, country
+  briefs, data review) and `.claude/skills/ux-expert` (map and quiz experience specs).
 
 ## Next up
 
