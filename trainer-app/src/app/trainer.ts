@@ -787,6 +787,7 @@ function syncControls(): void {
     for (const b of $(id).children)
       b.setAttribute('aria-pressed', String((b as HTMLElement).dataset.v === settings[key]));
   show('#kindSeg', mode === 'practice');
+  $('.app').classList.toggle('learning', mode === 'learn');
   show('#scopeL', !(set === 'reg' || set === 'riv' || isZoneSet()));
   show('#kindSeg [data-v=town]', set === 'riv' || set === 'nom');
   show('#kindSeg [data-v=dot]', set === 'city');
@@ -1020,6 +1021,7 @@ function next(): void {
   if (settings.kind === 'name') r.choices = choicesFor(r.current);
   colorize();
   panel();
+  keepQuizInView();
 }
 
 function choicesFor(answer: string): string[] {
@@ -1242,6 +1244,23 @@ function choose(u: string, button: HTMLElement): void {
 
 /* ---------- panel ---------- */
 
+/** ", or press 1–4." where there is a keyboard; just "." on touch-only devices. */
+const pressHint = (n: number) =>
+  matchMedia('(hover: none) and (pointer: coarse)').matches ? '.' : `, or press 1–${n}.`;
+
+/**
+ * On narrow screens the prompt sits above the map; bring both into view when a
+ * question starts, unless they already are.
+ */
+function keepQuizInView(): void {
+  if (!matchMedia('(max-width: 880px)').matches) return;
+  const prompt = $('#prompt').getBoundingClientRect();
+  const map = $('#box').getBoundingClientRect();
+  if (prompt.top >= 0 && map.bottom <= window.innerHeight) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top: window.scrollY + prompt.top - 8, behavior: reduce ? 'auto' : 'smooth' });
+}
+
 /** Bolds the river joiner in a town name: Bar<b>-sur-</b>Seine. */
 const emphasizeJoiner = (name: string) => esc(name).replace(/(-sur-|-en-|-sous-)/, '<b>$1</b>');
 
@@ -1327,7 +1346,7 @@ function panel(): void {
     sub =
       kind === 'find'
         ? `Tap any ${depTerm()} in that zone.`
-        : `Pick the zone, or press 1–${r.choices?.length ?? 5}.`;
+        : `Pick the zone${pressHint(r.choices?.length ?? 5)}`;
   } else if (set === 'nom') {
     if (kind === 'find') {
       target = esc(ix.patternById[cur].label);
@@ -1338,7 +1357,7 @@ function panel(): void {
       sub = r.waiting ? 'Pattern: ' + ix.patternById[town.pattern].label : 'Tap the area its name points to.';
     } else {
       target = 'The blue area';
-      sub = 'Pick the ending, or press 1–4.';
+      sub = `Pick the ending${pressHint(4)}`;
     }
   } else if (kind === 'town') {
     const town = ix.riverTownById[cur];
@@ -1355,7 +1374,7 @@ function panel(): void {
           : set === 'riv'
             ? 'The pink river'
             : `The blue ${depTerm()}`;
-    sub = 'Pick the right answer, or press 1–4.';
+    sub = `Pick the right answer${pressHint(4)}`;
   }
 
   const feedback: Feedback | null =

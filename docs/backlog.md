@@ -29,6 +29,9 @@ visual design stays the artifact's (see Settled decisions); this is a structural
 - Peru data gaps: Mantaro course (U-shaped lower course not mapped reliably), Chira towns,
   and a few hand-drawn course stretches (Urubamba source, Quillabamba–Sepahua) accurate to
   only a few km.
+- Region labels overlap at full-map zoom on phones (e.g. "Pays de la Loire" / "Centre-Val
+  de Loire"), as in the original artifact: needs label-collision handling (hide or shorten
+  the lower-priority label until zoomed).
 - Small units are hard to hit at full-map zoom (Paris petite couronne; Lima y Callao is
   fine). Consider a larger hit area or auto-zoom for tiny departments.
 

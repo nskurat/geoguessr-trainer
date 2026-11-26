@@ -14,16 +14,19 @@
     <div class="wrap">
       <header>
         <div>
-          <h1><span id="countryName" class="country"></span> <span>map trainer</span></h1>
+          <h1>
+            <span id="countryName" class="country"></span
+            ><span id="countryPick" class="country-pick" hidden
+              ><select id="country" class="country" aria-label="Country"></select
+              ><span class="chev" aria-hidden="true">▾</span></span
+            >
+            <span>map trainer</span>
+          </h1>
           <p class="sub" id="subtitle"></p>
         </div>
         <div class="seg big" id="setSeg" role="group" aria-label="What to study"></div>
       </header>
       <div class="bar">
-        <label class="l" id="countryL"
-          >Country
-          <select id="country"></select
-        ></label>
         <div class="seg" id="modeSeg" role="group" aria-label="Mode">
           <button data-v="learn">Learn</button><button data-v="practice">Practice</button>
         </div>

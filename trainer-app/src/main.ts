@@ -25,7 +25,10 @@ function bindCountryPicker(current: string): void {
   const select = document.querySelector<HTMLSelectElement>('#country')!;
   select.innerHTML = COUNTRIES.map((c) => `<option value="${c.id}">${c.name}</option>`).join('');
   select.value = current;
-  document.querySelector<HTMLElement>('#countryL')!.style.display = COUNTRIES.length > 1 ? '' : 'none';
+  // With more than one country, the country name in the title is the picker.
+  const several = COUNTRIES.length > 1;
+  document.querySelector<HTMLElement>('#countryPick')!.hidden = !several;
+  document.querySelector<HTMLElement>('#countryName')!.hidden = several;
   select.onchange = () => {
     // A fresh page per country keeps the trainer's state simple; the URL stays shareable.
     const url = new URL(location.href);
