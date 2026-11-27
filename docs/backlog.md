@@ -35,9 +35,9 @@ visual design stays the artifact's (see Settled decisions); this is a structural
   The upper Lahn (above Marburg) is not drawn: NE's "Lahn" follows the Ohm there. The
   GeoGuessr signals and the river lengths in its RESEARCH.md / rivers.json were written
   while the web was blocked and should be re-checked against plonkit and Wikipedia.
-- Peru's `outline.json` predates the `build-outline.ts` aspect fix (x was scaled by
-  cos(refLat) twice); rebuild it with `npm run build:outline -- peru` and re-check its
-  label nudges. The effect is about 1% there.
+- Outlines generated before the `build-outline.ts` conformal fix (Peru's `outline.json`) are
+  about 1% squashed horizontally (x was scaled by cos(refLat) twice). Regenerate with
+  `npm run build:outline -- peru` when convenient and re-check its label nudges.
 - Region labels overlap at full-map zoom on phones (e.g. "Pays de la Loire" / "Centre-Val
   de Loire"), as in the original artifact: needs label-collision handling (hide or shorten
   the lower-priority label until zoomed).
