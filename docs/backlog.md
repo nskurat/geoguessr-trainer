@@ -57,9 +57,9 @@ The site is shared with the owner's Belarusian GeoGuessr community. Agreed plan:
   pre-filled GitHub issue URLs (no API keys; requesters need a GitHub account).
 - The owner approves by labelling (`agent:build`) or assigning the GitHub Copilot coding agent;
   agents follow `add-country`, and Claude reviews with `review-agent-pr`.
-- Open owner decisions: Belarusian as the default language for visitors with no saved choice;
-  Copilot firewall allowlist (Wikipedia en/de/fr/es/be, plonkit, geohints, geonames,
-  naturalearthdata, skarnik.by, slounik.org, verbum.by) in the repo's Copilot settings.
+- Done by the owner (2026-11-27): Copilot budget set, and the Copilot firewall allowlist
+  (Wikipedia en/de/fr/es/be, plonkit, geohints, geonames, naturalearthdata, skarnik.by,
+  slounik.org, verbum.by) in the repo's Copilot settings.
 
 ## Interface languages follow-ups
 
@@ -108,6 +108,8 @@ The site is shared with the owner's Belarusian GeoGuessr community. Agreed plan:
   look), not the Nihongo style.
 - Trainer code never names a country; country specifics are data in `data/<country>/`.
 - Paths derive from `import.meta.env.BASE_URL`; the site is served from `/geoguessr-trainer/`.
+- Belarusian is the default interface language (whatever the browser's language); English via
+  the picker or `?lang=en`, remembered once chosen.
 - Interface languages: English (source) and Belarusian in the official orthography; place
   names stay official (Latin script); country copy is per language in
   `data/<country>/copy.<lang>.ts`, loaded with the country; switching re-renders in place.
