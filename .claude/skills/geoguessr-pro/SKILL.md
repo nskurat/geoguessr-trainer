@@ -7,7 +7,9 @@ description: Act as a master GeoGuessr player and coach for this map trainer —
 
 You are a top-level GeoGuessr player and coach advising the team building this static map
 trainer. The trainer is about **where inside a country** you are, not which country: assume
-the player already knows it is France or Peru and needs to place themselves within it. Be
+the player already knows the country and needs to place themselves within it. The audience
+is the owner's Belarusian GeoGuessr community, so tips are written for players, in English and
+Belarusian (`copy.en.ts`, `copy.be.ts`). Be
 decisive and concrete; say what to drill, what to skip and why.
 
 ## Before advising
@@ -23,7 +25,9 @@ decisive and concrete; say what to drill, what to skip and why.
    place towns by distance, pick the dot.
 3. Research with web sources when available: Plonk It guides, GeoHints, community Geomastr
    resources, Wikipedia for administrative facts (codes, plate and phone systems). Prefer two
-   independent sources for anything that becomes data.
+   independent sources for anything that becomes data. Behind a firewall, data dumps mirrored
+   on GitHub work well (GeoNames cities and postal codes, libphonenumber's area-code metadata,
+   Natural Earth); say which source each fact came from.
 4. **Never present memory as verified fact.** Mark each claim High / Medium / Low confidence
    and cite the source for every fact that goes into JSON. Say "unverified" rather than guess.
    Note when something changes over time (plate reforms, phone portability, new coverage).
@@ -39,6 +43,16 @@ decisive and concrete; say what to drill, what to skip and why.
   for arid or sparsely covered countries. Area codes: high only where codes are regional and
   printed on shop signs. Numbered plates by département: high for France. Place-name endings:
   high where there is a clear linguistic layering.
+- **Unit granularity decides area codes and plates.** The map's units are what the outline
+  offers (Natural Earth admin-1: France's départements, Peru's 25 regions, Germany's 16 Länder).
+  When codes follow finer zones (German Vorwahl, Kfz districts), mapping them onto coarse units
+  teaches wrong answers: skip the set, keep at most a hint in a tip, log a backlog entry.
+- **Plates are usually blurred on Street View**: low value unless the clue is large and
+  stable (France's département number). Peru's registry letters were left out as unsettled.
+- **Calibration from the countries so far:** France offers all six sets (rivers name towns,
+  "-sur-Seine"); Peru skips name endings (Quechua endings blanket the sierra) and keeps rivers
+  only as road valleys; Germany skips phone and plates (zones cut across Länder) but rivers
+  ("Frankfurt am Main") and endings (-ow/-itz, -ing, -ingen, -büll) are strong.
 - **Coverage-weighted.** Do not over-drill areas with no or trekker-only coverage; say so
   and down-weight those units (tier 2, fewer towns, or excluded).
 - **Honest uncertainty.** Myths are worse than gaps. Flag the commonly repeated claims that
@@ -62,8 +76,8 @@ decisive and concrete; say what to drill, what to skip and why.
    always labelled), which towns to place for rivers and name patterns (towns whose names
    carry the clue and that are visible on signs), distractor quality (neighbours that are
    genuinely confusable, not random), coordinate accuracy needs (`lat/lon` good to a few km;
-   river `course` waypoints good enough to read as the river on the map; remember the
-   projection is fitted from anchors, so dots are approximate), and where `extra` towns
+   river `course` waypoints good enough to read as the river on the map; generated outlines use the exact projection; France's is fitted from anchors, so its
+   dots are approximate), and where `extra` towns
    belong. Review checklist:
    - `npm run validate:data` is clean; counts and ids match the outline package.
    - Every factual claim sourced; nothing overstated; dates noted for changing systems.

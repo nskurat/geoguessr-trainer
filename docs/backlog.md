@@ -44,6 +44,23 @@ visual design stays the artifact's (see Settled decisions); this is a structural
 - Small units are hard to hit at full-map zoom (Paris petite couronne; Lima y Callao is
   fine). Consider a larger hit area or auto-zoom for tiny departments.
 
+- Small-city dots are drawn over big-city labels on phones (each city's dot and label are one
+  group, so later dots cover earlier labels): draw labels in a layer above all dots. Visible
+  with Germany's 98 cities.
+
+## Community requests (planned, not built)
+
+The site is shared with the owner's Belarusian GeoGuessr community. Agreed plan:
+- Issue forms (Belarusian first, English below) for "Add a country" and "Suggest a feature /
+  report a problem", auto-labelled `needs-review`.
+- On the site: "＋ Request a country…" in the country picker and footer links that open
+  pre-filled GitHub issue URLs (no API keys; requesters need a GitHub account).
+- The owner approves by labelling (`agent:build`) or assigning the GitHub Copilot coding agent;
+  agents follow `add-country`, and Claude reviews with `review-agent-pr`.
+- Open owner decisions: Belarusian as the default language for visitors with no saved choice;
+  Copilot firewall allowlist (Wikipedia en/de/fr/es/be, plonkit, geohints, geonames,
+  naturalearthdata, skarnik.by, slounik.org, verbum.by) in the repo's Copilot settings.
+
 ## Interface languages follow-ups
 
 - Taraškievica (`be-tarask`) as a separate language variant; the current Belarusian is the
