@@ -11,7 +11,8 @@
  *   trainer-app/src/data/<country>/riverCourses.json  { "<river>": [[lat, lon], ...] } source → mouth
  *
  * Projection: `mercatorPlane(lat, lon, refLat)` from trainer-app/src/services/geo/projection.ts,
- * then the affine map written to outline.json (x = s·px + c, y = −s·py + f). The trainer can
+ * then the affine map written to outline.json (x = s·px/cos(refLat) + c, y = −s·py + f, so the
+ * map is conformal: mercatorPlane already scales x by cos(refLat)). The trainer can
  * use `affine ∘ mercatorPlane` directly, so dots and rivers land exactly on the outline.
  * refLat is the middle latitude of the country's bounding box, rounded to 0.1°.
  *
@@ -20,7 +21,8 @@
  * Islands and holes below MIN_RING_AREA are dropped, but each unit keeps its largest polygon.
  *
  * Sources: Natural Earth 1:10m vector data (https://www.naturalearthdata.com), public domain:
- *   ne_10m_admin_0_countries, ne_10m_admin_1_states_provinces, ne_10m_rivers_lake_centerlines.
+ *   ne_10m_admin_0_countries, ne_10m_admin_1_states_provinces, ne_10m_rivers_lake_centerlines,
+ *   and per country extra river layers such as ne_10m_rivers_europe.
  * Downloaded on demand from github.com/nvkelso/natural-earth-vector into the git-ignored
  * cache directory .cache/natural-earth/ (delete it to re-download).
  *
@@ -47,8 +49,8 @@ type Pt = [number, number];
 interface RiverSpec {
   /** Key in riverCourses.json (local/Spanish name). */
   key: string;
-  /** Natural Earth `name`, `name_en` or `name_alt` to match. */
-  ne: string;
+  /** Natural Earth `name`, `name_en` or `name_alt` to match (several when NE splits the river). */
+  ne: string | string[];
   /** Roughly where the river's downstream end is (may lie outside the country): orients the line. */
   mouth: LatLon;
   /** Keep the course from the vertex nearest this point (to cut one stretch out of a longer NE line). */
@@ -70,6 +72,11 @@ interface CountryConfig {
   /** Expected number of Natural Earth admin-1 units, before merging (sanity check). */
   expectedUnits: number;
   rivers: RiverSpec[];
+  /**
+   * Natural Earth river layers to search, in addition to the default 10m
+   * `rivers_lake_centerlines` (e.g. `rivers_europe`, the supplement with smaller rivers).
+   */
+  extraRiverLayers?: string[];
   /** Candidate rivers with no usable Natural Earth 1:10m line, reported as missing. */
   missingRivers?: string[];
   /** Known points and the unit they must fall in: checked after the build. */
@@ -115,6 +122,49 @@ const COUNTRIES: Record<string, CountryConfig> = {
       { name: 'Iquitos', lat: -3.749, lon: -73.253, id: 'LOR' },
       { name: 'Arequipa', lat: -16.409, lon: -71.537, id: 'ARE' },
       { name: 'Huacho', lat: -11.107, lon: -77.605, id: 'LIM' },
+    ],
+  },
+  germany: {
+    adm0: 'DEU',
+    isoPrefix: 'DE-',
+    expectedUnits: 16,
+    // The 10m centerlines lack most tributaries; the Europe supplement has them.
+    extraRiverLayers: ['rivers_europe'],
+    rivers: [
+      // NE splits the Rhine into "Rhein" (Alps, Lake Constance), "Rhin" and "Rhine"; the
+      // German stretch starts where it leaves Lake Constance and ends at the Dutch border.
+      { key: 'Rhein', ne: ['Rhein', 'Rhine'], mouth: [51.98, 4.1], from: [47.66, 8.88], to: [51.84, 6.1] },
+      { key: 'Donau', ne: 'Donau', mouth: [45.2, 29.7] },
+      // NE's Elbe stops in Hamburg: the tidal Elbe to Cuxhaven is drawn by hand in rivers.json.
+      { key: 'Elbe', ne: 'Elbe', mouth: [53.9, 8.7], from: [50.89, 14.23] },
+      { key: 'Main', ne: 'Main', mouth: [50.0, 8.28] },
+      // NE's Weser starts at the Werra's source; the Weser proper starts at Hann. Münden.
+      // It stops near Brake: the stretch to Bremerhaven is drawn by hand in rivers.json.
+      { key: 'Weser', ne: 'Weser', mouth: [53.6, 8.5], from: [51.42, 9.65] },
+      { key: 'Mosel', ne: 'Mosel', mouth: [50.36, 7.6], from: [49.47, 6.36] },
+      { key: 'Neckar', ne: 'Neckar', mouth: [49.51, 8.44] },
+      { key: 'Oder', ne: 'Oder', mouth: [53.7, 14.3] },
+      { key: 'Saale', ne: 'Saale', mouth: [51.95, 11.9] },
+      { key: 'Isar', ne: 'Isar', mouth: [48.8, 12.98] },
+      // NE's "Spree" features also carry the Havel below Berlin: cut at Spandau.
+      { key: 'Spree', ne: 'Spree', mouth: [52.54, 13.2], to: [52.53, 13.21] },
+      { key: 'Ruhr', ne: 'Ruhr', mouth: [51.45, 6.73] },
+      { key: 'Ems', ne: 'Ems', mouth: [53.3, 7.2] },
+      { key: 'Inn', ne: 'Inn', mouth: [48.57, 13.47] },
+      // NE's "Lahn" starts up the Ohm in the Vogelsberg: cut where the Ohm joins at Cölbe
+      // (the upper Lahn above Marburg, past Biedenkopf, is not drawn).
+      { key: 'Lahn', ne: 'Lahn', mouth: [50.31, 7.6], from: [50.85, 8.78] },
+    ],
+    checks: [
+      { name: 'Berlin', lat: 52.52, lon: 13.405, id: 'BE' },
+      { name: 'Potsdam', lat: 52.399, lon: 13.066, id: 'BB' },
+      { name: 'Hamburg', lat: 53.551, lon: 9.993, id: 'HH' },
+      { name: 'Bremen', lat: 53.076, lon: 8.807, id: 'HB' },
+      { name: 'Bremerhaven', lat: 53.55, lon: 8.58, id: 'HB' },
+      { name: 'München', lat: 48.137, lon: 11.575, id: 'BY' },
+      { name: 'Mainz', lat: 49.982, lon: 8.28, id: 'RP' },
+      { name: 'Wiesbaden', lat: 50.086, lon: 8.244, id: 'HE' },
+      { name: 'Saarbrücken', lat: 49.233, lon: 7.01, id: 'SL' },
     ],
   },
 };
@@ -387,6 +437,14 @@ async function main() {
   let maxLat = -Infinity;
   for (const u of units) for (const p of u.polys) for (const [, lat] of p[0]) [minLat, maxLat] = [Math.min(minLat, lat), Math.max(maxLat, lat)];
   const refLat = round((minLat + maxLat) / 2, 1);
+  // mercatorPlane's y is Mercator (stretched by sec(lat)) but its x is already scaled by
+  // cos(refLat); undo that so the map is conformal and keeps the country's true shape
+  // (it matters away from the equator: Germany would be squashed to 63% of its width).
+  const kx = 1 / Math.cos((refLat * Math.PI) / 180);
+  const plane = (lat: number, lon: number): Pt => {
+    const [px, py] = mercatorPlane(lat, lon, refLat);
+    return [px * kx, py];
+  };
   let x0 = Infinity;
   let x1 = -Infinity;
   let y0 = Infinity;
@@ -394,7 +452,7 @@ async function main() {
   for (const u of units)
     for (const p of u.polys)
       for (const [lon, lat] of p[0]) {
-        const [px, py] = mercatorPlane(lat, lon, refLat);
+        const [px, py] = plane(lat, lon);
         [x0, x1, y0, y1] = [Math.min(x0, px), Math.max(x1, px), Math.min(y0, py), Math.max(y1, py)];
       }
   const s = round(MAP_SIZE / Math.max(x1 - x0, y1 - y0), 6);
@@ -403,7 +461,7 @@ async function main() {
   const W = Math.ceil(s * (x1 - x0) + 2 * PADDING);
   const H = Math.ceil(s * (y1 - y0) + 2 * PADDING);
   const project = (lat: number, lon: number): Pt => {
-    const [px, py] = mercatorPlane(lat, lon, refLat);
+    const [px, py] = plane(lat, lon);
     return [s * px + c, -s * py + f];
   };
 
@@ -458,7 +516,7 @@ async function main() {
     viewBox: `0 0 ${W} ${H}`,
     locations,
     affine: [
-      [s, 0, c],
+      [round(s * kx, 6), 0, c],
       [0, -s, f],
     ],
     refLat,
@@ -490,18 +548,20 @@ async function main() {
   const countryPolys = polygonsOf(admin0.features.find((ft) => ft.properties?.ADM0_A3 === cfg.adm0)?.geometry ?? null);
   const inCountry = (p: Position) =>
     pointInPolygons(p[0], p[1], countryPolys) || nearRings(p[0], p[1], countryPolys, RIVER_BUFFER_DEG);
-  const riversNE = await loadNE('rivers_lake_centerlines');
+  const riverLayers = ['rivers_lake_centerlines', ...(cfg.extraRiverLayers ?? [])];
+  const riversNE = (await Promise.all(riverLayers.map((l) => loadNE(l)))).flatMap((fc) => fc.features);
   const courses: Record<string, LatLon[]> = {};
   for (const spec of cfg.rivers) {
+    const names = ([] as string[]).concat(spec.ne);
     const lines: Position[][] = [];
-    for (const ft of riversNE.features) {
+    for (const ft of riversNE) {
       const p = ft.properties ?? {};
-      if (![p.name, p.name_en, p.name_alt].includes(spec.ne)) continue;
+      if (![p.name, p.name_en, p.name_alt].some((n) => names.includes(n as string))) continue;
       if (ft.geometry.type === 'LineString') lines.push(ft.geometry.coordinates);
       else if (ft.geometry.type === 'MultiLineString') lines.push(...ft.geometry.coordinates);
     }
     if (!lines.length) {
-      console.log(`  river ${spec.key}: not found in Natural Earth (${spec.ne})`);
+      console.log(`  river ${spec.key}: not found in Natural Earth (${names.join(', ')})`);
       continue;
     }
     let line = chainLines(lines).sort((a, b) => lineLength(b) - lineLength(a))[0];

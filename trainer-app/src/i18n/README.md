@@ -45,7 +45,9 @@ Keys used with `th()` are trusted HTML (`<b>`, `<span>` only); their parameters 
 
 Sources: [skarnik.by](https://www.skarnik.by) (Russian–Belarusian), [slounik.org](https://slounik.org)
 (Граматычны слоўнік назоўніка 2013, Слоўнік беларускай мовы), [be.wikipedia.org](https://be.wikipedia.org)
-(article titles), checked November 2026.
+(article titles), checked November 2026. The Germany rows were added when those sites were
+blocked and are checked against the official-orthography Hunspell dictionary
+([LibreOffice/dictionaries `be_BY/be-official`](https://github.com/LibreOffice/dictionaries/tree/master/be_BY)) instead.
 
 | English | Belarusian | Source |
 |---|---|---|
@@ -81,6 +83,10 @@ Sources: [skarnik.by](https://www.skarnik.by) (Russian–Belarusian), [slounik.o
 | Franco-Provençal | франкаправансальскі | be.wikipedia «Франкаправансальская мова» |
 | Gascony, Flanders | Гасконь, Фландрыя | be.wikipedia |
 | France, Peru | Францыя; Перу (indeclinable, neuter: «Усё Перу») | be.wikipedia «Перу» |
+| Germany | Германія (fem.: «Уся Германія») | Hunspell be-official (LibreOffice/dictionaries): Германія |
+| German state (Land) | зямля, мн. землі, Р. мн. зямель | Hunspell be-official: зямля, зямель (земляў is rejected); feminine, unlike рэгіён (the `{term}` strings Germany uses agree) |
+| Baltic Sea, Black Sea | Балтыйскае мора, Чорнае мора | Hunspell be-official (spelling only; article titles not re-checked, web blocked) |
+| German regions (Altbayern, Ostfriesland, Pfalz, Harz…) | kept in German, like place names | no checkable Belarusian forms (not in the dictionary, web blocked) |
 
 ## The language switch (UX)
 

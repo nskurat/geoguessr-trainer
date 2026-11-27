@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { france } from '../../../data/france';
+import { germany } from '../../../data/germany';
 import { peru } from '../../../data/peru';
 import type { Country } from '../../../types/geo';
 import { RiverSchema, validateCountry } from '../schema';
@@ -15,6 +16,14 @@ describe('validateCountry(france)', () => {
 describe('validateCountry(peru)', () => {
   it('has no errors', () => {
     expect(validateCountry(peru).errors).toEqual([]);
+  });
+});
+
+describe('validateCountry(germany)', () => {
+  it('has no errors or warnings', () => {
+    const { errors, warnings } = validateCountry(germany);
+    expect(errors).toEqual([]);
+    expect(warnings).toEqual([]);
   });
 });
 
@@ -52,6 +61,15 @@ describe('validateCountry on broken data', () => {
     const code = france.departments[0].code;
     const errors = errorsOf((c) => delete c.phone.zoneByDepartement[code]);
     expect(errors.some((e) => e.includes(`department ${code}`) && e.includes('no phone zone'))).toBe(true);
+  });
+
+  it('needs no phone zones when the phone set is not offered', () => {
+    const code = france.departments[0].code;
+    const errors = errorsOf((c) => {
+      c.sets = c.sets.filter((s) => s !== 'tel');
+      delete c.phone.zoneByDepartement[code];
+    });
+    expect(errors.some((e) => e.includes('no phone zone'))).toBe(false);
   });
 
   it('flags a phone zone that does not exist', () => {

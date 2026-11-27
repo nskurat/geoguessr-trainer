@@ -13,6 +13,11 @@ export const COUNTRIES: { id: string; name: Record<Lang, string>; load: () => Pr
     load: () => import('./france').then((m) => m.france),
   },
   { id: 'peru', name: { en: 'Peru', be: 'Перу' }, load: () => import('./peru').then((m) => m.peru) },
+  {
+    id: 'germany',
+    name: { en: 'Germany', be: 'Германія' },
+    load: () => import('./germany').then((m) => m.germany),
+  },
 ];
 
 export const DEFAULT_COUNTRY = 'france';

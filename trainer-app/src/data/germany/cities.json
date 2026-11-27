@@ -1,0 +1,786 @@
+[
+  {
+    "id": "c0",
+    "name": "Berlin",
+    "code": "BE",
+    "lat": 52.524,
+    "lon": 13.411,
+    "tier": 1
+  },
+  {
+    "id": "c1",
+    "name": "Hamburg",
+    "code": "HH",
+    "lat": 53.551,
+    "lon": 9.993,
+    "tier": 1
+  },
+  {
+    "id": "c2",
+    "name": "München",
+    "code": "BY",
+    "lat": 48.137,
+    "lon": 11.575,
+    "tier": 1
+  },
+  {
+    "id": "c3",
+    "name": "Köln",
+    "code": "NW",
+    "lat": 50.933,
+    "lon": 6.95,
+    "tier": 1
+  },
+  {
+    "id": "c4",
+    "name": "Frankfurt am Main",
+    "code": "HE",
+    "lat": 50.116,
+    "lon": 8.684,
+    "tier": 1
+  },
+  {
+    "id": "c5",
+    "name": "Stuttgart",
+    "code": "BW",
+    "lat": 48.782,
+    "lon": 9.177,
+    "tier": 1
+  },
+  {
+    "id": "c6",
+    "name": "Düsseldorf",
+    "code": "NW",
+    "lat": 51.223,
+    "lon": 6.779,
+    "tier": 1
+  },
+  {
+    "id": "c7",
+    "name": "Leipzig",
+    "code": "SN",
+    "lat": 51.34,
+    "lon": 12.371,
+    "tier": 1
+  },
+  {
+    "id": "c8",
+    "name": "Dortmund",
+    "code": "NW",
+    "lat": 51.515,
+    "lon": 7.466,
+    "tier": 1
+  },
+  {
+    "id": "c9",
+    "name": "Bremen",
+    "code": "HB",
+    "lat": 53.076,
+    "lon": 8.807,
+    "tier": 1
+  },
+  {
+    "id": "c10",
+    "name": "Dresden",
+    "code": "SN",
+    "lat": 51.051,
+    "lon": 13.738,
+    "tier": 1
+  },
+  {
+    "id": "c11",
+    "name": "Hannover",
+    "code": "NI",
+    "lat": 52.371,
+    "lon": 9.733,
+    "tier": 1
+  },
+  {
+    "id": "c12",
+    "name": "Nürnberg",
+    "code": "BY",
+    "lat": 49.454,
+    "lon": 11.078,
+    "tier": 1
+  },
+  {
+    "id": "c13",
+    "name": "Kiel",
+    "code": "SH",
+    "lat": 54.321,
+    "lon": 10.135,
+    "tier": 1
+  },
+  {
+    "id": "c14",
+    "name": "Rostock",
+    "code": "MV",
+    "lat": 54.089,
+    "lon": 12.14,
+    "tier": 1
+  },
+  {
+    "id": "c15",
+    "name": "Magdeburg",
+    "code": "ST",
+    "lat": 52.131,
+    "lon": 11.632,
+    "tier": 1
+  },
+  {
+    "id": "c16",
+    "name": "Erfurt",
+    "code": "TH",
+    "lat": 50.977,
+    "lon": 11.035,
+    "tier": 1
+  },
+  {
+    "id": "c17",
+    "name": "Freiburg im Breisgau",
+    "code": "BW",
+    "lat": 47.999,
+    "lon": 7.839,
+    "tier": 1
+  },
+  {
+    "id": "c18",
+    "name": "Saarbrücken",
+    "code": "SL",
+    "lat": 49.233,
+    "lon": 7.01,
+    "tier": 1
+  },
+  {
+    "id": "c19",
+    "name": "Regensburg",
+    "code": "BY",
+    "lat": 49.015,
+    "lon": 12.102,
+    "tier": 1
+  },
+  {
+    "id": "c20",
+    "name": "Lübeck",
+    "code": "SH",
+    "lat": 53.869,
+    "lon": 10.687,
+    "tier": 2
+  },
+  {
+    "id": "c21",
+    "name": "Flensburg",
+    "code": "SH",
+    "lat": 54.788,
+    "lon": 9.437,
+    "tier": 2
+  },
+  {
+    "id": "c22",
+    "name": "Neumünster",
+    "code": "SH",
+    "lat": 54.074,
+    "lon": 9.985,
+    "tier": 2
+  },
+  {
+    "id": "c23",
+    "name": "Husum",
+    "code": "SH",
+    "lat": 54.486,
+    "lon": 9.052,
+    "tier": 2
+  },
+  {
+    "id": "c24",
+    "name": "Heide",
+    "code": "SH",
+    "lat": 54.196,
+    "lon": 9.097,
+    "tier": 2
+  },
+  {
+    "id": "c25",
+    "name": "Westerland",
+    "code": "SH",
+    "lat": 54.908,
+    "lon": 8.303,
+    "tier": 2
+  },
+  {
+    "id": "c26",
+    "name": "Bremerhaven",
+    "code": "HB",
+    "lat": 53.554,
+    "lon": 8.576,
+    "tier": 2
+  },
+  {
+    "id": "c27",
+    "name": "Osnabrück",
+    "code": "NI",
+    "lat": 52.274,
+    "lon": 8.051,
+    "tier": 2
+  },
+  {
+    "id": "c28",
+    "name": "Oldenburg",
+    "code": "NI",
+    "lat": 53.14,
+    "lon": 8.215,
+    "tier": 2
+  },
+  {
+    "id": "c29",
+    "name": "Braunschweig",
+    "code": "NI",
+    "lat": 52.266,
+    "lon": 10.527,
+    "tier": 2
+  },
+  {
+    "id": "c30",
+    "name": "Wolfsburg",
+    "code": "NI",
+    "lat": 52.424,
+    "lon": 10.776,
+    "tier": 2
+  },
+  {
+    "id": "c31",
+    "name": "Göttingen",
+    "code": "NI",
+    "lat": 51.534,
+    "lon": 9.932,
+    "tier": 2
+  },
+  {
+    "id": "c32",
+    "name": "Lüneburg",
+    "code": "NI",
+    "lat": 53.251,
+    "lon": 10.415,
+    "tier": 2
+  },
+  {
+    "id": "c33",
+    "name": "Emden",
+    "code": "NI",
+    "lat": 53.366,
+    "lon": 7.208,
+    "tier": 2
+  },
+  {
+    "id": "c34",
+    "name": "Wilhelmshaven",
+    "code": "NI",
+    "lat": 53.548,
+    "lon": 8.104,
+    "tier": 2
+  },
+  {
+    "id": "c35",
+    "name": "Cuxhaven",
+    "code": "NI",
+    "lat": 53.868,
+    "lon": 8.699,
+    "tier": 2
+  },
+  {
+    "id": "c36",
+    "name": "Celle",
+    "code": "NI",
+    "lat": 52.623,
+    "lon": 10.08,
+    "tier": 2
+  },
+  {
+    "id": "c37",
+    "name": "Essen",
+    "code": "NW",
+    "lat": 51.457,
+    "lon": 7.012,
+    "tier": 2
+  },
+  {
+    "id": "c38",
+    "name": "Duisburg",
+    "code": "NW",
+    "lat": 51.432,
+    "lon": 6.765,
+    "tier": 2
+  },
+  {
+    "id": "c39",
+    "name": "Bochum",
+    "code": "NW",
+    "lat": 51.482,
+    "lon": 7.216,
+    "tier": 2
+  },
+  {
+    "id": "c40",
+    "name": "Bielefeld",
+    "code": "NW",
+    "lat": 52.033,
+    "lon": 8.533,
+    "tier": 2
+  },
+  {
+    "id": "c41",
+    "name": "Münster",
+    "code": "NW",
+    "lat": 51.962,
+    "lon": 7.626,
+    "tier": 2
+  },
+  {
+    "id": "c42",
+    "name": "Aachen",
+    "code": "NW",
+    "lat": 50.777,
+    "lon": 6.083,
+    "tier": 2
+  },
+  {
+    "id": "c43",
+    "name": "Bonn",
+    "code": "NW",
+    "lat": 50.734,
+    "lon": 7.095,
+    "tier": 2
+  },
+  {
+    "id": "c44",
+    "name": "Wuppertal",
+    "code": "NW",
+    "lat": 51.256,
+    "lon": 7.148,
+    "tier": 2
+  },
+  {
+    "id": "c45",
+    "name": "Siegen",
+    "code": "NW",
+    "lat": 50.875,
+    "lon": 8.024,
+    "tier": 2
+  },
+  {
+    "id": "c46",
+    "name": "Paderborn",
+    "code": "NW",
+    "lat": 51.719,
+    "lon": 8.754,
+    "tier": 2
+  },
+  {
+    "id": "c47",
+    "name": "Wiesbaden",
+    "code": "HE",
+    "lat": 50.086,
+    "lon": 8.244,
+    "tier": 2
+  },
+  {
+    "id": "c48",
+    "name": "Kassel",
+    "code": "HE",
+    "lat": 51.317,
+    "lon": 9.5,
+    "tier": 2
+  },
+  {
+    "id": "c49",
+    "name": "Darmstadt",
+    "code": "HE",
+    "lat": 49.872,
+    "lon": 8.65,
+    "tier": 2
+  },
+  {
+    "id": "c50",
+    "name": "Fulda",
+    "code": "HE",
+    "lat": 50.552,
+    "lon": 9.675,
+    "tier": 2
+  },
+  {
+    "id": "c51",
+    "name": "Gießen",
+    "code": "HE",
+    "lat": 50.587,
+    "lon": 8.676,
+    "tier": 2
+  },
+  {
+    "id": "c52",
+    "name": "Mainz",
+    "code": "RP",
+    "lat": 49.982,
+    "lon": 8.28,
+    "tier": 2
+  },
+  {
+    "id": "c53",
+    "name": "Koblenz",
+    "code": "RP",
+    "lat": 50.354,
+    "lon": 7.579,
+    "tier": 2
+  },
+  {
+    "id": "c54",
+    "name": "Trier",
+    "code": "RP",
+    "lat": 49.756,
+    "lon": 6.639,
+    "tier": 2
+  },
+  {
+    "id": "c55",
+    "name": "Kaiserslautern",
+    "code": "RP",
+    "lat": 49.443,
+    "lon": 7.772,
+    "tier": 2
+  },
+  {
+    "id": "c56",
+    "name": "Ludwigshafen am Rhein",
+    "code": "RP",
+    "lat": 49.481,
+    "lon": 8.446,
+    "tier": 2
+  },
+  {
+    "id": "c57",
+    "name": "Mannheim",
+    "code": "BW",
+    "lat": 49.489,
+    "lon": 8.467,
+    "tier": 2
+  },
+  {
+    "id": "c58",
+    "name": "Karlsruhe",
+    "code": "BW",
+    "lat": 49.009,
+    "lon": 8.404,
+    "tier": 2
+  },
+  {
+    "id": "c59",
+    "name": "Heidelberg",
+    "code": "BW",
+    "lat": 49.408,
+    "lon": 8.691,
+    "tier": 2
+  },
+  {
+    "id": "c60",
+    "name": "Ulm",
+    "code": "BW",
+    "lat": 48.398,
+    "lon": 9.992,
+    "tier": 2
+  },
+  {
+    "id": "c61",
+    "name": "Heilbronn",
+    "code": "BW",
+    "lat": 49.14,
+    "lon": 9.221,
+    "tier": 2
+  },
+  {
+    "id": "c62",
+    "name": "Konstanz",
+    "code": "BW",
+    "lat": 47.66,
+    "lon": 9.176,
+    "tier": 2
+  },
+  {
+    "id": "c63",
+    "name": "Pforzheim",
+    "code": "BW",
+    "lat": 48.884,
+    "lon": 8.699,
+    "tier": 2
+  },
+  {
+    "id": "c64",
+    "name": "Tübingen",
+    "code": "BW",
+    "lat": 48.523,
+    "lon": 9.052,
+    "tier": 2
+  },
+  {
+    "id": "c65",
+    "name": "Augsburg",
+    "code": "BY",
+    "lat": 48.372,
+    "lon": 10.899,
+    "tier": 2
+  },
+  {
+    "id": "c66",
+    "name": "Würzburg",
+    "code": "BY",
+    "lat": 49.794,
+    "lon": 9.951,
+    "tier": 2
+  },
+  {
+    "id": "c67",
+    "name": "Ingolstadt",
+    "code": "BY",
+    "lat": 48.765,
+    "lon": 11.424,
+    "tier": 2
+  },
+  {
+    "id": "c68",
+    "name": "Bamberg",
+    "code": "BY",
+    "lat": 49.899,
+    "lon": 10.901,
+    "tier": 2
+  },
+  {
+    "id": "c69",
+    "name": "Bayreuth",
+    "code": "BY",
+    "lat": 49.948,
+    "lon": 11.579,
+    "tier": 2
+  },
+  {
+    "id": "c70",
+    "name": "Passau",
+    "code": "BY",
+    "lat": 48.566,
+    "lon": 13.431,
+    "tier": 2
+  },
+  {
+    "id": "c71",
+    "name": "Rosenheim",
+    "code": "BY",
+    "lat": 47.856,
+    "lon": 12.122,
+    "tier": 2
+  },
+  {
+    "id": "c72",
+    "name": "Kempten (Allgäu)",
+    "code": "BY",
+    "lat": 47.727,
+    "lon": 10.314,
+    "tier": 2
+  },
+  {
+    "id": "c73",
+    "name": "Hof",
+    "code": "BY",
+    "lat": 50.313,
+    "lon": 11.913,
+    "tier": 2
+  },
+  {
+    "id": "c74",
+    "name": "Potsdam",
+    "code": "BB",
+    "lat": 52.399,
+    "lon": 13.066,
+    "tier": 2
+  },
+  {
+    "id": "c75",
+    "name": "Cottbus",
+    "code": "BB",
+    "lat": 51.758,
+    "lon": 14.329,
+    "tier": 2
+  },
+  {
+    "id": "c76",
+    "name": "Frankfurt (Oder)",
+    "code": "BB",
+    "lat": 52.347,
+    "lon": 14.551,
+    "tier": 2
+  },
+  {
+    "id": "c77",
+    "name": "Brandenburg an der Havel",
+    "code": "BB",
+    "lat": 52.417,
+    "lon": 12.55,
+    "tier": 2
+  },
+  {
+    "id": "c78",
+    "name": "Eberswalde",
+    "code": "BB",
+    "lat": 52.835,
+    "lon": 13.82,
+    "tier": 2
+  },
+  {
+    "id": "c79",
+    "name": "Schwerin",
+    "code": "MV",
+    "lat": 53.629,
+    "lon": 11.413,
+    "tier": 2
+  },
+  {
+    "id": "c80",
+    "name": "Greifswald",
+    "code": "MV",
+    "lat": 54.087,
+    "lon": 13.413,
+    "tier": 2
+  },
+  {
+    "id": "c81",
+    "name": "Stralsund",
+    "code": "MV",
+    "lat": 54.309,
+    "lon": 13.082,
+    "tier": 2
+  },
+  {
+    "id": "c82",
+    "name": "Neubrandenburg",
+    "code": "MV",
+    "lat": 53.557,
+    "lon": 13.261,
+    "tier": 2
+  },
+  {
+    "id": "c83",
+    "name": "Wismar",
+    "code": "MV",
+    "lat": 53.892,
+    "lon": 11.456,
+    "tier": 2
+  },
+  {
+    "id": "c84",
+    "name": "Chemnitz",
+    "code": "SN",
+    "lat": 50.836,
+    "lon": 12.929,
+    "tier": 2
+  },
+  {
+    "id": "c85",
+    "name": "Zwickau",
+    "code": "SN",
+    "lat": 50.727,
+    "lon": 12.488,
+    "tier": 2
+  },
+  {
+    "id": "c86",
+    "name": "Plauen",
+    "code": "SN",
+    "lat": 50.497,
+    "lon": 12.138,
+    "tier": 2
+  },
+  {
+    "id": "c87",
+    "name": "Görlitz",
+    "code": "SN",
+    "lat": 51.155,
+    "lon": 14.989,
+    "tier": 2
+  },
+  {
+    "id": "c88",
+    "name": "Bautzen",
+    "code": "SN",
+    "lat": 51.18,
+    "lon": 14.435,
+    "tier": 2
+  },
+  {
+    "id": "c89",
+    "name": "Halle (Saale)",
+    "code": "ST",
+    "lat": 51.482,
+    "lon": 11.979,
+    "tier": 2
+  },
+  {
+    "id": "c90",
+    "name": "Dessau-Roßlau",
+    "code": "ST",
+    "lat": 51.833,
+    "lon": 12.25,
+    "tier": 2
+  },
+  {
+    "id": "c91",
+    "name": "Lutherstadt Wittenberg",
+    "code": "ST",
+    "lat": 51.874,
+    "lon": 12.606,
+    "tier": 2
+  },
+  {
+    "id": "c92",
+    "name": "Stendal",
+    "code": "ST",
+    "lat": 52.606,
+    "lon": 11.861,
+    "tier": 2
+  },
+  {
+    "id": "c93",
+    "name": "Jena",
+    "code": "TH",
+    "lat": 50.929,
+    "lon": 11.59,
+    "tier": 2
+  },
+  {
+    "id": "c94",
+    "name": "Gera",
+    "code": "TH",
+    "lat": 50.88,
+    "lon": 12.082,
+    "tier": 2
+  },
+  {
+    "id": "c95",
+    "name": "Weimar",
+    "code": "TH",
+    "lat": 50.98,
+    "lon": 11.329,
+    "tier": 2
+  },
+  {
+    "id": "c96",
+    "name": "Eisenach",
+    "code": "TH",
+    "lat": 50.981,
+    "lon": 10.315,
+    "tier": 2
+  },
+  {
+    "id": "c97",
+    "name": "Suhl",
+    "code": "TH",
+    "lat": 50.609,
+    "lon": 10.694,
+    "tier": 2
+  }
+]

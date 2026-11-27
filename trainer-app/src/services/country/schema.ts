@@ -91,6 +91,9 @@ export const CountryMetaSchema = z.object({
   name: nonEmpty,
   sets: z.array(StudySetSchema).min(1),
   departmentCodes: z.enum(['shown', 'hidden']),
+  departmentLabelOffsets: z
+    .record(z.string(), z.object({ dx: z.number().optional(), dy: z.number().optional() }))
+    .optional(),
   projectionRefLat: lat,
   outline: z.object({
     viewBox: z.string().regex(/^-?[\d.]+[ ,]-?[\d.]+[ ,][\d.]+[ ,][\d.]+$/),
@@ -263,12 +266,13 @@ export function validateCountry(country: Country): ValidationResult {
       errors.push(`department ${d.code} (${d.name}) is in several regions: ${regions.join(', ')}`);
   }
 
-  // Phone zones.
+  // Phone zones: every department needs one only when the phone set is offered.
   const zones = new Set(country.phone.zones.map((z) => z.zone));
   for (const d of country.departments) {
     const zone = country.phone.zoneByDepartement[d.code];
-    if (!zone) errors.push(`department ${d.code} (${d.name}) has no phone zone`);
-    else if (!zones.has(zone)) errors.push(`department ${d.code} has unknown phone zone ${zone}`);
+    if (!zone) {
+      if (country.sets.includes('tel')) errors.push(`department ${d.code} (${d.name}) has no phone zone`);
+    } else if (!zones.has(zone)) errors.push(`department ${d.code} has unknown phone zone ${zone}`);
   }
   for (const code of Object.keys(country.phone.zoneByDepartement)) {
     if (!departmentCodes.has(code)) errors.push(`phone zone given for unknown department ${code}`);

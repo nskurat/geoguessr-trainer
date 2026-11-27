@@ -1,0 +1,911 @@
+[
+  {
+    "id": "p0",
+    "label": "-ow, -itz, -in",
+    "where": "The former Slavic east, beyond the Elbe and Saale: -ow above all in Mecklenburg-Vorpommern and Brandenburg, -itz in Sachsen, Sachsen-Anhalt and eastern Thüringen",
+    "origin": "Slavic (Polabian and Sorbian) names, Germanised: -ow and -in from adjective endings, -itz from -ice",
+    "codes": [
+      "BE",
+      "BB",
+      "MV",
+      "SN",
+      "ST",
+      "TH"
+    ],
+    "towns": [
+      {
+        "id": "n0",
+        "name": "Güstrow",
+        "lat": 53.797,
+        "lon": 12.173,
+        "extra": false
+      },
+      {
+        "id": "n1",
+        "name": "Teltow",
+        "lat": 52.397,
+        "lon": 13.276,
+        "extra": false
+      },
+      {
+        "id": "n2",
+        "name": "Rathenow",
+        "lat": 52.607,
+        "lon": 12.337,
+        "extra": false
+      },
+      {
+        "id": "n3",
+        "name": "Schwerin",
+        "lat": 53.629,
+        "lon": 11.413,
+        "extra": false
+      },
+      {
+        "id": "n4",
+        "name": "Templin",
+        "lat": 53.119,
+        "lon": 13.502,
+        "extra": false
+      },
+      {
+        "id": "n5",
+        "name": "Görlitz",
+        "lat": 51.155,
+        "lon": 14.989,
+        "extra": false
+      },
+      {
+        "id": "n6",
+        "name": "Chemnitz",
+        "lat": 50.836,
+        "lon": 12.929,
+        "extra": false
+      },
+      {
+        "id": "n7",
+        "name": "Delitzsch",
+        "lat": 51.525,
+        "lon": 12.343,
+        "extra": false
+      },
+      {
+        "id": "n8",
+        "name": "Teterow",
+        "lat": 53.774,
+        "lon": 12.576,
+        "extra": true
+      },
+      {
+        "id": "n9",
+        "name": "Malchow",
+        "lat": 53.475,
+        "lon": 12.422,
+        "extra": true
+      },
+      {
+        "id": "n10",
+        "name": "Oschatz",
+        "lat": 51.3,
+        "lon": 13.11,
+        "extra": true
+      },
+      {
+        "id": "n11",
+        "name": "Zeitz",
+        "lat": 51.05,
+        "lon": 12.137,
+        "extra": true
+      },
+      {
+        "id": "n12",
+        "name": "Pasewalk",
+        "lat": 53.506,
+        "lon": 13.99,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p1",
+    "label": "-ing",
+    "where": "Old Bavaria: Oberbayern and Niederbayern, east of the Lech",
+    "origin": "Bavarian -ing, (the people) of: a settlement named after its founder",
+    "codes": [
+      "BY"
+    ],
+    "towns": [
+      {
+        "id": "n13",
+        "name": "Freising",
+        "lat": 48.404,
+        "lon": 11.749,
+        "extra": false
+      },
+      {
+        "id": "n14",
+        "name": "Erding",
+        "lat": 48.306,
+        "lon": 11.907,
+        "extra": false
+      },
+      {
+        "id": "n15",
+        "name": "Straubing",
+        "lat": 48.881,
+        "lon": 12.574,
+        "extra": false
+      },
+      {
+        "id": "n16",
+        "name": "Dingolfing",
+        "lat": 48.642,
+        "lon": 12.493,
+        "extra": false
+      },
+      {
+        "id": "n17",
+        "name": "Altötting",
+        "lat": 48.225,
+        "lon": 12.677,
+        "extra": false
+      },
+      {
+        "id": "n18",
+        "name": "Plattling",
+        "lat": 48.779,
+        "lon": 12.875,
+        "extra": false
+      },
+      {
+        "id": "n19",
+        "name": "Pocking",
+        "lat": 48.401,
+        "lon": 13.313,
+        "extra": true
+      },
+      {
+        "id": "n20",
+        "name": "Ruhpolding",
+        "lat": 47.767,
+        "lon": 12.65,
+        "extra": true
+      },
+      {
+        "id": "n21",
+        "name": "Garching bei München",
+        "lat": 48.249,
+        "lon": 11.651,
+        "extra": true
+      },
+      {
+        "id": "n22",
+        "name": "Unterhaching",
+        "lat": 48.066,
+        "lon": 11.616,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p2",
+    "label": "-ingen",
+    "where": "Baden-Württemberg, and Bavarian Swabia west of the Lech; scattered elsewhere (Göttingen, Solingen)",
+    "origin": "Alemannic -ingen, (the people) of: a settlement named after its founder",
+    "codes": [
+      "BW"
+    ],
+    "towns": [
+      {
+        "id": "n23",
+        "name": "Tübingen",
+        "lat": 48.523,
+        "lon": 9.052,
+        "extra": false
+      },
+      {
+        "id": "n24",
+        "name": "Reutlingen",
+        "lat": 48.491,
+        "lon": 9.204,
+        "extra": false
+      },
+      {
+        "id": "n25",
+        "name": "Sigmaringen",
+        "lat": 48.088,
+        "lon": 9.23,
+        "extra": false
+      },
+      {
+        "id": "n26",
+        "name": "Göppingen",
+        "lat": 48.704,
+        "lon": 9.652,
+        "extra": false
+      },
+      {
+        "id": "n27",
+        "name": "Böblingen",
+        "lat": 48.682,
+        "lon": 9.012,
+        "extra": false
+      },
+      {
+        "id": "n28",
+        "name": "Tuttlingen",
+        "lat": 47.985,
+        "lon": 8.818,
+        "extra": false
+      },
+      {
+        "id": "n29",
+        "name": "Memmingen",
+        "lat": 47.984,
+        "lon": 10.185,
+        "extra": false
+      },
+      {
+        "id": "n30",
+        "name": "Balingen",
+        "lat": 48.275,
+        "lon": 8.855,
+        "extra": true
+      },
+      {
+        "id": "n31",
+        "name": "Sindelfingen",
+        "lat": 48.7,
+        "lon": 9.017,
+        "extra": true
+      },
+      {
+        "id": "n32",
+        "name": "Riedlingen",
+        "lat": 48.155,
+        "lon": 9.476,
+        "extra": true
+      },
+      {
+        "id": "n33",
+        "name": "Nördlingen",
+        "lat": 48.851,
+        "lon": 10.489,
+        "extra": true
+      },
+      {
+        "id": "n34",
+        "name": "Vaihingen an der Enz",
+        "lat": 48.936,
+        "lon": 8.96,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p3",
+    "label": "-leben",
+    "where": "Sachsen-Anhalt and northern Thüringen, around the Harz and the Magdeburg Börde",
+    "origin": "Old Saxon and Thuringian leba, inheritance: an estate left to an heir",
+    "codes": [
+      "ST",
+      "TH"
+    ],
+    "towns": [
+      {
+        "id": "n35",
+        "name": "Aschersleben",
+        "lat": 51.757,
+        "lon": 11.461,
+        "extra": false
+      },
+      {
+        "id": "n36",
+        "name": "Haldensleben",
+        "lat": 52.301,
+        "lon": 11.43,
+        "extra": false
+      },
+      {
+        "id": "n37",
+        "name": "Oschersleben (Bode)",
+        "lat": 52.03,
+        "lon": 11.229,
+        "extra": false
+      },
+      {
+        "id": "n38",
+        "name": "Lutherstadt Eisleben",
+        "lat": 51.526,
+        "lon": 11.534,
+        "extra": false
+      },
+      {
+        "id": "n39",
+        "name": "Wanzleben",
+        "lat": 52.061,
+        "lon": 11.441,
+        "extra": false
+      },
+      {
+        "id": "n40",
+        "name": "Ebeleben",
+        "lat": 51.283,
+        "lon": 10.73,
+        "extra": false
+      },
+      {
+        "id": "n41",
+        "name": "Alsleben (Saale)",
+        "lat": 51.702,
+        "lon": 11.676,
+        "extra": true
+      },
+      {
+        "id": "n42",
+        "name": "Hadmersleben",
+        "lat": 51.993,
+        "lon": 11.303,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p4",
+    "label": "-rode, -roda",
+    "where": "The Harz (Niedersachsen, Sachsen-Anhalt) and Thüringen",
+    "origin": "Medieval forest clearings: roden, to clear land",
+    "codes": [
+      "NI",
+      "ST",
+      "TH"
+    ],
+    "towns": [
+      {
+        "id": "n43",
+        "name": "Wernigerode",
+        "lat": 51.837,
+        "lon": 10.782,
+        "extra": false
+      },
+      {
+        "id": "n44",
+        "name": "Osterode am Harz",
+        "lat": 51.727,
+        "lon": 10.251,
+        "extra": false
+      },
+      {
+        "id": "n45",
+        "name": "Gernrode",
+        "lat": 51.726,
+        "lon": 11.139,
+        "extra": false
+      },
+      {
+        "id": "n46",
+        "name": "Friedrichroda",
+        "lat": 50.858,
+        "lon": 10.565,
+        "extra": false
+      },
+      {
+        "id": "n47",
+        "name": "Stadtroda",
+        "lat": 50.857,
+        "lon": 11.727,
+        "extra": false
+      },
+      {
+        "id": "n48",
+        "name": "Elbingerode",
+        "lat": 51.77,
+        "lon": 10.806,
+        "extra": true
+      },
+      {
+        "id": "n49",
+        "name": "Gräfenroda",
+        "lat": 50.748,
+        "lon": 10.811,
+        "extra": true
+      },
+      {
+        "id": "n50",
+        "name": "Bleicherode",
+        "lat": 51.44,
+        "lon": 10.572,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p5",
+    "label": "-büttel",
+    "where": "Eastern Niedersachsen (Braunschweig, Gifhorn), Hamburg and western Holstein (Dithmarschen)",
+    "origin": "Old Saxon butli, dwelling",
+    "codes": [
+      "NI",
+      "HH",
+      "SH"
+    ],
+    "towns": [
+      {
+        "id": "n51",
+        "name": "Wolfenbüttel",
+        "lat": 52.164,
+        "lon": 10.541,
+        "extra": false
+      },
+      {
+        "id": "n52",
+        "name": "Brunsbüttel",
+        "lat": 53.896,
+        "lon": 9.105,
+        "extra": false
+      },
+      {
+        "id": "n53",
+        "name": "Hankensbüttel",
+        "lat": 52.729,
+        "lon": 10.606,
+        "extra": false
+      },
+      {
+        "id": "n54",
+        "name": "Isenbüttel",
+        "lat": 52.435,
+        "lon": 10.579,
+        "extra": false
+      },
+      {
+        "id": "n55",
+        "name": "Barsbüttel",
+        "lat": 53.569,
+        "lon": 10.168,
+        "extra": false
+      },
+      {
+        "id": "n56",
+        "name": "Bienenbüttel",
+        "lat": 53.142,
+        "lon": 10.487,
+        "extra": true
+      },
+      {
+        "id": "n57",
+        "name": "Wasbüttel",
+        "lat": 52.413,
+        "lon": 10.594,
+        "extra": true
+      },
+      {
+        "id": "n58",
+        "name": "Ribbesbüttel",
+        "lat": 52.434,
+        "lon": 10.51,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p6",
+    "label": "-siel, -fehn",
+    "where": "East Frisia, the North Sea corner of Niedersachsen",
+    "origin": "Frisian and Low German: siel a sluice through the dyke, fehn a peat-bog colony",
+    "codes": [
+      "NI"
+    ],
+    "towns": [
+      {
+        "id": "n59",
+        "name": "Großefehn",
+        "lat": 53.403,
+        "lon": 7.607,
+        "extra": false
+      },
+      {
+        "id": "n60",
+        "name": "Rhauderfehn",
+        "lat": 53.136,
+        "lon": 7.575,
+        "extra": false
+      },
+      {
+        "id": "n61",
+        "name": "Ostrhauderfehn",
+        "lat": 53.139,
+        "lon": 7.619,
+        "extra": false
+      },
+      {
+        "id": "n62",
+        "name": "Neuharlingersiel",
+        "lat": 53.7,
+        "lon": 7.703,
+        "extra": false
+      },
+      {
+        "id": "n63",
+        "name": "Greetsiel",
+        "lat": 53.5,
+        "lon": 7.094,
+        "extra": false
+      },
+      {
+        "id": "n64",
+        "name": "Carolinensiel",
+        "lat": 53.691,
+        "lon": 7.801,
+        "extra": true
+      },
+      {
+        "id": "n65",
+        "name": "Hooksiel",
+        "lat": 53.63,
+        "lon": 8.028,
+        "extra": true
+      },
+      {
+        "id": "n66",
+        "name": "Neukamperfehn",
+        "lat": 53.336,
+        "lon": 7.562,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p7",
+    "label": "-büll, -by, -rup",
+    "where": "Schleswig, the far north of Schleswig-Holstein up to the Danish border",
+    "origin": "Danish: by and rup (torp) village, büll (bøl) farmstead",
+    "codes": [
+      "SH"
+    ],
+    "towns": [
+      {
+        "id": "n67",
+        "name": "Niebüll",
+        "lat": 54.787,
+        "lon": 8.829,
+        "extra": false
+      },
+      {
+        "id": "n68",
+        "name": "Dagebüll",
+        "lat": 54.729,
+        "lon": 8.701,
+        "extra": false
+      },
+      {
+        "id": "n69",
+        "name": "Husby",
+        "lat": 54.767,
+        "lon": 9.583,
+        "extra": false
+      },
+      {
+        "id": "n70",
+        "name": "Satrup",
+        "lat": 54.692,
+        "lon": 9.605,
+        "extra": false
+      },
+      {
+        "id": "n71",
+        "name": "Sörup",
+        "lat": 54.717,
+        "lon": 9.667,
+        "extra": false
+      },
+      {
+        "id": "n72",
+        "name": "Süderbrarup",
+        "lat": 54.637,
+        "lon": 9.775,
+        "extra": false
+      },
+      {
+        "id": "n73",
+        "name": "Klixbüll",
+        "lat": 54.803,
+        "lon": 8.896,
+        "extra": true
+      },
+      {
+        "id": "n74",
+        "name": "Medelby",
+        "lat": 54.812,
+        "lon": 9.173,
+        "extra": true
+      },
+      {
+        "id": "n75",
+        "name": "Schuby",
+        "lat": 54.516,
+        "lon": 9.475,
+        "extra": true
+      },
+      {
+        "id": "n76",
+        "name": "Wanderup",
+        "lat": 54.683,
+        "lon": 9.333,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p8",
+    "label": "-scheid",
+    "where": "The Eifel, Hunsrück and Westerwald (Rheinland-Pfalz), the Bergisches Land and Sauerland (Nordrhein-Westfalen)",
+    "origin": "Scheid, a watershed or boundary ridge",
+    "codes": [
+      "RP",
+      "NW"
+    ],
+    "towns": [
+      {
+        "id": "n77",
+        "name": "Remscheid",
+        "lat": 51.18,
+        "lon": 7.192,
+        "extra": false
+      },
+      {
+        "id": "n78",
+        "name": "Lüdenscheid",
+        "lat": 51.22,
+        "lon": 7.627,
+        "extra": false
+      },
+      {
+        "id": "n79",
+        "name": "Burscheid",
+        "lat": 51.085,
+        "lon": 7.114,
+        "extra": false
+      },
+      {
+        "id": "n80",
+        "name": "Herscheid",
+        "lat": 51.179,
+        "lon": 7.744,
+        "extra": false
+      },
+      {
+        "id": "n81",
+        "name": "Manderscheid",
+        "lat": 50.097,
+        "lon": 6.81,
+        "extra": false
+      },
+      {
+        "id": "n82",
+        "name": "Neunkirchen-Seelscheid",
+        "lat": 50.867,
+        "lon": 7.325,
+        "extra": true
+      },
+      {
+        "id": "n95",
+        "name": "Hillscheid",
+        "lat": 50.406,
+        "lon": 7.699,
+        "extra": true
+      },
+      {
+        "id": "n96",
+        "name": "Landscheid",
+        "lat": 49.983,
+        "lon": 6.767,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p9",
+    "label": "-weiler",
+    "where": "Rheinland-Pfalz (the Palatinate, Hunsrück, Eifel) and the Saarland",
+    "origin": "Latin villare, farmstead: Gallo-Roman settlement names",
+    "codes": [
+      "RP",
+      "SL"
+    ],
+    "towns": [
+      {
+        "id": "n83",
+        "name": "Ottweiler",
+        "lat": 49.401,
+        "lon": 7.164,
+        "extra": false
+      },
+      {
+        "id": "n84",
+        "name": "Schiffweiler",
+        "lat": 49.367,
+        "lon": 7.133,
+        "extra": false
+      },
+      {
+        "id": "n85",
+        "name": "Glan-Münchweiler",
+        "lat": 49.472,
+        "lon": 7.442,
+        "extra": false
+      },
+      {
+        "id": "n86",
+        "name": "Bad Neuenahr-Ahrweiler",
+        "lat": 50.543,
+        "lon": 7.111,
+        "extra": false
+      },
+      {
+        "id": "n87",
+        "name": "Kottweiler-Schwanden",
+        "lat": 49.483,
+        "lon": 7.533,
+        "extra": true
+      },
+      {
+        "id": "n97",
+        "name": "Winnweiler",
+        "lat": 49.567,
+        "lon": 7.85,
+        "extra": true
+      },
+      {
+        "id": "n98",
+        "name": "Heusweiler",
+        "lat": 49.336,
+        "lon": 6.93,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p10",
+    "label": "-reuth, -grün",
+    "where": "Upper Franconia and the Upper Palatinate (northeast Bayern); -grün also in the Vogtland and Erzgebirge (Sachsen)",
+    "origin": "Medieval clearings: reuth from roden, to clear; grün a green clearing",
+    "codes": [
+      "BY"
+    ],
+    "towns": [
+      {
+        "id": "n88",
+        "name": "Bayreuth",
+        "lat": 49.948,
+        "lon": 11.579,
+        "extra": false
+      },
+      {
+        "id": "n89",
+        "name": "Tirschenreuth",
+        "lat": 49.883,
+        "lon": 12.331,
+        "extra": false
+      },
+      {
+        "id": "n90",
+        "name": "Bischofsgrün",
+        "lat": 50.051,
+        "lon": 11.8,
+        "extra": false
+      },
+      {
+        "id": "n91",
+        "name": "Heinersreuth",
+        "lat": 49.967,
+        "lon": 11.533,
+        "extra": false
+      },
+      {
+        "id": "n92",
+        "name": "Geroldsgrün",
+        "lat": 50.333,
+        "lon": 11.6,
+        "extra": false
+      },
+      {
+        "id": "n93",
+        "name": "Konnersreuth",
+        "lat": 50.011,
+        "lon": 12.227,
+        "extra": true
+      },
+      {
+        "id": "n94",
+        "name": "Stützengrün",
+        "lat": 50.533,
+        "lon": 12.533,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p11",
+    "label": "-heim",
+    "where": "The Rhine plain and its hills: Rheinhessen and the Palatinate (Rheinland-Pfalz), northern Baden-Württemberg, southern Hessen; also Lower Franconia (Bayern)",
+    "origin": "Frankish heim, home: settlements of the Frankish expansion, often after a person's name",
+    "codes": [
+      "RP",
+      "BW",
+      "HE"
+    ],
+    "towns": [
+      {
+        "id": "n99",
+        "name": "Mannheim",
+        "lat": 49.489,
+        "lon": 8.467,
+        "extra": false
+      },
+      {
+        "id": "n100",
+        "name": "Oppenheim",
+        "lat": 49.855,
+        "lon": 8.36,
+        "extra": false
+      },
+      {
+        "id": "n101",
+        "name": "Bensheim",
+        "lat": 49.684,
+        "lon": 8.618,
+        "extra": false
+      },
+      {
+        "id": "n102",
+        "name": "Bad Dürkheim",
+        "lat": 49.462,
+        "lon": 8.172,
+        "extra": false
+      },
+      {
+        "id": "n103",
+        "name": "Hockenheim",
+        "lat": 49.323,
+        "lon": 8.552,
+        "extra": false
+      },
+      {
+        "id": "n104",
+        "name": "Crailsheim",
+        "lat": 49.134,
+        "lon": 10.072,
+        "extra": false
+      },
+      {
+        "id": "n105",
+        "name": "Gernsheim",
+        "lat": 49.753,
+        "lon": 8.489,
+        "extra": false
+      },
+      {
+        "id": "n106",
+        "name": "Lampertheim",
+        "lat": 49.598,
+        "lon": 8.473,
+        "extra": true
+      },
+      {
+        "id": "n107",
+        "name": "Bechtolsheim",
+        "lat": 49.804,
+        "lon": 8.194,
+        "extra": true
+      },
+      {
+        "id": "n108",
+        "name": "Sinsheim",
+        "lat": 49.253,
+        "lon": 8.879,
+        "extra": true
+      }
+    ]
+  }
+]

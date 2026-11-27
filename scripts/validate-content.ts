@@ -11,12 +11,13 @@
  */
 import { COUNTRIES as REGISTRY } from '../trainer-app/src/data/countries';
 import { france } from '../trainer-app/src/data/france/index';
+import { germany } from '../trainer-app/src/data/germany/index';
 import { peru } from '../trainer-app/src/data/peru/index';
 import { validateCountry } from '../trainer-app/src/services/country/schema';
 import type { Country } from '../trainer-app/src/types/geo';
 import { LANGS } from '../trainer-app/src/types/i18n';
 
-const COUNTRIES: Country[] = [france, peru];
+const COUNTRIES: Country[] = [france, peru, germany];
 
 let failed = false;
 for (const country of COUNTRIES) {

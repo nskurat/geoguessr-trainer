@@ -218,7 +218,12 @@ function build(): void {
   };
 
   depLabels.innerHTML = placed
-    .map((d) => `<text data-code="${d.code}" x="${boxes[d.code].cx}" y="${boxes[d.code].cy}"></text>`)
+    .map((d) => {
+      const nudge = country.departmentLabelOffsets?.[d.code];
+      const x = boxes[d.code].cx + (nudge?.dx ?? 0);
+      const y = boxes[d.code].cy + (nudge?.dy ?? 0);
+      return `<text data-code="${d.code}" x="${x}" y="${y}"></text>`;
+    })
     .join('');
   regionLabels.innerHTML = ix.regions
     .map(
