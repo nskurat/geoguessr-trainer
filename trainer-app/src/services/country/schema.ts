@@ -91,6 +91,9 @@ export const CountryMetaSchema = z.object({
   name: nonEmpty,
   sets: z.array(StudySetSchema).min(1),
   departmentCodes: z.enum(['shown', 'hidden']),
+  departmentLabelOffsets: z
+    .record(z.string(), z.object({ dx: z.number().optional(), dy: z.number().optional() }))
+    .optional(),
   projectionRefLat: lat,
   outline: z.object({
     viewBox: z.string().regex(/^-?[\d.]+[ ,]-?[\d.]+[ ,][\d.]+[ ,][\d.]+$/),

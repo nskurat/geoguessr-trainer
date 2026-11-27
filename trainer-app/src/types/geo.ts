@@ -92,7 +92,10 @@ export interface River {
   id: string;
   name: string;
   lengthKm: number;
-  /** True when `lengthKm` is the whole river, not just the stretch inside this country. */
+  /**
+   * Set only for rivers that extend beyond this country: their `lengthKm` is the whole river,
+   * and the info card says so ("in total, not just in …"). Leave unset for domestic rivers.
+   */
   lengthIsTotal?: boolean;
   flowsInto: string;
   /** Waypoints from source to mouth. */
@@ -194,6 +197,11 @@ export interface Country {
   projectionRefLat: number;
   /** Nudges, in map units, for region labels whose area-weighted centre sits badly. */
   regionLabelOffsets: Record<string, { dx?: number; dy?: number }>;
+  /**
+   * Nudges, in map units, for department labels whose bounding-box centre sits badly, e.g. a
+   * department that surrounds another (Brandenburg around Berlin).
+   */
+  departmentLabelOffsets?: Record<string, { dx?: number; dy?: number }>;
   outline: MapOutline;
   regions: Region[];
   departments: Department[];

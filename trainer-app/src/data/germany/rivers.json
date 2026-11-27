@@ -85,7 +85,6 @@
       "id": "r3",
       "name": "Main",
       "lengthKm": 527,
-      "lengthIsTotal": true,
       "flowsInto": "the Rhein at Mainz",
       "course": [],
       "towns": [
@@ -114,7 +113,6 @@
       "id": "r4",
       "name": "Weser",
       "lengthKm": 452,
-      "lengthIsTotal": true,
       "flowsInto": "the North Sea at Bremerhaven",
       "course": [[53.42, 8.49], [53.49, 8.5], [53.545, 8.56], [53.6, 8.52]],
       "towns": [
@@ -155,7 +153,6 @@
       "id": "r6",
       "name": "Neckar",
       "lengthKm": 362,
-      "lengthIsTotal": true,
       "flowsInto": "the Rhein at Mannheim",
       "course": [],
       "towns": [
@@ -195,7 +192,6 @@
       "id": "r8",
       "name": "Saale",
       "lengthKm": 413,
-      "lengthIsTotal": true,
       "flowsInto": "the Elbe near Barby",
       "course": [],
       "towns": [
@@ -233,7 +229,6 @@
       "id": "r10",
       "name": "Spree",
       "lengthKm": 400,
-      "lengthIsTotal": true,
       "flowsInto": "the Havel in Berlin-Spandau",
       "course": [],
       "towns": [
@@ -249,7 +244,6 @@
       "id": "r11",
       "name": "Ruhr",
       "lengthKm": 219,
-      "lengthIsTotal": true,
       "flowsInto": "the Rhein at Duisburg",
       "course": [],
       "towns": [
@@ -268,7 +262,6 @@
       "id": "r12",
       "name": "Ems",
       "lengthKm": 371,
-      "lengthIsTotal": true,
       "flowsInto": "the North Sea at Emden",
       "course": [[53.33, 7.28], [53.34, 7.2], [53.36, 7.08]],
       "towns": [
@@ -304,7 +297,6 @@
       "id": "r14",
       "name": "Lahn",
       "lengthKm": 246,
-      "lengthIsTotal": true,
       "flowsInto": "the Rhein at Lahnstein",
       "course": [],
       "towns": [

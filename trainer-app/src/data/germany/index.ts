@@ -24,6 +24,8 @@ export const germany: Country = {
   departmentCodes: 'hidden',
   projectionRefLat: outline.refLat,
   regionLabelOffsets: {},
+  // Brandenburg surrounds Berlin, so its bounding-box centre falls on Berlin.
+  departmentLabelOffsets: { BB: { dy: 24 } },
   outline: { viewBox: outline.viewBox, locations: outline.locations, affine: outline.affine },
   regions: regions as Region[],
   departments: departments as Department[],
