@@ -38,13 +38,18 @@ function chosenCountry(): string {
   return DEFAULT_COUNTRY;
 }
 
-/** The language in the URL (?lang=be), else the one picked before, else the browser's, else English. */
+/**
+ * The site is for a Belarusian GeoGuessr community, so Belarusian is the default whatever the
+ * browser's language; English is one click away in the picker and remembered once chosen.
+ */
+const DEFAULT_LANG: Lang = 'be';
+
+/** The language in the URL (?lang=en), else the one picked before, else Belarusian. */
 function chosenLanguage(): Lang {
-  const browser = navigator.languages?.length ? navigator.languages : [navigator.language];
   return negotiateLanguage(
-    { url: new URLSearchParams(location.search).get('lang'), saved: readStorage(LANG_KEY), browser },
+    { url: new URLSearchParams(location.search).get('lang'), saved: readStorage(LANG_KEY) },
     LANGS,
-    SOURCE_LANG,
+    DEFAULT_LANG,
   );
 }
 
