@@ -27,20 +27,20 @@ export const copyBe: CountryCopy = {
   departmentTerm: {
     one: 'Зямля',
     many: 'Землі',
-    counted: { one: 'зямля', few: 'зямлі', many: 'земляў', other: 'зямлі' },
+    counted: { one: 'зямля', few: 'зямлі', many: 'зямель', other: 'зямлі' },
   },
   seatLabel: 'Сталіца',
   allAreas: 'Уся Германія',
   phoneHint: '',
   tips: {
-    reg: 'Гэта навучальная групоўка, а не афіцыйная: Nord (узбярэжжа Паўночнага мора, Hamburg і Niedersachsen), West (Рэйнская вобласць, Рур, Hessen і Saarland), Süd (Baden-Württemberg і Bayern) і Ost — былая ГДР разам з Berlin. Вывучыце яе першай, а потым выкарыстоўвайце як фільтр «Тэрыторыя» для ўсяго астатняга.',
-    dep: 'Вывучайце па адным макрарэгіёне з фільтрам «Тэрыторыя», потым пераключыцеся на «Уся Германія». Прывязвайце кожную зямлю да яе сталіцы. Тэлефонныя коды на шыльдах крам — хуткая праверка, хоць іх зоны не супадаюць з межамі земляў: 03 — усход, 04 — поўнач, 08 — поўдзень Bayern, 09 — поўнач Bayern.',
-    city: 'Пакрыццё шчыльнае паўсюль, таму вывучайце гарады па адным макрарэгіёне з фільтрам «Тэрыторыя», потым па ўсёй краіне. Дарожныя знакі паказваюць на наступны вялікі горад, таму ведайце, у які бок ляжыць кожны. Назвы меншых гарадоў з’яўляюцца пры павелічэнні.',
-    riv: 'Назвы гарадоў часта ўтрымліваюць раку: Frankfurt am Main, Frankfurt (Oder), Halle (Saale), Mülheim an der Ruhr. Вывучайце раку з фільтрам «Рака», дзе яе гарады ідуць ад вытоку да вусця, потым выберыце «Размясціць гарады», каб ведаць, дзе на рацэ ляжыць кожны.',
-    nom: 'Выберыце заканчэнне, каб убачыць яго арэал і прыклады. Галоўны падзел: -ow і -itz на былым славянскім усходзе супраць -ing у Старой Баварыі і -ingen у Швабіі; далей куткі: -büll і -by каля Даніі, -siel і -fehn ва Усходняй Фрысландыі, -weiler у Пфальцы і Saarland, -leben і -rode вакол Гарца. -dorf і -hausen ёсць паўсюль і нічога не кажуць.',
+    reg: 'Гэта навучальная групоўка, а не афіцыйная: Nord (узбярэжжа Паўночнага мора, Hamburg і Niedersachsen), West (Rheinland, Ruhrgebiet, Hessen і Saarland), Süd (Baden-Württemberg і Bayern) і Ost — былая Усходняя Германія разам з Berlin. Вывучыце яе першай, а потым выкарыстоўвайце як фільтр «Тэрыторыя» для ўсяго астатняга.',
+    dep: 'Вывучайце па адным макрарэгіёне з фільтрам «Тэрыторыя», потым пераключыцеся на «Уся Германія». Прывязвайце кожную зямлю да яе сталіцы. Тэлефонныя коды на шыльдах крам — хуткая праверка, хоць іх зоны не супадаюць з межамі зямель: 03 — усход, 04 — поўнач, 08 — поўдзень Bayern, 09 — поўнач Bayern.',
+    city: 'Пакрыццё шчыльнае ўсюды, таму вывучайце гарады па адным макрарэгіёне з фільтрам «Тэрыторыя», потым па ўсёй краіне. Дарожныя знакі паказваюць на наступны вялікі горад, таму ведайце, у які бок ляжыць кожны. Назвы меншых гарадоў з’яўляюцца пры павелічэнні.',
+    riv: 'Назвы гарадоў часта ўтрымліваюць раку: Frankfurt am Main, Frankfurt (Oder), Halle (Saale), Limburg an der Lahn. Вывучайце раку з фільтрам «Рака», дзе яе гарады ідуць ад вытоку да вусця, потым выберыце «Размясціць гарады», каб ведаць, дзе на рацэ ляжыць кожны.',
+    nom: 'Выберыце заканчэнне, каб убачыць яго арэал і прыклады. Галоўны падзел: -ow і -itz на былым славянскім усходзе супраць -ing у Altbayern і -ingen у Schwaben, а -heim ідзе ўздоўж Rhein ад Mainz да Karlsruhe; далей куткі: -büll і -by каля Даніі, -siel і -fehn у Ostfriesland, -weiler у Pfalz і Saarland, -leben і -rode вакол Harz. -dorf і -hausen ёсць усюды і нічога не кажуць.',
   },
   credits:
-    'Контуры земляў і рэчышчы рэк: <a href="https://www.naturalearthdata.com/">Natural Earth</a> (грамадскі набытак). Каардынаты населеных пунктаў: <a href="https://www.geonames.org/">GeoNames</a>, ліцэнзія <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Гарады, рэкі і заканчэнні назваў сабраныя для вучобы (гл. RESEARCH.md у рэпазіторыі); каардынаты і рэчышчы прыблізныя, а не для геадэзіі.',
+    'Контуры зямель і рэчышчы рэк: <a href="https://www.naturalearthdata.com/">Natural Earth</a> (грамадскі набытак). Каардынаты населеных пунктаў: <a href="https://www.geonames.org/">GeoNames</a>, ліцэнзія <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Гарады, рэкі і заканчэнні назваў сабраныя для вучобы (гл. RESEARCH.md у рэпазіторыі); каардынаты і рэчышчы прыблізныя, а не для геадэзіі.',
   data: {
     rivers: {
       r0: { flowsInto: `${northSea} (праз Нідэрланды)` },
@@ -57,6 +57,7 @@ export const copyBe: CountryCopy = {
       r11: { flowsInto: 'Rhein каля Duisburg' },
       r12: { flowsInto: `${northSea} каля Emden` },
       r13: { flowsInto: 'Donau каля Passau' },
+      r14: { flowsInto: 'Rhein каля Lahnstein' },
     },
     namePatterns: {
       p0: {
@@ -65,44 +66,49 @@ export const copyBe: CountryCopy = {
         origin: 'Славянскія (палабскія і лужыцкія) назвы ў анямечанай форме: -ow і -in з прыметнікавых канчаткаў, -itz з -ice',
       },
       p1: {
-        where: 'Старая Баварыя: Oberbayern і Niederbayern, на ўсход ад Lech',
+        where: 'Altbayern: Oberbayern і Niederbayern, на ўсход ад Lech',
         origin: 'Баварскае -ing — «людзі такога»: паселішча, названае паводле заснавальніка',
       },
       p2: {
-        where: 'Baden-Württemberg і баварская Швабія на захад ад Lech; асобныя назвы ў іншых месцах (Göttingen, Solingen)',
-        origin: 'Алеманскае -ingen — «людзі такога»: паселішча, названае паводле заснавальніка',
+        where: 'Baden-Württemberg і баварская частка Schwaben на захад ад Lech; асобныя назвы ў іншых месцах (Göttingen, Solingen)',
+        origin: 'Швабскае -ingen — «людзі такога»: паселішча, названае паводле заснавальніка',
       },
       p3: {
-        where: 'Sachsen-Anhalt і поўнач Thüringen, вакол Гарца і Магдэбургскай Бёрдэ',
-        origin: 'Старасаксонскае і цюрынгскае leba — спадчына: маёнтак, пакінуты спадчынніку',
+        where: 'Sachsen-Anhalt і поўнач Thüringen, вакол Harz і Magdeburger Börde',
+        origin: 'Старое нямецкае leba — спадчына: маёнтак, пакінуты спадчынніку',
       },
       p4: {
-        where: 'Гарц (Niedersachsen, Sachsen-Anhalt) і Thüringen',
-        origin: 'Сярэднявечныя расчысткі ў лясах: roden — карчаваць',
+        where: 'Harz (Niedersachsen, Sachsen-Anhalt) і Thüringen',
+        origin: 'Сярэдневяковыя расчысткі ў лясах: roden — карчаваць',
       },
       p5: {
-        where: 'Усход Niedersachsen (Braunschweig, Gifhorn), Hamburg і захад Гольштэйна (Dithmarschen)',
-        origin: 'Старасаксонскае butli — жытло',
+        where: 'Усход Niedersachsen (Braunschweig, Gifhorn), Hamburg і захад Holstein (Dithmarschen)',
+        origin: 'Старое нямецкае butli — жытло',
       },
       p6: {
-        where: 'Усходняя Фрысландыя, паўночна-марскі куток Niedersachsen',
-        origin: 'Фрызскія і ніжненямецкія: siel — шлюз праз дамбу, fehn — калонія на тарфяным балоце',
+        where: 'Ostfriesland, куток Niedersachsen на Паўночным моры',
+        origin: 'Фрызскія і мясцовыя нямецкія: siel — шлюз праз дамбу, fehn — калонія на тарфяным балоце',
       },
       p7: {
-        where: 'Шлезвіг, крайняя поўнач Schleswig-Holstein да мяжы з Даніяй',
+        where: 'Schleswig, крайняя поўнач Schleswig-Holstein да мяжы з Даніяй',
         origin: 'Дацкія: by і rup (torp) — вёска, büll (bøl) — сядзіба',
       },
       p8: {
-        where: 'Айфель, Хунсрук і Вестэрвальд (Rheinland-Pfalz), Бергішэс-Ланд і Заўэрланд (Nordrhein-Westfalen)',
+        where: 'Eifel, Hunsrück і Westerwald (Rheinland-Pfalz), Bergisches Land і Sauerland (Nordrhein-Westfalen)',
         origin: 'Scheid — водападзел або памежны хрыбет',
       },
       p9: {
-        where: 'Rheinland-Pfalz (Пфальц, Хунсрук, Айфель) і Saarland',
+        where: 'Rheinland-Pfalz (Pfalz, Hunsrück, Eifel) і Saarland',
         origin: 'Лацінскае villare — хутар: галарымскія назвы паселішчаў',
       },
       p10: {
-        where: 'Верхняя Франконія і Верхні Пфальц (паўночны ўсход Bayern); -grün таксама ў Фогтландзе і Рудных гарах (Sachsen)',
-        origin: 'Сярэднявечныя расчысткі: reuth ад roden — карчаваць, grün — зялёная паляна',
+        where: 'Oberfranken і Oberpfalz (паўночны ўсход Bayern); -grün таксама ў Vogtland і Erzgebirge (Sachsen)',
+        origin: 'Сярэдневяковыя расчысткі: reuth ад roden — карчаваць, grün — зялёная паляна',
+      },
+      p11: {
+        where:
+          'Абапал Rhein: Rheinhessen і Pfalz (Rheinland-Pfalz), поўнач Baden-Württemberg, поўдзень Hessen; таксама Unterfranken (Bayern)',
+        origin: 'Франкскае heim — дом: паселішчы часоў франкскай каланізацыі, часта пасля асабовага імя',
       },
     },
   },

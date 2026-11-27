@@ -32,8 +32,9 @@ visual design stays the artifact's (see Settled decisions); this is a structural
   landscape, architecture, bollards, and Sorbian/Danish bilingual signs.
 - Germany data gaps: Natural Earth's upper Spree is wrong (Bautzen left off it); the
   hand-drawn tails (Elbe to Cuxhaven, Weser to Bremerhaven, Ems to Emden) are approximate.
-  The GeoGuessr signals in its RESEARCH.md were written while the web was blocked and
-  should be re-checked against plonkit.
+  The upper Lahn (above Marburg) is not drawn: NE's "Lahn" follows the Ohm there. The
+  GeoGuessr signals and the river lengths in its RESEARCH.md / rivers.json were written
+  while the web was blocked and should be re-checked against plonkit and Wikipedia.
 - Peru's `outline.json` predates the `build-outline.ts` aspect fix (x was scaled by
   cos(refLat) twice); rebuild it with `npm run build:outline -- peru` and re-check its
   label nudges. The effect is about 1% there.

@@ -687,6 +687,20 @@
         "lat": 50.867,
         "lon": 7.325,
         "extra": true
+      },
+      {
+        "id": "n95",
+        "name": "Hillscheid",
+        "lat": 50.406,
+        "lon": 7.699,
+        "extra": true
+      },
+      {
+        "id": "n96",
+        "name": "Landscheid",
+        "lat": 49.983,
+        "lon": 6.767,
+        "extra": true
       }
     ]
   },
@@ -733,6 +747,20 @@
         "name": "Kottweiler-Schwanden",
         "lat": 49.483,
         "lon": 7.533,
+        "extra": true
+      },
+      {
+        "id": "n97",
+        "name": "Winnweiler",
+        "lat": 49.567,
+        "lon": 7.85,
+        "extra": true
+      },
+      {
+        "id": "n98",
+        "name": "Heusweiler",
+        "lat": 49.336,
+        "lon": 6.93,
         "extra": true
       }
     ]
@@ -793,6 +821,89 @@
         "name": "Stützengrün",
         "lat": 50.533,
         "lon": 12.533,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p11",
+    "label": "-heim",
+    "where": "The Rhine plain and its hills: Rheinhessen and the Palatinate (Rheinland-Pfalz), northern Baden-Württemberg, southern Hessen; also Lower Franconia (Bayern)",
+    "origin": "Frankish heim, home: settlements of the Frankish expansion, often after a person's name",
+    "codes": [
+      "RP",
+      "BW",
+      "HE"
+    ],
+    "towns": [
+      {
+        "id": "n99",
+        "name": "Mannheim",
+        "lat": 49.489,
+        "lon": 8.467,
+        "extra": false
+      },
+      {
+        "id": "n100",
+        "name": "Oppenheim",
+        "lat": 49.855,
+        "lon": 8.36,
+        "extra": false
+      },
+      {
+        "id": "n101",
+        "name": "Bensheim",
+        "lat": 49.684,
+        "lon": 8.618,
+        "extra": false
+      },
+      {
+        "id": "n102",
+        "name": "Bad Dürkheim",
+        "lat": 49.462,
+        "lon": 8.172,
+        "extra": false
+      },
+      {
+        "id": "n103",
+        "name": "Hockenheim",
+        "lat": 49.323,
+        "lon": 8.552,
+        "extra": false
+      },
+      {
+        "id": "n104",
+        "name": "Crailsheim",
+        "lat": 49.134,
+        "lon": 10.072,
+        "extra": false
+      },
+      {
+        "id": "n105",
+        "name": "Gernsheim",
+        "lat": 49.753,
+        "lon": 8.489,
+        "extra": false
+      },
+      {
+        "id": "n106",
+        "name": "Lampertheim",
+        "lat": 49.598,
+        "lon": 8.473,
+        "extra": true
+      },
+      {
+        "id": "n107",
+        "name": "Bechtolsheim",
+        "lat": 49.804,
+        "lon": 8.194,
+        "extra": true
+      },
+      {
+        "id": "n108",
+        "name": "Sinsheim",
+        "lat": 49.253,
+        "lon": 8.879,
         "extra": true
       }
     ]

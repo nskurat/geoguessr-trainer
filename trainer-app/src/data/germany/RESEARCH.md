@@ -4,12 +4,20 @@ Compiled 2026-11-27 for the trainer's Germany data. Confidence: **H** = counted 
 primary dataset (GeoNames, Natural Earth); **M** = well-established general knowledge,
 not re-checked online this time; **L** = community GeoGuessr meta from memory, unverified.
 
-Network note: Wikipedia, plonkit.net, geohints, geonames.org and every web search were
-blocked while this was compiled. Coordinates and place-name counts come from GeoNames
-dumps mirrored on GitHub (`lutangar/cities.json` = GeoNames cities1000;
-`zauberware/postal-codes-json-xml-csv` = GeoNames DE postal codes), both CC BY 4.0.
-The GeoGuessr signals in §2 are from memory and should be re-checked against plonkit's
-Germany guide when it can be fetched.
+Network note: Wikipedia, Wikidata, plonkit.net, geohints, geonames.org, skarnik.by,
+slounik.org and every web search were blocked while this was compiled; only
+raw.githubusercontent.com was reachable. What could be checked there was:
+
+- Coordinates and place-name counts: GeoNames dumps mirrored on GitHub
+  (`lutangar/cities.json` = GeoNames cities1000; `zauberware/postal-codes-json-xml-csv` =
+  GeoNames DE postal codes), both CC BY 4.0.
+- Area codes: Google libphonenumber's geocoding table
+  (`resources/geocoding/de/49.txt`, Apache 2.0), joined to the GeoNames postal places (§3).
+- Belarusian spelling and declension: the official-orthography Hunspell dictionary in
+  `LibreOffice/dictionaries` (`be_BY/be-official`), see `src/i18n/README.md`.
+
+Still from memory, unverified: the GeoGuessr signals in §2 (re-check against plonkit's
+Germany guide) and the river lengths in `rivers.json` (§6).
 
 ## 1. Coverage overview
 
@@ -27,7 +35,7 @@ Germany guide when it can be fetched.
 | 2 | Place-name endings | -ow/-itz east, -ing Old Bavaria, -ingen Swabia, -büll/-by Schleswig, -siel/-fehn East Frisia, -weiler Palatinate/Saar, -leben/-rode Harz | `nom` set (§5) | H (counts) |
 | 3 | River in the town name (Frankfurt am Main / Frankfurt (Oder), Halle (Saale)) and along the road | Pins the town to a river | `riv` set | M |
 | 4 | Number-plate prefix (Kreis code: M, HH, B, K…) | District; finer than states | No — needs sub-state units (backlog) | M |
-| 5 | Landline area code on shop signs (first digit) | 02 Rhineland/Ruhr, 03 East, 04 North, 05 Lower Saxony/East Westphalia/North Hesse, 06 Hesse/RP/Saar/N-BW, 07 BW, 08 South Bavaria, 09 Franconia/Upper Palatinate | Only as a hint in the `dep` tip: zones cut across states | M |
+| 5 | Landline area code on shop signs (first digit) | 02 NW and northern RP, 03 East, 04 North, 05 NI, East Westphalia and North Hesse, 06 Hesse/RP/Saar/N-BW, 07 BW, 08 southern Bavaria, 09 northern Bavaria | Only as a hint in the `dep` tip: zones cut across states | H (§3) |
 | 6 | Landscape: North German Plain (flat, brick, wind turbines), Mittelgebirge, Alps | Broad north–south split | Not drillable on the map | M |
 | 7 | Architecture: red-brick north, half-timbered centre, Alpine chalets south; prefab (Plattenbau) east | Broad | Not drillable | L |
 | 8 | Bollard and kerb details, signs in Sorbian (Lausitz) and Danish (Schleswig) | Small areas | Not drillable | L |
@@ -39,7 +47,21 @@ Germany guide when it can be fetched.
   zones (first digit after 0) cut across the Länder: 05 covers Lower Saxony, East
   Westphalia (NW) and North Hesse; 06 covers Hesse, Rheinland-Pfalz, Saarland and northern
   Baden-Württemberg; Bavaria is split between 08 and 09. Any one-zone-per-state mapping
-  would teach wrong answers. A rough hint stays in the `dep` tip.
+  would teach wrong answers. A rough hint stays in the `dep` tip. Checked by joining the
+  5,200 prefixes in libphonenumber's `de/49.txt` to the state of the GeoNames postal place
+  with the same name (about 370 names unmatched; single-digit stray counts are homonyms).
+  Places per state for each first digit:
+
+  | Digit | Places per state |
+  |---|---|
+  | 02 | NW 395, RP 79 |
+  | 03 | MV 252, BB 248, ST 247, SN 201, TH 179 (and 030 Berlin) |
+  | 04 | NI 282, SH 224 (and 040 Hamburg, 0421 Bremen) |
+  | 05 | NI 374, NW 105, HE 55 |
+  | 06 | RP 223, HE 219, BW 47, SL 47, BY 28 |
+  | 07 | BW 458 |
+  | 08 | BY 418: median latitude 48.2°N, 90% south of 48.7°N |
+  | 09 | BY 503: median latitude 49.6°N, 90% north of 48.9°N |
 - **No plates.** Kreis codes identify one of about 400 districts, not a state.
 - Both need sub-state units (e.g. the BKG VG2500 Kreise, dl-de/by-2-0). That is a
   backlog item.
@@ -78,9 +100,12 @@ counts; the origins are **M**):
 | -scheid | RP 73, NW 22 | p8 |
 | -weiler | RP 120, BW 16, SL 5 | p9 |
 | -reuth, -grün | BY 19 for -reuth; -grün also in Saxony's Vogtland | p10 |
+| -heim | RP 219, BW 140, BY 116 (median latitude 49.5°N: Franconia), HE 32 | p11 |
 
 -dorf and -hausen occur in every state and are left out on purpose. -ingen is also
-common in RP; the pattern lists BW as its home, and the tip says "Swabia".
+common in RP; the pattern lists BW as its home, and the tip says "Swabia". -heim overlaps
+-ingen and -weiler in the south-west but is rare in the north and east; its map shows RP,
+BW and HE, and the text names Lower Franconia (one region of Bayern, so BY is not shaded).
 
 ## 6. Files and sources
 
@@ -94,12 +119,13 @@ common in RP; the pattern lists BW as its home, and the tip says "Swabia".
   GeoNames coordinates, checked to fall inside their state's polygon. A few border towns
   (Konstanz, Görlitz, Bad Säckingen, Breisach, Dagebüll) fall just outside the coarse
   Natural Earth outline, and Holzminden (NI) falls just inside NW. That is acceptable.
-- `rivers.json`: 14 rivers. Each town is checked to lie within a few km of the drawn course.
+- `rivers.json`: 15 rivers. Each town is checked to lie within a few km of the drawn course.
   Lengths are total lengths from memory, ±5% (**M**). Hand-drawn `course` tails extend
   Natural Earth downstream: the tidal Elbe Hamburg → Cuxhaven, the Weser Brake →
   Bremerhaven and the Ems to Emden. Natural Earth's upper Spree is wrong, so Bautzen is
   not listed on it. Villingen-Schwenningen is not listed on the Neckar, because NE's
-  source stretch misses it.
+  source stretch misses it. Natural Earth's "Lahn" starts up the Ohm in the Vogelsberg; it is
+  cut at Cölbe, so the upper Lahn (Biedenkopf) is not drawn and Marburg is its first town.
 - `placeNames.json`: §5; example towns use GeoNames coordinates.
 - Credits in the footer: Natural Earth (public domain), GeoNames (CC BY 4.0).
 

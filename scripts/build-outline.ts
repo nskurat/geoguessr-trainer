@@ -151,6 +151,9 @@ const COUNTRIES: Record<string, CountryConfig> = {
       { key: 'Ruhr', ne: 'Ruhr', mouth: [51.45, 6.73] },
       { key: 'Ems', ne: 'Ems', mouth: [53.3, 7.2] },
       { key: 'Inn', ne: 'Inn', mouth: [48.57, 13.47] },
+      // NE's "Lahn" starts up the Ohm in the Vogelsberg: cut where the Ohm joins at Cölbe
+      // (the upper Lahn above Marburg, past Biedenkopf, is not drawn).
+      { key: 'Lahn', ne: 'Lahn', mouth: [50.31, 7.6], from: [50.85, 8.78] },
     ],
     checks: [
       { name: 'Berlin', lat: 52.52, lon: 13.405, id: 'BE' },
