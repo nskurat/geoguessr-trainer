@@ -81,6 +81,9 @@ Sources: [skarnik.by](https://www.skarnik.by) (Russian–Belarusian), [slounik.o
 | Franco-Provençal | франкаправансальскі | be.wikipedia «Франкаправансальская мова» |
 | Gascony, Flanders | Гасконь, Фландрыя | be.wikipedia |
 | France, Peru | Францыя; Перу (indeclinable, neuter: «Усё Перу») | be.wikipedia «Перу» |
+| Germany | Германія (fem.: «Уся Германія») | standard usage (be.wikipedia title from memory; not re-checked, web blocked) |
+| German state (Land) | зямля, мн. землі, Р. мн. земляў | standard usage, not re-checked (web blocked); feminine, unlike рэгіён (the `{term}` strings Germany uses agree) |
+| Baltic Sea, Black Sea | Балтыйскае мора, Чорнае мора | be.wikipedia article titles (from memory, not re-checked) |
 
 ## The language switch (UX)
 

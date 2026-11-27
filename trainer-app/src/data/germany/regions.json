@@ -1,0 +1,50 @@
+[
+  {
+    "key": "NORD",
+    "name": "Nord",
+    "capital": "Hamburg",
+    "hue": 210,
+    "codes": [
+      "SH",
+      "HH",
+      "HB",
+      "NI"
+    ]
+  },
+  {
+    "key": "WEST",
+    "name": "West",
+    "capital": "Köln",
+    "hue": 30,
+    "codes": [
+      "NW",
+      "HE",
+      "RP",
+      "SL"
+    ]
+  },
+  {
+    "key": "SUED",
+    "name": "Süd",
+    "capital": "München",
+    "hue": 135,
+    "codes": [
+      "BW",
+      "BY"
+    ]
+  },
+  {
+    "key": "OST",
+    "name": "Ost",
+    "capital": "Berlin",
+    "hue": 350,
+    "codes": [
+      "BE",
+      "BB",
+      "MV",
+      "SN",
+      "ST",
+      "TH"
+    ]
+  }
+]

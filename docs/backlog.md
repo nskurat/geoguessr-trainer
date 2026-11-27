@@ -26,6 +26,17 @@ visual design stays the artifact's (see Settled decisions); this is a structural
 - Peru data gaps: Mantaro course (U-shaped lower course not mapped reliably), Chira towns,
   and a few hand-drawn course stretches (Urubamba source, Quillabamba–Sepahua) accurate to
   only a few km.
+- Germany signals that need sub-state units (see `data/germany/RESEARCH.md` §7): landline
+  area-code zones (the first digit cuts across the Länder, so no `tel` set) and Kreis plate
+  codes. Both need district outlines (e.g. BKG VG2500 Kreise, dl-de/by-2-0). Also
+  landscape, architecture, bollards, and Sorbian/Danish bilingual signs.
+- Germany data gaps: Natural Earth's upper Spree is wrong (Bautzen left off it); the
+  hand-drawn tails (Elbe to Cuxhaven, Weser to Bremerhaven, Ems to Emden) are approximate.
+  The GeoGuessr signals in its RESEARCH.md were written while the web was blocked and
+  should be re-checked against plonkit.
+- Peru's `outline.json` predates the `build-outline.ts` aspect fix (x was scaled by
+  cos(refLat) twice); rebuild it with `npm run build:outline -- peru` and re-check its
+  label nudges. The effect is about 1% there.
 - Region labels overlap at full-map zoom on phones (e.g. "Pays de la Loire" / "Centre-Val
   de Loire"), as in the original artifact: needs label-collision handling (hide or shorten
   the lower-priority label until zoomed).
@@ -66,6 +77,10 @@ visual design stays the artifact's (see Settled decisions); this is a structural
   an official one. Plate letters are left out: the registry-zone letters are shared between
   regions, changed by 2024–2025 decrees, and blurred on Street View.
 - France's local phone prefixes (0Z AB) are shown, never quizzed.
+- Germany: the 16 Länder are the departments, grouped into four study macro-regions (Nord,
+  West, Süd, Ost = former GDR + Berlin). No phone codes or plates: area-code zones and
+  Kreis codes don't follow state borders. The validator only requires a phone zone per
+  department when a country offers `tel`.
 
 - No framework in the first cut, to keep behaviour identical to the artifact.
 - Map outlines are bundled from npm (`@svg-maps/france.departments`) instead of loaded from

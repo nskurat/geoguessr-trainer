@@ -1,0 +1,114 @@
+[
+  {
+    "code": "BW",
+    "name": "Baden-Württemberg",
+    "prefecture": "Stuttgart",
+    "lat": 48.782,
+    "lon": 9.177
+  },
+  {
+    "code": "BY",
+    "name": "Bayern",
+    "prefecture": "München",
+    "lat": 48.137,
+    "lon": 11.575
+  },
+  {
+    "code": "BE",
+    "name": "Berlin",
+    "prefecture": "Berlin",
+    "lat": 52.524,
+    "lon": 13.411
+  },
+  {
+    "code": "BB",
+    "name": "Brandenburg",
+    "prefecture": "Potsdam",
+    "lat": 52.399,
+    "lon": 13.066
+  },
+  {
+    "code": "HB",
+    "name": "Bremen",
+    "prefecture": "Bremen",
+    "lat": 53.076,
+    "lon": 8.807
+  },
+  {
+    "code": "HH",
+    "name": "Hamburg",
+    "prefecture": "Hamburg",
+    "lat": 53.551,
+    "lon": 9.993
+  },
+  {
+    "code": "HE",
+    "name": "Hessen",
+    "prefecture": "Wiesbaden",
+    "lat": 50.086,
+    "lon": 8.244
+  },
+  {
+    "code": "MV",
+    "name": "Mecklenburg-Vorpommern",
+    "prefecture": "Schwerin",
+    "lat": 53.629,
+    "lon": 11.413
+  },
+  {
+    "code": "NI",
+    "name": "Niedersachsen",
+    "prefecture": "Hannover",
+    "lat": 52.371,
+    "lon": 9.733
+  },
+  {
+    "code": "NW",
+    "name": "Nordrhein-Westfalen",
+    "prefecture": "Düsseldorf",
+    "lat": 51.223,
+    "lon": 6.779
+  },
+  {
+    "code": "RP",
+    "name": "Rheinland-Pfalz",
+    "prefecture": "Mainz",
+    "lat": 49.982,
+    "lon": 8.28
+  },
+  {
+    "code": "SL",
+    "name": "Saarland",
+    "prefecture": "Saarbrücken",
+    "lat": 49.233,
+    "lon": 7.01
+  },
+  {
+    "code": "SN",
+    "name": "Sachsen",
+    "prefecture": "Dresden",
+    "lat": 51.051,
+    "lon": 13.738
+  },
+  {
+    "code": "ST",
+    "name": "Sachsen-Anhalt",
+    "prefecture": "Magdeburg",
+    "lat": 52.131,
+    "lon": 11.632
+  },
+  {
+    "code": "SH",
+    "name": "Schleswig-Holstein",
+    "prefecture": "Kiel",
+    "lat": 54.321,
+    "lon": 10.135
+  },
+  {
+    "code": "TH",
+    "name": "Thüringen",
+    "prefecture": "Erfurt",
+    "lat": 50.977,
+    "lon": 11.035
+  }
+]
