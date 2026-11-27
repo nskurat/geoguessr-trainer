@@ -57,6 +57,9 @@ building on it. Known Natural Earth pitfalls:
   (NE "Ucayali" starts at the Apurímac's source) or run mouth → source: check each one on the
   render, use `mouth`/`from`/`to` in the river spec, and hand-research courses NE lacks.
 - Tiny units must stay clickable; note in the backlog if they are hard to hit.
+- Rivers split under several names or missing tributaries: `ne: ['Rhein', 'Rhine']`, and
+  `extraRiverLayers: ['rivers_europe']`; continue NE lines that stop short (tidal estuaries) with
+  hand-drawn `course` points in rivers.json.
 
 ## 3. Data files in `trainer-app/src/data/<id>/`
 
@@ -65,7 +68,8 @@ Same shapes as Peru and France (see `types/geo.ts`): `regions.json`, `department
 capitals; prefer towns on covered roads), and only for enabled sets `phone.json`,
 `placeNames.json` (4–8 example towns + 2–5 `extra` practice-only towns per pattern),
 `rivers.json` (towns source → mouth). Coordinates to ~1 km; cross-check against NE populated
-places. Ids are stable counters (`c0`, `t0`, `n0`, `p0`, `r0`). Keep official/local place names
+places or GeoNames (CC BY: credit it). `lengthIsTotal` only for rivers that leave the country.
+If a unit's label lands on an enclosed unit, add `departmentLabelOffsets`. Ids are stable counters (`c0`, `t0`, `n0`, `p0`, `r0`). Keep official/local place names
 with accents; never translate place names.
 
 `index.ts` exports the `Country` (`sets`, `departmentCodes: 'shown'` only if players know the
@@ -81,12 +85,22 @@ credits (attribution is a licence requirement), and `data` translations of the J
 text by id. Belarusian: official orthography (наркамаўка), real і/ў and ’; check non-obvious
 terms on skarnik.by / slounik.org / verbum.by and add them to `trainer-app/src/i18n/README.md`.
 
+## Coding agents (Copilot and others)
+
+The GitHub Copilot coding agent gets its environment from `.github/workflows/copilot-setup-steps.yml`
+and works behind a firewall: if sources are blocked, use GitHub-mirrored data dumps and mark
+memory-only claims L/M, or stop and ask. Its CI needs a maintainer's approval click. Each
+`@copilot` comment is a billed session: batch feedback. Reviews follow `review-agent-pr`.
+
 ## 5. Validate
 
 `npm run typecheck`, `npm run lint`, `npm test`, `npm run validate:data` (0 errors; explain any
 warning), `npm run build`. Fix data, not the validator.
 
 ## 6. Browser check (ux-expert routine)
+
+`npm run smoke -- <id> --shots` covers the matrix below and fails on page errors; to prove
+other countries unchanged, snapshot main (`--snapshot main.json`) and `--compare` the branch.
 
 `npm run build && npx vite preview --port <free>`; with Playwright (a repo devDependency;
 run `npx playwright install chromium` if its browser is missing, or in Claude Code cloud sessions

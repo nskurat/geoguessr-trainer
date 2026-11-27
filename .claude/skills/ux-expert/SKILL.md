@@ -15,7 +15,9 @@ alternative you rejected.
 
 1. Read `AGENTS.md`, `docs/backlog.md` and the feature's code. If a requirements note exists
    it is your primary input; answer its open UX questions explicitly.
-2. **Look at the real UI, not just the code.** `npm run build && npx vite preview --port <free>`
+2. **Look at the real UI, not just the code.** `npm run build && npm run smoke -- <country>
+   --shots` screenshots every set (desktop light, phone dark, every language) into
+   `.cache/smoke/` and fails on page errors. For other states, `npx vite preview --port <free>`
    serves at `/geoguessr-trainer/`. Use Playwright (`require('playwright')`, chromium is
    preinstalled) to screenshot at 1280 and 390 px in the states you are changing. Reach a state
    directly by setting localStorage key `geotrainer_<country>_settings` (fields `set`, `mode`,
@@ -36,9 +38,21 @@ alternative you rejected.
   `light-dark()` tokens with a `data-theme` override; new colours need both themes.
 - Behaviour stays identical in the port unless a spec says otherwise.
 - Country specifics (terminology, labels, which sets exist) come from the country's data and
-  `copy`, never from hardcoded names. Some labels are still France-specific in `trainer.ts`
-  (`TITLES`, `KIND_LABELS`; backlog "Multi-country support"): design against the generalised
-  version.
+  `copy.<lang>.ts`; interface text comes from `t()` keys in `i18n/en.ts` / `be.ts`, never
+  literals. Belarusian strings run longer and use the Cyrillic fallback font (Golos Text):
+  check both languages.
+
+## Settled so far (keep unless a spec changes them)
+
+- Header: country and language pickers together top-right; on phones they are the first row.
+- Phones (≤ 880 px): Practice scrolls the prompt into view when a question starts so prompt and
+  map fit one screen; Learn shows the map first, the info card below.
+- Tap targets ≥ 40 px on phones; keyboard hints are hidden on touch-only devices
+  (`sub.*Touch` keys, `kbd` hidden by `(hover: none) and (pointer: coarse)`).
+- Known open issues (backlog): small-city dots drawn over big-city labels on phones;
+  region labels overlapping at full zoom; tiny units hard to hit.
+- Enclosed units (Berlin in Brandenburg): nudge the enclosing label with
+  `departmentLabelOffsets`.
 
 ## What to design for
 

@@ -31,6 +31,8 @@ Run from the repo root. There is no nested `package.json`.
 | `npm run typecheck` | `tsc --noEmit` — must stay clean |
 | `npm run lint` | ESLint over `trainer-app` and `scripts` — must stay clean |
 | `npm run validate:data` | Zod schemas + referential checks for every country; exits non-zero on errors |
+| `npm run build:outline -- <id>` | Outline + river courses from Natural Earth for a country |
+| `npm run smoke -- [id…] [--shots] [--snapshot f] [--compare f]` | After `build`: browser smoke test of every set, language and question kind; screenshots; Learn-mode snapshot diff |
 
 ## Layout
 
@@ -140,7 +142,8 @@ with the gates where to stop and ask on the issue.
 - Open work, known issues, deferred ideas and settled decisions: `docs/backlog.md` (the only tracker).
 - Role skills: `.claude/skills/geoguessr-pro` (which signals to drill per country, country
   briefs, data review) and `.claude/skills/ux-expert` (map and quiz experience specs).
-  `.claude/skills/add-country` runs the whole add-a-country pipeline. The GitHub Copilot
+  `.claude/skills/add-country` runs the whole add-a-country pipeline; `.claude/skills/review-agent-pr`
+  reviews and finishes another agent's PR (the Copilot coding agent can be assigned issues). The GitHub Copilot
   coding agent's environment is prepared by `.github/workflows/copilot-setup-steps.yml`.
 
 ## Next up

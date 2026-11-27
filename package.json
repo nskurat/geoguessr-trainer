@@ -15,7 +15,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint trainer-app scripts",
     "validate:data": "tsx scripts/validate-content.ts",
-    "build:outline": "tsx scripts/build-outline.ts"
+    "build:outline": "tsx scripts/build-outline.ts",
+    "smoke": "tsx scripts/smoke.ts"
   },
   "dependencies": {
     "@svg-maps/france.departments": "^1.0.1"

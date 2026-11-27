@@ -31,4 +31,4 @@ coverage/
 .claude/worktrees/
 
 # Downloaded source data (scripts/build-outline.ts)
-.cache/natural-earth/
+.cache/
