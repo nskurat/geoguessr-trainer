@@ -98,6 +98,9 @@ trainer-app/
 
 ## Adding a country
 
+Follow the `add-country` skill (`.claude/skills/add-country`): it sequences these steps,
+with the gates where to stop and ask on the issue.
+
 1. Ask the `geoguessr-pro` skill for a country brief: which study sets are worth drilling
    (only those go in `sets`), the top-level grouping, and what each data file needs.
 2. Outline: an `@svg-maps` package with matching ids, or add the country to `COUNTRIES` in
@@ -137,6 +140,8 @@ trainer-app/
 - Open work, known issues, deferred ideas and settled decisions: `docs/backlog.md` (the only tracker).
 - Role skills: `.claude/skills/geoguessr-pro` (which signals to drill per country, country
   briefs, data review) and `.claude/skills/ux-expert` (map and quiz experience specs).
+  `.claude/skills/add-country` runs the whole add-a-country pipeline. The GitHub Copilot
+  coding agent's environment is prepared by `.github/workflows/copilot-setup-steps.yml`.
 
 ## Next up
 

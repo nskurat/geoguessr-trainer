@@ -1,0 +1,36 @@
+name: Copilot Setup Steps
+
+# Prepares the GitHub Copilot coding agent's environment before it starts work on an
+# issue: Node 22, the repo's dependencies, and Chromium for the Playwright browser
+# checks the add-country and ux-expert skills ask for. Runs on changes to this file
+# too, so a broken setup is caught in review.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+
+jobs:
+  # The job must be called copilot-setup-steps for Copilot to pick it up.
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
