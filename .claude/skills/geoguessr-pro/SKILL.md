@@ -83,7 +83,9 @@ decisive and concrete; say what to drill, what to skip and why.
    - Every factual claim sourced; nothing overstated; dates noted for changing systems.
    - `copy.tips` accurate, actionable, per enabled set; terminology matches the country
      (not "départements" for Peru) and `copy.allAreas` is right.
-   - Attribution for the outline and any data source is present (licence requirement).
+   - Attribution for the outline and any data source is present (licence requirement), and
+     every source is allowed by `docs/licensing.md` (tips in our own words, no copied guide
+     text or images).
    - Coverage-weighting applied; no tiers or towns in uncovered areas without a reason.
    - Spot-check ten random items on a map and against a second source.
 

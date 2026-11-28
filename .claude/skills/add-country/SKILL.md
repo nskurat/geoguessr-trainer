@@ -70,7 +70,10 @@ capitals; prefer towns on covered roads), and only for enabled sets `phone.json`
 `rivers.json` (towns source → mouth). Coordinates to ~1 km; cross-check against NE populated
 places or GeoNames (CC BY: credit it). `lengthIsTotal` only for rivers that leave the country.
 If a unit's label lands on an enclosed unit, add `departmentLabelOffsets`. Ids are stable counters (`c0`, `t0`, `n0`, `p0`, `r0`). Keep official/local place names
-with accents; never translate place names.
+with accents; never translate place names. Every source must pass `docs/licensing.md`
+(facts from guides and Wikipedia are fine as references; no copied prose, maps or images,
+no OpenStreetMap / CC BY-SA data without the owner's approval); list each with its licence
+in RESEARCH.md.
 
 `index.ts` exports the `Country` (`sets`, `departmentCodes: 'shown'` only if players know the
 codes, `projectionRefLat`/`outline` from outline.json, `copy: { en, be }`). Register it in

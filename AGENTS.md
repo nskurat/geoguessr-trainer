@@ -93,6 +93,10 @@ trainer-app/
   the credit line in the page footer must stay. Phone zones follow the Wikipedia table
   of French area codes. Germany's town coordinates are GeoNames, CC BY 4.0 — its footer
   credit must stay too.
+- **Only MIT-compatible content is bundled** (outlines, data, images, fonts, text): public
+  domain / CC0, CC BY 4.0 with credit, permissive code licences, or our own work. Never
+  Google Street View / Maps, NC or ND, unlicensed images, or share-alike (CC BY-SA, ODbL)
+  without the owner's approval. Full policy: `docs/licensing.md`.
 - The app is served from the `/geoguessr-trainer/` sub-path (`vite.config.js` `base`;
   `VITE_BASE_PATH` overrides). Never hardcode paths.
 - Progress and settings live in the user's localStorage, per country
@@ -140,6 +144,7 @@ with the gates where to stop and ask on the issue.
 ## Where things are recorded
 
 - Open work, known issues, deferred ideas and settled decisions: `docs/backlog.md` (the only tracker).
+- What content may be bundled and how it is credited: `docs/licensing.md`.
 - Role skills: `.claude/skills/geoguessr-pro` (which signals to drill per country, country
   briefs, data review) and `.claude/skills/ux-expert` (map and quiz experience specs).
   `.claude/skills/add-country` runs the whole add-a-country pipeline; `.claude/skills/review-agent-pr`
