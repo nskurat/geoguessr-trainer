@@ -21,6 +21,12 @@ visual design stays the artifact's (see Settled decisions); this is a structural
 
 - Design for landscape and other visual signals: [visual meta spec](specs/visual-meta.md)
   (approved 2026-11-28; Peru costa / sierra / selva pilot after React port stages 1–3).
+- Road numbers as a study set (zoom-dependent road layer, search-and-click practice) and a
+  country locator map: [roads spec](specs/roads.md) (approved 2026-11-28: pattern-based search on
+  a labelled network; pilot Germany's Autobahns, after React port stages 3–4).
+- Peru department route prefixes (AR-, CU-…) as a possible drill, once the full list is
+  verified (roads spec, owner decision 6). Km-marker question kinds: a follow-up spec after the
+  Germany roads pilot (decision 9).
 - Peru signals the engine can't express yet (see `data/peru/RESEARCH.md` §8): landscape
   zones (costa / sierra / selva and sub-zones), highway numbers and km markers, coverage
   gaps (Iquitos is an isolated island of coverage), pole stickers, the Moquegua bollard,
