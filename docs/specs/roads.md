@@ -25,8 +25,9 @@ Natural Earth's `ne_10m_roads` (v5, GitHub master) clipped to each country with
 (HTTP 403), so the "seen on Street View" claims below are from the research notes and
 general player knowledge and are marked M at best until re-checked. Wikipedia is used for
 facts only (route numbers and termini), never copied text (`docs/licensing.md`).
-Confidence: **H** = two sources agree and stable; **M** = one source or likely to change;
-**L** = hypothesis, do not quiz.
+Confidence: **H** = documented by an encyclopedic or official source and stable (a second,
+independent source is still required before it becomes data, as in visual-meta); **M** =
+player knowledge, one weak source, or likely to change; **L** = hypothesis, do not quiz.
 
 ## 1. Which roads, per country
 
@@ -271,7 +272,7 @@ Desktop, 1280 px, find, after the second miss (hint shown):
  |       (red flash: [A 5])   └ ─ ─ ─ ─ ┘     |  | Hint: it crosses Hesse    |
  |                     ║   (pulsing outline)  |  |   and Bavaria.            |
  |                     ║                [+]   |  | 1 try left                |
- |                                      [−]   |  | [Skip]                    |
+ |                                      [−]   |  |                           |
  |                                      [⤢]   |  +---------------------------+
  +--------------------------------------------+
 ```
