@@ -111,6 +111,14 @@ The site is shared with the owner's Belarusian GeoGuessr community. Agreed plan:
   are approximate.
 - Settings and progress from the claude.ai artifact are not migrated (different origin,
   separate localStorage).
+- Learn colours of a country without regions (Poland) step the hue by department order
+  (golden angle), so neighbours can get similar hues (Wielkopolskie, Kujawsko-Pomorskie and
+  Mazowieckie are all green). Colour by adjacency instead (neighbours from shared outline
+  edges, greedy colouring), e.g. during the React port.
+- The smoke test's `--compare` skips snapshot keys missing from the new build, so a removed
+  set passes silently; list removed and added keys in its output.
+- `docs/specs/roads.md` wireframes still show the "[Macro-regions]" set button, which no
+  country offers now except France's régions.
 
 ## Settled decisions
 
