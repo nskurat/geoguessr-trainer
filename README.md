@@ -69,6 +69,11 @@ licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The credit l
 page footer must stay. Phone zones follow the Wikipedia table of French area codes. The
 study data is hand-curated and approximate — not survey-grade.
 
+Third-party data keeps its own licence: road data in files named `*.osm.json` (when added)
+is © OpenStreetMap contributors, available under the
+[Open Database License 1.0](https://opendatacommons.org/licenses/odbl/1-0/). What may be
+bundled and how it is credited is set out in [docs/licensing.md](docs/licensing.md).
+
 ## What's next
 
 Open work, known issues and settled architecture decisions are in

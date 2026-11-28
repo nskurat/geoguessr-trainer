@@ -37,6 +37,8 @@ alternative you rejected.
   (highlight/pulse), and the outcome colours `--ok` / `--y` / `--or` / `--red`. Colours are
   `light-dark()` tokens with a `data-theme` override; new colours need both themes.
 - Behaviour stays identical in the port unless a spec says otherwise.
+- Images, icons and fonts follow `docs/licensing.md` (MIT-compatible only; never Street View
+  screenshots); a design that shows pictures says where they come from and where credits go.
 - Country specifics (terminology, labels, which sets exist) come from the country's data and
   `copy.<lang>.ts`; interface text comes from `t()` keys in `i18n/en.ts` / `be.ts`, never
   literals. Belarusian strings run longer and use the Cyrillic fallback font (Golos Text):
