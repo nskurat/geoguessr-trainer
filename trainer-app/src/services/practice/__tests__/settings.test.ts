@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_SETTINGS, normalizeSettings } from '../settings';
 
-const valid = { regionKeys: ['BRE', 'IDF'], riverIds: ['r0', 'r1'] };
+const valid = { regionKeys: ['BRE', 'IDF'], riverIds: ['r0', 'r1'], roadIds: ['a7', 'a44'] };
 
 describe('normalizeSettings', () => {
   it('returns the defaults for garbage, null and non-objects', () => {
@@ -25,6 +25,8 @@ describe('normalizeSettings', () => {
       river: 'r1',
       size: 'all',
       phoneFilter: 'all',
+      road: 'a44',
+      roadClass: '2',
     };
     expect(normalizeSettings(raw, valid)).toEqual(raw);
   });
@@ -38,6 +40,14 @@ describe('normalizeSettings', () => {
     const result = normalizeSettings({ scope: 'XXX', river: 'r99' }, valid);
     expect(result.scope).toBe('all');
     expect(result.river).toBe('all');
+  });
+
+  it('rejects a road the country does not have, and any road without road ids', () => {
+    expect(normalizeSettings({ road: 'a99', roadClass: '4' }, valid)).toMatchObject({
+      road: 'all',
+      roadClass: 'all',
+    });
+    expect(normalizeSettings({ road: 'a7' }, { regionKeys: [], riverIds: [] }).road).toBe('all');
   });
 
   it('accepts all as scope and river', () => {

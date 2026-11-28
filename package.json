@@ -16,6 +16,8 @@
     "lint": "eslint trainer-app scripts",
     "validate:data": "tsx scripts/validate-content.ts",
     "build:outline": "tsx scripts/build-outline.ts",
+    "build:roads": "tsx scripts/build-roads.ts",
+    "build:locator": "tsx scripts/build-locator.ts",
     "smoke": "tsx scripts/smoke.ts"
   },
   "dependencies": {

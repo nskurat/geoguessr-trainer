@@ -1,10 +1,10 @@
 /** What is being studied. The short ids are persisted in settings and progress keys. */
-export type StudySet = 'reg' | 'dep' | 'city' | 'riv' | 'tel' | 'nom';
+export type StudySet = 'reg' | 'dep' | 'city' | 'riv' | 'tel' | 'nom' | 'road';
 export type Mode = 'learn' | 'practice';
 /** Question type; labels differ per set (see app/trainer.ts `KIND_LABELS`). */
 export type QuestionKind = 'find' | 'name' | 'town' | 'dot';
 
-export const STUDY_SETS: readonly StudySet[] = ['reg', 'dep', 'city', 'riv', 'tel', 'nom'];
+export const STUDY_SETS: readonly StudySet[] = ['reg', 'dep', 'city', 'riv', 'tel', 'nom', 'road'];
 export const MODES: readonly Mode[] = ['learn', 'practice'];
 export const QUESTION_KINDS: readonly QuestionKind[] = ['find', 'name', 'town', 'dot'];
 

@@ -36,6 +36,7 @@ const KINDS: Record<StudySet, string[]> = {
   riv: ['find', 'name', 'town'],
   tel: ['find', 'name'],
   nom: ['find', 'name', 'town'],
+  road: ['find', 'name'],
 };
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',

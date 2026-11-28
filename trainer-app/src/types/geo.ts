@@ -117,6 +117,103 @@ export interface RiverData {
   towns: RiverTown[];
 }
 
+/** 1 = trunk, 2 = regional, 3 = minor: the class decides from which zoom a road is drawn. */
+export type RoadClass = 1 | 2 | 3;
+
+/** Generic sign colours: the real-world colour of a network's shields (never a country in code). */
+export type ShieldStyle = 'blue' | 'red' | 'yellow' | 'green' | 'white';
+
+/** One numbering rule of a network, e.g. "Odd numbers run north–south". */
+export interface RoadRule {
+  id: string;
+  /** In the source language (English); other languages translate it in `DataText.roadNetworks`. */
+  text: string;
+}
+
+/** A family of numbered roads that share a sign and a numbering logic (Autobahn, autoroute…). */
+export interface RoadNetwork {
+  /** Data id, not shown, e.g. "A". */
+  id: string;
+  shield: ShieldStyle;
+  /** In English, e.g. "Autobahn". */
+  label: string;
+  /** How its numbers are signed, in English, e.g. "Blue shield, white number". */
+  sign: string;
+  /** Numbering rules that roads of the network refer to by id. */
+  rules: RoadRule[];
+}
+
+/**
+ * A numbered road as the trainer studies it: where it sits in the network's pattern (its
+ * rules and neighbours) more than its exact course.
+ */
+export interface Road {
+  /** Stable id without "|", e.g. "a7"; progress key `road|a7`. A renumbered road gets a new id. */
+  id: string;
+  /** `RoadNetwork.id`. */
+  network: string;
+  /** As signed, e.g. "A 7"; never translated. */
+  ref: string;
+  class: RoadClass;
+  /** `RoadData.towns` id of the start terminus (may be a border town). */
+  from: string;
+  /** `RoadData.towns` id of the end terminus. */
+  to: string;
+  /** `RoadData.towns` ids, in order from `from` to `to`. */
+  towns: string[];
+  /** Departments it crosses (hints, Area scope). */
+  codes: string[];
+  /** Sourced length of the whole route in this country. */
+  lengthKm?: number;
+  /** Nickname in English, e.g. "Carretera Central". */
+  name?: string;
+  /** Ids of the network's rules that place this road, most telling first. */
+  rules: string[];
+  /** The parallel roads either side in the pattern (0–2 road ids), e.g. the A 5 and the A 9 for the A 7. */
+  between: string[];
+  /** Road ids of the main crossings, in order along the road. */
+  crosses: string[];
+  /**
+   * Parts, each ordered from `from` towards `to`. Joined in at load time from
+   * `roads.osm.json` or `roadCourses.json`; never stored in `roads.json`.
+   */
+  course: LatLon[][];
+}
+
+/** A road as stored in `roads.json` (our own data): everything but the course. */
+export type RoadEntry = Omit<Road, 'course'>;
+
+/** A town on one or several roads (the shape of `RiverTown`). */
+export type RoadTown = RiverTown;
+
+export interface RoadData {
+  networks: RoadNetwork[];
+  roads: Road[];
+  /** Shared between roads: a junction town appears once and is listed by each road. */
+  towns: RoadTown[];
+}
+
+/** The contents of `data/<country>/roads.json`. */
+export interface RoadsFile {
+  networks: RoadNetwork[];
+  roads: RoadEntry[];
+  towns: RoadTown[];
+}
+
+/**
+ * One road's course in a course file: `roads.osm.json` (OpenStreetMap, ODbL, with `osm`
+ * provenance) or `roadCourses.json` (Natural Earth or our own drawing, without it).
+ */
+export interface RoadCourse {
+  /** OSM provenance: the route relations the course was assembled from and their `ref`. */
+  osm?: { relations?: number[]; ref: string };
+  /** [lat, lon] parts. */
+  course: LatLon[][];
+}
+
+/** A course file, keyed by road id. */
+export type RoadCourses = Record<string, RoadCourse>;
+
 /** SVG outlines of the departments, as published by the @svg-maps packages. */
 export interface MapOutline {
   viewBox: string;
@@ -153,6 +250,10 @@ export interface DataText {
   namePatterns?: Record<string, { label?: string; where: string; origin: string }>;
   /** By river id. */
   rivers?: Record<string, { flowsInto: string }>;
+  /** By network id: label, sign description and every rule by rule id. */
+  roadNetworks?: Record<string, { label: string; sign: string; rules: Record<string, string> }>;
+  /** By road id, for roads with a `name`. */
+  roads?: Record<string, { name: string }>;
 }
 
 /** Interface text that depends on the country, in one language. */
@@ -209,6 +310,8 @@ export interface Country {
   phone: PhoneData;
   namePatterns: NamePattern[];
   rivers: RiverData;
+  /** Numbered roads; required when `sets` includes `road`. */
+  roads?: RoadData;
   /** Interface text per language (`data/<country>/copy.<lang>.ts`); every language is required. */
   copy: Record<Lang, CountryCopy>;
 }
