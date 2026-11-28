@@ -129,6 +129,36 @@ BW and HE, and the text names Lower Franconia (one region of Bayern, so BY is no
 - `placeNames.json`: §5; example towns use GeoNames coordinates.
 - Credits in the footer: Natural Earth (public domain), GeoNames (CC BY 4.0).
 
+## Sources and licences
+
+Audit: 2026-11-28. `2945554` introduced Germany (owner with the Copilot coding agent);
+`97a7fdd` added the -heim counts and clipped Lahn course and checked the phone hint;
+`b005e55` corrected how selected river lengths are presented. The sources below are
+from those commits and §§3–6. Natural Earth and GeoNames's upstream terms were checked
+on the audit date.
+
+| Data file / asset | Source | Licence | How it was used | Credit required (y/n) | Status |
+|---|---|---|---|---|---|
+| `outline.json` | [Natural Earth vector data][de-ne], 1:10m admin-1 and national outline; `scripts/build-outline.ts` | [Public domain][de-ne-terms] | Derived, projected and simplified state geometry | n — credited in both footers | OK |
+| `riverCourses.json` | Natural Earth 1:10m rivers/lake centerlines and Europe rivers; `scripts/build-outline.ts` | Public domain | Derived base courses; Lahn clipped at Cölbe | n — credited in both footers | OK |
+| `regions.json` | Trainer-authored by owner and coding agent (§4), using the 16 Länder and former GDR as factual references | Trainer work (MIT) | Original four-group study scheme, anchor cities and colours | n | OK |
+| `departments.json` | Natural Earth state IDs and [GeoNames cities1000 mirror][de-cities] for capital coordinates (§6) | Public domain; [CC BY 4.0][geonames-terms] | Facts: codes, names, capitals and coordinates | y — GeoNames in both footers | OK |
+| `cities.json` | GeoNames cities1000 mirror, checked against Natural Earth (§6) | CC BY 4.0; public domain for polygon checks | Facts: coordinates and names; trainer selection and tiers | y — GeoNames in both footers | OK |
+| `placeNames.json` | [GeoNames DE postal-code mirror][de-postal] for original suffix counts (§5); GeoNames cities for example coordinates; glosses from compiler's knowledge | CC BY 4.0; trainer explanations (MIT) | Derived suffix distributions and selected examples; not a copied guide list | y — GeoNames in both footers | OK |
+| `rivers.json` (metadata and towns) | Trainer compiler's length estimates (§6), GeoNames town coordinates checked against the Natural Earth courses | Trainer compilation (MIT); CC BY 4.0 for GeoNames | Facts: lengths, outlets and exercise towns; estimates remain approximate | y — GeoNames in both footers | OK |
+| `rivers.json` (nonempty `course` fields) | Trainer-authored extensions of Natural Earth geometry: Elbe Hamburg–Cuxhaven, Weser below Brake–Bremerhaven and Ems to Emden (§6) | Public-domain base; exact inputs for added points not recorded | Derived base with hand-drawn tidal waypoints; GeoNames towns checked against the course, not documented as the source of every point | n for base; unknown for added-point source | needs owner decision |
+| `copy.en.ts`, `copy.be.ts` | Trainer wording from §§2–6; [libphonenumber `de/49.txt`][de-phone] and GeoNames postal matching for the phone hint; [Belarusian spelling sources](../../i18n/README.md) | Trainer work (MIT); libphonenumber Apache-2.0, used as reference, not bundled; CC BY 4.0 data reference | Workflow tips and translations, not guide prose. Spot checks against [Plonk It Germany](https://www.plonkit.net/germany) and [Wikipedia's Frankfurt entry](https://en.wikipedia.org/wiki/Frankfurt) found factual overlap, not close copying | n for authored copy | OK |
+
+Germany has no phone dataset, fine prefixes or plate study set. The phone hint is a
+factual summary; the libphonenumber table and postal-code join are not shipped.
+
+[de-ne]: https://github.com/nvkelso/natural-earth-vector
+[de-ne-terms]: https://www.naturalearthdata.com/about/terms-of-use/
+[de-cities]: https://github.com/lutangar/cities.json
+[de-postal]: https://github.com/zauberware/postal-codes-json-xml-csv
+[de-phone]: https://github.com/google/libphonenumber/blob/master/resources/geocoding/de/49.txt
+[geonames-terms]: https://download.geonames.org/export/dump/readme.txt
+
 ## 7. Backlog: signals the engine cannot express
 
 - Area-code zones and plate codes need sub-state units (Kreise).
