@@ -1,0 +1,289 @@
+[
+  {
+    "id": "p0",
+    "label": "-ice, -owice",
+    "where": "The south-west: Silesia, Opole, Lower Silesia, southern Łódź and Lesser Poland, with a pocket in West Pomerania",
+    "origin": "Slavic plural endings that named a settlement after its people (\"the people of …\"); -owice is the -ice form added to a personal name",
+    "codes": [
+      "DS",
+      "LD",
+      "MA",
+      "OP",
+      "SL",
+      "ZP"
+    ],
+    "towns": [
+      {
+        "id": "n0",
+        "name": "Katowice",
+        "lat": 50.26,
+        "lon": 19.022,
+        "extra": false
+      },
+      {
+        "id": "n1",
+        "name": "Gliwice",
+        "lat": 50.298,
+        "lon": 18.677,
+        "extra": false
+      },
+      {
+        "id": "n2",
+        "name": "Myślenice",
+        "lat": 49.834,
+        "lon": 19.938,
+        "extra": false
+      },
+      {
+        "id": "n3",
+        "name": "Pabianice",
+        "lat": 51.664,
+        "lon": 19.355,
+        "extra": false
+      },
+      {
+        "id": "n4",
+        "name": "Głubczyce",
+        "lat": 50.201,
+        "lon": 17.829,
+        "extra": false
+      },
+      {
+        "id": "n5",
+        "name": "Ząbkowice Śląskie",
+        "lat": 50.59,
+        "lon": 16.812,
+        "extra": false
+      },
+      {
+        "id": "n6",
+        "name": "Gryfice",
+        "lat": 53.916,
+        "lon": 15.2,
+        "extra": false
+      },
+      {
+        "id": "n7",
+        "name": "Pyskowice",
+        "lat": 50.4,
+        "lon": 18.633,
+        "extra": true
+      },
+      {
+        "id": "n8",
+        "name": "Niepołomice",
+        "lat": 50.041,
+        "lon": 20.223,
+        "extra": true
+      },
+      {
+        "id": "n9",
+        "name": "Police",
+        "lat": 53.552,
+        "lon": 14.572,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p1",
+    "label": "-ów",
+    "where": "The south and east: Świętokrzyskie, Łódź, Lublin, Lower Silesia, Opole, Masovia and Silesia; almost absent in the north",
+    "origin": "Slavic possessive ending, \"(place) of …\": Kraków is \"Krak's\", the same suffix as -ow in eastern Germany",
+    "codes": [
+      "DS",
+      "LD",
+      "LU",
+      "MA",
+      "MZ",
+      "OP",
+      "SK",
+      "SL"
+    ],
+    "towns": [
+      {
+        "id": "n10",
+        "name": "Kraków",
+        "lat": 50.061,
+        "lon": 19.937,
+        "extra": false
+      },
+      {
+        "id": "n11",
+        "name": "Tarnów",
+        "lat": 50.014,
+        "lon": 20.987,
+        "extra": false
+      },
+      {
+        "id": "n12",
+        "name": "Staszów",
+        "lat": 50.563,
+        "lon": 21.166,
+        "extra": false
+      },
+      {
+        "id": "n13",
+        "name": "Tomaszów Mazowiecki",
+        "lat": 51.531,
+        "lon": 20.009,
+        "extra": false
+      },
+      {
+        "id": "n14",
+        "name": "Hrubieszów",
+        "lat": 50.805,
+        "lon": 23.893,
+        "extra": false
+      },
+      {
+        "id": "n15",
+        "name": "Wołów",
+        "lat": 51.337,
+        "lon": 16.644,
+        "extra": false
+      },
+      {
+        "id": "n16",
+        "name": "Żyrardów",
+        "lat": 52.049,
+        "lon": 20.446,
+        "extra": false
+      },
+      {
+        "id": "n17",
+        "name": "Namysłów",
+        "lat": 51.076,
+        "lon": 17.723,
+        "extra": false
+      },
+      {
+        "id": "n18",
+        "name": "Jędrzejów",
+        "lat": 50.639,
+        "lon": 20.305,
+        "extra": true
+      },
+      {
+        "id": "n19",
+        "name": "Chorzów",
+        "lat": 50.306,
+        "lon": 18.974,
+        "extra": true
+      },
+      {
+        "id": "n20",
+        "name": "Głogów",
+        "lat": 51.664,
+        "lon": 16.084,
+        "extra": true
+      },
+      {
+        "id": "n21",
+        "name": "Lubartów",
+        "lat": 51.46,
+        "lon": 22.61,
+        "extra": true
+      }
+    ]
+  },
+  {
+    "id": "p2",
+    "label": "-owo, -ewo",
+    "where": "The north and west: Pomerania, Kuyavia, Warmia-Masuria, Greater Poland and West Pomerania; never in the south",
+    "origin": "The neuter form of the same possessive: \"(place) of …\", -ewo after soft consonants",
+    "codes": [
+      "KP",
+      "PM",
+      "WN",
+      "WP",
+      "ZP"
+    ],
+    "towns": [
+      {
+        "id": "n22",
+        "name": "Wejherowo",
+        "lat": 54.606,
+        "lon": 18.236,
+        "extra": false
+      },
+      {
+        "id": "n23",
+        "name": "Mrągowo",
+        "lat": 53.864,
+        "lon": 21.305,
+        "extra": false
+      },
+      {
+        "id": "n24",
+        "name": "Działdowo",
+        "lat": 53.24,
+        "lon": 20.17,
+        "extra": false
+      },
+      {
+        "id": "n25",
+        "name": "Koronowo",
+        "lat": 53.314,
+        "lon": 17.937,
+        "extra": false
+      },
+      {
+        "id": "n26",
+        "name": "Gniewkowo",
+        "lat": 52.895,
+        "lon": 18.408,
+        "extra": false
+      },
+      {
+        "id": "n27",
+        "name": "Darłowo",
+        "lat": 54.421,
+        "lon": 16.411,
+        "extra": false
+      },
+      {
+        "id": "n28",
+        "name": "Witkowo",
+        "lat": 52.44,
+        "lon": 17.773,
+        "extra": false
+      },
+      {
+        "id": "n29",
+        "name": "Węgorzewo",
+        "lat": 54.216,
+        "lon": 21.737,
+        "extra": false
+      },
+      {
+        "id": "n30",
+        "name": "Braniewo",
+        "lat": 54.38,
+        "lon": 19.82,
+        "extra": true
+      },
+      {
+        "id": "n31",
+        "name": "Władysławowo",
+        "lat": 54.791,
+        "lon": 18.401,
+        "extra": true
+      },
+      {
+        "id": "n32",
+        "name": "Puszczykowo",
+        "lat": 52.286,
+        "lon": 16.849,
+        "extra": true
+      },
+      {
+        "id": "n33",
+        "name": "Kowalewo Pomorskie",
+        "lat": 53.154,
+        "lon": 18.899,
+        "extra": true
+      }
+    ]
+  }
+]

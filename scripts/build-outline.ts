@@ -179,11 +179,14 @@ const COUNTRIES: Record<string, CountryConfig> = {
       { key: 'Odra', ne: 'Oder', mouth: [53.9, 14.3] },
       { key: 'Warta', ne: 'Warta', mouth: [52.59, 14.65] },
       { key: 'Bug', ne: ['Bug', 'Zakhidnyy Buh'], mouth: [52.48, 21.07] },
+      // NE's Narew stops at Serock (Zegrze Reservoir); the last 30 km to the Vistula are not drawn.
       { key: 'Narew', ne: 'Narew', mouth: [52.43, 20.7] },
       { key: 'San', ne: 'San', mouth: [50.7, 21.85] },
       { key: 'Noteć', ne: 'Noteć', mouth: [52.73, 15.38] },
       { key: 'Pilica', ne: 'Pilica', mouth: [51.85, 21.28] },
-      { key: 'Dunajec', ne: 'Dunajec', mouth: [50.25, 21.4] },
+      // NE's "Dunajec" starts up the Poprad in Slovakia: cut at Stary Sącz, where the Poprad joins
+      // (the Dunajec above it, Nowy Targ to Stary Sącz, is not drawn).
+      { key: 'Dunajec', ne: 'Dunajec', mouth: [50.25, 21.4], from: [49.563, 20.64] },
       { key: 'Bóbr', ne: 'Bóbr', mouth: [52.05, 15.1] },
     ],
     checks: [

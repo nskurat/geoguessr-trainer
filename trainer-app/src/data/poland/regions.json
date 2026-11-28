@@ -1,0 +1,74 @@
+[
+  {
+    "key": "CEN",
+    "name": "Centralny",
+    "capital": "Łódź",
+    "hue": 60,
+    "codes": [
+      "LD",
+      "SK"
+    ]
+  },
+  {
+    "key": "POL",
+    "name": "Południowy",
+    "capital": "Kraków",
+    "hue": 135,
+    "codes": [
+      "MA",
+      "SL"
+    ]
+  },
+  {
+    "key": "WSC",
+    "name": "Wschodni",
+    "capital": "Lublin",
+    "hue": 350,
+    "codes": [
+      "LU",
+      "PK",
+      "PD"
+    ]
+  },
+  {
+    "key": "PZ",
+    "name": "Północno-Zachodni",
+    "capital": "Poznań",
+    "hue": 210,
+    "codes": [
+      "WP",
+      "ZP",
+      "LB"
+    ]
+  },
+  {
+    "key": "PDZ",
+    "name": "Południowo-Zachodni",
+    "capital": "Wrocław",
+    "hue": 280,
+    "codes": [
+      "DS",
+      "OP"
+    ]
+  },
+  {
+    "key": "PN",
+    "name": "Północny",
+    "capital": "Gdańsk",
+    "hue": 180,
+    "codes": [
+      "PM",
+      "KP",
+      "WN"
+    ]
+  },
+  {
+    "key": "MAZ",
+    "name": "Mazowieckie",
+    "capital": "Warszawa",
+    "hue": 30,
+    "codes": [
+      "MZ"
+    ]
+  }
+]
