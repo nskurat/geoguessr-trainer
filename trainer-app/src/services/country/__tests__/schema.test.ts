@@ -27,6 +27,18 @@ describe('validateCountry(germany)', () => {
   });
 });
 
+describe('country attribution', () => {
+  it.each(['en', 'be'] as const)('keeps required attribution in %s', (lang) => {
+    expect(france.copy[lang].credits).toContain('Victor Cazanave');
+    expect(france.copy[lang].credits).toContain('https://creativecommons.org/licenses/by/4.0/');
+    expect(france.copy[lang].credits).toContain('https://www.arcep.fr/');
+    expect(peru.copy[lang].credits).toContain('https://www.naturalearthdata.com/');
+    expect(germany.copy[lang].credits).toContain('https://www.naturalearthdata.com/');
+    expect(germany.copy[lang].credits).toContain('https://www.geonames.org/');
+    expect(germany.copy[lang].credits).toContain('https://creativecommons.org/licenses/by/4.0/');
+  });
+});
+
 describe('validateCountry on broken data', () => {
   const errorsOf = (mutate: (c: Country) => void) => {
     const c = clone();
