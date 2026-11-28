@@ -122,6 +122,9 @@ with the gates where to stop and ask on the issue.
 
 1. Ask the `geoguessr-pro` skill for a country brief: which study sets are worth drilling
    (only those go in `sets`), the top-level grouping, and what each data file needs.
+   The grouping (`regions`) is optional: only an official level players meet or groups with
+   real Street View signals, never just to chunk a list; it is a `reg` study set, an Area
+   filter only, or both. Without it the Area filter is hidden.
 2. Outline: an `@svg-maps` package with matching ids, or add the country to `COUNTRIES` in
    `scripts/build-outline.ts` and run `npm run build:outline -- <id>` (Natural Earth, public
    domain; it also writes river courses and the exact projection `affine`).

@@ -32,8 +32,14 @@ for Street View usefulness, and a table of the six sets (`reg`, `dep`, `city`, `
   finer units (Germany's Vorwahl zones and Kfz districts do), mapping them onto coarse units
   would teach wrong answers: skip the set or find a finer outline source, and log it in the
   backlog. Never force one zone per unit when a unit spans several.
-- `reg` must partition `dep`. If no official level fits, use a defensible study grouping and
-  say so in the tip (Peru: Lima y Callao / Norte / Centro / Sur / Oriente).
+- **The top-level grouping (`regions.json`) is optional.** Include it only if it is an official
+  level players meet (France's régions) or if its groups carry real Street View signals
+  (Germany's Ost, the former GDR). Never add one just to chunk a long list (Poland's NUTS-1
+  macroregions were removed: statistical units nobody sees). If included, it must partition
+  `dep`, and RESEARCH.md says whether it is a **study set** (`reg` in `sets`), an **Area
+  filter only** (Germany, Peru: groups share clues, but the names are ours) or **both**
+  (France). Without it: no `regions` in `index.ts`, no `regionTerm` in the copy, no `reg` set,
+  and the UI hides the Area filter.
 - Facts that become data need a source; mark confidence. Leave out what you cannot verify
   (Peru left out plate letters: unsettled and blurred on Street View).
 
@@ -63,7 +69,7 @@ building on it. Known Natural Earth pitfalls:
 
 ## 3. Data files in `trainer-app/src/data/<id>/`
 
-Same shapes as Peru and France (see `types/geo.ts`): `regions.json`, `departments.json`
+Same shapes as Peru and France (see `types/geo.ts`): `regions.json` (only if §1 keeps a grouping), `departments.json`
 (`plate` only if verified), `cities.json` (~60–90; tier 1 ≈ 20 always-labelled, all unit
 capitals; prefer towns on covered roads), and only for enabled sets `phone.json`,
 `placeNames.json` (4–8 example towns + 2–5 `extra` practice-only towns per pattern),

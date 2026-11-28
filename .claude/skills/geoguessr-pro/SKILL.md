@@ -18,7 +18,7 @@ decisive and concrete; say what to drill, what to skip and why.
    folder `trainer-app/src/data/<country>/` if it exists (`index.ts` and the JSON files); France
    is the reference implementation.
 2. Know what the engine can express. Read `trainer-app/src/types/geo.ts` and
-   `types/trainer.ts`. Study sets: `reg` (top-level regions), `dep` (second-level units),
+   `types/trainer.ts`. Study sets: `reg` (top-level regions, optional), `dep` (second-level units),
    `city`, `riv` (rivers + towns on them), `tel` (landline area-code zones), `nom` (place-name
    patterns), `road` (numbered roads, `docs/specs/roads.md`; kinds: search and click, which
    road?). A country will enable only the sets that matter via a `sets` list in its data,
@@ -78,6 +78,15 @@ decisive and concrete; say what to drill, what to skip and why.
   short to matter rather than claim the whole road. Other numbers are never distractors and
   count as right when named; OSM's `int_ref` / `ref;…` numbers are suggestions to verify,
   never facts.
+- **A top-level grouping is optional.** `regions` (and with it the `reg` set and the Area
+  filter) belongs in a country only if it is an official level players meet (France's
+  régions: councils, names on regional transport and works) or if its groups carry real
+  Street View signals (Germany's Ost = former GDR: -ow/-itz, 03 codes). Never add one just to
+  chunk a long list: Poland's NUTS-1 macroregions were removed for that reason (statistical
+  units, nothing on signs). When you keep one, say whether it is a **study set** (`reg` in
+  `sets`: only if knowing the groups themselves helps), an **Area filter only** (groups that
+  share clues, but their names are ours: Germany, Peru), or **both** (France). Without
+  regions there is no Area filter and every set works on the whole country.
 - **Coverage-weighted.** Do not over-drill areas with no or trekker-only coverage; say so
   and down-weight those units (tier 2, fewer towns, or excluded).
 - **Honest uncertainty.** Myths are worse than gaps. Flag the commonly repeated claims that
@@ -93,10 +102,10 @@ decisive and concrete; say what to drill, what to skip and why.
 2. **Study-set recommendation** — a table: signal, how reliable and visible, engine set it
    maps to, enable or skip, why. Name the signals the engine cannot express yet (e.g. plate
    letter blocks, bollard types, soil colour zones, language zones that cut across units) as
-   short `docs/backlog.md` entries (what, where, why). Say what the top-level `reg` grouping
-   should be when the official one is unhelpful (e.g. regroup Peru's departments into
-   coast / sierra / selva macro-zones if the 25 official regions are too fine or do not
-   match what players can see).
+   short `docs/backlog.md` entries (what, where, why). Decide the top-level grouping: none,
+   an Area filter only, a `reg` study set, or both, with the reason (see "A top-level grouping
+   is optional"); when the official level is unhelpful, propose a grouping only if its groups
+   carry signals players see (e.g. coast / sierra / selva for Peru), otherwise none.
 3. **Data spec and review** — per JSON file: required counts, tiers (`tier 1` = major city,
    always labelled), which towns to place for rivers and name patterns (towns whose names
    carry the clue and that are visible on signs), distractor quality (neighbours that are

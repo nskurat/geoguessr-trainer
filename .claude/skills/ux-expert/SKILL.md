@@ -55,6 +55,13 @@ alternative you rejected.
   region labels overlapping at full zoom; tiny units hard to hit.
 - Enclosed units (Berlin in Brandenburg): nudge the enclosing label with
   `departmentLabelOffsets`.
+- Top-level regions are optional per country (2026-11-28). **Without regions** (Poland): no
+  `reg` button, the **Area filter is hidden** and "All of <country>" is the only scope (no
+  empty one-option select), cards drop the region line, and Learn colours each department
+  with its own hue instead of a region hue. A saved Area that no longer exists falls back to
+  the whole country. **Area filter only** (Germany, Peru): no `reg` button, but the filter and
+  the region-hued Learn map stay. Check both shapes at 390 px: the control bar is one control
+  shorter without the filter.
 - Roads (`docs/specs/roads.md`, owner decisions 2026-11-28): a study set, not an overlay.
   Class 1 (trunk) is always drawn **with shields from the full view** (fewer, placement-limited);
   deeper classes fade in as the player zooms (thresholds in visible km, `roadVisibility`). Find

@@ -294,7 +294,7 @@ These broad bands are geographically and visually useful but boundaries are
 transitional; coastal irrigation, high-altitude variation and eastern slopes
 make easy counterexamples. Avoid subzones, volcano exclusivity and pole/bollard
 quizzes until their evidence and usable coverage are checked. Do not confuse
-these zones with Peru's existing five `reg` study groupings.
+these zones with Peru's five study groupings (Lima y Callao, Norte, Centro, Sur, Oriente), now an Area filter only.
 
 1. **Owner decision and research:** approve scope, image policy and boundaries;
    geo expert sources two independent references, records date, exceptions,
