@@ -4,7 +4,9 @@
  * For every country (default: all in trainer-app/src/data/countries.ts) and interface
  * language, it serves dist/ at its real sub-path and, with Playwright Chromium:
  *   - opens Learn mode for each offered study set and records a text snapshot of the page
- *     (prompt, visible map labels): deterministic, so two builds can be compared;
+ *     (prompt, visible map labels): deterministic, so two builds can be compared; the saved
+ *     settings name an area that does not exist (normalised to the whole country), and the
+ *     Area filter must show exactly for the departments and cities of a country with regions;
  *   - plays a short Practice round of every question kind of every set, answering at random
  *     (seeded), and fails on any page error.
  *
@@ -140,7 +142,7 @@ async function main(): Promise<void> {
                 localStorage.clear();
                 localStorage.setItem(k, v);
               },
-              [key, JSON.stringify({ set, mode: 'learn' })] as const,
+              [key, JSON.stringify({ set, mode: 'learn', scope: 'REMOVED_AREA' })] as const,
             );
             await page.goto(url);
             await page.waitForFunction(() => document.querySelector<HTMLElement>('#msg')?.style.display === 'none');
@@ -149,6 +151,9 @@ async function main(): Promise<void> {
             const width = page.viewportSize()?.width ?? 0;
             if (scrollWidth > width) errors.push(`${country.id}/${lang}/${set}/${view}: horizontal scroll`);
             if (view === 'desktop') {
+              const areaFilter = (country.regions?.length ?? 0) > 0 && (set === 'dep' || set === 'city');
+              if ((await page.locator('#scopeL').isVisible()) !== areaFilter)
+                errors.push(`${country.id}/${lang}/${set}: Area filter should be ${areaFilter ? 'shown' : 'hidden'}`);
               const footer = page.locator('#credits');
               if (!(await footer.isVisible()) || (await footer.innerHTML()) !== country.copy[lang].credits) {
                 errors.push(`${country.id}/${lang}/${set}: missing or incorrect footer attribution`);

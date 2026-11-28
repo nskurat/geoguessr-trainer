@@ -57,6 +57,22 @@ describe('normalizeSettings', () => {
     });
   });
 
+  it('normalises a saved area to all when the country has no regions, keeping the rest', () => {
+    const noRegions = { regionKeys: [], riverIds: ['r0'], sets: ['dep', 'city', 'riv', 'nom'] as const };
+    const result = normalizeSettings({ set: 'city', scope: 'CEN', river: 'r0', size: '40' }, noRegions);
+    expect(result).toMatchObject({ set: 'city', scope: 'all', river: 'r0', size: '40' });
+  });
+
+  it('falls back to the first offered set when the saved reg set is no longer offered', () => {
+    const result = normalizeSettings({ set: 'reg', scope: 'all' }, { ...valid, sets: ['dep', 'city'] });
+    expect(result.set).toBe('dep');
+  });
+
+  it('keeps a saved area when the regions are an Area filter only (no reg set)', () => {
+    const result = normalizeSettings({ set: 'dep', scope: 'BRE' }, { ...valid, sets: ['dep', 'city'] });
+    expect(result).toMatchObject({ set: 'dep', scope: 'BRE' });
+  });
+
   it('rejects unknown enum values and wrong types', () => {
     const result = normalizeSettings(
       { set: 'zzz', mode: 1, kind: null, ask: 'x', labels: {}, size: 20, phoneFilter: 'none' },

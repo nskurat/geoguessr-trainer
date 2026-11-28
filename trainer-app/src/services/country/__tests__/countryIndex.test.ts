@@ -152,8 +152,18 @@ describe('indexCountry', () => {
 
   it('throws on a department in no region', () => {
     const c = fixture();
-    c.regions[0].codes = ['01'];
+    c.regions![0].codes = ['01'];
     expect(() => indexCountry(c)).toThrow(/department 02 is in no region/);
+  });
+
+  it('indexes a country without regions: no region on departments or cities', () => {
+    const c = fixture();
+    delete c.regions;
+    const ix = indexCountry(c);
+    expect(ix.regions).toEqual([]);
+    expect(ix.regionByKey).toEqual({});
+    expect(ix.departments.every((d) => d.region === undefined)).toBe(true);
+    expect(ix.cities.every((x) => x.region === undefined)).toBe(true);
   });
 
   it('throws on a city with an unknown department', () => {
