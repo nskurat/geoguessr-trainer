@@ -121,7 +121,7 @@ San 458, Noteć 391, Pilica 333, Bóbr 279, Dunajec 249. **M** (the Vistula is a
 
 ## 7. Cities (cities.json)
 
-88 cities, 21 in tier 1: all 16 voivodeship capitals including both seats of Kujawsko-Pomorskie
+86 cities, 21 in tier 1: all 16 voivodeship capitals including both seats of Kujawsko-Pomorskie
 (Bydgoszcz, Toruń) and Lubuskie (Gorzów Wielkopolski, Zielona Góra), plus Częstochowa, Radom and
 Gdynia. Coordinates: GeoNames `cities1000` (CC BY 4.0), ~1 km. Coordinates checked against the
 voivodeship polygon of the outline. Seat of each voivodeship in `departments.json`: for
