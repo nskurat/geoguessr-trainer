@@ -13,17 +13,17 @@ import rivers from './rivers.json';
  * Peru. Outlines and most river courses: Natural Earth 1:10m (public domain),
  * built by `npm run build:outline -- peru`; Callao is merged into Lima
  * Metropolitana. Facts, sources and confidence notes: RESEARCH.md.
- * `npm run validate:data` checks this data.
+ * `npm run validate:data` checks this data. The five macro-regions are an Area filter
+ * only, not a study set (RESEARCH.md §6).
  */
 const courses: Record<string, number[][]> = riverCourses;
 
 export const peru: Country = {
   id: 'peru',
   name: 'Peru',
-  sets: ['reg', 'dep', 'city', 'tel', 'riv'],
+  sets: ['dep', 'city', 'tel', 'riv'],
   departmentCodes: 'hidden',
   projectionRefLat: outline.refLat,
-  regionLabelOffsets: {},
   outline: { viewBox: outline.viewBox, locations: outline.locations, affine: outline.affine },
   regions: regions as Region[],
   departments: departments as Department[],

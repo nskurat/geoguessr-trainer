@@ -52,7 +52,7 @@ Myths / pitfalls:
 
 | Set | Decision | Reason |
 |---|---|---|
-| `reg` | **Enabled** | Peru has no official tier between nation and region; a 5-zone study grouping (below) gives players the coarse placement the landscape already suggests. |
+| `reg` | **Skipped**; the grouping stays as the Area filter only (§6, 2026-11-28 review) | Peru has no official tier between nation and region; the 5-zone study grouping carries some signals but its names are ours and it cuts across costa / sierra / selva, so drilling it teaches little. |
 | `dep` | **Enabled** | The 24 regions + Lima/Callao are the map backbone; plate letters shown where verified. |
 | `city` | **Enabled** | Town names on signs and painted walls are the most common exact clue; 79 cities weighted to covered roads. |
 | `tel` | **Enabled** | Codes are strictly regional and printed on older shop/hotel/school signs; one code = one region (01 = whole Lima department + Callao). Value is moderate because mobiles dominate. |
@@ -115,6 +115,26 @@ so this is a **study grouping**, chosen to match what a player sees:
 
 Judgement calls: Ica (Centro in some schemes), Madre de Dios (often "Macro Sur"),
 Amazonas (Andean Chachapoyas but selva Bagua) and Ayacucho.
+
+**Decision (2026-11-28 review): keep the grouping as the Area filter only; drop the `reg`
+study set.**
+
+- Why keep it as a filter: its groups share clues a player sees, so learning regions and
+  cities one group at a time is learning things that go together. Lima y Callao is one
+  landline code (01) and one plate block (§4, §5); Oriente is the selva (§2 #1, **H**);
+  Norte has the north-coast pole stickers, overhanging roofs and open-front mototaxis, Sur
+  the Chile-like desert from Ica to Tacna, the volcanoes and the altiplano (§2, Plonk It,
+  **M**). The Learn map colours the regions by group.
+- Why no `reg` set: the names (Norte, Centro, Sur) are ours, not on signs, and Norte and Sur
+  each mix coast and sierra, so the first thing a Peruvian panorama tells you (costa,
+  sierra or selva, `docs/specs/visual-meta.md`) is not what the set drills. Drilling "which
+  group is Áncash in?" teaches the partition only.
+- Open alternative for the owner: drop the grouping entirely once the costa / sierra /
+  selva layer (`docs/specs/visual-meta.md` §5) exists, since that layer is the landscape
+  grouping players really use. Until then the filter keeps the 25 regions and 79 cities
+  learnable in coherent chunks.
+- Saved settings with `set: 'reg'` fall back to the first offered set (`dep`); a saved Area
+  stays valid. Old `reg|…` progress records stay in localStorage, unused.
 
 ## 7. Files and sources
 
