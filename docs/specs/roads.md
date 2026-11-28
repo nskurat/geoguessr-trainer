@@ -150,9 +150,17 @@ city label or another shield. Towns on the selected road are drawn as river town
   and its sign description ("blue shield, white number"), the numbering rule that applies
   first ("odd: north–south; two digits 4x: Rhine-Ruhr to Frankfurt"), its **neighbours in the
   pattern** ("between the A 5 and the A 9; crosses the A 2 and the A 4"), then endpoints,
-  towns along it in order (the river-card pattern), length and regions crossed. The point is
+  towns along it in order (the river-card pattern), length and regions crossed, then its
+  **other numbers** (§4 "Several numbers"): "Also numbered: E 45: Flensburg – Würzburg; A 44:
+  Kassel", with former numbers last ("Formerly: …"). The point is
   to learn where a road sits *relative to the others and to the rule*, not its exact course. Card text comes
   from data and `copy`, never literals.
+- **Other numbers stay off the map in the pilot.** A road shows only its primary `ref` on its
+  shields at every zoom; no secondary (green E) shield appears at deeper zoom, so the map
+  stays readable. E-routes and shared numbers appear in the info card only. On a shared
+  stretch both lines coincide, and each road's shields are placed by the usual rule, so both
+  primary numbers can show there. Secondary shields at the deepest zoom are an option to
+  revisit after the pilot, not a pilot item.
 - The Area filter is hidden for Roads in Learn (roads cross areas); the `labels` setting
   `off` hides shields, `auto` follows the table above.
 
@@ -254,7 +262,12 @@ where a line runs on a blank map.
    tap-target minimum). The road **nearest** to the tap point is the answer. Only where the
    target is within 3 px of that nearest distance (a shared, concurrent section or the very
    point of a crossing) does the target win; a tap that is clearly on another road at a
-   junction is that other road.
+   junction is that other road. **Shared stretches:** where the target shares a carriageway
+   with another road (a `concurrent` altRef, §4), both route relations hold the shared ways,
+   so both courses run there and the tie rule counts the tap for the target, whichever of
+   the two it is. The prompt always uses the primary `ref`, and a road that shares a stretch
+   with the target is never one of its decoys. A missing shared section shows up as a gap
+   in the build:roads report.
 3. **Neutral taps** cost no attempt: a tap with no road in tolerance ("Tap on a road"), or
    a tap while the target's class is not yet drawn ("Zoom in — roads appear as you zoom").
    A drag or pinch never answers.
@@ -264,7 +277,8 @@ where a line runs on a blank map.
    and the neighbours from data, e.g. "Odd numbers run north–south; the A 7 lies between the
    A 5 and the A 9", and the two neighbour roads pulse once in `--hl`. Only for a road with
    no usable rule (e.g. a Peru transversal) does the hint fall back to the regions it
-   crosses. No hint after the first miss (the wrong road's number is already information).
+   crosses. Then up to two of its other numbers ("the A 7 — also the E 45, E 43"), never a
+   former one. No hint after the first miss (the wrong road's number is already information).
 6. **After the third miss:** the map zooms to the target, which blinks with its shields;
    the player taps it (or presses Enter / "Next") to continue — the existing reveal rule.
 7. Outcome: 0 right first try, 1 second, 2 third, 3 revealed — the existing `Outcome`, so
@@ -281,6 +295,15 @@ and offers four or five numbers. Distractors are **genuinely confusable**: same 
 nearby (shares a region or runs parallel within ~100 km), plus a same-band number (A 45 for
 A 44; PE-28A for PE-26), never random. Keys 1–5 pick, as today; the reveal shows the right
 shield on the road. This is also the accessible kind (below).
+
+**Other numbers count as right (decision).** Options are primary refs only, and they never
+include another number of the highlighted road. Roads that share a stretch with it are
+excluded from the distractors, and E or former numbers are never options. So a right answer
+can only be its own shield number. Any answer that is one of the road's numbers (its primary
+`ref` or any `altRefs` number, `refMatchesRoad`) counts as **right**, not merely "not
+wrong", for a later typed-answer kind or an option list that includes them. A player who
+reads "E 45" on a green sign and names it has read the road correctly. The reveal still
+shows the primary shield and lists the other numbers.
 
 ### Practice wireframes
 
@@ -384,7 +407,9 @@ export interface RoadNetwork {
 export interface Road {
   id: string;            // stable, e.g. "a7"; progress key road|a7
   network: string;       // RoadNetwork.id
-  ref: string;           // as signed: "A 7", "PE-1N"; never translated
+  ref: string;           // as signed: "A 7", "PE-1N"; never translated. The primary
+                         // number: drilled, prompted and drawn on the shield
+  altRefs?: RoadAltRef[]; // its other numbers, most relevant first (below)
   class: RoadClass;
   from: string;          // RoadData.towns id of the start terminus (may be a border town)
   to: string;            // … of the end terminus
@@ -395,6 +420,14 @@ export interface Road {
   lengthKm?: number;     // sourced; whole route
   name?: string;         // nickname in English, e.g. "Carretera Central"
   rule?: string;         // numbering note in English, e.g. "Odd: north–south"
+}
+export interface RoadAltRef {
+  ref: string;           // "E 45"; for concurrent, the other road's primary ref
+  network: string;       // "E"; for concurrent, the other road's network (need not be in networks)
+  kind: 'european' | 'concurrent' | 'former';
+  from?: string;         // towns ids of THIS road bounding the stretch (both or neither;
+  to?: string;           //   equal for a short stretch at one town); absent = whole road
+  note?: string;         // maintainer note in English (exact junctions); not shown or translated
 }
 export interface RoadData { networks: RoadNetwork[]; roads: Road[]; towns: RoadTown[] }
 // RoadTown = RiverTown's shape (id, name, lat, lon); a town may sit on several roads.
@@ -427,6 +460,38 @@ reference existing ids, and `from` / `to` lie within a few km of the course ends
 every road's class is drawn by some threshold; `sets` containing `road` requires `roads`
 with at least five roads per offered class (enough distractors); copy for every network
 and road text in every non-source language (the existing "missing translation" rule).
+**Several numbers.** A road keeps one primary `ref`: the number drilled, put in the prompt
+and drawn on the shield. Its other numbers go in `altRefs`, one entry per number, or per
+stretch when the number covers only part of the road. Kinds:
+
+- `european`: an E-route signed on (part of) the road. In Germany it is rare on signs; in
+  France it is green next to the A number.
+- `concurrent`: a shared stretch, two national numbers on one carriageway. It is recorded on
+  **both** roads and names the other road's primary `ref`.
+- `former`: a renumbered or legacy number (Peru's older route names, France's N → D
+  transfers).
+
+Stretches are town-granular (`from` / `to` are towns of this road bounding the stretch); the
+exact junctions go in `note`, sourced in `RESEARCH.md`. Validation:
+
+- No altRef repeats the road's own `ref`.
+- A `european` or `former` number is no other road's primary `ref`; a number that is one must
+  be `concurrent`.
+- A `concurrent` number **is** another road's primary `ref`, in that road's network, and that
+  road lists this one back as `concurrent`.
+- A number listed twice needs a stretch on every entry, and no stretch is repeated.
+- `from` / `to` come both or neither, and are towns of this road.
+
+`refMatchesRoad(ref, road)` accepts the primary `ref` or any altRef number. The OSM `ref`
+check splits a ";" list and passes when any number is the primary `ref` or a known altRef;
+extra numbers are build:roads suggestions, not errors. The engine uses the numbers as
+follows:
+
+- Find never picks a road concurrent with the target as a decoy, and name never offers one
+  as an option (`concurrentRoadIds`).
+- The hint names up to two current other numbers (`alsoRefs`).
+- The info card lists them all with their stretches (`altRefLines`).
+
 Unit-tested pure services: `roadVisibility(viewWidthKm, zoomRatio) → classes`,
 `nearestRoad(point, roads, toleranceMapUnits) → { id, distance }[]` (polyline distance with a
 bounding-box prefilter; concurrent sections return all ids), `placeShields(...)`
@@ -533,6 +598,12 @@ sign files from Commons.
    gaps longer than 5 km, ref mismatches, roads in `roads.json` with no relation; plus total
    raw and gzip size against the budget. The report goes into the PR, and its summary
    (date, query, tags, tolerance, sizes) into `RESEARCH.md` as the licence requires.
+7. **Several numbers:** OSM often stores several numbers in one tag (`ref=A 1;A 61`) and
+   E-routes in `int_ref` (`E 45;E 43`). The script splits both. A relation belongs to every
+   road whose primary `ref` is in its `ref` list. A ref mismatch is reported only when none
+   of its numbers is a road's primary `ref` or known altRef. The other numbers are listed as
+   **suggested altRefs** (road, number, guessed kind, relations) and never written into
+   `roads.json`: a review checks the stretch and a second source, then adds them by hand.
 
 Without network access the script runs from the cache; it never writes outside
 `data/<country>/` and `.cache/`.
@@ -634,3 +705,11 @@ attempts and hint.
 7. **Neutral taps** (no road in reach, or the target's class not drawn yet) cost no attempt.
 8. **Locator:** beside the country picker, an informative image, not clickable for now.
 9. **Km-marker kinds** (Peru PE-1, Guatemala later): a follow-up spec after the Germany pilot.
+10. **Several numbers per road** (owner comment on the roads pilot PR, 2026-11-28):
+    - one primary `ref` plus `altRefs` (`european`, `concurrent`, `former`, with an
+      optional town stretch);
+    - OSM's extra numbers are only suggestions;
+    - other numbers count as right in name and are never distractors;
+    - a tap on a shared stretch counts for the target;
+    - the pilot shows E numbers only in the info card, with no secondary shields on the
+      map (§2, §3, §4).

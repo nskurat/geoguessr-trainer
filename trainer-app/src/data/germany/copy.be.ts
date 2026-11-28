@@ -111,5 +111,28 @@ export const copyBe: CountryCopy = {
         origin: 'Франкскае heim — дом: паселішчы часоў франкскай каланізацыі, часта пасля асабовага імя',
       },
     },
+    roadNetworks: {
+      A: {
+        label: 'Аўтабан',
+        sign: 'Сіні шчыт з белым нумарам; нумар таксама стаіць першым на сініх знаках напрамку',
+        rules: {
+          odd: 'Няцотныя нумары ідуць пераважна з поўначы на поўдзень',
+          even: 'Цотныя нумары ідуць пераважна з захаду на ўсход',
+          trunk:
+            'Аднаразрадныя нумары — доўгія магістралі: няцотныя растуць з захаду на ўсход, цотныя — з поўначы на поўдзень',
+          band1: 'Нумары 10–19 — усход: Berlin, Brandenburg, Mecklenburg, Sachsen-Anhalt і Sachsen',
+          band2: 'Нумары 20–29 — поўнач: Hamburg, Bremen, Schleswig-Holstein і ўзбярэжжы',
+          band3: 'Нумары 30–39 — Niedersachsen і яго ваколіцы: Osnabrück, Bielefeld, Hannover, Braunschweig',
+          band4: 'Нумары 40–49 — Ruhrgebiet, узгоркі на поўдзень ад яго і поўнач Hessen',
+          band5: 'Нумары 50–59 — Niederrhein вакол Düsseldorf і Köln',
+          band6: 'Нумары 60–69 — паўднёвы захад: Rhein-Main, Pfalz, Eifel і Saarland',
+          band7: 'Нумары 70–79 — Thüringen, Franken і захад Sachsen',
+          band8: 'Нумары 80–89 — Baden-Württemberg',
+          band9: 'Нумары 90–99 — крайні поўдзень: поўдзень Bayern вакол München і мяжа са Швейцарыяй',
+          ring: 'Кальцо вакол горада: захоўвае свой дыяпазон нумароў, але не мае напрамку',
+          exception: 'Выключэнне: яго напрамак парушае правіла цотных і няцотных нумароў',
+        },
+      },
+    },
   },
 };

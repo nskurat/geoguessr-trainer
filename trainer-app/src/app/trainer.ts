@@ -863,6 +863,7 @@ function bindControls(): void {
 const validValues = () => ({
   regionKeys: ix.regions.map((r) => r.key),
   riverIds: ix.rivers.map((r) => r.id),
+  roadIds: ix.country.roads?.roads.map((r) => r.id) ?? [],
   sets: ix.country.sets,
 });
 

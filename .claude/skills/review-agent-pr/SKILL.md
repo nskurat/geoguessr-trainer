@@ -38,6 +38,18 @@ plain words.
    `departmentLabelOffsets`, e.g. Brandenburg/Berlin); Belarusian numeral forms (5 зямель, not
    земляў: check the grammar dictionary); copy that mentions a set the country does not offer.
 
+9. **Road PRs** (`docs/specs/roads.md`, `docs/licensing.md` "OpenStreetMap road data"):
+   OSM-derived geometry only in `*.osm.json` (never merged into `roads.json`, which holds our
+   ids, rules, neighbours and towns); the OSM credit ("Roads © OpenStreetMap contributors,
+   ODbL" + https://www.openstreetmap.org/copyright) in **every** `copy.<lang>.ts`; the extract
+   recorded in RESEARCH.md (source, date, query, tags, tolerance, sizes); the class 1–2 course
+   file within its size budget (≤ 15 KB gzip for Germany); the `build:roads` report (gaps, ref
+   mismatches, Natural Earth cross-check, sizes) in the PR description. Geometry drawn by hand
+   where OSM was unreachable is a blocker. Spot-check `between` neighbours on the map.
+   `altRefs` (several numbers per road) must be sourced in RESEARCH.md with their stretches,
+   with concurrencies on both roads. The report's "suggested altRefs" must be verified, not
+   pasted in.
+
 ## Feedback and finishing
 
 - **Small fixes: do them yourself** on the agent's branch (commit message says what and why),

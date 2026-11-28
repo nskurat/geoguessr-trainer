@@ -1,0 +1,2728 @@
+{
+  "networks": [
+    {
+      "id": "A",
+      "shield": "blue",
+      "label": "Autobahn",
+      "sign": "Blue shield with a white number; the number also leads the blue direction signs",
+      "rules": [
+        {
+          "id": "odd",
+          "text": "Odd numbers run mainly north–south"
+        },
+        {
+          "id": "even",
+          "text": "Even numbers run mainly east–west"
+        },
+        {
+          "id": "trunk",
+          "text": "Single digits are the long trunk routes: odd ones count up from west to east, even ones from north to south"
+        },
+        {
+          "id": "band1",
+          "text": "Numbers in the 10s belong to the east: Berlin, Brandenburg, Mecklenburg, Saxony-Anhalt and Saxony"
+        },
+        {
+          "id": "band2",
+          "text": "Numbers in the 20s belong to the north: Hamburg, Bremen, Schleswig-Holstein and the coasts"
+        },
+        {
+          "id": "band3",
+          "text": "Numbers in the 30s belong to Lower Saxony and its edges: Osnabrück, Bielefeld, Hannover, Braunschweig"
+        },
+        {
+          "id": "band4",
+          "text": "Numbers in the 40s belong to the Ruhr, the hills south of it and north Hesse"
+        },
+        {
+          "id": "band5",
+          "text": "Numbers in the 50s belong to the Lower Rhine around Düsseldorf and Köln"
+        },
+        {
+          "id": "band6",
+          "text": "Numbers in the 60s belong to the south-west: Rhine–Main, the Palatinate, the Eifel and Saarland"
+        },
+        {
+          "id": "band7",
+          "text": "Numbers in the 70s belong to Thuringia, Franconia and west Saxony"
+        },
+        {
+          "id": "band8",
+          "text": "Numbers in the 80s belong to Baden-Württemberg"
+        },
+        {
+          "id": "band9",
+          "text": "Numbers in the 90s belong to the far south: southern Bavaria around München and the Swiss border"
+        },
+        {
+          "id": "ring",
+          "text": "A ring around a city: it keeps its band but has no direction"
+        },
+        {
+          "id": "exception",
+          "text": "An exception: its direction breaks the odd–even rule"
+        }
+      ]
+    }
+  ],
+  "roads": [
+    {
+      "id": "a1",
+      "network": "A",
+      "ref": "A 1",
+      "altRefs": [
+        {"ref": "E 47", "network": "E", "kind": "european", "from": "t0", "to": "t1", "note": "Heiligenhafen to Kreuz Lübeck"},
+        {"ref": "E 22", "network": "E", "kind": "european", "from": "t1", "to": "t3", "note": "Kreuz Lübeck to Dreieck Stuhr, south of Bremen"},
+        {"ref": "E 37", "network": "E", "kind": "european", "from": "t3", "to": "t8", "note": "Dreieck Stuhr to Kreuz Köln-Nord"},
+        {"ref": "E 31", "network": "E", "kind": "european", "from": "t8", "to": "t9", "note": "Kreuz Köln-Nord to Kreuz Bliesheim, round Köln"},
+        {"ref": "E 29", "network": "E", "kind": "european", "from": "t8", "to": "t9", "note": "Kreuz Bliesheim to Blankenheim"},
+        {"ref": "E 44", "network": "E", "kind": "european", "from": "t9", "to": "t10", "note": "in sections, Dreieck Vulkaneifel to Dreieck Moseltal"},
+        {"ref": "E 422", "network": "E", "kind": "european", "from": "t10", "to": "t11", "note": "Dreieck Moseltal to Saarbrücken"},
+        {"ref": "A 61", "network": "A", "kind": "concurrent", "from": "t8", "to": "t9", "note": "Dreieck Erfttal to Kreuz Bliesheim, at Erftstadt"}
+      ],
+      "class": 1,
+      "from": "t0",
+      "to": "t11",
+      "towns": ["t0", "t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8", "t9", "t10", "t11"],
+      "codes": ["HB", "HH", "NI", "NW", "RP", "SH", "SL"],
+      "lengthKm": 748,
+      "rules": ["odd", "trunk"],
+      "between": ["a3"],
+      "crosses": ["a20", "a21", "a24", "a25", "a7", "a39", "a27", "a28", "a29", "a30", "a43", "a2", "a44", "a45", "a46", "a3", "a59", "a57", "a4", "a61", "a48", "a60", "a62", "a8"]
+    },
+    {
+      "id": "a2",
+      "network": "A",
+      "ref": "A 2",
+      "altRefs": [
+        {"ref": "E 34", "network": "E", "kind": "european", "from": "t12", "to": "t15", "note": "Oberhausen to Kreuz Bad Oeynhausen, east of Bielefeld"},
+        {"ref": "E 30", "network": "E", "kind": "european", "from": "t15", "to": "t20", "note": "Kreuz Bad Oeynhausen to Dreieck Werder"}
+      ],
+      "class": 1,
+      "from": "t12",
+      "to": "t20",
+      "towns": ["t12", "t13", "t6", "t14", "t15", "t16", "t17", "t18", "t19", "t20"],
+      "codes": ["BB", "NI", "NW", "ST"],
+      "lengthKm": 473,
+      "rules": ["even", "trunk"],
+      "between": ["a4"],
+      "crosses": ["a3", "a31", "a43", "a45", "a1", "a33", "a30", "a37", "a7", "a39", "a14", "a10"]
+    },
+    {
+      "id": "a3",
+      "network": "A",
+      "ref": "A 3",
+      "altRefs": [
+        {"ref": "E 35", "network": "E", "kind": "european", "from": "t21", "to": "t25", "note": "Elten border crossing to Mönchhof-Dreieck, past the Wiesbadener Kreuz"},
+        {"ref": "E 34", "network": "E", "kind": "european", "from": "t12", "to": "t22", "note": "Kreuz Oberhausen to Kreuz Kaiserberg"},
+        {"ref": "E 42", "network": "E", "kind": "european", "from": "t26", "to": "t27", "note": "Mönchhof-Dreieck to Seligenstädter Dreieck"},
+        {"ref": "E 41", "network": "E", "kind": "european", "from": "t27", "to": "t28", "note": "Seligenstädter Dreieck to Dreieck Würzburg-West"},
+        {"ref": "E 45", "network": "E", "kind": "european", "from": "t28", "to": "t29", "note": "Kreuz Biebelried to Kreuz Nürnberg"},
+        {"ref": "E 56", "network": "E", "kind": "european", "from": "t29", "to": "t32", "note": "Kreuz Nürnberg to the Pocking border crossing"},
+        {"ref": "A 4", "network": "A", "kind": "concurrent", "from": "t8", "to": "t8", "note": "Kreuz Köln-Ost to Dreieck Köln-Heumar"}
+      ],
+      "class": 1,
+      "from": "t21",
+      "to": "t32",
+      "towns": ["t21", "t12", "t22", "t23", "t8", "t24", "t25", "t26", "t27", "t28", "t29", "t30", "t31", "t32"],
+      "codes": ["BW", "BY", "HE", "NW", "RP"],
+      "lengthKm": 769,
+      "rules": ["odd", "trunk"],
+      "between": ["a1", "a5"],
+      "crosses": ["a2", "a42", "a40", "a52", "a44", "a46", "a1", "a4", "a59", "a48", "a66", "a67", "a5", "a45", "a81", "a7", "a73", "a9", "a6", "a93", "a92", "a94"]
+    },
+    {
+      "id": "a4",
+      "network": "A",
+      "ref": "A 4",
+      "altRefs": [
+        {"ref": "E 40", "network": "E", "kind": "european", "from": "t33", "to": "t34", "note": "Kreuz Aachen to Kreuz Olpe-Süd"},
+        {"ref": "E 40", "network": "E", "kind": "european", "from": "t36", "to": "t43", "note": "Kirchheimer Dreieck to Görlitz"},
+        {"ref": "A 3", "network": "A", "kind": "concurrent", "from": "t8", "to": "t8", "note": "Kreuz Köln-Ost to Dreieck Köln-Heumar"}
+      ],
+      "class": 1,
+      "from": "t33",
+      "to": "t43",
+      "towns": ["t33", "t8", "t34", "t35", "t36", "t37", "t38", "t39", "t40", "t41", "t42", "t43"],
+      "codes": ["NW", "SN", "TH"],
+      "lengthKm": 583,
+      "rules": ["even", "trunk"],
+      "between": ["a2", "a6"],
+      "crosses": ["a44", "a61", "a1", "a3", "a59", "a45", "a7", "a71", "a9", "a72", "a14", "a17", "a13"]
+    },
+    {
+      "id": "a5",
+      "network": "A",
+      "ref": "A 5",
+      "altRefs": [
+        {"ref": "E 40", "network": "E", "kind": "european", "from": "t44", "to": "t45", "note": "Hattenbacher Dreieck to Reiskirchener Dreieck"},
+        {"ref": "E 451", "network": "E", "kind": "european", "from": "t45", "to": "t46", "note": "Reiskirchener Dreieck to Darmstädter Kreuz"},
+        {"ref": "E 35", "network": "E", "kind": "european", "from": "t46", "to": "t51", "note": "Darmstädter Kreuz to the Swiss border"},
+        {"ref": "E 52", "network": "E", "kind": "european", "from": "t48", "to": "t49", "note": "Dreieck Karlsruhe to Appenweier"},
+        {"ref": "E 54", "network": "E", "kind": "european", "from": "t50", "to": "t51", "note": "Dreieck Neuenburg to Dreieck Weil am Rhein"}
+      ],
+      "class": 1,
+      "from": "t44",
+      "to": "t51",
+      "towns": ["t44", "t45", "t26", "t46", "t47", "t48", "t49", "t50", "t51"],
+      "codes": ["BW", "HE"],
+      "lengthKm": 440,
+      "rules": ["odd", "trunk"],
+      "between": ["a3", "a7"],
+      "crosses": ["a7", "a49", "a45", "a66", "a3", "a67", "a6", "a8", "a98"]
+    },
+    {
+      "id": "a6",
+      "network": "A",
+      "ref": "A 6",
+      "altRefs": [
+        {"ref": "E 50", "network": "E", "kind": "european", "note": "the whole route"}
+      ],
+      "class": 1,
+      "from": "t11",
+      "to": "t57",
+      "towns": ["t11", "t52", "t53", "t54", "t55", "t29", "t56", "t57"],
+      "codes": ["BW", "BY", "HE", "RP", "SL"],
+      "lengthKm": 484,
+      "rules": ["even", "trunk"],
+      "between": ["a4", "a8"],
+      "crosses": ["a8", "a62", "a63", "a61", "a67", "a5", "a81", "a7", "a73", "a9", "a3", "a93"]
+    },
+    {
+      "id": "a7",
+      "network": "A",
+      "ref": "A 7",
+      "altRefs": [
+        {"ref": "E 45", "network": "E", "kind": "european", "from": "t58", "to": "t28", "note": "Ellund to Kreuz Biebelried"},
+        {"ref": "E 43", "network": "E", "kind": "european", "from": "t28", "to": "t63", "note": "Kreuz Biebelried to Kreuz Memmingen, south of Ulm"},
+        {"ref": "E 532", "network": "E", "kind": "european", "from": "t63", "to": "t65", "note": "Kreuz Memmingen to Füssen"},
+        {"ref": "A 44", "network": "A", "kind": "concurrent", "from": "t61", "to": "t61", "note": "Kassel-Ost to Dreieck Kassel-Süd"}
+      ],
+      "class": 1,
+      "from": "t58",
+      "to": "t65",
+      "towns": ["t58", "t59", "t2", "t16", "t60", "t61", "t62", "t28", "t63", "t64", "t65"],
+      "codes": ["BW", "BY", "HE", "HH", "NI", "SH"],
+      "lengthKm": 962,
+      "rules": ["odd", "trunk"],
+      "between": ["a5", "a9"],
+      "crosses": ["a23", "a26", "a1", "a39", "a27", "a37", "a2", "a38", "a49", "a44", "a4", "a5", "a66", "a70", "a3", "a6", "a8", "a96"]
+    },
+    {
+      "id": "a8",
+      "network": "A",
+      "ref": "A 8",
+      "altRefs": [
+        {"ref": "E 52", "network": "E", "kind": "european", "from": "t48", "to": "t75", "note": "Dreieck Karlsruhe to the Austrian border, except round München, where it follows the A 99"},
+        {"ref": "E 29", "network": "E", "kind": "european", "from": "t66", "to": "t67", "note": "Luxembourg border to Dreieck Saarlouis"},
+        {"ref": "E 45", "network": "E", "kind": "european", "from": "t73", "to": "t74", "note": "Kreuz München-Süd to Dreieck Inntal"},
+        {"ref": "E 60", "network": "E", "kind": "european", "from": "t74", "to": "t75", "note": "Dreieck Inntal to the Austrian border"}
+      ],
+      "class": 1,
+      "from": "t66",
+      "to": "t75",
+      "towns": ["t66", "t67", "t68", "t69", "t48", "t70", "t71", "t63", "t72", "t73", "t74", "t75"],
+      "codes": ["BW", "BY", "RP", "SL"],
+      "lengthKm": 505,
+      "rules": ["even", "trunk"],
+      "between": ["a6"],
+      "crosses": ["a1", "a6", "a5", "a81", "a7", "a99", "a93"]
+    },
+    {
+      "id": "a9",
+      "network": "A",
+      "ref": "A 9",
+      "altRefs": [
+        {"ref": "E 51", "network": "E", "kind": "european", "from": "t76", "to": "t29", "note": "Dreieck Potsdam to Kreuz Nürnberg"},
+        {"ref": "E 49", "network": "E", "kind": "european", "from": "t78", "to": "t79", "note": "Schkeuditzer Kreuz to Schleiz"},
+        {"ref": "E 45", "network": "E", "kind": "european", "from": "t29", "to": "t73", "note": "Kreuz Nürnberg to Kreuz München-Nord"}
+      ],
+      "class": 1,
+      "from": "t76",
+      "to": "t73",
+      "towns": ["t76", "t77", "t78", "t79", "t80", "t29", "t81", "t73"],
+      "codes": ["BB", "BY", "SN", "ST", "TH"],
+      "lengthKm": 530,
+      "rules": ["odd", "trunk"],
+      "between": ["a7"],
+      "crosses": ["a10", "a14", "a38", "a4", "a72", "a70", "a3", "a6", "a73", "a93", "a92", "a99"]
+    },
+    {
+      "id": "a10",
+      "network": "A",
+      "ref": "A 10",
+      "altRefs": [
+        {"ref": "E 30", "network": "E", "kind": "european", "from": "t20", "to": "t83", "note": "southern ring, Dreieck Werder to Dreieck Spreeau"},
+        {"ref": "E 55", "network": "E", "kind": "european", "from": "t84", "to": "t83", "note": "northern and eastern ring, Dreieck Havelland to Schönefelder Kreuz"}
+      ],
+      "class": 2,
+      "from": "t82",
+      "to": "t84",
+      "towns": ["t82", "t83", "t76", "t20", "t84"],
+      "codes": ["BB", "BE"],
+      "lengthKm": 196,
+      "rules": ["band1", "ring"],
+      "between": [],
+      "crosses": ["a11", "a12", "a13", "a9", "a2", "a24"]
+    },
+    {
+      "id": "a11",
+      "network": "A",
+      "ref": "A 11",
+      "altRefs": [
+        {"ref": "E 28", "network": "E", "kind": "european", "note": "the whole route"}
+      ],
+      "class": 2,
+      "from": "t85",
+      "to": "t82",
+      "towns": ["t85", "t86", "t82"],
+      "codes": ["BB", "MV"],
+      "lengthKm": 110,
+      "rules": ["band1", "odd"],
+      "between": ["a24", "a12"],
+      "crosses": ["a20", "a10"]
+    },
+    {
+      "id": "a12",
+      "network": "A",
+      "ref": "A 12",
+      "class": 2,
+      "from": "t87",
+      "to": "t88",
+      "towns": ["t87", "t88"],
+      "codes": ["BB"],
+      "lengthKm": 58,
+      "rules": ["band1", "even"],
+      "between": ["a11", "a13"],
+      "crosses": ["a10"]
+    },
+    {
+      "id": "a13",
+      "network": "A",
+      "ref": "A 13",
+      "class": 2,
+      "from": "t89",
+      "to": "t41",
+      "towns": ["t89", "t83", "t90", "t91", "t41"],
+      "codes": ["BB", "SN"],
+      "lengthKm": 151,
+      "rules": ["band1", "odd"],
+      "between": ["a12", "a9"],
+      "crosses": ["a10", "a15", "a4"]
+    },
+    {
+      "id": "a14",
+      "network": "A",
+      "ref": "A 14",
+      "class": 2,
+      "from": "t92",
+      "to": "t98",
+      "towns": ["t92", "t93", "t94", "t95", "t18", "t96", "t78", "t97", "t98"],
+      "codes": ["BB", "MV", "SN", "ST"],
+      "lengthKm": 341,
+      "rules": ["band1", "exception"],
+      "between": ["a39", "a9"],
+      "crosses": ["a20", "a24", "a2", "a36", "a9", "a38", "a4"]
+    },
+    {
+      "id": "a15",
+      "network": "A",
+      "ref": "A 15",
+      "class": 2,
+      "from": "t90",
+      "to": "t100",
+      "towns": ["t90", "t99", "t100"],
+      "codes": ["BB"],
+      "lengthKm": 64,
+      "rules": ["band1", "exception"],
+      "between": ["a12", "a4"],
+      "crosses": ["a13"]
+    },
+    {
+      "id": "a17",
+      "network": "A",
+      "ref": "A 17",
+      "class": 2,
+      "from": "t41",
+      "to": "t102",
+      "towns": ["t41", "t101", "t102"],
+      "codes": ["SN"],
+      "lengthKm": 45,
+      "rules": ["band1", "odd"],
+      "between": [],
+      "crosses": ["a4"]
+    },
+    {
+      "id": "a19",
+      "network": "A",
+      "ref": "A 19",
+      "class": 2,
+      "from": "t103",
+      "to": "t105",
+      "towns": ["t103", "t104", "t105"],
+      "codes": ["BB", "MV"],
+      "lengthKm": 123,
+      "rules": ["band1", "odd"],
+      "between": ["a14", "a11"],
+      "crosses": ["a20", "a24"]
+    },
+    {
+      "id": "a20",
+      "network": "A",
+      "ref": "A 20",
+      "class": 2,
+      "from": "t106",
+      "to": "t109",
+      "towns": ["t106", "t1", "t92", "t103", "t107", "t108", "t109"],
+      "codes": ["BB", "MV", "NI", "SH"],
+      "lengthKm": 345,
+      "rules": ["band2", "even"],
+      "between": ["a24"],
+      "crosses": ["a29", "a21", "a1", "a14", "a19", "a11"]
+    },
+    {
+      "id": "a21",
+      "network": "A",
+      "ref": "A 21",
+      "class": 2,
+      "from": "t110",
+      "to": "t111",
+      "towns": ["t110", "t106", "t111"],
+      "codes": ["SH"],
+      "lengthKm": 64,
+      "rules": ["band2", "odd"],
+      "between": ["a7", "a1"],
+      "crosses": ["a20", "a1"]
+    },
+    {
+      "id": "a23",
+      "network": "A",
+      "ref": "A 23",
+      "class": 2,
+      "from": "t112",
+      "to": "t2",
+      "towns": ["t112", "t113", "t114", "t115", "t2"],
+      "codes": ["HH", "SH"],
+      "lengthKm": 96,
+      "rules": ["band2", "odd"],
+      "between": ["a7"],
+      "crosses": ["a7"]
+    },
+    {
+      "id": "a24",
+      "network": "A",
+      "ref": "A 24",
+      "class": 2,
+      "from": "t2",
+      "to": "t118",
+      "towns": ["t2", "t116", "t105", "t117", "t118"],
+      "codes": ["BB", "HH", "MV", "SH"],
+      "lengthKm": 237,
+      "rules": ["band2", "even"],
+      "between": ["a20", "a2"],
+      "crosses": ["a1", "a14", "a19", "a10"]
+    },
+    {
+      "id": "a25",
+      "network": "A",
+      "ref": "A 25",
+      "class": 2,
+      "from": "t2",
+      "to": "t119",
+      "towns": ["t2", "t119"],
+      "codes": ["HH", "SH"],
+      "lengthKm": 18,
+      "rules": ["band2", "exception"],
+      "between": [],
+      "crosses": ["a1"]
+    },
+    {
+      "id": "a26",
+      "network": "A",
+      "ref": "A 26",
+      "class": 2,
+      "from": "t120",
+      "to": "t122",
+      "towns": ["t120", "t121", "t122"],
+      "codes": ["HH", "NI"],
+      "lengthKm": 25,
+      "rules": ["band2", "even"],
+      "between": [],
+      "crosses": ["a7"]
+    },
+    {
+      "id": "a27",
+      "network": "A",
+      "ref": "A 27",
+      "class": 2,
+      "from": "t123",
+      "to": "t126",
+      "towns": ["t123", "t124", "t3", "t125", "t126"],
+      "codes": ["HB", "NI"],
+      "lengthKm": 162,
+      "rules": ["band2", "odd"],
+      "between": ["a29", "a7"],
+      "crosses": ["a1", "a7"]
+    },
+    {
+      "id": "a28",
+      "network": "A",
+      "ref": "A 28",
+      "class": 2,
+      "from": "t127",
+      "to": "t130",
+      "towns": ["t127", "t128", "t129", "t130"],
+      "codes": ["NI"],
+      "lengthKm": 97,
+      "rules": ["band2", "even"],
+      "between": ["a30"],
+      "crosses": ["a31", "a20", "a29", "a1"]
+    },
+    {
+      "id": "a29",
+      "network": "A",
+      "ref": "A 29",
+      "class": 2,
+      "from": "t131",
+      "to": "t133",
+      "towns": ["t131", "t132", "t128", "t133"],
+      "codes": ["NI"],
+      "lengthKm": 95,
+      "rules": ["band2", "odd"],
+      "between": ["a31", "a27"],
+      "crosses": ["a20", "a28", "a1"]
+    },
+    {
+      "id": "a30",
+      "network": "A",
+      "ref": "A 30",
+      "class": 2,
+      "from": "t134",
+      "to": "t137",
+      "towns": ["t134", "t135", "t4", "t136", "t137"],
+      "codes": ["NI", "NW"],
+      "lengthKm": 136,
+      "rules": ["band3", "even"],
+      "between": ["a28", "a2"],
+      "crosses": ["a31", "a1", "a33", "a2"]
+    },
+    {
+      "id": "a31",
+      "network": "A",
+      "ref": "A 31",
+      "class": 2,
+      "from": "t138",
+      "to": "t143",
+      "towns": ["t138", "t127", "t139", "t140", "t141", "t142", "t143"],
+      "codes": ["NI", "NW"],
+      "lengthKm": 241,
+      "rules": ["band3", "odd"],
+      "between": ["a1"],
+      "crosses": ["a28", "a30", "a2"]
+    },
+    {
+      "id": "a33",
+      "network": "A",
+      "ref": "A 33",
+      "class": 2,
+      "from": "t4",
+      "to": "t146",
+      "towns": ["t4", "t144", "t15", "t145", "t146"],
+      "codes": ["NI", "NW"],
+      "lengthKm": 104,
+      "rules": ["band3", "odd"],
+      "between": [],
+      "crosses": ["a30", "a2", "a44"]
+    },
+    {
+      "id": "a36",
+      "network": "A",
+      "ref": "A 36",
+      "class": 2,
+      "from": "t17",
+      "to": "t151",
+      "towns": ["t17", "t147", "t148", "t149", "t150", "t151"],
+      "codes": ["NI", "ST"],
+      "lengthKm": 120,
+      "rules": ["band3", "exception"],
+      "between": ["a2", "a38"],
+      "crosses": ["a39", "a14"]
+    },
+    {
+      "id": "a37",
+      "network": "A",
+      "ref": "A 37",
+      "class": 2,
+      "from": "t152",
+      "to": "t153",
+      "towns": ["t152", "t16", "t153"],
+      "codes": ["NI"],
+      "lengthKm": 14,
+      "rules": ["band3", "odd"],
+      "between": [],
+      "crosses": ["a7", "a2"]
+    },
+    {
+      "id": "a38",
+      "network": "A",
+      "ref": "A 38",
+      "class": 2,
+      "from": "t60",
+      "to": "t78",
+      "towns": ["t60", "t154", "t155", "t156", "t157", "t78"],
+      "codes": ["HE", "NI", "SN", "ST", "TH"],
+      "lengthKm": 219,
+      "rules": ["band3", "even"],
+      "between": ["a2", "a4"],
+      "crosses": ["a7", "a71", "a9", "a72", "a14"]
+    },
+    {
+      "id": "a39",
+      "network": "A",
+      "ref": "A 39",
+      "class": 2,
+      "from": "t158",
+      "to": "t161",
+      "towns": ["t158", "t159", "t160", "t17", "t161"],
+      "codes": ["NI"],
+      "lengthKm": 99,
+      "rules": ["band3", "odd"],
+      "between": ["a7", "a14"],
+      "crosses": ["a7", "a1", "a2", "a36"]
+    },
+    {
+      "id": "a40",
+      "network": "A",
+      "ref": "A 40",
+      "class": 2,
+      "from": "t162",
+      "to": "t6",
+      "towns": ["t162", "t163", "t22", "t164", "t165", "t166", "t6"],
+      "codes": ["NW"],
+      "lengthKm": 95,
+      "rules": ["band4", "even"],
+      "between": ["a42", "a44"],
+      "crosses": ["a57", "a59", "a3", "a52", "a43", "a45", "a1", "a44"]
+    },
+    {
+      "id": "a42",
+      "network": "A",
+      "ref": "A 42",
+      "class": 2,
+      "from": "t167",
+      "to": "t6",
+      "towns": ["t167", "t22", "t12", "t143", "t13", "t168", "t6"],
+      "codes": ["NW"],
+      "lengthKm": 58,
+      "rules": ["band4", "even"],
+      "between": ["a2", "a40"],
+      "crosses": ["a57", "a59", "a3", "a43", "a45"]
+    },
+    {
+      "id": "a43",
+      "network": "A",
+      "ref": "A 43",
+      "class": 2,
+      "from": "t5",
+      "to": "t7",
+      "towns": ["t5", "t169", "t170", "t171", "t168", "t166", "t7"],
+      "codes": ["NW"],
+      "lengthKm": 93,
+      "rules": ["band4", "odd"],
+      "between": ["a31", "a1"],
+      "crosses": ["a1", "a52", "a2", "a42", "a40", "a46"]
+    },
+    {
+      "id": "a44",
+      "network": "A",
+      "ref": "A 44",
+      "altRefs": [
+        {"ref": "A 7", "network": "A", "kind": "concurrent", "from": "t61", "to": "t61", "note": "Kassel-Ost to Dreieck Kassel-Süd"}
+      ],
+      "class": 2,
+      "from": "t33",
+      "to": "t177",
+      "towns": ["t33", "t172", "t23", "t173", "t174", "t175", "t176", "t61", "t177"],
+      "codes": ["HE", "NW"],
+      "lengthKm": 307,
+      "rules": ["band4", "even"],
+      "between": ["a2", "a4"],
+      "crosses": ["a4", "a61", "a46", "a52", "a57", "a3", "a1", "a33", "a49", "a7"]
+    },
+    {
+      "id": "a45",
+      "network": "A",
+      "ref": "A 45",
+      "class": 2,
+      "from": "t6",
+      "to": "t182",
+      "towns": ["t6", "t178", "t179", "t180", "t181", "t182"],
+      "codes": ["BY", "HE", "NW"],
+      "lengthKm": 257,
+      "rules": ["band4", "odd"],
+      "between": ["a3", "a7"],
+      "crosses": ["a2", "a42", "a40", "a1", "a46", "a4", "a5", "a66", "a3"]
+    },
+    {
+      "id": "a46",
+      "network": "A",
+      "ref": "A 46",
+      "class": 2,
+      "from": "t183",
+      "to": "t189",
+      "towns": ["t183", "t184", "t185", "t23", "t7", "t178", "t186", "t187", "t188", "t189"],
+      "codes": ["NW"],
+      "lengthKm": 149,
+      "rules": ["band4", "even"],
+      "between": ["a44", "a4"],
+      "crosses": ["a61", "a44", "a57", "a59", "a3", "a1", "a43", "a45"]
+    },
+    {
+      "id": "a48",
+      "network": "A",
+      "ref": "A 48",
+      "class": 2,
+      "from": "t190",
+      "to": "t193",
+      "towns": ["t190", "t191", "t192", "t193"],
+      "codes": ["RP"],
+      "lengthKm": 78,
+      "rules": ["band4", "even"],
+      "between": ["a4", "a60"],
+      "crosses": ["a1", "a61", "a3"]
+    },
+    {
+      "id": "a49",
+      "network": "A",
+      "ref": "A 49",
+      "class": 2,
+      "from": "t61",
+      "to": "t195",
+      "towns": ["t61", "t194", "t195"],
+      "codes": ["HE"],
+      "lengthKm": 87,
+      "rules": ["band4", "odd"],
+      "between": ["a45", "a7"],
+      "crosses": ["a7", "a44", "a5"]
+    },
+    {
+      "id": "a52",
+      "network": "A",
+      "ref": "A 52",
+      "class": 2,
+      "from": "t196",
+      "to": "t170",
+      "towns": ["t196", "t172", "t185", "t23", "t165", "t13", "t170"],
+      "codes": ["NW"],
+      "lengthKm": 97,
+      "rules": ["band5", "even"],
+      "between": [],
+      "crosses": ["a61", "a44", "a57", "a3", "a40", "a43"]
+    },
+    {
+      "id": "a57",
+      "network": "A",
+      "ref": "A 57",
+      "class": 2,
+      "from": "t197",
+      "to": "t8",
+      "towns": ["t197", "t163", "t198", "t185", "t8"],
+      "codes": ["NW"],
+      "lengthKm": 119,
+      "rules": ["band5", "odd"],
+      "between": ["a61", "a3"],
+      "crosses": ["a42", "a40", "a44", "a52", "a46", "a1"]
+    },
+    {
+      "id": "a59",
+      "network": "A",
+      "ref": "A 59",
+      "class": 2,
+      "from": "t199",
+      "to": "t202",
+      "towns": ["t199", "t22", "t23", "t200", "t8", "t201", "t202"],
+      "codes": ["NW"],
+      "lengthKm": 69,
+      "rules": ["band5", "odd"],
+      "between": ["a57", "a3"],
+      "crosses": ["a42", "a40", "a46", "a1", "a3", "a4"]
+    },
+    {
+      "id": "a60",
+      "network": "A",
+      "ref": "A 60",
+      "class": 2,
+      "from": "t203",
+      "to": "t208",
+      "towns": ["t203", "t204", "t205", "t206", "t207", "t208"],
+      "codes": ["HE", "RP"],
+      "lengthKm": 113,
+      "rules": ["band6", "even"],
+      "between": ["a48", "a6"],
+      "crosses": ["a1", "a61", "a63", "a67"]
+    },
+    {
+      "id": "a61",
+      "network": "A",
+      "ref": "A 61",
+      "altRefs": [
+        {"ref": "A 1", "network": "A", "kind": "concurrent", "from": "t210", "to": "t210", "note": "Dreieck Erfttal to Kreuz Bliesheim, at Erftstadt"}
+      ],
+      "class": 2,
+      "from": "t209",
+      "to": "t216",
+      "towns": ["t209", "t172", "t210", "t211", "t192", "t206", "t212", "t213", "t214", "t215", "t216"],
+      "codes": ["BW", "NW", "RP"],
+      "lengthKm": 313,
+      "rules": ["band6", "odd"],
+      "between": ["a1", "a3"],
+      "crosses": ["a52", "a46", "a44", "a4", "a1", "a48", "a60", "a63", "a6", "a65"]
+    },
+    {
+      "id": "a62",
+      "network": "A",
+      "ref": "A 62",
+      "class": 2,
+      "from": "t217",
+      "to": "t69",
+      "towns": ["t217", "t218", "t219", "t69"],
+      "codes": ["RP", "SL"],
+      "lengthKm": 79,
+      "rules": ["band6", "exception"],
+      "between": [],
+      "crosses": ["a1", "a6"]
+    },
+    {
+      "id": "a63",
+      "network": "A",
+      "ref": "A 63",
+      "class": 2,
+      "from": "t207",
+      "to": "t52",
+      "towns": ["t207", "t212", "t220", "t52"],
+      "codes": ["RP"],
+      "lengthKm": 73,
+      "rules": ["band6", "odd"],
+      "between": [],
+      "crosses": ["a60", "a61", "a6"]
+    },
+    {
+      "id": "a64",
+      "network": "A",
+      "ref": "A 64",
+      "class": 2,
+      "from": "t221",
+      "to": "t10",
+      "towns": ["t221", "t10"],
+      "codes": ["RP"],
+      "lengthKm": 18,
+      "rules": ["band6", "even"],
+      "between": [],
+      "crosses": []
+    },
+    {
+      "id": "a65",
+      "network": "A",
+      "ref": "A 65",
+      "class": 2,
+      "from": "t214",
+      "to": "t224",
+      "towns": ["t214", "t222", "t223", "t224"],
+      "codes": ["RP"],
+      "lengthKm": 59,
+      "rules": ["band6", "odd"],
+      "between": ["a62", "a61"],
+      "crosses": ["a61"]
+    },
+    {
+      "id": "a66",
+      "network": "A",
+      "ref": "A 66",
+      "class": 2,
+      "from": "t25",
+      "to": "t62",
+      "towns": ["t25", "t26", "t182", "t225", "t226", "t62"],
+      "codes": ["HE"],
+      "lengthKm": 126,
+      "rules": ["band6", "even"],
+      "between": ["a4", "a3"],
+      "crosses": ["a3", "a5", "a45", "a7"]
+    },
+    {
+      "id": "a67",
+      "network": "A",
+      "ref": "A 67",
+      "class": 2,
+      "from": "t208",
+      "to": "t227",
+      "towns": ["t208", "t46", "t227"],
+      "codes": ["HE"],
+      "lengthKm": 58,
+      "rules": ["band6", "odd"],
+      "between": ["a61", "a5"],
+      "crosses": ["a3", "a60", "a5", "a6"]
+    },
+    {
+      "id": "a70",
+      "network": "A",
+      "ref": "A 70",
+      "class": 2,
+      "from": "t228",
+      "to": "t80",
+      "towns": ["t228", "t229", "t80"],
+      "codes": ["BY"],
+      "lengthKm": 120,
+      "rules": ["band7", "even"],
+      "between": ["a4", "a3"],
+      "crosses": ["a7", "a71", "a73", "a9"]
+    },
+    {
+      "id": "a71",
+      "network": "A",
+      "ref": "A 71",
+      "class": 2,
+      "from": "t156",
+      "to": "t228",
+      "towns": ["t156", "t230", "t37", "t231", "t232", "t233", "t234", "t228"],
+      "codes": ["BY", "ST", "TH"],
+      "lengthKm": 220,
+      "rules": ["band7", "odd"],
+      "between": ["a7", "a9"],
+      "crosses": ["a38", "a4", "a73", "a70"]
+    },
+    {
+      "id": "a72",
+      "network": "A",
+      "ref": "A 72",
+      "class": 2,
+      "from": "t79",
+      "to": "t78",
+      "towns": ["t79", "t235", "t236", "t40", "t78"],
+      "codes": ["BY", "SN"],
+      "lengthKm": 169,
+      "rules": ["band7", "exception"],
+      "between": ["a9"],
+      "crosses": ["a9", "a93", "a4", "a38"]
+    },
+    {
+      "id": "a73",
+      "network": "A",
+      "ref": "A 73",
+      "class": 2,
+      "from": "t233",
+      "to": "t241",
+      "towns": ["t233", "t237", "t229", "t238", "t239", "t240", "t29", "t241"],
+      "codes": ["BY", "TH"],
+      "lengthKm": 167,
+      "rules": ["band7", "odd"],
+      "between": ["a71", "a9"],
+      "crosses": ["a71", "a70", "a3", "a6", "a9"]
+    },
+    {
+      "id": "a81",
+      "network": "A",
+      "ref": "A 81",
+      "class": 2,
+      "from": "t28",
+      "to": "t247",
+      "towns": ["t28", "t54", "t242", "t71", "t243", "t244", "t245", "t246", "t247"],
+      "codes": ["BW", "BY"],
+      "lengthKm": 276,
+      "rules": ["band8", "odd"],
+      "between": ["a5", "a7"],
+      "crosses": ["a3", "a6", "a8", "a98"]
+    },
+    {
+      "id": "a92",
+      "network": "A",
+      "ref": "A 92",
+      "class": 2,
+      "from": "t248",
+      "to": "t31",
+      "towns": ["t248", "t249", "t250", "t251", "t31"],
+      "codes": ["BY"],
+      "lengthKm": 134,
+      "rules": ["band9", "even"],
+      "between": ["a9", "a94"],
+      "crosses": ["a99", "a9", "a3"]
+    },
+    {
+      "id": "a93",
+      "network": "A",
+      "ref": "A 93",
+      "class": 2,
+      "from": "t79",
+      "to": "t256",
+      "towns": ["t79", "t252", "t253", "t254", "t30", "t255", "t74", "t256"],
+      "codes": ["BY"],
+      "lengthKm": 268,
+      "rules": ["band9", "odd"],
+      "between": ["a9"],
+      "crosses": ["a72", "a6", "a3", "a9", "a8"]
+    },
+    {
+      "id": "a94",
+      "network": "A",
+      "ref": "A 94",
+      "class": 2,
+      "from": "t73",
+      "to": "t261",
+      "towns": ["t73", "t257", "t258", "t259", "t260", "t261"],
+      "codes": ["BY"],
+      "lengthKm": 109,
+      "rules": ["band9", "even"],
+      "between": ["a92", "a8"],
+      "crosses": ["a99", "a3"]
+    },
+    {
+      "id": "a95",
+      "network": "A",
+      "ref": "A 95",
+      "class": 2,
+      "from": "t73",
+      "to": "t265",
+      "towns": ["t73", "t262", "t263", "t264", "t265"],
+      "codes": ["BY"],
+      "lengthKm": 69,
+      "rules": ["band9", "odd"],
+      "between": ["a96", "a8"],
+      "crosses": []
+    },
+    {
+      "id": "a96",
+      "network": "A",
+      "ref": "A 96",
+      "class": 2,
+      "from": "t266",
+      "to": "t73",
+      "towns": ["t266", "t267", "t268", "t269", "t270", "t73"],
+      "codes": ["BW", "BY"],
+      "lengthKm": 173,
+      "rules": ["band9", "even"],
+      "between": ["a8"],
+      "crosses": ["a7", "a99"]
+    },
+    {
+      "id": "a98",
+      "network": "A",
+      "ref": "A 98",
+      "class": 2,
+      "from": "t51",
+      "to": "t274",
+      "towns": ["t51", "t271", "t272", "t273", "t246", "t274"],
+      "codes": ["BW"],
+      "lengthKm": 47,
+      "rules": ["band9", "even"],
+      "between": [],
+      "crosses": ["a5", "a81"]
+    },
+    {
+      "id": "a99",
+      "network": "A",
+      "ref": "A 99",
+      "class": 2,
+      "from": "t275",
+      "to": "t281",
+      "towns": ["t275", "t276", "t277", "t278", "t279", "t280", "t281"],
+      "codes": ["BY"],
+      "lengthKm": 58,
+      "rules": ["band9", "ring"],
+      "between": [],
+      "crosses": ["a96", "a8", "a92", "a9", "a94"]
+    }
+  ],
+  "towns": [
+    {
+      "id": "t0",
+      "name": "Heiligenhafen",
+      "lat": 54.37,
+      "lon": 10.976
+    },
+    {
+      "id": "t1",
+      "name": "Lübeck",
+      "lat": 53.869,
+      "lon": 10.687
+    },
+    {
+      "id": "t2",
+      "name": "Hamburg",
+      "lat": 53.551,
+      "lon": 9.993
+    },
+    {
+      "id": "t3",
+      "name": "Bremen",
+      "lat": 53.076,
+      "lon": 8.807
+    },
+    {
+      "id": "t4",
+      "name": "Osnabrück",
+      "lat": 52.274,
+      "lon": 8.051
+    },
+    {
+      "id": "t5",
+      "name": "Münster",
+      "lat": 51.962,
+      "lon": 7.626
+    },
+    {
+      "id": "t6",
+      "name": "Dortmund",
+      "lat": 51.515,
+      "lon": 7.466
+    },
+    {
+      "id": "t7",
+      "name": "Wuppertal",
+      "lat": 51.256,
+      "lon": 7.148
+    },
+    {
+      "id": "t8",
+      "name": "Köln",
+      "lat": 50.933,
+      "lon": 6.95
+    },
+    {
+      "id": "t9",
+      "name": "Blankenheim",
+      "lat": 50.433,
+      "lon": 6.65
+    },
+    {
+      "id": "t10",
+      "name": "Trier",
+      "lat": 49.756,
+      "lon": 6.639
+    },
+    {
+      "id": "t11",
+      "name": "Saarbrücken",
+      "lat": 49.233,
+      "lon": 7.01
+    },
+    {
+      "id": "t12",
+      "name": "Oberhausen",
+      "lat": 51.478,
+      "lon": 6.862
+    },
+    {
+      "id": "t13",
+      "name": "Gelsenkirchen",
+      "lat": 51.505,
+      "lon": 7.097
+    },
+    {
+      "id": "t14",
+      "name": "Hamm",
+      "lat": 51.68,
+      "lon": 7.821
+    },
+    {
+      "id": "t15",
+      "name": "Bielefeld",
+      "lat": 52.033,
+      "lon": 8.533
+    },
+    {
+      "id": "t16",
+      "name": "Hannover",
+      "lat": 52.371,
+      "lon": 9.733
+    },
+    {
+      "id": "t17",
+      "name": "Braunschweig",
+      "lat": 52.266,
+      "lon": 10.527
+    },
+    {
+      "id": "t18",
+      "name": "Magdeburg",
+      "lat": 52.131,
+      "lon": 11.632
+    },
+    {
+      "id": "t19",
+      "name": "Brandenburg an der Havel",
+      "lat": 52.417,
+      "lon": 12.55
+    },
+    {
+      "id": "t20",
+      "name": "Werder (Havel)",
+      "lat": 52.369,
+      "lon": 12.919
+    },
+    {
+      "id": "t21",
+      "name": "Emmerich am Rhein",
+      "lat": 51.839,
+      "lon": 6.248
+    },
+    {
+      "id": "t22",
+      "name": "Duisburg",
+      "lat": 51.432,
+      "lon": 6.765
+    },
+    {
+      "id": "t23",
+      "name": "Düsseldorf",
+      "lat": 51.223,
+      "lon": 6.779
+    },
+    {
+      "id": "t24",
+      "name": "Limburg an der Lahn",
+      "lat": 50.384,
+      "lon": 8.05
+    },
+    {
+      "id": "t25",
+      "name": "Wiesbaden",
+      "lat": 50.086,
+      "lon": 8.244
+    },
+    {
+      "id": "t26",
+      "name": "Frankfurt am Main",
+      "lat": 50.116,
+      "lon": 8.684
+    },
+    {
+      "id": "t27",
+      "name": "Aschaffenburg",
+      "lat": 49.977,
+      "lon": 9.152
+    },
+    {
+      "id": "t28",
+      "name": "Würzburg",
+      "lat": 49.794,
+      "lon": 9.951
+    },
+    {
+      "id": "t29",
+      "name": "Nürnberg",
+      "lat": 49.454,
+      "lon": 11.078
+    },
+    {
+      "id": "t30",
+      "name": "Regensburg",
+      "lat": 49.015,
+      "lon": 12.102
+    },
+    {
+      "id": "t31",
+      "name": "Deggendorf",
+      "lat": 48.841,
+      "lon": 12.961
+    },
+    {
+      "id": "t32",
+      "name": "Passau",
+      "lat": 48.566,
+      "lon": 13.431
+    },
+    {
+      "id": "t33",
+      "name": "Aachen",
+      "lat": 50.777,
+      "lon": 6.083
+    },
+    {
+      "id": "t34",
+      "name": "Olpe",
+      "lat": 51.029,
+      "lon": 7.851
+    },
+    {
+      "id": "t35",
+      "name": "Kreuztal",
+      "lat": 50.968,
+      "lon": 7.988
+    },
+    {
+      "id": "t36",
+      "name": "Eisenach",
+      "lat": 50.981,
+      "lon": 10.315
+    },
+    {
+      "id": "t37",
+      "name": "Erfurt",
+      "lat": 50.977,
+      "lon": 11.035
+    },
+    {
+      "id": "t38",
+      "name": "Jena",
+      "lat": 50.929,
+      "lon": 11.59
+    },
+    {
+      "id": "t39",
+      "name": "Gera",
+      "lat": 50.88,
+      "lon": 12.082
+    },
+    {
+      "id": "t40",
+      "name": "Chemnitz",
+      "lat": 50.836,
+      "lon": 12.929
+    },
+    {
+      "id": "t41",
+      "name": "Dresden",
+      "lat": 51.051,
+      "lon": 13.738
+    },
+    {
+      "id": "t42",
+      "name": "Bautzen",
+      "lat": 51.18,
+      "lon": 14.435
+    },
+    {
+      "id": "t43",
+      "name": "Görlitz",
+      "lat": 51.155,
+      "lon": 14.989
+    },
+    {
+      "id": "t44",
+      "name": "Alsfeld",
+      "lat": 50.752,
+      "lon": 9.271
+    },
+    {
+      "id": "t45",
+      "name": "Gießen",
+      "lat": 50.587,
+      "lon": 8.676
+    },
+    {
+      "id": "t46",
+      "name": "Darmstadt",
+      "lat": 49.872,
+      "lon": 8.65
+    },
+    {
+      "id": "t47",
+      "name": "Heidelberg",
+      "lat": 49.408,
+      "lon": 8.691
+    },
+    {
+      "id": "t48",
+      "name": "Karlsruhe",
+      "lat": 49.009,
+      "lon": 8.404
+    },
+    {
+      "id": "t49",
+      "name": "Offenburg",
+      "lat": 48.474,
+      "lon": 7.945
+    },
+    {
+      "id": "t50",
+      "name": "Freiburg im Breisgau",
+      "lat": 47.996,
+      "lon": 7.852
+    },
+    {
+      "id": "t51",
+      "name": "Weil am Rhein",
+      "lat": 47.593,
+      "lon": 7.621
+    },
+    {
+      "id": "t52",
+      "name": "Kaiserslautern",
+      "lat": 49.443,
+      "lon": 7.772
+    },
+    {
+      "id": "t53",
+      "name": "Mannheim",
+      "lat": 49.489,
+      "lon": 8.467
+    },
+    {
+      "id": "t54",
+      "name": "Heilbronn",
+      "lat": 49.14,
+      "lon": 9.221
+    },
+    {
+      "id": "t55",
+      "name": "Crailsheim",
+      "lat": 49.134,
+      "lon": 10.072
+    },
+    {
+      "id": "t56",
+      "name": "Amberg",
+      "lat": 49.443,
+      "lon": 11.863
+    },
+    {
+      "id": "t57",
+      "name": "Waidhaus",
+      "lat": 49.642,
+      "lon": 12.495
+    },
+    {
+      "id": "t58",
+      "name": "Flensburg",
+      "lat": 54.788,
+      "lon": 9.437
+    },
+    {
+      "id": "t59",
+      "name": "Neumünster",
+      "lat": 54.074,
+      "lon": 9.985
+    },
+    {
+      "id": "t60",
+      "name": "Göttingen",
+      "lat": 51.534,
+      "lon": 9.932
+    },
+    {
+      "id": "t61",
+      "name": "Kassel",
+      "lat": 51.317,
+      "lon": 9.5
+    },
+    {
+      "id": "t62",
+      "name": "Fulda",
+      "lat": 50.552,
+      "lon": 9.675
+    },
+    {
+      "id": "t63",
+      "name": "Ulm",
+      "lat": 48.398,
+      "lon": 9.992
+    },
+    {
+      "id": "t64",
+      "name": "Kempten (Allgäu)",
+      "lat": 47.727,
+      "lon": 10.314
+    },
+    {
+      "id": "t65",
+      "name": "Füssen",
+      "lat": 47.571,
+      "lon": 10.702
+    },
+    {
+      "id": "t66",
+      "name": "Perl",
+      "lat": 49.472,
+      "lon": 6.381
+    },
+    {
+      "id": "t67",
+      "name": "Saarlouis",
+      "lat": 49.314,
+      "lon": 6.752
+    },
+    {
+      "id": "t68",
+      "name": "Neunkirchen (Saar)",
+      "lat": 49.344,
+      "lon": 7.18
+    },
+    {
+      "id": "t69",
+      "name": "Pirmasens",
+      "lat": 49.201,
+      "lon": 7.605
+    },
+    {
+      "id": "t70",
+      "name": "Pforzheim",
+      "lat": 48.884,
+      "lon": 8.699
+    },
+    {
+      "id": "t71",
+      "name": "Stuttgart",
+      "lat": 48.782,
+      "lon": 9.177
+    },
+    {
+      "id": "t72",
+      "name": "Augsburg",
+      "lat": 48.372,
+      "lon": 10.899
+    },
+    {
+      "id": "t73",
+      "name": "München",
+      "lat": 48.137,
+      "lon": 11.575
+    },
+    {
+      "id": "t74",
+      "name": "Rosenheim",
+      "lat": 47.856,
+      "lon": 12.122
+    },
+    {
+      "id": "t75",
+      "name": "Bad Reichenhall",
+      "lat": 47.729,
+      "lon": 12.878
+    },
+    {
+      "id": "t76",
+      "name": "Michendorf",
+      "lat": 52.314,
+      "lon": 13.03
+    },
+    {
+      "id": "t77",
+      "name": "Dessau-Roßlau",
+      "lat": 51.839,
+      "lon": 12.246
+    },
+    {
+      "id": "t78",
+      "name": "Leipzig",
+      "lat": 51.34,
+      "lon": 12.371
+    },
+    {
+      "id": "t79",
+      "name": "Hof (Saale)",
+      "lat": 50.313,
+      "lon": 11.913
+    },
+    {
+      "id": "t80",
+      "name": "Bayreuth",
+      "lat": 49.948,
+      "lon": 11.579
+    },
+    {
+      "id": "t81",
+      "name": "Ingolstadt",
+      "lat": 48.765,
+      "lon": 11.424
+    },
+    {
+      "id": "t82",
+      "name": "Bernau bei Berlin",
+      "lat": 52.68,
+      "lon": 13.587
+    },
+    {
+      "id": "t83",
+      "name": "Königs Wusterhausen",
+      "lat": 52.301,
+      "lon": 13.633
+    },
+    {
+      "id": "t84",
+      "name": "Oranienburg",
+      "lat": 52.748,
+      "lon": 13.252
+    },
+    {
+      "id": "t85",
+      "name": "Penkun",
+      "lat": 53.298,
+      "lon": 14.237
+    },
+    {
+      "id": "t86",
+      "name": "Eberswalde",
+      "lat": 52.835,
+      "lon": 13.82
+    },
+    {
+      "id": "t87",
+      "name": "Fürstenwalde/Spree",
+      "lat": 52.361,
+      "lon": 14.062
+    },
+    {
+      "id": "t88",
+      "name": "Frankfurt (Oder)",
+      "lat": 52.347,
+      "lon": 14.551
+    },
+    {
+      "id": "t89",
+      "name": "Schönefeld",
+      "lat": 52.389,
+      "lon": 13.504
+    },
+    {
+      "id": "t90",
+      "name": "Lübbenau/Spreewald",
+      "lat": 51.862,
+      "lon": 13.952
+    },
+    {
+      "id": "t91",
+      "name": "Schwarzheide",
+      "lat": 51.477,
+      "lon": 13.856
+    },
+    {
+      "id": "t92",
+      "name": "Wismar",
+      "lat": 53.892,
+      "lon": 11.456
+    },
+    {
+      "id": "t93",
+      "name": "Schwerin",
+      "lat": 53.629,
+      "lon": 11.413
+    },
+    {
+      "id": "t94",
+      "name": "Ludwigslust",
+      "lat": 53.325,
+      "lon": 11.497
+    },
+    {
+      "id": "t95",
+      "name": "Wolmirstedt",
+      "lat": 52.249,
+      "lon": 11.629
+    },
+    {
+      "id": "t96",
+      "name": "Halle (Saale)",
+      "lat": 51.482,
+      "lon": 11.979
+    },
+    {
+      "id": "t97",
+      "name": "Grimma",
+      "lat": 51.234,
+      "lon": 12.72
+    },
+    {
+      "id": "t98",
+      "name": "Nossen",
+      "lat": 51.058,
+      "lon": 13.297
+    },
+    {
+      "id": "t99",
+      "name": "Cottbus",
+      "lat": 51.758,
+      "lon": 14.329
+    },
+    {
+      "id": "t100",
+      "name": "Forst (Lausitz)",
+      "lat": 51.735,
+      "lon": 14.64
+    },
+    {
+      "id": "t101",
+      "name": "Pirna",
+      "lat": 50.958,
+      "lon": 13.937
+    },
+    {
+      "id": "t102",
+      "name": "Bad Gottleuba-Berggießhübel",
+      "lat": 50.853,
+      "lon": 13.944
+    },
+    {
+      "id": "t103",
+      "name": "Rostock",
+      "lat": 54.089,
+      "lon": 12.14
+    },
+    {
+      "id": "t104",
+      "name": "Güstrow",
+      "lat": 53.797,
+      "lon": 12.173
+    },
+    {
+      "id": "t105",
+      "name": "Wittstock/Dosse",
+      "lat": 53.161,
+      "lon": 12.483
+    },
+    {
+      "id": "t106",
+      "name": "Bad Segeberg",
+      "lat": 53.938,
+      "lon": 10.307
+    },
+    {
+      "id": "t107",
+      "name": "Greifswald",
+      "lat": 54.089,
+      "lon": 13.402
+    },
+    {
+      "id": "t108",
+      "name": "Neubrandenburg",
+      "lat": 53.557,
+      "lon": 13.261
+    },
+    {
+      "id": "t109",
+      "name": "Prenzlau",
+      "lat": 53.317,
+      "lon": 13.864
+    },
+    {
+      "id": "t110",
+      "name": "Kiel",
+      "lat": 54.321,
+      "lon": 10.135
+    },
+    {
+      "id": "t111",
+      "name": "Bargteheide",
+      "lat": 53.73,
+      "lon": 10.267
+    },
+    {
+      "id": "t112",
+      "name": "Heide (Holstein)",
+      "lat": 54.196,
+      "lon": 9.097
+    },
+    {
+      "id": "t113",
+      "name": "Itzehoe",
+      "lat": 53.921,
+      "lon": 9.515
+    },
+    {
+      "id": "t114",
+      "name": "Elmshorn",
+      "lat": 53.749,
+      "lon": 9.662
+    },
+    {
+      "id": "t115",
+      "name": "Pinneberg",
+      "lat": 53.659,
+      "lon": 9.797
+    },
+    {
+      "id": "t116",
+      "name": "Hagenow",
+      "lat": 53.432,
+      "lon": 11.192
+    },
+    {
+      "id": "t117",
+      "name": "Neuruppin",
+      "lat": 52.928,
+      "lon": 12.803
+    },
+    {
+      "id": "t118",
+      "name": "Kremmen",
+      "lat": 52.762,
+      "lon": 13.025
+    },
+    {
+      "id": "t119",
+      "name": "Geesthacht",
+      "lat": 53.437,
+      "lon": 10.373
+    },
+    {
+      "id": "t120",
+      "name": "Stade",
+      "lat": 53.594,
+      "lon": 9.473
+    },
+    {
+      "id": "t121",
+      "name": "Buxtehude",
+      "lat": 53.47,
+      "lon": 9.69
+    },
+    {
+      "id": "t122",
+      "name": "Neu Wulmstorf",
+      "lat": 53.466,
+      "lon": 9.792
+    },
+    {
+      "id": "t123",
+      "name": "Cuxhaven",
+      "lat": 53.868,
+      "lon": 8.699
+    },
+    {
+      "id": "t124",
+      "name": "Bremerhaven",
+      "lat": 53.554,
+      "lon": 8.576
+    },
+    {
+      "id": "t125",
+      "name": "Verden (Aller)",
+      "lat": 52.923,
+      "lon": 9.238
+    },
+    {
+      "id": "t126",
+      "name": "Walsrode",
+      "lat": 52.861,
+      "lon": 9.593
+    },
+    {
+      "id": "t127",
+      "name": "Leer (Ostfriesland)",
+      "lat": 53.232,
+      "lon": 7.461
+    },
+    {
+      "id": "t128",
+      "name": "Oldenburg",
+      "lat": 53.14,
+      "lon": 8.215
+    },
+    {
+      "id": "t129",
+      "name": "Delmenhorst",
+      "lat": 53.051,
+      "lon": 8.631
+    },
+    {
+      "id": "t130",
+      "name": "Stuhr",
+      "lat": 53.033,
+      "lon": 8.75
+    },
+    {
+      "id": "t131",
+      "name": "Wilhelmshaven",
+      "lat": 53.548,
+      "lon": 8.104
+    },
+    {
+      "id": "t132",
+      "name": "Varel",
+      "lat": 53.397,
+      "lon": 8.136
+    },
+    {
+      "id": "t133",
+      "name": "Ahlhorn",
+      "lat": 52.944,
+      "lon": 8.253
+    },
+    {
+      "id": "t134",
+      "name": "Bad Bentheim",
+      "lat": 52.301,
+      "lon": 7.158
+    },
+    {
+      "id": "t135",
+      "name": "Rheine",
+      "lat": 52.282,
+      "lon": 7.441
+    },
+    {
+      "id": "t136",
+      "name": "Melle",
+      "lat": 52.202,
+      "lon": 8.338
+    },
+    {
+      "id": "t137",
+      "name": "Bad Oeynhausen",
+      "lat": 52.207,
+      "lon": 8.804
+    },
+    {
+      "id": "t138",
+      "name": "Emden",
+      "lat": 53.366,
+      "lon": 7.208
+    },
+    {
+      "id": "t139",
+      "name": "Meppen",
+      "lat": 52.691,
+      "lon": 7.291
+    },
+    {
+      "id": "t140",
+      "name": "Lingen (Ems)",
+      "lat": 52.523,
+      "lon": 7.326
+    },
+    {
+      "id": "t141",
+      "name": "Gronau (Westf.)",
+      "lat": 52.212,
+      "lon": 7.024
+    },
+    {
+      "id": "t142",
+      "name": "Borken (Westf.)",
+      "lat": 51.844,
+      "lon": 6.858
+    },
+    {
+      "id": "t143",
+      "name": "Bottrop",
+      "lat": 51.524,
+      "lon": 6.928
+    },
+    {
+      "id": "t144",
+      "name": "Halle (Westf.)",
+      "lat": 52.06,
+      "lon": 8.361
+    },
+    {
+      "id": "t145",
+      "name": "Paderborn",
+      "lat": 51.719,
+      "lon": 8.754
+    },
+    {
+      "id": "t146",
+      "name": "Bad Wünnenberg",
+      "lat": 51.52,
+      "lon": 8.699
+    },
+    {
+      "id": "t147",
+      "name": "Wolfenbüttel",
+      "lat": 52.164,
+      "lon": 10.541
+    },
+    {
+      "id": "t148",
+      "name": "Wernigerode",
+      "lat": 51.837,
+      "lon": 10.782
+    },
+    {
+      "id": "t149",
+      "name": "Quedlinburg",
+      "lat": 51.788,
+      "lon": 11.15
+    },
+    {
+      "id": "t150",
+      "name": "Aschersleben",
+      "lat": 51.757,
+      "lon": 11.461
+    },
+    {
+      "id": "t151",
+      "name": "Bernburg (Saale)",
+      "lat": 51.795,
+      "lon": 11.74
+    },
+    {
+      "id": "t152",
+      "name": "Burgdorf",
+      "lat": 52.446,
+      "lon": 10.006
+    },
+    {
+      "id": "t153",
+      "name": "Laatzen",
+      "lat": 52.315,
+      "lon": 9.797
+    },
+    {
+      "id": "t154",
+      "name": "Leinefelde-Worbis",
+      "lat": 51.388,
+      "lon": 10.326
+    },
+    {
+      "id": "t155",
+      "name": "Nordhausen",
+      "lat": 51.502,
+      "lon": 10.796
+    },
+    {
+      "id": "t156",
+      "name": "Sangerhausen",
+      "lat": 51.472,
+      "lon": 11.295
+    },
+    {
+      "id": "t157",
+      "name": "Merseburg",
+      "lat": 51.355,
+      "lon": 11.989
+    },
+    {
+      "id": "t158",
+      "name": "Maschen",
+      "lat": 53.393,
+      "lon": 10.041
+    },
+    {
+      "id": "t159",
+      "name": "Lüneburg",
+      "lat": 53.251,
+      "lon": 10.415
+    },
+    {
+      "id": "t160",
+      "name": "Wolfsburg",
+      "lat": 52.424,
+      "lon": 10.776
+    },
+    {
+      "id": "t161",
+      "name": "Salzgitter",
+      "lat": 52.157,
+      "lon": 10.415
+    },
+    {
+      "id": "t162",
+      "name": "Straelen",
+      "lat": 51.442,
+      "lon": 6.266
+    },
+    {
+      "id": "t163",
+      "name": "Moers",
+      "lat": 51.453,
+      "lon": 6.633
+    },
+    {
+      "id": "t164",
+      "name": "Mülheim an der Ruhr",
+      "lat": 51.432,
+      "lon": 6.88
+    },
+    {
+      "id": "t165",
+      "name": "Essen",
+      "lat": 51.457,
+      "lon": 7.012
+    },
+    {
+      "id": "t166",
+      "name": "Bochum",
+      "lat": 51.482,
+      "lon": 7.216
+    },
+    {
+      "id": "t167",
+      "name": "Kamp-Lintfort",
+      "lat": 51.505,
+      "lon": 6.546
+    },
+    {
+      "id": "t168",
+      "name": "Herne",
+      "lat": 51.539,
+      "lon": 7.226
+    },
+    {
+      "id": "t169",
+      "name": "Dülmen",
+      "lat": 51.831,
+      "lon": 7.281
+    },
+    {
+      "id": "t170",
+      "name": "Marl",
+      "lat": 51.657,
+      "lon": 7.09
+    },
+    {
+      "id": "t171",
+      "name": "Recklinghausen",
+      "lat": 51.614,
+      "lon": 7.197
+    },
+    {
+      "id": "t172",
+      "name": "Mönchengladbach",
+      "lat": 51.185,
+      "lon": 6.442
+    },
+    {
+      "id": "t173",
+      "name": "Ratingen",
+      "lat": 51.297,
+      "lon": 6.849
+    },
+    {
+      "id": "t174",
+      "name": "Unna",
+      "lat": 51.538,
+      "lon": 7.69
+    },
+    {
+      "id": "t175",
+      "name": "Soest",
+      "lat": 51.576,
+      "lon": 8.106
+    },
+    {
+      "id": "t176",
+      "name": "Warburg",
+      "lat": 51.49,
+      "lon": 9.146
+    },
+    {
+      "id": "t177",
+      "name": "Sontra",
+      "lat": 51.072,
+      "lon": 9.936
+    },
+    {
+      "id": "t178",
+      "name": "Hagen",
+      "lat": 51.361,
+      "lon": 7.472
+    },
+    {
+      "id": "t179",
+      "name": "Lüdenscheid",
+      "lat": 51.22,
+      "lon": 7.627
+    },
+    {
+      "id": "t180",
+      "name": "Siegen",
+      "lat": 50.875,
+      "lon": 8.024
+    },
+    {
+      "id": "t181",
+      "name": "Wetzlar",
+      "lat": 50.561,
+      "lon": 8.505
+    },
+    {
+      "id": "t182",
+      "name": "Hanau",
+      "lat": 50.134,
+      "lon": 8.914
+    },
+    {
+      "id": "t183",
+      "name": "Heinsberg",
+      "lat": 51.064,
+      "lon": 6.1
+    },
+    {
+      "id": "t184",
+      "name": "Erkelenz",
+      "lat": 51.079,
+      "lon": 6.315
+    },
+    {
+      "id": "t185",
+      "name": "Neuss",
+      "lat": 51.198,
+      "lon": 6.685
+    },
+    {
+      "id": "t186",
+      "name": "Hemer",
+      "lat": 51.387,
+      "lon": 7.77
+    },
+    {
+      "id": "t187",
+      "name": "Arnsberg",
+      "lat": 51.383,
+      "lon": 8.083
+    },
+    {
+      "id": "t188",
+      "name": "Meschede",
+      "lat": 51.35,
+      "lon": 8.283
+    },
+    {
+      "id": "t189",
+      "name": "Olsberg",
+      "lat": 51.356,
+      "lon": 8.489
+    },
+    {
+      "id": "t190",
+      "name": "Daun",
+      "lat": 50.197,
+      "lon": 6.829
+    },
+    {
+      "id": "t191",
+      "name": "Mayen",
+      "lat": 50.328,
+      "lon": 7.223
+    },
+    {
+      "id": "t192",
+      "name": "Koblenz",
+      "lat": 50.354,
+      "lon": 7.579
+    },
+    {
+      "id": "t193",
+      "name": "Montabaur",
+      "lat": 50.436,
+      "lon": 7.823
+    },
+    {
+      "id": "t194",
+      "name": "Baunatal",
+      "lat": 51.252,
+      "lon": 9.407
+    },
+    {
+      "id": "t195",
+      "name": "Schwalmstadt",
+      "lat": 50.933,
+      "lon": 9.217
+    },
+    {
+      "id": "t196",
+      "name": "Niederkrüchten",
+      "lat": 51.2,
+      "lon": 6.217
+    },
+    {
+      "id": "t197",
+      "name": "Goch",
+      "lat": 51.679,
+      "lon": 6.159
+    },
+    {
+      "id": "t198",
+      "name": "Krefeld",
+      "lat": 51.336,
+      "lon": 6.554
+    },
+    {
+      "id": "t199",
+      "name": "Dinslaken",
+      "lat": 51.562,
+      "lon": 6.743
+    },
+    {
+      "id": "t200",
+      "name": "Leverkusen",
+      "lat": 51.03,
+      "lon": 6.984
+    },
+    {
+      "id": "t201",
+      "name": "Troisdorf",
+      "lat": 50.809,
+      "lon": 7.15
+    },
+    {
+      "id": "t202",
+      "name": "Bonn",
+      "lat": 50.734,
+      "lon": 7.095
+    },
+    {
+      "id": "t203",
+      "name": "Prüm",
+      "lat": 50.208,
+      "lon": 6.42
+    },
+    {
+      "id": "t204",
+      "name": "Bitburg",
+      "lat": 49.968,
+      "lon": 6.527
+    },
+    {
+      "id": "t205",
+      "name": "Wittlich",
+      "lat": 49.986,
+      "lon": 6.893
+    },
+    {
+      "id": "t206",
+      "name": "Bingen am Rhein",
+      "lat": 49.967,
+      "lon": 7.899
+    },
+    {
+      "id": "t207",
+      "name": "Mainz",
+      "lat": 49.982,
+      "lon": 8.28
+    },
+    {
+      "id": "t208",
+      "name": "Rüsselsheim am Main",
+      "lat": 49.99,
+      "lon": 8.423
+    },
+    {
+      "id": "t209",
+      "name": "Nettetal",
+      "lat": 51.317,
+      "lon": 6.283
+    },
+    {
+      "id": "t210",
+      "name": "Erftstadt",
+      "lat": 50.815,
+      "lon": 6.794
+    },
+    {
+      "id": "t211",
+      "name": "Bad Neuenahr-Ahrweiler",
+      "lat": 50.543,
+      "lon": 7.111
+    },
+    {
+      "id": "t212",
+      "name": "Alzey",
+      "lat": 49.747,
+      "lon": 8.115
+    },
+    {
+      "id": "t213",
+      "name": "Worms",
+      "lat": 49.633,
+      "lon": 8.359
+    },
+    {
+      "id": "t214",
+      "name": "Ludwigshafen am Rhein",
+      "lat": 49.481,
+      "lon": 8.446
+    },
+    {
+      "id": "t215",
+      "name": "Speyer",
+      "lat": 49.321,
+      "lon": 8.431
+    },
+    {
+      "id": "t216",
+      "name": "Hockenheim",
+      "lat": 49.323,
+      "lon": 8.552
+    },
+    {
+      "id": "t217",
+      "name": "Nonnweiler",
+      "lat": 49.608,
+      "lon": 6.97
+    },
+    {
+      "id": "t218",
+      "name": "Kusel",
+      "lat": 49.538,
+      "lon": 7.405
+    },
+    {
+      "id": "t219",
+      "name": "Landstuhl",
+      "lat": 49.413,
+      "lon": 7.57
+    },
+    {
+      "id": "t220",
+      "name": "Kirchheimbolanden",
+      "lat": 49.662,
+      "lon": 8.015
+    },
+    {
+      "id": "t221",
+      "name": "Langsur",
+      "lat": 49.724,
+      "lon": 6.499
+    },
+    {
+      "id": "t222",
+      "name": "Neustadt an der Weinstraße",
+      "lat": 49.35,
+      "lon": 8.139
+    },
+    {
+      "id": "t223",
+      "name": "Landau in der Pfalz",
+      "lat": 49.198,
+      "lon": 8.117
+    },
+    {
+      "id": "t224",
+      "name": "Wörth am Rhein",
+      "lat": 49.049,
+      "lon": 8.26
+    },
+    {
+      "id": "t225",
+      "name": "Gelnhausen",
+      "lat": 50.202,
+      "lon": 9.187
+    },
+    {
+      "id": "t226",
+      "name": "Schlüchtern",
+      "lat": 50.349,
+      "lon": 9.525
+    },
+    {
+      "id": "t227",
+      "name": "Viernheim",
+      "lat": 49.54,
+      "lon": 8.578
+    },
+    {
+      "id": "t228",
+      "name": "Schweinfurt",
+      "lat": 50.049,
+      "lon": 10.222
+    },
+    {
+      "id": "t229",
+      "name": "Bamberg",
+      "lat": 49.899,
+      "lon": 10.901
+    },
+    {
+      "id": "t230",
+      "name": "Sömmerda",
+      "lat": 51.159,
+      "lon": 11.115
+    },
+    {
+      "id": "t231",
+      "name": "Arnstadt",
+      "lat": 50.84,
+      "lon": 10.952
+    },
+    {
+      "id": "t232",
+      "name": "Ilmenau",
+      "lat": 50.683,
+      "lon": 10.919
+    },
+    {
+      "id": "t233",
+      "name": "Suhl",
+      "lat": 50.609,
+      "lon": 10.694
+    },
+    {
+      "id": "t234",
+      "name": "Meiningen",
+      "lat": 50.568,
+      "lon": 10.415
+    },
+    {
+      "id": "t235",
+      "name": "Plauen",
+      "lat": 50.497,
+      "lon": 12.138
+    },
+    {
+      "id": "t236",
+      "name": "Zwickau",
+      "lat": 50.727,
+      "lon": 12.488
+    },
+    {
+      "id": "t237",
+      "name": "Coburg",
+      "lat": 50.259,
+      "lon": 10.964
+    },
+    {
+      "id": "t238",
+      "name": "Forchheim",
+      "lat": 49.718,
+      "lon": 11.059
+    },
+    {
+      "id": "t239",
+      "name": "Erlangen",
+      "lat": 49.591,
+      "lon": 11.008
+    },
+    {
+      "id": "t240",
+      "name": "Fürth",
+      "lat": 49.476,
+      "lon": 10.989
+    },
+    {
+      "id": "t241",
+      "name": "Feucht",
+      "lat": 49.376,
+      "lon": 11.214
+    },
+    {
+      "id": "t242",
+      "name": "Ludwigsburg",
+      "lat": 48.897,
+      "lon": 9.192
+    },
+    {
+      "id": "t243",
+      "name": "Sindelfingen",
+      "lat": 48.7,
+      "lon": 9.017
+    },
+    {
+      "id": "t244",
+      "name": "Rottweil",
+      "lat": 48.168,
+      "lon": 8.627
+    },
+    {
+      "id": "t245",
+      "name": "Villingen-Schwenningen",
+      "lat": 48.062,
+      "lon": 8.494
+    },
+    {
+      "id": "t246",
+      "name": "Singen (Hohentwiel)",
+      "lat": 47.759,
+      "lon": 8.84
+    },
+    {
+      "id": "t247",
+      "name": "Gottmadingen",
+      "lat": 47.735,
+      "lon": 8.777
+    },
+    {
+      "id": "t248",
+      "name": "Oberschleißheim",
+      "lat": 48.25,
+      "lon": 11.567
+    },
+    {
+      "id": "t249",
+      "name": "Freising",
+      "lat": 48.404,
+      "lon": 11.749
+    },
+    {
+      "id": "t250",
+      "name": "Landshut",
+      "lat": 48.53,
+      "lon": 12.162
+    },
+    {
+      "id": "t251",
+      "name": "Dingolfing",
+      "lat": 48.642,
+      "lon": 12.493
+    },
+    {
+      "id": "t252",
+      "name": "Marktredwitz",
+      "lat": 50.004,
+      "lon": 12.086
+    },
+    {
+      "id": "t253",
+      "name": "Weiden in der Oberpfalz",
+      "lat": 49.677,
+      "lon": 12.156
+    },
+    {
+      "id": "t254",
+      "name": "Schwandorf",
+      "lat": 49.325,
+      "lon": 12.11
+    },
+    {
+      "id": "t255",
+      "name": "Wolnzach",
+      "lat": 48.604,
+      "lon": 11.626
+    },
+    {
+      "id": "t256",
+      "name": "Kiefersfelden",
+      "lat": 47.614,
+      "lon": 12.191
+    },
+    {
+      "id": "t257",
+      "name": "Mühldorf am Inn",
+      "lat": 48.247,
+      "lon": 12.522
+    },
+    {
+      "id": "t258",
+      "name": "Altötting",
+      "lat": 48.225,
+      "lon": 12.677
+    },
+    {
+      "id": "t259",
+      "name": "Burghausen",
+      "lat": 48.169,
+      "lon": 12.831
+    },
+    {
+      "id": "t260",
+      "name": "Malching",
+      "lat": 48.312,
+      "lon": 13.187
+    },
+    {
+      "id": "t261",
+      "name": "Kirchham",
+      "lat": 48.346,
+      "lon": 13.267
+    },
+    {
+      "id": "t262",
+      "name": "Wolfratshausen",
+      "lat": 47.913,
+      "lon": 11.422
+    },
+    {
+      "id": "t263",
+      "name": "Penzberg",
+      "lat": 47.753,
+      "lon": 11.377
+    },
+    {
+      "id": "t264",
+      "name": "Murnau am Staffelsee",
+      "lat": 47.681,
+      "lon": 11.201
+    },
+    {
+      "id": "t265",
+      "name": "Eschenlohe",
+      "lat": 47.6,
+      "lon": 11.183
+    },
+    {
+      "id": "t266",
+      "name": "Lindau (Bodensee)",
+      "lat": 47.546,
+      "lon": 9.684
+    },
+    {
+      "id": "t267",
+      "name": "Wangen im Allgäu",
+      "lat": 47.69,
+      "lon": 9.832
+    },
+    {
+      "id": "t268",
+      "name": "Memmingen",
+      "lat": 47.984,
+      "lon": 10.185
+    },
+    {
+      "id": "t269",
+      "name": "Mindelheim",
+      "lat": 48.046,
+      "lon": 10.492
+    },
+    {
+      "id": "t270",
+      "name": "Landsberg am Lech",
+      "lat": 48.048,
+      "lon": 10.883
+    },
+    {
+      "id": "t271",
+      "name": "Rheinfelden (Baden)",
+      "lat": 47.56,
+      "lon": 7.787
+    },
+    {
+      "id": "t272",
+      "name": "Murg",
+      "lat": 47.555,
+      "lon": 8.022
+    },
+    {
+      "id": "t273",
+      "name": "Waldshut-Tiengen",
+      "lat": 47.623,
+      "lon": 8.217
+    },
+    {
+      "id": "t274",
+      "name": "Stockach",
+      "lat": 47.851,
+      "lon": 9.009
+    },
+    {
+      "id": "t275",
+      "name": "Germering",
+      "lat": 48.134,
+      "lon": 11.377
+    },
+    {
+      "id": "t276",
+      "name": "Karlsfeld",
+      "lat": 48.227,
+      "lon": 11.476
+    },
+    {
+      "id": "t277",
+      "name": "Unterschleißheim",
+      "lat": 48.28,
+      "lon": 11.577
+    },
+    {
+      "id": "t278",
+      "name": "Garching bei München",
+      "lat": 48.249,
+      "lon": 11.651
+    },
+    {
+      "id": "t279",
+      "name": "Aschheim",
+      "lat": 48.171,
+      "lon": 11.717
+    },
+    {
+      "id": "t280",
+      "name": "Haar",
+      "lat": 48.109,
+      "lon": 11.727
+    },
+    {
+      "id": "t281",
+      "name": "Hohenbrunn",
+      "lat": 48.048,
+      "lon": 11.702
+    }
+  ]
+}

@@ -92,6 +92,18 @@ blocked and are checked against the official-orthography Hunspell dictionary
 | NUTS-1 macro-regions of Poland | макрарэгіёны NUTS-1; Polish names kept (Centralny, Wschodni…) | Polish names stay as place names |
 | Baltic Sea, Black Sea | Балтыйскае мора, Чорнае мора | Hunspell be-official (spelling only; article titles not re-checked, web blocked) |
 | German regions (Altbayern, Ostfriesland, Pfalz, Harz…) | kept in German, like place names | no checkable Belarusian forms (not in the dictionary, web blocked) |
+| road; Roads set | дарога, мн. дарогі, Р. мн. дарог | Hunspell be-official: дарога, дарогі, дарог |
+| Autobahn (network label) | аўтабан | Hunspell be-official: аўтабан; be.wikipedia article «Аўтабан» (checked 2026-11-28) |
+| road number (A 7, PE-1N) | nominative and undeclined, as on the sign («паміж A 5 і A 9») | refs are never translated or inflected, like place names |
+| road class: trunk, regional, minor | магістральныя, рэгіянальныя, мясцовыя (дарогі) | Hunspell be-official (all three forms) |
+| numbering (of roads) | нумарацыя | Hunspell be-official |
+| odd, even (numbers) | няцотны, цотны | Hunspell be-official |
+| ring road | кальцо | Hunspell be-official |
+| shield (road number sign) | шчыт | Hunspell be-official |
+| to cross (a road), to run (through, between) | перасякае; праходзіць (паміж, праз, побач з) | Hunspell be-official |
+| other numbers of a road (E 45 on the A 7); formerly | іншыя нумары; «{ref} — таксама {refs}»; раней | Hunspell be-official; refs undeclined as above, so the dash construction avoids a case |
+| median (time) | медыянны | Hunspell be-official; be.wikipedia article «Медыяна (статыстыка)» |
+| locator map | «{country} на карце: {area}» (area from the country's copy, nominative) | own wording, avoids declining the continent's name |
 
 ## The language switch (UX)
 
