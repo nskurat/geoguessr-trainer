@@ -148,6 +148,10 @@ async function main(): Promise<void> {
             const width = page.viewportSize()?.width ?? 0;
             if (scrollWidth > width) errors.push(`${country.id}/${lang}/${set}/${view}: horizontal scroll`);
             if (view === 'desktop') {
+              const footer = page.locator('#credits');
+              if (!(await footer.isVisible()) || (await footer.innerHTML()) !== country.copy[lang].credits) {
+                errors.push(`${country.id}/${lang}/${set}: missing or incorrect footer attribution`);
+              }
               snapshot[`${country.id}/${lang}/${set}`] = await page.evaluate(SNAPSHOT_SCRIPT);
             }
             if (flag('--shots')) await page.screenshot({ path: join(shotsDir, `${set}-${lang}-${view}.png`) });
