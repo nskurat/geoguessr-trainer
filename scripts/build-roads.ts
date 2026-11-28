@@ -36,6 +36,7 @@ import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { gzipSync } from 'node:zlib';
 import type { Position } from 'geojson';
+import { normalizeRef as normRef } from '../trainer-app/src/services/country/roads';
 import { RoadsFileSchema } from '../trainer-app/src/services/country/schema';
 import type { RoadClass, RoadCourses, RoadEntry, RoadsFile } from '../trainer-app/src/types/geo';
 import {
@@ -97,7 +98,6 @@ const TOWN_NEAR_KM = 10;
 /** Way ends closer than this are joined, km. */
 const JOIN_KM = 0.05;
 
-const normRef = (ref: string) => ref.replace(/\s+/g, ' ').trim().toUpperCase();
 
 interface OverpassMember {
   type: string;
@@ -273,7 +273,11 @@ async function main() {
       osmLength.set(road.id, parts.reduce((s, p) => s + lineLength(p), 0));
       osmGaps.set(road.id, gapsOf(parts));
       courses[road.id] = {
-        osm: { relations: rels.map((r) => r.id), ref: rels[0].tags!.ref! },
+        osm: {
+          relations: rels.map((r) => r.id),
+          // The one ref of a multi-valued tag ("A 1;A 3") that matched this road.
+          ref: rels[0].tags!.ref!.split(';').map((x) => x.trim()).find((x) => normRef(x) === normRef(road.ref))!,
+        },
         course: parts.map((p) =>
           p.map((q) => {
             const [lon, lat] = plane.toLonLat(q);

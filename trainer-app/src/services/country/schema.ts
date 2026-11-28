@@ -159,10 +159,10 @@ export const RoadNetworkSchema = z.object({
   shield: z.enum(['blue', 'red', 'yellow', 'green', 'white']),
   label: nonEmpty,
   sign: nonEmpty,
-  rules: z.array(z.object({ id: roadId, text: nonEmpty })),
-});
+  rules: z.array(z.object({ id: roadId, text: nonEmpty }).strict()),
+}).strict();
 
-/** A road as stored in `roads.json` (no course). */
+/** A road as stored in `roads.json`: strict, so a `course` (geometry, possibly OSM) is rejected. */
 export const RoadEntrySchema = z.object({
   id: roadId,
   network: nonEmpty,
@@ -177,7 +177,7 @@ export const RoadEntrySchema = z.object({
   rules: z.array(nonEmpty),
   between: z.array(nonEmpty).max(2),
   crosses: z.array(nonEmpty),
-});
+}).strict();
 
 export const RoadTownSchema = RiverTownSchema;
 
@@ -186,7 +186,7 @@ export const RoadsFileSchema = z.object({
   networks: z.array(RoadNetworkSchema).min(1),
   roads: z.array(RoadEntrySchema).min(1),
   towns: z.array(RoadTownSchema),
-});
+}).strict();
 
 const CoursePartSchema = z.array(z.tuple([lat, lon])).min(2);
 

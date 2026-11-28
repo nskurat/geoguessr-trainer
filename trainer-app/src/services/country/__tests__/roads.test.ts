@@ -83,6 +83,11 @@ describe('validateRoadFiles on broken data', () => {
     expect(errorsOf((f) => (f.roads[0].id = 'a 1')).some((e) => e.startsWith('roads.json.roads.0.id'))).toBe(true);
   });
 
+  it('rejects geometry in roads.json (courses belong in the course files)', () => {
+    const errors = errorsOf((f) => Object.assign(f.roads[0], { course: [[[50, 8], [51, 8]]] }));
+    expect(errors.some((e) => e.startsWith('roads.json.roads.0') && e.includes('course'))).toBe(true);
+  });
+
   it('flags duplicate refs after normalising', () => {
     expect(errorsOf((f) => (f.roads[1].ref = 'A1'))).toContain('duplicate road ref "A1"');
   });
