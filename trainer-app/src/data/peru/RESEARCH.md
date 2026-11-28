@@ -87,8 +87,9 @@ letter (I). Unresolved without the official annex, so no `plate` for AYA/HUV.
 
 ## 5. Phone (phone.json)
 
-Source: en Wikipedia "Telephone numbers in Peru" (table from the MTC area-code chart,
-codes in force since 1 March 2003). Lima/Callao landlines have 7 digits, the rest 6.
+Primary source: the [MTC area-code chart][mtc-codes] (codes in force since 1 March
+2003). The [English Wikipedia table][peru-phone-wiki] was the reference used to
+compile the data. Lima/Callao landlines have 7 digits, the rest 6.
 Display format: with the trunk 0, as printed on Peruvian signs and dialled domestically
 ("01", "044", "084"). First digit groups: 04 Amazonas/San Martín/Áncash/La Libertad;
 05 Puno/Tacna/Moquegua/Arequipa/Ica; 06 Ucayali/Huánuco/Pasco/Junín/Loreto/Ayacucho/Huancavelica;
@@ -161,6 +162,34 @@ Amazonas (Andean Chachapoyas but selva Bagua) and Ayacucho.
   municipal directory (https://www3.congreso.gob.pe/Docs/Otamdegrl/files/directorio/dlimaprov926.pdf) for 01 in Lima region *(summary)*
 - es/en Wikipedia articles of each river and town named above; Natural Earth 10m populated
   places and admin-1 (public domain).
+
+## Sources and licences
+
+Audit: 2026-11-28. History: `d767412` introduced generated geometry, `2dcb5ad`
+introduced the phone and region data, `dd8bec7` added the full study sets and source
+notes, and `249f9a0` added bilingual copy. This table distinguishes the primary
+reference for a fact from the source actually used to compile it.
+
+| Data file / asset | Source | Licence | How it was used | Credit required (y/n) | Status |
+|---|---|---|---|---|---|
+| `outline.json` | [Natural Earth vector data][peru-ne], 1:10m admin-1 and national outline; `scripts/build-outline.ts` | [Public domain][peru-ne-terms] | Derived, projected and simplified; Callao dissolved into Lima Metropolitana | n — credited in both footers | OK |
+| `riverCourses.json` | Natural Earth 1:10m rivers and lake centerlines; `scripts/build-outline.ts` | Public domain | Derived geometry for Amazonas, Ucayali, Huallaga and Santa | n — credited in both footers | OK |
+| `regions.json` | Trainer-authored grouping by Claude Opus 5.5 with coordinator decisions (§6); [Plonk It Peru][plonk-peru] for landscape context | Trainer work (MIT); guide licence not relied on | Original grouping, names and colours; guide used for facts only | n | OK |
+| `departments.json` | Natural Earth IDs/outlines; English and Spanish Wikipedia capital articles, checked against Natural Earth populated places (§7) | Public domain geometry reference; Wikipedia CC BY-SA text not used | Facts: administrative units, capitals and individual coordinates, with a trainer-specific Lima/Callao unit | n | OK |
+| `cities.json` | Individual English/Spanish Wikipedia articles and Natural Earth populated places/admin-1 checks (§7) | Wikipedia CC BY-SA text not used; Natural Earth public domain | Facts: town names, locations and assignments; trainer selection and tiers, not a guide list | n | OK |
+| `phone.json` | Primary: Peru Ministry of Transport and Communications, [MTC national numbering area-code chart][mtc-codes] (archived copy linked by the secondary [Wikipedia table][peru-phone-wiki]); Lima province notes in §7 | Official facts; Wikipedia text CC BY-SA, not bundled | Complete factual code list in code order, with domestic `0`, trainer colours and a Lima split to fit study units | n | OK — accepted by owner under the complete-facts rule; primary citation added |
+| `rivers.json` | English/Spanish Wikipedia river and town pages, e.g. [Huallaga](https://es.wikipedia.org/wiki/R%C3%ADo_Huallaga), [Urubamba](https://es.wikipedia.org/wiki/R%C3%ADo_Urubamba) and [Rímac](https://es.wikipedia.org/wiki/R%C3%ADo_R%C3%ADmac); see §7 for waypoint details | Wikipedia CC BY-SA text not used; trainer hand courses (MIT) | Facts: lengths, outlets, town locations/river associations. Claude Opus 5.5 connected approximate headwater and mouth points and published town/landmark coordinates for Urubamba and Rímac; no map tracing documented. Huallaga's town drill omits towns in the article and adds Aucayacu from its own article | n | OK |
+| `copy.en.ts`, `copy.be.ts` | Trainer copy based on this brief and Belarusian port; Plonk It Peru and the telephone article used for factual comparisons | Trainer work (MIT); guide and Wikipedia expression not licensed for this use | Workflow tips and translations of trainer data; spot checks on mobile/landline wording and coastal-road guidance did not identify a close copy | n | OK |
+
+The Wikipedia telephone table was checked on the audit date; its footnote identifies
+the MTC chart, but the archived PDF could not be opened from this environment. No
+separate primary-source row-by-row verification is claimed.
+
+[peru-ne]: https://github.com/nvkelso/natural-earth-vector
+[peru-ne-terms]: https://www.naturalearthdata.com/about/terms-of-use/
+[plonk-peru]: https://www.plonkit.net/peru
+[mtc-codes]: https://web.archive.org/web/20110104160930/http://www.mtc.gob.pe/portal/avm2/codigos.pdf
+[peru-phone-wiki]: https://en.wikipedia.org/wiki/Telephone_numbers_in_Peru
 
 ## 8. Backlog: signals the engine cannot express
 
