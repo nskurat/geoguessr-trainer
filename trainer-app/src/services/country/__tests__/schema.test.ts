@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { france } from '../../../data/france';
 import { germany } from '../../../data/germany';
 import { peru } from '../../../data/peru';
+import { poland } from '../../../data/poland';
 import type { Country } from '../../../types/geo';
 import { RiverSchema, validateCountry } from '../schema';
 
@@ -24,6 +25,21 @@ describe('validateCountry(germany)', () => {
     const { errors, warnings } = validateCountry(germany);
     expect(errors).toEqual([]);
     expect(warnings).toEqual([]);
+  });
+});
+
+describe('country attribution', () => {
+  it.each(['en', 'be'] as const)('keeps required attribution in %s', (lang) => {
+    expect(france.copy[lang].credits).toContain('Victor Cazanave');
+    expect(france.copy[lang].credits).toContain('https://creativecommons.org/licenses/by/4.0/');
+    expect(france.copy[lang].credits).toContain('https://www.arcep.fr/');
+    expect(peru.copy[lang].credits).toContain('https://www.naturalearthdata.com/');
+    expect(germany.copy[lang].credits).toContain('https://www.naturalearthdata.com/');
+    expect(germany.copy[lang].credits).toContain('https://www.geonames.org/');
+    expect(germany.copy[lang].credits).toContain('https://creativecommons.org/licenses/by/4.0/');
+    expect(poland.copy[lang].credits).toContain('https://www.naturalearthdata.com/');
+    expect(poland.copy[lang].credits).toContain('https://www.geonames.org/');
+    expect(poland.copy[lang].credits).toContain('https://creativecommons.org/licenses/by/4.0/');
   });
 });
 
