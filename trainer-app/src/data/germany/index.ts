@@ -13,17 +13,17 @@ import rivers from './rivers.json';
  * Germany. State outlines and river courses: Natural Earth 1:10m (public domain), built
  * by `npm run build:outline -- germany`. Town coordinates: GeoNames (CC BY 4.0). Facts,
  * sources and confidence notes: RESEARCH.md. `npm run validate:data` checks this data.
- * No phone set: area-code zones cut across state borders (see RESEARCH.md).
+ * No phone set: area-code zones cut across state borders (see RESEARCH.md). The four
+ * macro-regions are an Area filter only, not a study set (RESEARCH.md §4).
  */
 const courses: Record<string, number[][]> = riverCourses;
 
 export const germany: Country = {
   id: 'germany',
   name: 'Germany',
-  sets: ['reg', 'dep', 'city', 'riv', 'nom'],
+  sets: ['dep', 'city', 'riv', 'nom'],
   departmentCodes: 'hidden',
   projectionRefLat: outline.refLat,
-  regionLabelOffsets: {},
   // Brandenburg surrounds Berlin, so its bounding-box centre falls on Berlin.
   departmentLabelOffsets: { BB: { dy: 24 } },
   outline: { viewBox: outline.viewBox, locations: outline.locations, affine: outline.affine },
