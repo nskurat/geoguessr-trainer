@@ -179,11 +179,15 @@ function build(): void {
   const byId: Record<string, { path: string }> = {};
   country.outline.locations.forEach((l) => (byId[String(l.id).toUpperCase()] = l));
 
+  // Without regions, every department goes in one group.
+  const groups = ix.regions.length
+    ? ix.regions.map((r) => ({ attr: ` data-r="${r.key}"`, codes: r.codes }))
+    : [{ attr: '', codes: ix.departments.map((d) => d.code) }];
   let html = '';
-  for (const r of ix.regions) {
-    const codes = r.codes.filter((c) => byId[c]);
+  for (const g of groups) {
+    const codes = g.codes.filter((c) => byId[c]);
     html +=
-      `<g class="reg" data-r="${r.key}">` +
+      `<g class="reg"${g.attr}>` +
       codes.map((c) => `<path class="halo" d="${esc(byId[c].path)}"/>`).join('') +
       codes.map((c) => `<path class="dep" data-code="${c}" d="${esc(byId[c].path)}"/>`).join('') +
       '</g>';
@@ -198,7 +202,7 @@ function build(): void {
   }
   for (const r of ix.regions) {
     const c = weightedCentre(r.codes);
-    const nudge = country.regionLabelOffsets[r.key];
+    const nudge = country.regionLabelOffsets?.[r.key];
     regionCentres[r.key] = { x: c.x + (nudge?.dx ?? 0), y: c.y + (nudge?.dy ?? 0) };
   }
 
@@ -478,7 +482,7 @@ function unitAt(e: MouseEvent): string | null {
   if (!p) return null;
   const code = p.dataset.code!;
   if (isZoneSet()) return code;
-  if (settings.set === 'reg') return ix.departmentByCode[code].region;
+  if (settings.set === 'reg') return ix.departmentByCode[code].region ?? null;
   if (settings.set === 'dep') {
     if (settings.scope !== 'all' && ix.departmentByCode[code].region !== settings.scope) return null;
     return code;
@@ -569,6 +573,8 @@ const regionOf = (u: string) =>
 
 const mix = (color: string, percent: number) => `color-mix(in srgb, ${color} ${percent}%, var(--land))`;
 const hueFill = (hue: number) => `hsl(${hue} var(--rs) var(--rl))`;
+/** Without regions, each department gets its own hue in learn mode (golden-angle steps). */
+const ownHue = (code: string) => (ix.departments.findIndex((d) => d.code === code) * 137.508) % 360;
 
 /** The departments a zone-set item covers: a phone zone, a pattern's area, or a town's pattern area. */
 function zoneOf(u: string): string[] {
@@ -612,10 +618,10 @@ function colorize(): void {
     const inScope = set === 'reg' || settings.scope === 'all' || region === settings.scope;
     let fill: string;
     if (!inScope) fill = 'var(--off)';
-    else if (learn && set !== 'city') fill = hueFill(ix.regionByKey[region].hue);
+    else if (learn && set !== 'city') fill = hueFill(region ? ix.regionByKey[region].hue : ownHue(code));
     else fill = 'var(--land)';
     if (!learn && round && set !== 'city' && set !== 'riv') {
-      const u = set === 'reg' ? region : code;
+      const u = set === 'reg' ? (region ?? code) : code;
       if (round.shown[u] != null) fill = OUTCOME_COLORS[round.shown[u]];
       if (u === round.current && (settings.kind === 'name' || round.locked)) fill = 'var(--blue)';
     }
@@ -792,7 +798,8 @@ function syncControls(): void {
       b.setAttribute('aria-pressed', String((b as HTMLElement).dataset.v === settings[key]));
   show('#kindSeg', mode === 'practice');
   $('.app').classList.toggle('learning', mode === 'learn');
-  show('#scopeL', !(set === 'reg' || set === 'riv' || isZoneSet()));
+  // No regions: "All of <country>" is the only scope, so the Area filter is hidden.
+  show('#scopeL', ix.regions.length > 0 && !(set === 'reg' || set === 'riv' || isZoneSet()));
   show('#kindSeg [data-v=town]', set === 'riv' || set === 'nom');
   show('#kindSeg [data-v=dot]', set === 'city');
   for (const b of $('#kindSeg').children)
@@ -932,7 +939,7 @@ function pool(): string[] {
       ? ix.riverTowns.map((t) => t.id)
       : ix.riverById[settings.river].towns.slice();
   }
-  const inScope = (x: { region: string }) => settings.scope === 'all' || x.region === settings.scope;
+  const inScope = (x: { region?: string }) => settings.scope === 'all' || x.region === settings.scope;
   if (set === 'dep') return ix.departments.filter((d) => inScope(d) && boxes[d.code]).map((d) => d.code);
   return ix.cities.filter(inScope).map((c) => c.id);
 }
@@ -1380,7 +1387,7 @@ function panel(): void {
       set === 'city'
         ? t('target.blueDot')
         : set === 'reg'
-          ? t('target.blueTerm', { term: ix.copy.regionTerm.one.toLowerCase() })
+          ? t('target.blueTerm', { term: (ix.copy.regionTerm?.one ?? '').toLowerCase() })
           : set === 'riv'
             ? t('target.pinkRiver')
             : t('target.blueTerm', { term: depTerm() }),
@@ -1479,6 +1486,13 @@ function infoHtml(): string {
   return infoCard();
 }
 
+/** "Region <b>Bretagne</b>" in a card; nothing when the country has no regions. */
+function regionLine(key: string | undefined): string {
+  const r = key ? ix.regionByKey[key] : undefined;
+  const term = ix.copy.regionTerm;
+  return r && term ? `<p>${esc(term.one)} <b>${esc(r.name)}</b></p>` : '';
+}
+
 function infoCard(): string {
   if (!selected) return `${CARD}<p>${esc(t('info.nothing'))}</p></div>`;
   const u = selected;
@@ -1497,8 +1511,8 @@ function infoCard(): string {
     h = `<h3>${esc(nameOf(d.code, 'full'))}</h3><p>${esc(ps.length ? t('info.typicalEndings') : t('info.noPatterns'))}</p><div class="chips">${ps.map((p) => `<button data-u="${p.id}">${esc(p.label)}</button>`).join('')}</div>`;
   } else if (d) {
     const cities = ix.cities.filter((c) => c.code === d.code);
-    const { seatLabel, regionTerm, plateLabel } = ix.copy;
-    h = `<h3>${esc(nameOf(d.code, 'full'))}</h3><p>${esc(seatLabel)} <b>${esc(d.prefecture)}</b></p><p>${esc(regionTerm.one)} <b>${esc(ix.regionByKey[d.region].name)}</b></p>${plateLabel && d.plate ? `<p>${esc(plateLabel)} <b>${esc(d.plate)}</b></p>` : ''}${cities.length ? `<p>${th('info.citiesHere', { cities: cities.map((c) => c.name).join(', ') })}</p>` : ''}`;
+    const { seatLabel, plateLabel } = ix.copy;
+    h = `<h3>${esc(nameOf(d.code, 'full'))}</h3><p>${esc(seatLabel)} <b>${esc(d.prefecture)}</b></p>${regionLine(d.region)}${plateLabel && d.plate ? `<p>${esc(plateLabel)} <b>${esc(d.plate)}</b></p>` : ''}${cities.length ? `<p>${th('info.citiesHere', { cities: cities.map((c) => c.name).join(', ') })}</p>` : ''}`;
   } else if (ix.patternById[u]) {
     const p = ix.patternById[u];
     const towns = p.towns
@@ -1517,8 +1531,8 @@ function infoCard(): string {
   } else if (ix.cityById[u]) {
     const c = ix.cityById[u];
     const cd = ix.departmentByCode[c.code];
-    const { departmentTerm, regionTerm } = ix.copy;
-    h = `<h3>${esc(c.name)}</h3><p>${esc(departmentTerm.one)} <b>${codesShown() ? cd.code + ' ' : ''}${esc(cd.name)}</b></p><p>${esc(regionTerm.one)} <b>${esc(ix.regionByKey[c.region].name)}</b></p>`;
+    const { departmentTerm } = ix.copy;
+    h = `<h3>${esc(c.name)}</h3><p>${esc(departmentTerm.one)} <b>${codesShown() ? cd.code + ' ' : ''}${esc(cd.name)}</b></p>${regionLine(c.region)}`;
   }
   return `${CARD}${h}</div>`;
 }

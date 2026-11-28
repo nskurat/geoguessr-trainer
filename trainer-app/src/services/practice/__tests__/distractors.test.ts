@@ -44,6 +44,17 @@ describe('pickChoices', () => {
     }
   });
 
+  it('works without a grouping (a country without regions: each item is its own group)', () => {
+    const roundItems = ['b1', 'c1', 'd1', 'a1', 'a2'];
+    for (let seed = 1; seed <= 10; seed++) {
+      const choices = pickChoices({ answer: 'b1', roundItems, allItems, groupOf: (x) => x, rng: lcg(seed) });
+      expect(choices).toHaveLength(4);
+      expect(new Set(choices).size).toBe(4);
+      expect(choices).toContain('b1');
+      expect(choices.every((c) => roundItems.includes(c))).toBe(true);
+    }
+  });
+
   it('is deterministic for a given rng', () => {
     const run = () => pickChoices({ answer: 'a1', roundItems: allItems, allItems, groupOf, rng: lcg(8) });
     expect(run()).toEqual(run());

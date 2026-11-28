@@ -13,11 +13,11 @@ import type {
 import { SOURCE_LANG, type Lang } from '../../types/i18n';
 
 export interface IndexedDepartment extends Department {
-  /** Key of the region it belongs to. */
-  region: string;
+  /** Key of the region it belongs to; undefined when the country has no regions. */
+  region?: string;
 }
 export interface IndexedCity extends City {
-  region: string;
+  region?: string;
 }
 export interface IndexedNameTown extends NameTown {
   /** Id of its pattern. */
@@ -37,6 +37,7 @@ export interface CountryIndex {
   lang: Lang;
   /** The country's interface text in `lang`. */
   copy: CountryCopy;
+  /** Empty when the country has no top-level grouping. */
   regions: Region[];
   regionByKey: Record<string, Region>;
   departments: IndexedDepartment[];
@@ -93,10 +94,12 @@ export function localizeData(
  */
 export function indexCountry(country: Country, lang: Lang = SOURCE_LANG): CountryIndex {
   const { zones, namePatterns, rivers } = localizeData(country, lang);
+  const regions = country.regions ?? [];
   const regionOf: Record<string, string> = {};
-  for (const r of country.regions) for (const code of r.codes) regionOf[code] = r.key;
+  for (const r of regions) for (const code of r.codes) regionOf[code] = r.key;
 
-  const departments = country.departments.map((d) => {
+  const departments = country.departments.map((d): IndexedDepartment => {
+    if (!regions.length) return { ...d };
     const region = regionOf[d.code];
     if (!region) throw new Error(`${country.id}: department ${d.code} is in no region`);
     return { ...d, region };
@@ -106,7 +109,7 @@ export function indexCountry(country: Country, lang: Lang = SOURCE_LANG): Countr
   const cities = country.cities.map((c) => {
     const d = departmentByCode[c.code];
     if (!d) throw new Error(`${country.id}: city ${c.name} has unknown department ${c.code}`);
-    return { ...c, region: d.region };
+    return d.region ? { ...c, region: d.region } : { ...c };
   });
 
   const zoneOfDepartment = country.phone.zoneByDepartement;
@@ -132,8 +135,8 @@ export function indexCountry(country: Country, lang: Lang = SOURCE_LANG): Countr
     country,
     lang,
     copy: country.copy[lang],
-    regions: country.regions,
-    regionByKey: byKey(country.regions, (r) => r.key),
+    regions,
+    regionByKey: byKey(regions, (r) => r.key),
     departments,
     departmentByCode,
     cities,

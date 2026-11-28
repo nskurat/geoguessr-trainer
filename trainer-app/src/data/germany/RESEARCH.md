@@ -42,7 +42,8 @@ Germany guide) and the river lengths in `rivers.json` (§6).
 
 ## 3. Study-set decisions
 
-- **Offered:** `reg`, `dep`, `city`, `riv`, `nom`.
+- **Offered:** `dep`, `city`, `riv`, `nom`. The macro-regions (§4) are an Area filter only,
+  not the `reg` set.
 - **No `tel`.** The engine maps one phone zone per department, but German area-code
   zones (first digit after 0) cut across the Länder: 05 covers Lower Saxony, East
   Westphalia (NW) and North Hesse; 06 covers Hesse, Rheinland-Pfalz, Saarland and northern
@@ -67,7 +68,7 @@ Germany guide) and the river lengths in `rivers.json` (§6).
   backlog item.
 - **Department codes are hidden.** ISO 3166-2 suffixes (BY, NW…) are only ids.
 
-## 4. Grouping (regions.json)
+## 4. Grouping (regions.json): Area filter only
 
 A study grouping, not an official one. It follows the main GeoGuessr splits:
 
@@ -80,6 +81,22 @@ A study grouping, not an official one. It follows the main GeoGuessr splits:
 
 Ost is the former GDR plus Berlin, the clearest cultural and landscape line on Street
 View. Hessen goes in West rather than in a "Mitte", to keep four balanced zones.
+
+**Decision (2026-11-28 review): keep the grouping as the Area filter only; drop the `reg`
+study set.**
+
+- Why keep it: Ost carries real Street View signals that the player meets as one block:
+  -ow/-itz place names (§5, **H** counts), the 03 area codes (§3, **H**), and the former
+  inner-German border as a cultural and architectural line (**M**). Nord and Süd line up
+  with the 04 and 07/08/09 area-code digits (§3) and with the -büttel/-siel versus
+  -ing/-ingen endings. So learning states and cities one zone at a time teaches groups that
+  share clues, and the Learn map colours states by zone.
+- Why no `reg` set: the four names are our own labels, never on a sign, and "West" is the
+  leftover of the other three (Hessen could as well be "Mitte"). Drilling "which zone is
+  Thüringen in?" teaches the partition, not anything visible; the useful part (which states
+  were the GDR) is in the `dep` tip and the filter.
+- Saved settings with `set: 'reg'` fall back to the first offered set (`dep`); a saved Area
+  stays valid. Old `reg|…` progress records stay in localStorage, unused.
 
 ## 5. Place-name endings (placeNames.json)
 

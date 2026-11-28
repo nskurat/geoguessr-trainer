@@ -4,9 +4,8 @@ import type { CountryCopy } from '../../types/geo';
 export const copyEn: CountryCopy = {
   countryName: 'Peru',
   subtitle:
-    'Macro-regions, regions, cities, landline area codes and river valleys: learn them, then drill until they stick.',
+    'Regions, cities, landline area codes and river valleys: learn them, then drill until they stick.',
   setLabels: {
-    reg: 'Macro-regions',
     dep: 'Regions',
     city: 'Cities',
     tel: 'Area codes',
@@ -19,8 +18,7 @@ export const copyEn: CountryCopy = {
   phoneHint:
     'Mobile numbers (9 digits starting with 9) carry no area. A landline with a two-digit code in brackets, like (044) or (084), pins the region exactly; (01) means Lima, Callao or the Lima region provinces.',
   tips: {
-    reg: 'A study grouping, not an official one: Lima y Callao, the Norte coast and northern Andes, the central sierra (Centro), the Sur from Ica to Puno, and the Amazonian Oriente. Learn it first, then use it as the Area filter for everything else.',
-    dep: 'Learn one macro-region at a time with the Area filter, then switch to All of Peru. Anchor each region on its capital and the road you would drive in on: the coast is one long Panamericana, the sierra a chain of valleys.',
+    dep: 'Learn one macro-region at a time with the Area filter, then switch to All of Peru. The five macro-regions are a study grouping, not an official one: Lima y Callao, Norte (north coast and northern Andes), Centro (central sierra), Sur (Ica to Puno) and the Amazonian Oriente. Anchor each region on its capital and the road you would drive in on: the coast is one long Panamericana, the sierra a chain of valleys.',
     city: 'Most coverage follows the Panamericana along the coast and a few Andean and Amazon roads, so learn the cities on them in order. Use the Area filter to learn a macro-region’s towns; smaller towns show their names when you zoom in.',
     tel: 'Drill Which zone? on single regions: the first digit groups the country (04 north-central, 05 south, 06 centre and Loreto, 07 north coast and Cajamarca, 08 Cusco side). Spot a landline like (054) on a shop sign, school or hotel and you know the region instantly.',
     riv: 'Peruvian town names rarely carry the river, but Andean and Amazon roads follow valleys: the Callejón de Huaylas is the Santa, the Sacred Valley is the Urubamba, the Carretera Central climbs the Rímac. Learn each valley’s towns from source to mouth, then use Place towns.',

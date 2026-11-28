@@ -80,7 +80,7 @@ export const CountryCopySchema = z.object({
   countryName: nonEmpty,
   subtitle: nonEmpty,
   setLabels: z.partialRecord(StudySetSchema, nonEmpty),
-  regionTerm: TermSchema,
+  regionTerm: TermSchema.optional(),
   departmentTerm: TermSchema,
   seatLabel: nonEmpty,
   plateLabel: nonEmpty.optional(),
@@ -281,7 +281,8 @@ export function validateCountry(country: Country): ValidationResult {
     });
   };
   check('country', CountryMetaSchema, [country]);
-  check('regions', RegionSchema, country.regions);
+  const regions = country.regions ?? [];
+  check('regions', RegionSchema, regions);
   check('departments', DepartmentSchema, country.departments);
   check('cities', CitySchema, country.cities);
   check('phone', PhoneDataSchema, [country.phone]);
@@ -297,7 +298,7 @@ export function validateCountry(country: Country): ValidationResult {
   };
   unique(
     'region key',
-    country.regions.map((r) => r.key),
+    regions.map((r) => r.key),
   );
   unique(
     'department code',
@@ -328,21 +329,30 @@ export function validateCountry(country: Country): ValidationResult {
     country.rivers.towns.map((t) => t.id),
   );
 
-  // Regions and departments.
+  // Regions and departments: regions are optional, but when present they partition the departments.
   const departmentCodes = new Set(country.departments.map((d) => d.code));
   const regionsOf: Record<string, string[]> = {};
-  for (const r of country.regions) {
+  for (const r of regions) {
     for (const code of r.codes) {
       if (!departmentCodes.has(code)) errors.push(`region ${r.key} lists unknown department ${code}`);
       (regionsOf[code] ??= []).push(r.key);
     }
   }
-  for (const d of country.departments) {
-    const regions = regionsOf[d.code] ?? [];
-    if (regions.length === 0) errors.push(`department ${d.code} (${d.name}) is in no region`);
-    else if (regions.length > 1)
-      errors.push(`department ${d.code} (${d.name}) is in several regions: ${regions.join(', ')}`);
+  if (regions.length)
+    for (const d of country.departments) {
+      const keys = regionsOf[d.code] ?? [];
+      if (keys.length === 0) errors.push(`department ${d.code} (${d.name}) is in no region`);
+      else if (keys.length > 1)
+        errors.push(`department ${d.code} (${d.name}) is in several regions: ${keys.join(', ')}`);
+    }
+  if (country.regions && !regions.length) errors.push('regions is empty: omit it when the country has no regions');
+  for (const lang of LANGS) {
+    const term = country.copy[lang].regionTerm;
+    if (regions.length && !term) errors.push(`copy.${lang}.regionTerm is required when the country has regions`);
+    if (!regions.length && term) errors.push(`copy.${lang}.regionTerm is set but the country has no regions`);
   }
+  for (const key of Object.keys(country.regionLabelOffsets ?? {}))
+    if (!regions.some((r) => r.key === key)) errors.push(`regionLabelOffsets names unknown region ${key}`);
 
   // Phone zones: every department needs one only when the phone set is offered.
   const zones = new Set(country.phone.zones.map((z) => z.zone));
@@ -386,7 +396,7 @@ export function validateCountry(country: Country): ValidationResult {
   // Every offered set needs its label, tip and data; codes in local prefixes must exist.
   if (new Set(country.sets).size !== country.sets.length) errors.push('sets has duplicates');
   const setData: Record<string, number> = {
-    reg: country.regions.length,
+    reg: regions.length,
     dep: country.departments.length,
     city: country.cities.length,
     riv: country.rivers.rivers.length,

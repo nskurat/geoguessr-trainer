@@ -12,7 +12,10 @@ export type LatLon = [number, number];
 /** A point in map (SVG viewBox) units. */
 export type Point = [number, number];
 
-/** Top-level administrative area (région in France). */
+/**
+ * Top-level area (région in France). Optional per country: only where it is an official
+ * level players meet or carries real Street View signals, never just to chunk a list.
+ */
 export interface Region {
   key: string;
   name: string;
@@ -290,8 +293,8 @@ export interface CountryCopy {
   subtitle: string;
   /** Button label and heading of each enabled study set. */
   setLabels: Partial<Record<StudySet, string>>;
-  /** Top-level areas (régions in France). */
-  regionTerm: Term;
+  /** Top-level areas (régions in France); required exactly when the country has regions. */
+  regionTerm?: Term;
   /** Second-level areas (départements in France). */
   departmentTerm: Term;
   /** Label of a department's administrative seat, e.g. "Prefecture" or "Capital". */
@@ -300,7 +303,7 @@ export interface CountryCopy {
   plateLabel?: string;
   /** Under a department code asked by number; defaults to "<Term> number" (`sub.codeNumber`). */
   codeLabel?: string;
-  /** Label of the "whole country" option of the Area filter. */
+  /** Label of the "whole country" option of the Area filter (the only scope without regions). */
   allAreas: string;
   /** "How to use it" card text per study set. */
   tips: Partial<Record<StudySet, string>>;
@@ -323,14 +326,19 @@ export interface Country {
   /** Latitude at which the projection is undistorted, roughly the country's middle. */
   projectionRefLat: number;
   /** Nudges, in map units, for region labels whose area-weighted centre sits badly. */
-  regionLabelOffsets: Record<string, { dx?: number; dy?: number }>;
+  regionLabelOffsets?: Record<string, { dx?: number; dy?: number }>;
   /**
    * Nudges, in map units, for department labels whose bounding-box centre sits badly, e.g. a
    * department that surrounds another (Brandenburg around Berlin).
    */
   departmentLabelOffsets?: Record<string, { dx?: number; dy?: number }>;
   outline: MapOutline;
-  regions: Region[];
+  /**
+   * Top-level grouping, partitioning the departments; omitted when the country has none
+   * (no `reg` set, no Area filter). Offered as a study set only when `sets` includes `reg`;
+   * otherwise it is an Area filter only.
+   */
+  regions?: Region[];
   departments: Department[];
   cities: City[];
   phone: PhoneData;

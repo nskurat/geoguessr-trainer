@@ -26,3 +26,21 @@ table is the documented verification of the individual values. ARCEP's
 [2022 numbering-plan update](https://www.arcep.fr/actualites/actualites-et-communiques/detail/n/plan-de-numerotation-050922.html)
 announced the end of the geographic restriction in metropolitan France from 2023.
 The map uses those historical patterns for study, not to assert the location of a new number.
+
+## Grouping (regions.json)
+
+**Decision (2026-11-28 review): keep the 13 metropolitan régions both as the `reg` study set
+and as the Area filter.** They pass the trainer's rule for a top-level grouping (an official
+level players meet):
+
+- They are a real administrative level, in their current 13 since 2016 (law 2015-29): each
+  has an elected regional council (INSEE COG, **H**). Their names and logos show up in
+  coverage on regional coaches and trains and on the panels of works they fund (**M**, not
+  counted).
+- Players already use them: a département number on a plate or a place-name pattern is
+  learnt as "this is in Occitanie / Bretagne", and the régions map onto the phone zones and
+  name patterns in large blocks (01 Île-de-France, 02 north-west, 04 south-east).
+- With 96 départements, the Area filter keeps the départements and cities learnable one
+  région at a time.
+
+Corsica (COR) and Île-de-France (IDF) keep their label nudges (`regionLabelOffsets`).

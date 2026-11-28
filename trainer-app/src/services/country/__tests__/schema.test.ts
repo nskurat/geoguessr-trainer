@@ -56,21 +56,60 @@ describe('validateCountry on broken data', () => {
   });
 
   it('flags a department in two regions', () => {
-    const code = france.regions[0].codes[0];
-    const errors = errorsOf((c) => c.regions[1].codes.push(code));
+    const code = france.regions![0].codes[0];
+    const errors = errorsOf((c) => c.regions![1].codes.push(code));
     expect(errors.some((e) => e.includes(`department ${code}`) && e.includes('several regions'))).toBe(true);
   });
 
   it('flags a department in no region', () => {
-    const code = france.regions[0].codes[0];
-    const errors = errorsOf((c) => (c.regions[0].codes = c.regions[0].codes.slice(1)));
+    const code = france.regions![0].codes[0];
+    const errors = errorsOf((c) => (c.regions![0].codes = c.regions![0].codes.slice(1)));
     expect(errors.some((e) => e.includes(`department ${code}`) && e.includes('no region'))).toBe(true);
   });
 
   it('flags a region listing an unknown department', () => {
-    expect(errorsOf((c) => c.regions[0].codes.push('ZZ'))).toContain(
-      `region ${france.regions[0].key} lists unknown department ZZ`,
+    expect(errorsOf((c) => c.regions![0].codes.push('ZZ'))).toContain(
+      `region ${france.regions![0].key} lists unknown department ZZ`,
     );
+  });
+
+  it('accepts a country without regions, without the partition check', () => {
+    const c = clone();
+    delete c.regions;
+    delete c.regionLabelOffsets;
+    c.sets = c.sets.filter((s) => s !== 'reg');
+    for (const copy of Object.values(c.copy)) delete copy.regionTerm;
+    expect(validateCountry(c).errors).toEqual([]);
+  });
+
+  it('flags the reg set offered without regions', () => {
+    const c = clone();
+    delete c.regions;
+    delete c.regionLabelOffsets;
+    for (const copy of Object.values(c.copy)) delete copy.regionTerm;
+    expect(validateCountry(c).errors).toContain('set reg is offered but has no data');
+  });
+
+  it('flags an empty regions list, and region text or nudges without regions', () => {
+    const c = clone();
+    c.regions = [];
+    c.sets = c.sets.filter((s) => s !== 'reg');
+    const errors = validateCountry(c).errors;
+    expect(errors).toContain('regions is empty: omit it when the country has no regions');
+    expect(errors).toContain('copy.en.regionTerm is set but the country has no regions');
+    expect(errors.some((e) => e.startsWith('regionLabelOffsets names unknown region'))).toBe(true);
+  });
+
+  it('requires a region term when the country has regions', () => {
+    expect(errorsOf((c) => delete c.copy.be.regionTerm)).toContain(
+      'copy.be.regionTerm is required when the country has regions',
+    );
+  });
+
+  it('accepts regions kept only as an Area filter (no reg set)', () => {
+    const c = clone();
+    c.sets = c.sets.filter((s) => s !== 'reg');
+    expect(validateCountry(c).errors).toEqual([]);
   });
 
   it('flags a department without a phone zone', () => {

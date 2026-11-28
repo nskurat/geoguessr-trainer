@@ -111,23 +111,38 @@ The site is shared with the owner's Belarusian GeoGuessr community. Agreed plan:
   are approximate.
 - Settings and progress from the claude.ai artifact are not migrated (different origin,
   separate localStorage).
+- Learn colours of a country without regions (Poland) step the hue by department order
+  (golden angle), so neighbours can get similar hues (Wielkopolskie, Kujawsko-Pomorskie and
+  Mazowieckie are all green). Colour by adjacency instead (neighbours from shared outline
+  edges, greedy colouring), e.g. during the React port.
+- The smoke test's `--compare` skips snapshot keys missing from the new build, so a removed
+  set passes silently; list removed and added keys in its output.
+- `docs/specs/roads.md` wireframes still show the "[Macro-regions]" set button, which no
+  country offers now except France's régions.
 
 ## Settled decisions
 
 - A country offers only the study sets worth drilling for it (`Country.sets`, decided with
   the `geoguessr-pro` skill). Peru skips name endings: Quechua endings cover the whole sierra
   and don't split it.
+- A top-level grouping (`regions`) is optional (owner, 2026-11-28): only an official level
+  players meet, or groups that carry real Street View signals; never just to chunk a list.
+  It is a `reg` study set, an Area filter only (no `reg` in `sets`), or both. Without
+  regions the Area filter is hidden, Learn gives each department its own hue, and a saved
+  Area falls back to the whole country. Outcomes of the review (each country's RESEARCH.md):
+  France keeps its 13 régions as set and filter; Germany and Peru keep their study
+  groupings as the Area filter only; Poland has none.
 - Peru: Callao is merged into Lima Metropolitana ("Lima Metropolitana y Callao") — Natural
   Earth's Callao boundary is wrong and the two are indistinguishable on Street View. The
   top-level grouping (Lima y Callao, Norte, Centro, Sur, Oriente) is a study grouping, not
-  an official one. Plate letters are left out: the registry-zone letters are shared between
+  an official one, kept as the Area filter only (no `reg` set). Plate letters are left out: the registry-zone letters are shared between
   regions, changed by 2024–2025 decrees, and blurred on Street View.
-- Poland: the 16 voivodeships are the departments, grouped into the seven official NUTS-1
-  macroregions. No phone set (zones are finer than voivodeships); the first plate letter is
+- Poland: the 16 voivodeships are the departments, with no top-level grouping (the NUTS-1
+  macroregions were removed: statistical units nobody sees). No phone set (zones are finer than voivodeships); the first plate letter is
   shown per voivodeship. Three name patterns (-ice, -ów, -owo/-ewo) chosen from GeoNames counts.
 - France's local phone prefixes (0Z AB) are shown, never quizzed.
 - Germany: the 16 Länder are the departments, grouped into four study macro-regions (Nord,
-  West, Süd, Ost = former GDR + Berlin). No phone codes or plates: area-code zones and
+  West, Süd, Ost = former GDR + Berlin) used as the Area filter only (no `reg` set). No phone codes or plates: area-code zones and
   Kreis codes don't follow state borders. The validator only requires a phone zone per
   department when a country offers `tel`.
 
