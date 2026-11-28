@@ -1,0 +1,130 @@
+[
+  {
+    "code": "DS",
+    "name": "Dolnośląskie",
+    "prefecture": "Wrocław",
+    "lat": 51.103,
+    "lon": 17.03,
+    "plate": "D, V"
+  },
+  {
+    "code": "KP",
+    "name": "Kujawsko-Pomorskie",
+    "prefecture": "Bydgoszcz / Toruń",
+    "lat": 53.123,
+    "lon": 18.008,
+    "plate": "C"
+  },
+  {
+    "code": "LD",
+    "name": "Łódzkie",
+    "prefecture": "Łódź",
+    "lat": 51.771,
+    "lon": 19.474,
+    "plate": "E"
+  },
+  {
+    "code": "LU",
+    "name": "Lubelskie",
+    "prefecture": "Lublin",
+    "lat": 51.251,
+    "lon": 22.57,
+    "plate": "L"
+  },
+  {
+    "code": "LB",
+    "name": "Lubuskie",
+    "prefecture": "Gorzów Wielkopolski / Zielona Góra",
+    "lat": 52.734,
+    "lon": 15.225,
+    "plate": "F"
+  },
+  {
+    "code": "MA",
+    "name": "Małopolskie",
+    "prefecture": "Kraków",
+    "lat": 50.061,
+    "lon": 19.937,
+    "plate": "K, J"
+  },
+  {
+    "code": "MZ",
+    "name": "Mazowieckie",
+    "prefecture": "Warszawa",
+    "lat": 52.23,
+    "lon": 21.012,
+    "plate": "W, A"
+  },
+  {
+    "code": "OP",
+    "name": "Opolskie",
+    "prefecture": "Opole",
+    "lat": 50.671,
+    "lon": 17.926,
+    "plate": "O"
+  },
+  {
+    "code": "PK",
+    "name": "Podkarpackie",
+    "prefecture": "Rzeszów",
+    "lat": 50.041,
+    "lon": 21.999,
+    "plate": "R, Y"
+  },
+  {
+    "code": "PD",
+    "name": "Podlaskie",
+    "prefecture": "Białystok",
+    "lat": 53.133,
+    "lon": 23.164,
+    "plate": "B"
+  },
+  {
+    "code": "PM",
+    "name": "Pomorskie",
+    "prefecture": "Gdańsk",
+    "lat": 54.352,
+    "lon": 18.649,
+    "plate": "G, X"
+  },
+  {
+    "code": "SL",
+    "name": "Śląskie",
+    "prefecture": "Katowice",
+    "lat": 50.26,
+    "lon": 19.022,
+    "plate": "S, I"
+  },
+  {
+    "code": "SK",
+    "name": "Świętokrzyskie",
+    "prefecture": "Kielce",
+    "lat": 50.87,
+    "lon": 20.628,
+    "plate": "T"
+  },
+  {
+    "code": "WN",
+    "name": "Warmińsko-Mazurskie",
+    "prefecture": "Olsztyn",
+    "lat": 53.784,
+    "lon": 20.493,
+    "plate": "N"
+  },
+  {
+    "code": "WP",
+    "name": "Wielkopolskie",
+    "prefecture": "Poznań",
+    "lat": 52.407,
+    "lon": 16.93,
+    "plate": "P"
+  },
+  {
+    "code": "ZP",
+    "name": "Zachodniopomorskie",
+    "prefecture": "Szczecin",
+    "lat": 53.429,
+    "lon": 14.553,
+    "plate": "Z"
+  }
+]

@@ -1,0 +1,586 @@
+{
+  "rivers": [
+    {
+      "id": "r0",
+      "name": "Wisła",
+      "lengthKm": 1022,
+      "flowsInto": "the Baltic Sea near Gdańsk",
+      "course": [],
+      "towns": [
+        "t0",
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6",
+        "t7",
+        "t8",
+        "t9",
+        "t10",
+        "t11"
+      ]
+    },
+    {
+      "id": "r1",
+      "name": "Odra",
+      "lengthKm": 840,
+      "lengthIsTotal": true,
+      "flowsInto": "the Baltic Sea near Świnoujście",
+      "course": [],
+      "towns": [
+        "t12",
+        "t13",
+        "t14",
+        "t15",
+        "t16",
+        "t17",
+        "t18",
+        "t19",
+        "t20",
+        "t21",
+        "t22"
+      ]
+    },
+    {
+      "id": "r2",
+      "name": "Warta",
+      "lengthKm": 795,
+      "flowsInto": "the Odra at Kostrzyn nad Odrą",
+      "course": [],
+      "towns": [
+        "t23",
+        "t24",
+        "t25",
+        "t26",
+        "t27",
+        "t28",
+        "t29",
+        "t20"
+      ]
+    },
+    {
+      "id": "r3",
+      "name": "Bug",
+      "lengthKm": 774,
+      "lengthIsTotal": true,
+      "flowsInto": "the Narew near Serock",
+      "course": [],
+      "towns": [
+        "t30",
+        "t31",
+        "t32",
+        "t33",
+        "t34"
+      ]
+    },
+    {
+      "id": "r4",
+      "name": "Narew",
+      "lengthKm": 499,
+      "lengthIsTotal": true,
+      "flowsInto": "the Wisła at Modlin, below Serock",
+      "course": [],
+      "towns": [
+        "t35",
+        "t36",
+        "t37",
+        "t38",
+        "t39",
+        "t40"
+      ]
+    },
+    {
+      "id": "r5",
+      "name": "San",
+      "lengthKm": 458,
+      "lengthIsTotal": true,
+      "flowsInto": "the Wisła near Sandomierz",
+      "course": [],
+      "towns": [
+        "t41",
+        "t42",
+        "t43",
+        "t44",
+        "t45",
+        "t46",
+        "t47"
+      ]
+    },
+    {
+      "id": "r6",
+      "name": "Noteć",
+      "lengthKm": 391,
+      "flowsInto": "the Warta near Santok",
+      "course": [],
+      "towns": [
+        "t48",
+        "t49",
+        "t50",
+        "t51",
+        "t52"
+      ]
+    },
+    {
+      "id": "r7",
+      "name": "Pilica",
+      "lengthKm": 333,
+      "flowsInto": "the Wisła near Warka",
+      "course": [],
+      "towns": [
+        "t53",
+        "t54",
+        "t55",
+        "t56",
+        "t57",
+        "t58"
+      ]
+    },
+    {
+      "id": "r8",
+      "name": "Dunajec",
+      "lengthKm": 249,
+      "flowsInto": "the Wisła near Opatowiec",
+      "course": [],
+      "towns": [
+        "t59",
+        "t60",
+        "t61",
+        "t62",
+        "t63",
+        "t64"
+      ]
+    },
+    {
+      "id": "r9",
+      "name": "Bóbr",
+      "lengthKm": 279,
+      "lengthIsTotal": true,
+      "flowsInto": "the Odra at Krosno Odrzańskie",
+      "course": [],
+      "towns": [
+        "t65",
+        "t66",
+        "t67",
+        "t68",
+        "t18"
+      ]
+    }
+  ],
+  "towns": [
+    {
+      "id": "t0",
+      "name": "Wisła",
+      "lat": 49.656,
+      "lon": 18.859
+    },
+    {
+      "id": "t1",
+      "name": "Skoczów",
+      "lat": 49.801,
+      "lon": 18.788
+    },
+    {
+      "id": "t2",
+      "name": "Oświęcim",
+      "lat": 50.034,
+      "lon": 19.21
+    },
+    {
+      "id": "t3",
+      "name": "Kraków",
+      "lat": 50.061,
+      "lon": 19.937
+    },
+    {
+      "id": "t4",
+      "name": "Sandomierz",
+      "lat": 50.683,
+      "lon": 21.749
+    },
+    {
+      "id": "t5",
+      "name": "Puławy",
+      "lat": 51.417,
+      "lon": 21.969
+    },
+    {
+      "id": "t6",
+      "name": "Warszawa",
+      "lat": 52.23,
+      "lon": 21.012
+    },
+    {
+      "id": "t7",
+      "name": "Płock",
+      "lat": 52.547,
+      "lon": 19.706
+    },
+    {
+      "id": "t8",
+      "name": "Włocławek",
+      "lat": 52.648,
+      "lon": 19.068
+    },
+    {
+      "id": "t9",
+      "name": "Toruń",
+      "lat": 53.014,
+      "lon": 18.598
+    },
+    {
+      "id": "t10",
+      "name": "Grudziądz",
+      "lat": 53.484,
+      "lon": 18.754
+    },
+    {
+      "id": "t11",
+      "name": "Tczew",
+      "lat": 54.092,
+      "lon": 18.778
+    },
+    {
+      "id": "t12",
+      "name": "Racibórz",
+      "lat": 50.092,
+      "lon": 18.219
+    },
+    {
+      "id": "t13",
+      "name": "Kędzierzyn-Koźle",
+      "lat": 50.35,
+      "lon": 18.226
+    },
+    {
+      "id": "t14",
+      "name": "Opole",
+      "lat": 50.671,
+      "lon": 17.926
+    },
+    {
+      "id": "t15",
+      "name": "Brzeg",
+      "lat": 50.861,
+      "lon": 17.467
+    },
+    {
+      "id": "t16",
+      "name": "Wrocław",
+      "lat": 51.103,
+      "lon": 17.03
+    },
+    {
+      "id": "t17",
+      "name": "Nowa Sól",
+      "lat": 51.803,
+      "lon": 15.717
+    },
+    {
+      "id": "t18",
+      "name": "Krosno Odrzańskie",
+      "lat": 52.055,
+      "lon": 15.099
+    },
+    {
+      "id": "t19",
+      "name": "Słubice",
+      "lat": 52.351,
+      "lon": 14.561
+    },
+    {
+      "id": "t20",
+      "name": "Kostrzyn nad Odrą",
+      "lat": 52.587,
+      "lon": 14.65
+    },
+    {
+      "id": "t21",
+      "name": "Gryfino",
+      "lat": 53.252,
+      "lon": 14.488
+    },
+    {
+      "id": "t22",
+      "name": "Szczecin",
+      "lat": 53.429,
+      "lon": 14.553
+    },
+    {
+      "id": "t23",
+      "name": "Częstochowa",
+      "lat": 50.796,
+      "lon": 19.124
+    },
+    {
+      "id": "t24",
+      "name": "Sieradz",
+      "lat": 51.596,
+      "lon": 18.73
+    },
+    {
+      "id": "t25",
+      "name": "Koło",
+      "lat": 52.2,
+      "lon": 18.639
+    },
+    {
+      "id": "t26",
+      "name": "Konin",
+      "lat": 52.223,
+      "lon": 18.251
+    },
+    {
+      "id": "t27",
+      "name": "Poznań",
+      "lat": 52.407,
+      "lon": 16.93
+    },
+    {
+      "id": "t28",
+      "name": "Międzychód",
+      "lat": 52.599,
+      "lon": 15.897
+    },
+    {
+      "id": "t29",
+      "name": "Gorzów Wielkopolski",
+      "lat": 52.734,
+      "lon": 15.225
+    },
+    {
+      "id": "t30",
+      "name": "Włodawa",
+      "lat": 51.55,
+      "lon": 23.55
+    },
+    {
+      "id": "t31",
+      "name": "Terespol",
+      "lat": 52.075,
+      "lon": 23.616
+    },
+    {
+      "id": "t32",
+      "name": "Drohiczyn",
+      "lat": 52.4,
+      "lon": 22.659
+    },
+    {
+      "id": "t33",
+      "name": "Brok",
+      "lat": 52.699,
+      "lon": 21.857
+    },
+    {
+      "id": "t34",
+      "name": "Wyszków",
+      "lat": 52.593,
+      "lon": 21.458
+    },
+    {
+      "id": "t35",
+      "name": "Tykocin",
+      "lat": 53.206,
+      "lon": 22.775
+    },
+    {
+      "id": "t36",
+      "name": "Łomża",
+      "lat": 53.178,
+      "lon": 22.059
+    },
+    {
+      "id": "t37",
+      "name": "Ostrołęka",
+      "lat": 53.086,
+      "lon": 21.576
+    },
+    {
+      "id": "t38",
+      "name": "Różan",
+      "lat": 52.888,
+      "lon": 21.391
+    },
+    {
+      "id": "t39",
+      "name": "Pułtusk",
+      "lat": 52.703,
+      "lon": 21.083
+    },
+    {
+      "id": "t40",
+      "name": "Serock",
+      "lat": 52.51,
+      "lon": 21.069
+    },
+    {
+      "id": "t41",
+      "name": "Lesko",
+      "lat": 49.47,
+      "lon": 22.33
+    },
+    {
+      "id": "t42",
+      "name": "Sanok",
+      "lat": 49.556,
+      "lon": 22.206
+    },
+    {
+      "id": "t43",
+      "name": "Przemyśl",
+      "lat": 49.785,
+      "lon": 22.767
+    },
+    {
+      "id": "t44",
+      "name": "Jarosław",
+      "lat": 50.016,
+      "lon": 22.678
+    },
+    {
+      "id": "t45",
+      "name": "Leżajsk",
+      "lat": 50.263,
+      "lon": 22.419
+    },
+    {
+      "id": "t46",
+      "name": "Nisko",
+      "lat": 50.52,
+      "lon": 22.14
+    },
+    {
+      "id": "t47",
+      "name": "Stalowa Wola",
+      "lat": 50.583,
+      "lon": 22.053
+    },
+    {
+      "id": "t48",
+      "name": "Kruszwica",
+      "lat": 52.676,
+      "lon": 18.331
+    },
+    {
+      "id": "t49",
+      "name": "Nakło nad Notecią",
+      "lat": 53.142,
+      "lon": 17.602
+    },
+    {
+      "id": "t50",
+      "name": "Ujście",
+      "lat": 53.053,
+      "lon": 16.732
+    },
+    {
+      "id": "t51",
+      "name": "Czarnków",
+      "lat": 52.902,
+      "lon": 16.564
+    },
+    {
+      "id": "t52",
+      "name": "Drezdenko",
+      "lat": 52.838,
+      "lon": 15.831
+    },
+    {
+      "id": "t53",
+      "name": "Szczekociny",
+      "lat": 50.627,
+      "lon": 19.825
+    },
+    {
+      "id": "t54",
+      "name": "Przedbórz",
+      "lat": 51.088,
+      "lon": 19.874
+    },
+    {
+      "id": "t55",
+      "name": "Sulejów",
+      "lat": 51.354,
+      "lon": 19.885
+    },
+    {
+      "id": "t56",
+      "name": "Tomaszów Mazowiecki",
+      "lat": 51.531,
+      "lon": 20.009
+    },
+    {
+      "id": "t57",
+      "name": "Nowe Miasto nad Pilicą",
+      "lat": 51.618,
+      "lon": 20.576
+    },
+    {
+      "id": "t58",
+      "name": "Warka",
+      "lat": 51.784,
+      "lon": 21.191
+    },
+    {
+      "id": "t59",
+      "name": "Stary Sącz",
+      "lat": 49.564,
+      "lon": 20.635
+    },
+    {
+      "id": "t60",
+      "name": "Nowy Sącz",
+      "lat": 49.622,
+      "lon": 20.697
+    },
+    {
+      "id": "t61",
+      "name": "Czchów",
+      "lat": 49.837,
+      "lon": 20.681
+    },
+    {
+      "id": "t62",
+      "name": "Zakliczyn",
+      "lat": 49.856,
+      "lon": 20.809
+    },
+    {
+      "id": "t63",
+      "name": "Radłów",
+      "lat": 50.084,
+      "lon": 20.85
+    },
+    {
+      "id": "t64",
+      "name": "Opatowiec",
+      "lat": 50.243,
+      "lon": 20.723
+    },
+    {
+      "id": "t65",
+      "name": "Jelenia Góra",
+      "lat": 50.9,
+      "lon": 15.729
+    },
+    {
+      "id": "t66",
+      "name": "Lwówek Śląski",
+      "lat": 51.111,
+      "lon": 15.586
+    },
+    {
+      "id": "t67",
+      "name": "Bolesławiec",
+      "lat": 51.264,
+      "lon": 15.57
+    },
+    {
+      "id": "t68",
+      "name": "Żagań",
+      "lat": 51.618,
+      "lon": 15.315
+    }
+  ]
+}

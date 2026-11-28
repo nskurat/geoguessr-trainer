@@ -167,6 +167,41 @@ const COUNTRIES: Record<string, CountryConfig> = {
       { name: 'Saarbrücken', lat: 49.233, lon: 7.01, id: 'SL' },
     ],
   },
+  poland: {
+    adm0: 'POL',
+    isoPrefix: 'PL-',
+    expectedUnits: 16,
+    // The 10m centerlines have only the Vistula, Oder, Warta and Bug; the Europe supplement
+    // has the other tributaries.
+    extraRiverLayers: ['rivers_europe'],
+    rivers: [
+      { key: 'Wisła', ne: 'Vistula', mouth: [54.35, 18.95] },
+      { key: 'Odra', ne: 'Oder', mouth: [53.9, 14.3] },
+      { key: 'Warta', ne: 'Warta', mouth: [52.59, 14.65] },
+      { key: 'Bug', ne: ['Bug', 'Zakhidnyy Buh'], mouth: [52.48, 21.07] },
+      // NE's Narew stops at Serock (Zegrze Reservoir); the last 30 km to the Vistula are not drawn.
+      { key: 'Narew', ne: 'Narew', mouth: [52.43, 20.7] },
+      { key: 'San', ne: 'San', mouth: [50.7, 21.85] },
+      { key: 'Noteć', ne: 'Noteć', mouth: [52.73, 15.38] },
+      { key: 'Pilica', ne: 'Pilica', mouth: [51.85, 21.28] },
+      // NE's "Dunajec" starts up the Poprad in Slovakia: cut at Stary Sącz, where the Poprad joins
+      // (the Dunajec above it, Nowy Targ to Stary Sącz, is not drawn).
+      { key: 'Dunajec', ne: 'Dunajec', mouth: [50.25, 21.4], from: [49.563, 20.64] },
+      { key: 'Bóbr', ne: 'Bóbr', mouth: [52.05, 15.1] },
+    ],
+    checks: [
+      { name: 'Warszawa', lat: 52.23, lon: 21.012, id: 'MZ' },
+      { name: 'Kraków', lat: 50.065, lon: 19.945, id: 'MA' },
+      { name: 'Wrocław', lat: 51.108, lon: 17.038, id: 'DS' },
+      { name: 'Gdańsk', lat: 54.352, lon: 18.646, id: 'PM' },
+      { name: 'Szczecin', lat: 53.428, lon: 14.553, id: 'ZP' },
+      { name: 'Bydgoszcz', lat: 53.123, lon: 18.008, id: 'KP' },
+      { name: 'Toruń', lat: 53.01, lon: 18.605, id: 'KP' },
+      { name: 'Zielona Góra', lat: 51.936, lon: 15.506, id: 'LB' },
+      { name: 'Gorzów Wielkopolski', lat: 52.737, lon: 15.229, id: 'LB' },
+      { name: 'Katowice', lat: 50.264, lon: 19.024, id: 'SL' },
+    ],
+  },
 };
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');

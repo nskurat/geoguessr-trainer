@@ -85,6 +85,11 @@ blocked and are checked against the official-orthography Hunspell dictionary
 | France, Peru | Францыя; Перу (indeclinable, neuter: «Усё Перу») | be.wikipedia «Перу» |
 | Germany | Германія (fem.: «Уся Германія») | Hunspell be-official (LibreOffice/dictionaries): Германія |
 | German state (Land) | зямля, мн. землі, Р. мн. зямель | Hunspell be-official: зямля, зямель (земляў is rejected); feminine, unlike рэгіён (the `{term}` strings Germany uses agree) |
+| Poland | Польшча (fem.: «Уся Польшча») | Hunspell be-official: Польшча |
+| voivodeship | ваяводства (н.), мн. ваяводствы, Р. мн. ваяводстваў | Hunspell be-official: ваяводства, ваяводствы, and the -ў genitive ending (ваяводстваў); neuter, so the nominative serves as the accusative in `{term}` strings |
+| seat (of a voivodeship) | цэнтр | usage for administrative centres, as in «адміністрацыйны цэнтр» above |
+| plates start with | нумарныя знакі пачынаюцца з | own wording; нумарны знак is the Belarusian term for a licence plate (spelling only, web blocked) |
+| NUTS-1 macro-regions of Poland | макрарэгіёны NUTS-1; Polish names kept (Centralny, Wschodni…) | Polish names stay as place names |
 | Baltic Sea, Black Sea | Балтыйскае мора, Чорнае мора | Hunspell be-official (spelling only; article titles not re-checked, web blocked) |
 | German regions (Altbayern, Ostfriesland, Pfalz, Harz…) | kept in German, like place names | no checkable Belarusian forms (not in the dictionary, web blocked) |
 
