@@ -30,7 +30,10 @@ plain words.
 6. **Verify facts against sources** your environment can reach (Wikipedia, slounik.org /
    skarnik.by for Belarusian, GeoNames, Natural Earth). Agents often work behind a firewall
    and fill gaps from memory; check what their RESEARCH.md marks L/M.
-7. **Common data mistakes seen so far**: `lengthIsTotal` set on domestic rivers (only rivers
+7. **Check licences** against `docs/licensing.md` for every new data source, asset, image,
+   font or npm dependency: allowed licence, recorded in RESEARCH.md, credited in every
+   `copy.<lang>.ts`, and no text or images copied from guides.
+8. **Common data mistakes seen so far**: `lengthIsTotal` set on domestic rivers (only rivers
    that leave the country); a label of an enclosing unit sitting on the enclosed one (use
    `departmentLabelOffsets`, e.g. Brandenburg/Berlin); Belarusian numeral forms (5 зямель, not
    земляў: check the grammar dictionary); copy that mentions a set the country does not offer.
