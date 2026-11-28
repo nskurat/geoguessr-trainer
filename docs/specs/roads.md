@@ -110,10 +110,15 @@ for a small country):
 | 2 | Regional: two-digit A, Peru transversals | 300 km | 200 km |
 | 3 | Minor (later): B roads, French N | 120 km | 80 km |
 
+Reachability: today the map zooms in to at most the full width ÷ 14 (`zoomAt` in
+`trainer.ts`), which is ≈ 80 km for Peru and would leave class-3 shields out of reach. The
+Roads set raises that cap to the full width ÷ 28, and every threshold is clamped to at least
+1.5× the narrowest reachable view, so each class and its shields can always be reached.
+
 At the full view the card says "Zoom in to see roads" next to the zoom buttons' hint; the
 first zoom step on Germany (about 640 km wide) already shows class 1. A class fades in over
-150 ms (none under `prefers-reduced-motion`). The **selected road is always drawn**,
-whatever the zoom, with its shields.
+150 ms (none under `prefers-reduced-motion`). In Learn, the **selected road is always
+drawn**, whatever the zoom, with its shields. Practice has no selection (§3).
 
 ### Look
 
@@ -147,8 +152,9 @@ city label or another shield. Towns on the selected road are drawn as river town
 
 Roads are a few hundred paths at most (Germany's 66 A routes are ≈ 7 KB gzip at 1 km
 tolerance, §4). Draw each road once as one path per part inside one `<g>` per class and
-toggle the group's `display` on zoom; no re-render on pan. Shield placement runs after a
-zoom ends (debounced, ~100 ms) on projected points cached in map units. A finer geometry
+toggle the group's `display` on zoom; lines are never re-rendered on pan. Shield placement
+re-runs when a zoom or pan settles (debounced, ~100 ms) on projected points cached in map
+units, only for roads intersecting the view. A finer geometry
 file loads lazily the first time the view is narrower than 150 km (§4).
 
 ### Wireframes
@@ -221,11 +227,15 @@ time limit (not the trainer's tone).
 
 1. The prompt shows the target as a shield (`A 7`), no endpoints. The map starts at the
    full country view (or the Area scope) with **no road numbers** anywhere; roads appear by
-   class as the player zooms (§2 thresholds), all drawn alike, unlabelled.
+   class as the player zooms (§2 thresholds), all drawn alike, unlabelled. Practice hides
+   the Road picker and clears the Learn selection (no road is pre-drawn or highlighted);
+   only the Road class and Area filters remain, and the hover tooltip is off.
 2. The player pans and zooms. A tap counts only when it is **within the screen tolerance
    of a visible road**: 12 px for a mouse, 20 px for a coarse pointer (a 40 px band, the
-   tap-target minimum). The road nearest to the tap point wins; if the target is within
-   tolerance at all, it counts as a hit (concurrent or crossing roads favour the player).
+   tap-target minimum). The road **nearest** to the tap point is the answer. Only where the
+   target is within 3 px of that nearest distance (a shared, concurrent section or the very
+   point of a crossing) does the target win; a tap that is clearly on another road at a
+   junction is that other road.
 3. **Neutral taps** cost no attempt: a tap with no road in tolerance ("Tap on a road"), or
    a tap while the target's class is not yet drawn ("Zoom in — roads appear as you zoom").
    A drag or pinch never answers.
@@ -246,6 +256,45 @@ and offers four or five numbers. Distractors are **genuinely confusable**: same 
 nearby (shares a region or runs parallel within ~100 km), plus a same-band number (A 45 for
 A 44; PE-28A for PE-26), never random. Keys 1–5 pick, as today; the reveal shows the right
 shield on the road. This is also the accessible kind (below).
+
+### Practice wireframes
+
+Desktop, 1280 px, find, after the second miss (hint shown):
+
+```text
+ [Macro-regions][States][Cities][Rivers][Name endings][Roads]
+ [Learn | Practice]  Kind [Search and click | Which road?]  Class [All v]  Area [All v]
+ +--------------------------------------------+  +---------------------------+
+ |   ══════════════════╬═════════             |  | PRACTICE · 4 / 20         |
+ |                     ║      ┌ ─ ─ ─ ─ ┐     |  | Find the  [A 7]           |
+ |   ═══════╳══════════╬═════ │ Hesse   │     |  | ✗ That's the A 5.         |
+ |       (red flash: [A 5])   └ ─ ─ ─ ─ ┘     |  | Hint: it crosses Hesse    |
+ |                     ║   (pulsing outline)  |  |   and Bavaria.            |
+ |                     ║                [+]   |  | 1 try left                |
+ |                                      [−]   |  | [Skip]                    |
+ |                                      [⤢]   |  +---------------------------+
+ +--------------------------------------------+
+```
+
+Phone, 390 px, dark, name: the prompt is scrolled into view, map then choices.
+
+```text
+ +------------------------------+
+ | Which road is this?   7 / 20 |
+ +------------------------------+
+ |      ═══════════             |
+ |   (highlighted road, --hl)   |
+ |              ═════════   [+] |
+ |                          [−] |
+ +------------------------------+
+ [1  A 4 ] [2  A 44] [3  A 45]
+ [4  A 5 ] 
+ ✓ A 45 — Dortmund – Aschaffenburg (shown on the road after the answer)
+```
+
+Reveal after the third miss in find: the map zooms to the target, which blinks with its
+shields, the card says "Here is the A 7 — tap it to continue" and Next / Enter also continues.
+Round done, no due items, loading and a country without roads follow the existing states.
 
 ### Later kinds (not in the pilot)
 
@@ -291,40 +340,50 @@ export type ShieldStyle = 'blue' | 'red' | 'yellow' | 'green' | 'white';
 export interface RoadNetwork {
   id: string;            // "A", "PE" — data id, not shown
   shield: ShieldStyle;   // generic style, real-world colour of the sign
+  label: string;         // source language (English): "Autobahn"
+  sign: string;          // "Blue shield, white number"
 }
 export interface Road {
   id: string;            // stable, e.g. "a7"; progress key road|a7
   network: string;       // RoadNetwork.id
   ref: string;           // as signed: "A 7", "PE-1N"; never translated
   class: RoadClass;
-  course: LatLon[][];    // parts, each ordered from the start terminus
+  from: string;          // RoadData.towns id of the start terminus (may be a border town)
+  to: string;            // … of the end terminus
+  course: LatLon[][];    // parts, each ordered from `from` towards `to`
   towns: string[];       // RoadData.towns ids, in order along the road
   codes: string[];       // departments it crosses (hints, Area scope)
   lengthKm?: number;     // sourced; whole route
+  name?: string;         // nickname in English, e.g. "Carretera Central"
+  rule?: string;         // numbering note in English, e.g. "Odd: north–south"
 }
 export interface RoadData { networks: RoadNetwork[]; roads: Road[]; towns: RoadTown[] }
 // RoadTown = RiverTown's shape (id, name, lat, lon); a town may sit on several roads.
 
 // Country gets `roads?: RoadData` (required when `sets` includes 'road').
-// CountryCopy.data gets:
-//   roadNetworks?: Record<networkId, { label: string; sign: string }>  // "Autobahn", "blue shield, white number"
-//   roadClasses?: Record<RoadClass, string>                              // "trunk", "regional"
-//   roads?: Record<roadId, { name?: string; rule?: string }>             // optional nickname, numbering note
+// As for rivers (`flowsInto` in rivers.json, translated in `copy.data.rivers`), the English
+// text lives in the data and every other language translates it by id in CountryCopy.data:
+//   roadNetworks?: Record<networkId, { label: string; sign: string }>
+//   roads?: Record<roadId, { name?: string; rule?: string }>
+// Class names ("trunk", "regional", "minor") are generic interface terms: `t()` keys in
+// i18n/en.ts and be.ts, not country copy.
 ```
 
 Zod and `validateCountry` additions: unique ids without `|`; `network` exists; `ref`
 non-empty and unique within the country; each course part ≥ 2 distinct finite points inside
-the country's bounding box (with a small margin); `towns` and `codes` reference existing ids;
+the country's bounding box (with a small margin); `from`, `to`, `towns` and `codes`
+reference existing ids, and `from` / `to` lie within a few km of the course ends;
 every road's class is drawn by some threshold; `sets` containing `road` requires `roads`
-with at least five roads per offered class (enough distractors); copy for every network,
-class and road text in every language (the existing "missing translation" rule).
+with at least five roads per offered class (enough distractors); copy for every network
+and road text in every non-source language (the existing "missing translation" rule).
 Unit-tested pure services: `roadVisibility(viewWidthKm, zoomRatio) → classes`,
 `nearestRoad(point, roads, toleranceMapUnits) → { id, distance }[]` (polyline distance with a
 bounding-box prefilter; concurrent sections return all ids), `placeShields(...)`
 (deterministic, collision-free), and road distractors with an injectable rng.
 
 Settings: `roadClass` and `road` (picker, like `river`) join `Settings`, normalised when the
-country lacks roads or the saved id is gone. Progress: `road|<id>` under the existing key; a
+country lacks roads or the saved id is gone; entering Roads also normalises a saved `town`
+or `dot` kind to `find`, like the existing guard for sets without town questions. Progress: `road|<id>` under the existing key; a
 road whose number changes gets a **new id** (old records stay harmless), as visual-meta does.
 
 ### Sources and licensing
@@ -339,6 +398,20 @@ country's `ne_10m_admin_0_countries` polygon (metropolitan France only), lengths
 | Peru | ≈ 10,100 km | **none** | Geometry of the main network only, no numbers at all. |
 | Poland | ≈ 14,300 km | 9 A refs | A1/A2/A4 partly; no DK numbers. |
 | Guatemala | ≈ 1,600 km | CA-1, 2, 9, 13 (as bare numbers) | Sparse. |
+
+Route-level check of Germany's trunk (NE length tagged with the number versus the route's
+length per Wikipedia, M; NE lengths are approximate and include parallel carriageways in
+places):
+
+| Route | A1 | A2 | A3 | A4 | A5 | A6 | A7 | A8 | A9 |
+|---|---|---|---|---|---|---|---|---|---|
+| NE tagged, km | 681 | 523 | 509 | 238 | 379 | 442 | 754 | 506 | 175 |
+| Route, km | ≈ 750 | ≈ 490 | ≈ 770 | ≈ 600 (two parts) | ≈ 445 | ≈ 480 | ≈ 960 | ≈ 500 | ≈ 530 |
+
+So A3, A4 and A9 need their untagged NE segments assigned by hand, and every route needs the
+gap report of step 3 (§6) before the pilot's scope is final. For Peru the whole numbering is
+hand work; the gap report must show each kept route as continuous NE geometry or name the
+stretch to draw through towns.
 
 NE's roads layer is old (its European features carry version 1.x edit notes) and coarse, but its
 geometry is good enough to *read* as the road at our zooms, and the licence is ideal.
@@ -467,6 +540,6 @@ attempts and hint.
 7. **Peru department route prefixes** (AR-, CU-…): worth a backlog drill like France's plate
    numbers, once the full list is verified?
 8. **Neutral taps** (no road in reach, or zoomed out too far) cost no attempt — agreed?
-9. **Locator:** beside the country picker, decorative, no click (recommended) — or should
+9. **Locator:** beside the country picker, informative image, no click (recommended) — or should
    clicking it open a larger map / the country picker?
 10. **Km-marker kinds** (Peru PE-1 "km → place", Guatemala later): worth a follow-up spec?
