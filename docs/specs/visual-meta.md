@@ -28,7 +28,7 @@ variable, needs local verification; L = hypothesis, do not quiz yet.
 |---|---|---|---|---|
 | Zones: relief, climate, vegetation, crops, soil | Mediterranean vegetation in the south (H); Alpine relief in the southeast (H) | Coastal desert, Andes and eastern forest (H); local crops/red soil (M) | Northern plain, central uplands, Alps in the south (H) | Broad, repeated cues are better than a single crop or soil colour. Compare a geographic/ecological source and independent, dated road-level observations across the zone and its edges. Seasons, irrigation and altitude change appearances. Sources: [France geography](https://en.wikipedia.org/wiki/Geography_of_France), [Peru geography](https://en.wikipedia.org/wiki/Geography_of_Peru), [Germany geography](https://en.wikipedia.org/wiki/Geography_of_Germany), plus the country player guides below. |
 | Zones: architecture / languages | Breton bilingual signs in Brittany (M); southern building styles (L) | Titicaca-area brick / blue glass (M) | Northern brick, southern Alpine buildings; Sorbian/Danish signs (L in existing research) | Styles travel and signs are local, not exclusive. Establish distribution and counterexamples from cultural/language sources and multiple dated observations; show “often”, never a guarantee. Sources: [France guide](https://www.plonkit.net/france), [Peru research](../../trainer-app/src/data/peru/RESEARCH.md), [Germany research §1, §7](../../trainer-app/src/data/germany/RESEARCH.md). |
-| Point/line: landmarks, roads, coverage | Alpine peaks or motorway route markers (M) | Southern volcanoes, numbered highways / kilometre markers and Iquitos coverage island (M) | Alpine landmarks, Autobahn routes / markers (M) | A landmark has a position and a visibility range, not a zone; a road number is meaningful only along its actual route and km numbering system. Use official road/volcano inventories plus a second map and dated road observations. Coverage is time-dependent and is not a land-use polygon: verify current official coverage and distinguish car, trekker and gaps; never infer that Iquitos is the only island. Sources: [Peru research §1, §8](../../trainer-app/src/data/peru/RESEARCH.md), [France](https://www.plonkit.net/france), [Peru](https://www.plonkit.net/peru), [Germany](https://www.plonkit.net/germany) player guides. |
+| Point/line: landmarks, roads, coverage | Alpine peaks or motorway route markers (M) | Southern volcanoes, numbered highways / kilometre markers and Iquitos coverage island (M) | Alpine landmarks, Autobahn routes / markers (M) | A landmark has a position and a visibility range, not a zone; a road number is meaningful only along its actual route and km numbering system. Roads, road numbers and km markers are specified in [roads.md](roads.md). For landmarks, use an official inventory (e.g. a volcano catalogue) plus a second allowed source, never a commercial map, and dated road observations. Coverage is time-dependent and is not a land-use polygon: distinguish car, trekker and gaps, and never infer that Iquitos is the only island. **Coverage geometry is never derived from Google's coverage overlay or screenshots** (`docs/licensing.md`): record coverage as dated text facts or as points on GeoNames towns, with the observation sources in `RESEARCH.md`. Sources: [Peru research §1, §8](../../trainer-app/src/data/peru/RESEARCH.md), [France](https://www.plonkit.net/france), [Peru](https://www.plonkit.net/peru), [Germany](https://www.plonkit.net/germany) player guides. |
 | Per-unit facts: road furniture, poles, plates | Département number on some plates (M); selectable and often blurred, not proof of location | Moquegua bollard and pole stickers (M) | Bollard variants (L); Kreis plate codes are finer than Länder | Attach only if a cue is demonstrably associated with the whole unit or explicitly says “seen in / common in”, with all acceptable units and exceptions recorded. Verify with a road authority/operator or registry and repeated dated player observations. Peru's bollard uniqueness and stickers require re-checking; Germany's coarse Länder are unsuitable for Kreis codes. [Peru research §1, §8](../../trainer-app/src/data/peru/RESEARCH.md); [Germany research §7](../../trainer-app/src/data/germany/RESEARCH.md); [France guide](https://www.plonkit.net/france). |
 | Country-wide identifiers | French plate format (H) | Peruvian plate format (H); see `data/peru/RESEARCH.md` §4 | Common black-and-white bollards (M) | Useful for identifying a country, not locating within it. Keep at most a short, sourced country tip; **no regional study set** unless a verified variant splits the country. Similar designs exist elsewhere; a national standard does not imply local exclusivity. [France](https://www.plonkit.net/france), [Peru](https://www.plonkit.net/peru), [Germany](https://www.plonkit.net/germany) player guides. |
 
@@ -36,7 +36,11 @@ Use the [Peru research](../../trainer-app/src/data/peru/RESEARCH.md) as a starti
 point, not a licence to copy guide images. The [Germany research](../../trainer-app/src/data/germany/RESEARCH.md)
 marks several cues low confidence; its coverage statements are historical, so check
 again before publishing. A guide establishes player relevance, not independent
-proof of geography. Record source URL, date/version, confidence, observations and
+proof of geography. Guides and Wikipedia are references for facts only: write cues in our
+own words, and do not reproduce a guide's curated selection or table of cues, its images or
+its maps. A complete official list (e.g. all Kreis plate codes) may match Wikipedia entry for
+entry if the primary source (registry or decree) is cited; a curated subset may not be
+copied (`docs/licensing.md`, "Facts versus expression"). Record source URL, date/version, confidence, observations and
 counterexamples with each proposed fact; seek two independent sources. Skip facts
 whose geographic extent, visibility or answer cannot be defended. Coverage
 weighting affects which examples are asked, not the shape of the landscape.
@@ -59,8 +63,9 @@ borders. Reject a photo-only flashcard deck: it loses the spatial relationship.
   name, defining visual cues, exceptions, example illustration and attribution.
   At overlaps offer a list of matching zones rather than silently selecting one.
   Unmapped areas say “not mapped”, never “no vegetation”.
-- **Points/lines:** later, add markers/route strokes and a legend alongside the
-  base map. Select a point or line to see the fact, visibility or route limits and
+- **Points/lines:** later, add markers and a legend alongside the base map. Roads,
+  road numbers and km markers belong to [roads.md](roads.md); reuse its `nearestRoad`
+  hit-testing for any line layer here. Select a point or line to see the fact, visibility or route limits and
   date. Coverage is an explicitly dated, separately toggled contextual layer, not a
   claim that the rest is permanently inaccessible.
 - **Per-unit facts:** select a department, then see a “visual clues” card with
@@ -75,16 +80,17 @@ borders. Reject a photo-only flashcard deck: it loses the spatial relationship.
   drawings and diagrams. Verify the licence and provenance of each individual
   Wikimedia Commons file; Commons is not itself a licence.
 - Never use Google Street View or Google Maps imagery, including screenshots;
-  also exclude NC, ND and images without a clear licence. CC BY-SA is excluded
-  by default because it adds share-alike terms: if an important signal has only
-  BY-SA images, ask the owner before using one. Do not scrape guide imagery.
+  also exclude NC, ND and images without a clear licence. CC BY-SA, GFDL and
+  fair-use files are excluded (Owner decision 7): such a signal gets our own drawing
+  and a link to the source. Do not scrape guide imagery.
   Link to evidence separately where permitted.
 - Show an accessible credit beside each image in Learn and Practice: author,
   linked source, licence and licence link, plus a modification notice where
   applicable. Include the same per-image attribution in the country's footer
   credits, alongside existing outline and GeoNames credits; keep it readable and
-  reachable on mobile and in both languages. Avoid revealing the answer in the
-  visible credit label during a question; retain the linked source and full credit.
+  reachable on mobile and in both languages. During a question, author and licence
+  stay beside the image; only a title or caption that would reveal the place is
+  withheld until the answer.
 - Bundle drawings locally, lazily with the selected country's layer; no remote image
   requests or trackers. Initial budget: ≤ 150 KB compressed total for pilot images,
   ≤ 50 KB per asset, including alternatives; optimize and measure the production
@@ -191,8 +197,8 @@ interface VisualLayer {
 }
 interface VisualImage {
   id: string; path: string;
-  source: string; author: string; sourceUrl?: string;
-  licence: 'public-domain' | 'CC0-1.0' | 'CC-BY-4.0' | 'MIT';
+  source: string; author: string; url?: string;  // field names as in docs/licensing.md
+  licence: 'public-domain' | 'CC0-1.0' | 'CC-BY-2.0' | 'CC-BY-3.0' | 'CC-BY-4.0' | 'MIT';
   licenceUrl?: string; changes: string; // or explicit “none”
 }
 ```
@@ -261,10 +267,19 @@ prompts must not advance one record multiple times for the same attempt.
 
 | Candidate | Use and licence gate |
 |---|---|
-| [Natural Earth](https://www.naturalearthdata.com/about/terms-of-use/) | Public-domain vector/raster base data; useful for country outline and physical context, **not automatically a costa/sierra/selva classification**. Preserve existing outline attribution requirements. |
-| [WWF terrestrial ecoregions](https://www.worldwildlife.org/publications/terrestrial-ecoregions-of-the-world/) | Ecologically grounded candidates, often much finer than player-friendly zones; check the exact downloadable dataset, version, licence and attribution before reuse. Do not assume the website or every derived copy is public domain. |
-| [Köppen–Geiger climate maps](https://www.nature.com/articles/sdata2018214) | Climate classes can inform a layer, but climate is not the same as what a player sees from a road. Verify the exact data release's licence, resolution and period before conversion; cite the paper and data. |
+| [Natural Earth](https://www.naturalearthdata.com/about/terms-of-use/) | Public-domain vector/raster base data; useful for country outline and physical context, **not automatically a costa/sierra/selva classification**. Its physical layers (e.g. `geography_regions_polys`, elevation points) are candidates to check. Credit is good practice, not a requirement (the required outline credit is France's `@svg-maps` one). |
+| [WWF terrestrial ecoregions](https://www.worldwildlife.org/publications/terrestrial-ecoregions-of-the-world/) | Ecologically grounded candidates, often much finer than player-friendly zones; check the exact downloadable dataset, version, licence and attribution before reuse. Do not assume the website or every derived copy is public domain. **Excluded until checked** (see the licence test below). |
+| [Köppen–Geiger climate maps](https://www.nature.com/articles/sdata2018214) | Climate classes can inform a layer, but climate is not the same as what a player sees from a road. Verify the exact data release's licence, resolution and period before conversion; cite the paper and data. Excluded until checked. |
+| Elevation (USGS SRTM / GMTED2010) | Believed public domain (verify): an altitude band can inform a sierra boundary. |
+| Land cover (ESA WorldCover) | Believed CC BY 4.0 (verify): credit in every `copy.<lang>.ts` if used. |
+| Volcanoes and other landmarks | Coordinates are facts: enter them by hand from an official catalogue (e.g. INGEMMET, the Smithsonian Global Volcanism Program) and cite it; do not bundle their datasets until their licence is known. |
+| OpenStreetMap (ODbL) | **Roads only**, under [roads.md](roads.md) and the policy's OSM section (separate `*.osm.json`, credit in every language, extract recorded). Land use, `natural=volcano` / peaks and places are not covered: owner decision 2026-11-28, not for now; use the alternatives above, and ask again only if the pilot cannot be done without it. If ever approved, they also go in separate `*.osm.json` files. |
 | Hand-drawn simplified zones | Recommended pilot: original approximation informed by multiple independently checked geographic sources and road observations, with documented methodology and reviewer sign-off. Do not trace an unlicensed map or present fuzzy transitions as surveyed borders. Choose and record a licence for original geometry and drawings. |
+
+**Licence test for any third-party dataset:** usable only if the exact release is public
+domain, CC0 or CC BY (any version); NC, ND, share-alike or no clear licence means excluded.
+Record URL, version, licence and date checked in `RESEARCH.md`; for CC BY add the credit to
+every `copy.<lang>.ts`.
 
 Simplify at a documented tolerance, retain islands/holes as needed, and visually
 check against the base map. Check source terms for derivatives, attribution and
@@ -329,3 +344,6 @@ wireframe is a pixel-perfect rendering.
    (bollards and similar), so the set menu does not grow with every signal.
 7. **CC BY-SA images:** no exception. A signal whose only images are BY-SA stays image-free,
    with our own drawing and a link to the source (`docs/licensing.md`).
+8. **Licensing review (2026-11-28, after the OSM road exception):** CC BY images and data of
+   any version are allowed with credit; OpenStreetMap beyond roads (land use, volcanoes,
+   places) is not used for now, in favour of public-domain or CC BY alternatives (§4).

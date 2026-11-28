@@ -11,7 +11,7 @@ the owner on the issue or PR.
 | Licence | Use | Obligation |
 |---|---|---|
 | Public domain, CC0 | Freely (e.g. Natural Earth) | Credit anyway as good practice |
-| CC BY 4.0 | Data, outlines, images (e.g. GeoNames, `@svg-maps`) | Credit line in the footer credits (`copy.<lang>.ts` `credits`) and, for images, beside the image |
+| CC BY (any version; mostly 4.0) | Data, outlines, images (e.g. GeoNames, `@svg-maps`) | Credit line in the footer credits (`copy.<lang>.ts` `credits`) and, for images, beside the image |
 | MIT, ISC, BSD, Apache-2.0 | npm packages and assets | Keep the copyright and licence notice with the asset |
 | OFL (SIL Open Font License) | Fonts | Keep the font's licence notice |
 | Our own work | Hand-drawn zones, drawings, research notes | Record the author and source in the country's `RESEARCH.md` |
