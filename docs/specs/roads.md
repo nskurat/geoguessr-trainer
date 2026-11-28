@@ -1,6 +1,7 @@
 # Road numbers and a country locator map
 
-**Status:** draft for the owner's review; not an implementation or approved data.
+**Status:** approved by the owner on 2026-11-28 (see "Owner decisions" at the end; decision 2
+reshaped §2 and §3 into pattern-based search); not an implementation or approved data.
 GeoGuessr-pro owns which roads are worth drilling and the evidence; UX-expert owns the
 map layer, the practice interaction and the locator. Same shape and rules as the approved
 [visual meta spec](visual-meta.md), which already lists "motorway route markers" and
@@ -94,22 +95,24 @@ sourced (§3, later kinds).
 ## 2. Learn: a zoom-dependent road layer
 
 **Decision:** a new study set **Roads** (`road`), offered only by countries whose data has
-roads. In it the map shows roads by class as you zoom, like a road atlas: none at the full
-country view, motorway-class roads first, smaller classes deeper. The land is drawn in plain
+roads. In it the map shows roads by class as you zoom, like a road atlas: **class 1 is already drawn at the full
+country view** (owner decision 2: the skill is scanning the network and reading its pattern),
+smaller classes appear deeper. The land is drawn in plain
 `--land` (no region hues) so the roads, not the regions, carry colour. Rejected: an overlay
-toggle on every set (clutter, a new toolbar control; kept as a later idea), and showing all
-roads at the full view (no search left for Practice, unreadable on a phone).
+toggle on every set (clutter, a new toolbar control; kept as a later idea), and showing every
+class at the full view (unreadable on a phone).
 
 ### Zoom thresholds
 
 Thresholds are in **visible map width in km** (from the projection), so they mean the same
 on every country and screen; a class is drawn when the view is narrower than its threshold
-*and* zoomed at least 1.3× past the full country view (so nothing shows at full view, even
-for a small country):
+*and*, for classes 2 and 3, zoomed at least 1.3× past the full country view. **Class 1 is
+always drawn, with shields at the full view** (fewer, by the placement rule below), because
+pattern search needs the trunk network in sight:
 
 | Class | Meaning (per country data) | Drawn when view width ≤ | Shields when ≤ |
 |---|---|---|---|
-| 1 | Trunk: A1–A9, French Paris radials, PE-1/3/5 | 700 km | 450 km |
+| 1 | Trunk: A1–A9, French Paris radials, PE-1/3/5 | always | always (placement-limited) |
 | 2 | Regional: two-digit A, Peru transversals | 300 km | 200 km |
 | 3 | Minor (later): B roads, French N | 120 km | 80 km |
 
@@ -118,8 +121,8 @@ Reachability: today the map zooms in to at most the full width ÷ 14 (`zoomAt` i
 Roads set raises that cap to the full width ÷ 28, and every threshold is clamped to at least
 1.5× the narrowest reachable view, so each class and its shields can always be reached.
 
-At the full view the card says "Zoom in to see roads" next to the zoom buttons' hint; the
-first zoom step on Germany (about 640 km wide) already shows class 1. A class fades in over
+At the full view the card says "Zoom in for regional roads" next to the zoom buttons' hint;
+class 1 is visible from the start. A class fades in over
 150 ms (none under `prefers-reduced-motion`). In Learn, the **selected road is always
 drawn**, whatever the zoom, with its shields. Practice has no selection (§3).
 
@@ -144,9 +147,11 @@ city label or another shield. Towns on the selected road are drawn as river town
 - **Tap or click a road** (screen tolerance §3) to select it. Hover on desktop shows a
   tooltip "A 7 · Flensburg – Füssen". Drag never selects.
 - **Info card** (side panel, below the map on phones): shield and number, the network label
-  and its sign description ("blue shield, white number"), endpoints, towns along it in
-  order (the river-card pattern), length, regions it crosses, and the numbering rule that
-  applies ("odd: north–south; two digits 4x: Rhine-Ruhr to Frankfurt"). Card text comes
+  and its sign description ("blue shield, white number"), the numbering rule that applies
+  first ("odd: north–south; two digits 4x: Rhine-Ruhr to Frankfurt"), its **neighbours in the
+  pattern** ("between the A 5 and the A 9; crosses the A 2 and the A 4"), then endpoints,
+  towns along it in order (the river-card pattern), length and regions crossed. The point is
+  to learn where a road sits *relative to the others and to the rule*, not its exact course. Card text comes
   from data and `copy`, never literals.
 - The Area filter is hidden for Roads in Learn (roads cross areas); the `labels` setting
   `off` hides shields, `auto` follows the table above.
@@ -226,13 +231,24 @@ rounds and Leitner need no new machinery: **find** labelled "Search and click"
 Rejected: a list of numbers to pick from for find (gives the answer away), and a
 time limit (not the trainer's tone).
 
+**What find trains (owner decision 2, geoguessr-pro view).** On Street View a player sees a
+shield ("A 7") and needs, within seconds, a rough position: *odd, so north–south; between
+the A 5 and the A 9, so through the middle of the country*. Pros do not memorise courses;
+they read the numbering rule against the roads they already know. So find is a **scanning
+exercise on a labelled network**: the trunk roads are visible with their numbers, and the
+player locates the target from its neighbours and the rule. It is not a memory test of
+where a line runs on a blank map.
+
 ### Find: "Find the A 7"
 
 1. The prompt shows the target as a shield (`A 7`), no endpoints. The map starts at the
-   full country view (or the Area scope) with **no road numbers** anywhere; roads appear by
-   class as the player zooms (§2 thresholds), all drawn alike, unlabelled. Practice hides
-   the Road picker and clears the Learn selection (no road is pre-drawn or highlighted);
-   only the Road class and Area filters remain, and the hover tooltip is off.
+   full country view (or the Area scope) with the network drawn as in Learn (§2): class 1
+   at once, deeper classes as the player zooms, **with shields on the other roads**.
+   **Unlabelled:** the target and 3–5 **decoys**, chosen like the name kind's distractors
+   (same class, nearby or parallel, same-band numbers), so the target can't be found by
+   elimination ("the only road without a shield"). Decoys and target are drawn exactly
+   alike. Practice hides the Road picker and clears the Learn selection; only the Road
+   class and Area filters remain, and the hover tooltip is off.
 2. The player pans and zooms. A tap counts only when it is **within the screen tolerance
    of a visible road**: 12 px for a mouse, 20 px for a coarse pointer (a 40 px band, the
    tap-target minimum). The road **nearest** to the tap point is the answer. Only where the
@@ -244,13 +260,19 @@ time limit (not the trainer's tone).
    A drag or pinch never answers.
 4. **Wrong road:** the tapped road flashes `--red` for 650 ms with its own shield and the
    line "That's the A 5", so a miss still teaches. Three attempts, as today.
-5. **Hint after the second miss:** the regions the target crosses pulse once in `--hl`
-   outline and the prompt adds "It crosses Hesse and Bavaria". No hint after the first miss
-   (the wrong road's number is already information).
+5. **Hint after the second miss: the pattern, not the place.** The prompt states the rule
+   and the neighbours from data, e.g. "Odd numbers run north–south; the A 7 lies between the
+   A 5 and the A 9", and the two neighbour roads pulse once in `--hl`. Only for a road with
+   no usable rule (e.g. a Peru transversal) does the hint fall back to the regions it
+   crosses. No hint after the first miss (the wrong road's number is already information).
 6. **After the third miss:** the map zooms to the target, which blinks with its shields;
    the player taps it (or presses Enter / "Next") to continue — the existing reveal rule.
 7. Outcome: 0 right first try, 1 second, 2 third, 3 revealed — the existing `Outcome`, so
    scoring, round summary and Leitner boxes are unchanged. Auto-advance timings as today.
+8. **Speed is shown, not graded** in the pilot: the time to the right tap appears in the
+   feedback ("Found in 4 s") and the round summary gives the median, so the player can see
+   the scan getting faster. Whether a slow first-try find should count as outcome 1 is left
+   for after the pilot (a pure-service change in `scoring`, with rng/time injected).
 
 ### Name: "Which road is this?"
 
@@ -268,12 +290,12 @@ Desktop, 1280 px, find, after the second miss (hint shown):
  [Macro-regions][States][Cities][Rivers][Name endings][Roads]
  [Learn | Practice]  Kind [Search and click | Which road?]  Class [All v]  Area [All v]
  +--------------------------------------------+  +---------------------------+
- |   ══════════════════╬═════════             |  | PRACTICE · 4 / 20         |
- |                     ║      ┌ ─ ─ ─ ─ ┐     |  | Find the  [A 7]           |
- |   ═══════╳══════════╬═════ │ Hesse   │     |  | ✗ That's the A 5.         |
- |       (red flash: [A 5])   └ ─ ─ ─ ─ ┘     |  | Hint: it crosses Hesse    |
- |                     ║   (pulsing outline)  |  |   and Bavaria.            |
- |                     ║                [+]   |  | 1 try left                |
+ |  [A 1]═══════[A 2]════╬═════════   [A 9]   |  | PRACTICE · 4 / 20         |
+ |      ║               ║          ║          |  | Find the  [A 7]           |
+ |   ═══╳═══[A 4]═══════╬═══════   ║ (pulse)  |  | ✗ That's the A 5.         |
+ |   (red flash: [A 5]) ║  (decoy) ║          |  | Hint: odd numbers run     |
+ |      ║ (pulse)       ║          ║          |  |  north–south; the A 7 is  |
+ |      ║               ║               [+]   |  |  between the A 5 and A 9. |
  |                                      [−]   |  |                           |
  |                                      [⤢]   |  +---------------------------+
  +--------------------------------------------+
@@ -298,6 +320,8 @@ Phone, 390 px, dark, name: the prompt is scrolled into view, map then choices.
 Reveal after the third miss in find: the map zooms to the target, which blinks with its
 shields, the card says "Here is the A 7 — tap it to continue" and Next / Enter also continues.
 Round done, no due items, loading and a country without roads follow the existing states.
+
+Unlabelled lines in the sketch are the target and decoys; every other road keeps its shield.
 
 ### Later kinds (not in the pilot)
 
@@ -593,20 +617,20 @@ line hit-testing service (`nearestRoad`) is generic and should serve visual-meta
 own `road` / `roadClass`; progress storage owns Leitner records; round state owns the target,
 attempts and hint.
 
-## Open questions for the owner
+## Owner decisions (2026-11-28)
 
-1. **Pilot:** Germany Autobahn classes 1–2 first (recommended), or France A roads as in your
-   example?
-2. **Search at full view:** roads hidden until you zoom in, also in Practice (recommended:
-   the search is the exercise), or class 1 visible at the full view in Learn?
-3. **France N roads:** Learn-only and limited to current long trunks, given the 2006 and 2023
-   transfers — agreed? D roads stay a tip.
-4. **Germany B roads:** out of the pilot; later as a Learn-only minor class from OSM?
-5. **Peru gaps:** where OSM lacks a PE route, may we hand-draw it through towns from the
-   MTC's route definitions? Should someone ask the MTC about the licence of its GIS layers?
-6. **Peru department route prefixes** (AR-, CU-…): worth a backlog drill like France's plate
-   numbers, once the full list is verified?
-7. **Neutral taps** (no road in reach, or zoomed out too far) cost no attempt — agreed?
-8. **Locator:** beside the country picker, informative image, no click (recommended) — or should
-   clicking it open a larger map / the country picker?
-9. **Km-marker kinds** (Peru PE-1 "km → place", Guatemala later): worth a follow-up spec?
+1. **Pilot:** Germany's Autobahns (classes 1–2) first, then France, then Peru.
+2. **Pattern search, not memorised courses.** The exercise is finding a road quickly by
+   scanning the network and remembering the numbering pattern, not learning where exactly it
+   runs. So class 1 is drawn with shields from the full view in Learn and Practice; find
+   hides the shields of the target and 3–5 confusable decoys only; the hint states the rule
+   and the neighbours; speed is shown, not graded (§2, §3).
+3. **France N roads:** Learn-only, limited to today's long trunk roads; D roads stay a tip.
+4. **Germany B roads:** out of the pilot; later a Learn-only minor class from OSM.
+5. **Peru gaps:** where OSM lacks a PE route, hand-draw it through towns from the MTC's
+   published route definitions (our own work from official facts). No need to contact the
+   MTC about its GIS licence while OSM covers most routes.
+6. **Peru department route prefixes** (AR-, CU-…): a backlog item, once the full list is verified.
+7. **Neutral taps** (no road in reach, or the target's class not drawn yet) cost no attempt.
+8. **Locator:** beside the country picker, an informative image, not clickable for now.
+9. **Km-marker kinds** (Peru PE-1, Guatemala later): a follow-up spec after the Germany pilot.
