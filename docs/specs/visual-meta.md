@@ -66,15 +66,24 @@ borders. Reject a photo-only flashcard deck: it loses the spatial relationship.
   drawings, qualifiers, other possible units and exceptions. Never repaint an
   entire department to imply a cue is exclusive. National identifiers belong in
   the country tip, not the map quiz.
-- Use original, clearly schematic **drawings** in the pilot (not copied from
-  Street View); they illustrate characteristic cues, not a real panorama. Include
-  text descriptions and identify drawings as such. Later, optional photos may be
-  more useful for image → place: use only individually cleared, appropriately
-  licensed images (e.g. Wikimedia Commons with per-file licence/author/source,
-  attribution and modification/share-alike requirements checked). Street View
-  screenshots generally cannot be redistributed; do not bundle them or scrape
-  guide imagery. Link to evidence separately where permitted. Do not promise that
-  all Commons files have the same licence.
+- Use original, clearly schematic **drawings** in the pilot; they illustrate
+  characteristic cues, not a real panorama. Include text descriptions and identify
+  drawings as such. Later, optional photos may be useful for image → place, but
+  all bundled images must follow the repository's MIT-compatible image policy:
+  public domain / CC0, CC BY 4.0 with attribution, MIT-licensed assets, or our own
+  drawings and diagrams. Verify the licence and provenance of each individual
+  Wikimedia Commons file; Commons is not itself a licence.
+- Never use Google Street View or Google Maps imagery, including screenshots;
+  also exclude NC, ND and images without a clear licence. CC BY-SA is excluded
+  by default because it adds share-alike terms: if an important signal has only
+  BY-SA images, ask the owner before using one. Do not scrape guide imagery.
+  Link to evidence separately where permitted.
+- Show an accessible credit beside each image in Learn and Practice: author,
+  linked source, licence and licence link, plus a modification notice where
+  applicable. Include the same per-image attribution in the country's footer
+  credits, alongside existing outline and GeoNames credits; keep it readable and
+  reachable on mobile and in both languages. Avoid revealing the answer in the
+  visible credit label during a question; retain the linked source and full credit.
 - Bundle drawings locally, lazily with the selected country's layer; no remote image
   requests or trackers. Initial budget: ≤ 150 KB compressed total for pilot images,
   ≤ 50 KB per asset, including alternatives; optimize and measure the production
@@ -180,15 +189,23 @@ interface VisualLayer {
   facts: VisualFact[];
 }
 interface VisualImage {
-  id: string; path: string; creator: string; sourceUrl: string;
-  licence: string; licenceUrl: string; changes: string; // or explicit “none”
+  id: string; path: string;
+  source: string; author: string; sourceUrl?: string;
+  licence: 'public-domain' | 'CC0-1.0' | 'CC-BY-4.0' | 'MIT';
+  licenceUrl?: string; changes: string; // or explicit “none”
 }
 ```
 
 `Country.visualLayers` and `Country.visualImages` are optional; localized
 `CountryCopy.data` supplies each layer/fact title, cue, uncertainty, image alt
 and attribution text for every language. Source-language text and ids live in
-country data; no new visible literals in the trainer. Geometry is geographic
+country data; no new visible literals in the trainer. For each image, record
+the original source, author, licence, source URL and licence URL, plus any
+modifications; preserve MIT copyright and licence notices with the asset. For
+our own drawings, record the repository as source, the author and the chosen
+MIT-compatible licence; a repository path may identify the source instead of an
+external URL. Use an explicit unknown-author designation only when the verified
+public-domain source itself does not identify an author. Geometry is geographic
 coordinates transformed with the **same country projection** as the outline,
 not SVG paths copied from another projection; France's fitted outline needs
 alignment checked. Areas may be multipart, have holes, overlap, leave gaps and
@@ -203,6 +220,13 @@ closed rings with ≥4 positions, valid holes/non-self-intersection and nonzero
 areas, line ≥2 distinct points, valid department/image references and appropriate
 geometry for each layer kind. Reject enabled sets without usable data, missing
 translations/credits/licences, invalid attribution paths or unsourced facts.
+For each image `npm run validate:data` must check the allowed licence enum,
+nonempty source, author and changes, valid source and licence URLs for external
+assets, a valid local path, and complete credit/alt text in each language.
+For repository-authored drawings, require the repository source path and chosen
+licence instead of external URLs. Reject missing or unsupported licences and
+missing required notices; automated checks cannot establish that a claimed
+licence is genuine, so a reviewer must verify provenance and rights before inclusion.
 Keep geometry/source checks in tooling as appropriate, with actionable errors;
 validation does not establish factual truth. Record source version, date,
 derivation/simplification and asset rights in country research.
@@ -297,3 +321,6 @@ wireframe is a pixel-perfect rendering.
    furniture fact eligible for practice, and how often should it be rechecked?
 6. Should visual facts later be additional sets or contextual cards in existing
    sets, once the Peru pilot has been evaluated?
+7. If an important signal has only CC BY-SA images, should the owner approve
+   an exception or keep that signal image-free? BY-SA remains excluded unless
+   the owner decides otherwise.
