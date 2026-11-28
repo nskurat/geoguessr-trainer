@@ -274,8 +274,199 @@ other sets do. Round size, due-first priority and miss requeues are the existing
 
 ## 4. Data model and sources
 
+### Types (proposal, not final API)
+
+Same pattern as rivers: metadata and towns in `roads.json`, generated geometry in
+`roadCourses.json`, merged in the country's `index.ts`. Nothing in the trainer names a
+country or a network; classes, shield styles and labels are data.
+
+```ts
+// types/trainer.ts
+export type StudySet = 'reg' | 'dep' | 'city' | 'riv' | 'tel' | 'nom' | 'road';
+
+// types/geo.ts
+export type RoadClass = 1 | 2 | 3;                  // 1 trunk, 2 regional, 3 minor (§2)
+export type ShieldStyle = 'blue' | 'red' | 'yellow' | 'green' | 'white';
+
+export interface RoadNetwork {
+  id: string;            // "A", "PE" — data id, not shown
+  shield: ShieldStyle;   // generic style, real-world colour of the sign
+}
+export interface Road {
+  id: string;            // stable, e.g. "a7"; progress key road|a7
+  network: string;       // RoadNetwork.id
+  ref: string;           // as signed: "A 7", "PE-1N"; never translated
+  class: RoadClass;
+  course: LatLon[][];    // parts, each ordered from the start terminus
+  towns: string[];       // RoadData.towns ids, in order along the road
+  codes: string[];       // departments it crosses (hints, Area scope)
+  lengthKm?: number;     // sourced; whole route
+}
+export interface RoadData { networks: RoadNetwork[]; roads: Road[]; towns: RoadTown[] }
+// RoadTown = RiverTown's shape (id, name, lat, lon); a town may sit on several roads.
+
+// Country gets `roads?: RoadData` (required when `sets` includes 'road').
+// CountryCopy.data gets:
+//   roadNetworks?: Record<networkId, { label: string; sign: string }>  // "Autobahn", "blue shield, white number"
+//   roadClasses?: Record<RoadClass, string>                              // "trunk", "regional"
+//   roads?: Record<roadId, { name?: string; rule?: string }>             // optional nickname, numbering note
+```
+
+Zod and `validateCountry` additions: unique ids without `|`; `network` exists; `ref`
+non-empty and unique within the country; each course part ≥ 2 distinct finite points inside
+the country's bounding box (with a small margin); `towns` and `codes` reference existing ids;
+every road's class is drawn by some threshold; `sets` containing `road` requires `roads`
+with at least five roads per offered class (enough distractors); copy for every network,
+class and road text in every language (the existing "missing translation" rule).
+Unit-tested pure services: `roadVisibility(viewWidthKm, zoomRatio) → classes`,
+`nearestRoad(point, roads, toleranceMapUnits) → { id, distance }[]` (polyline distance with a
+bounding-box prefilter; concurrent sections return all ids), `placeShields(...)`
+(deterministic, collision-free), and road distractors with an injectable rng.
+
+Settings: `roadClass` and `road` (picker, like `river`) join `Settings`, normalised when the
+country lacks roads or the saved id is gone. Progress: `road|<id>` under the existing key; a
+road whose number changes gets a **new id** (old records stay harmless), as visual-meta does.
+
+### Sources and licensing
+
+Measured on 2026-11-28 by clipping Natural Earth `ne_10m_roads` (v5, public domain) to each
+country's `ne_10m_admin_0_countries` polygon (metropolitan France only), lengths approximate:
+
+| Country | NE road length | Features with a national number | What is there |
+|---|---|---|---|
+| France | ≈ 23,400 km | 128 distinct A/N/D refs | Motorways present as geometry, but numbering patchy: **A7 has no A tag** (only E15), A1 ≈ 24 km of ≈ 210 tagged, A9 ≈ 60 km; some refs are old N numbers now D (D619, D6014). |
+| Germany | ≈ 21,600 km | 68 A refs, 16 B refs | **Best**: A1–A8 mostly tagged (A9 ≈ 175 of ≈ 530 km); two-digit A mostly present; A99 and recent openings missing; B roads sparse. |
+| Peru | ≈ 10,100 km | **none** | Geometry of the main network only, no numbers at all. |
+| Poland | ≈ 14,300 km | 9 A refs | A1/A2/A4 partly; no DK numbers. |
+| Guatemala | ≈ 1,600 km | CA-1, 2, 9, 13 (as bare numbers) | Sparse. |
+
+NE's roads layer is old (its European features carry version 1.x edit notes) and coarse, but its
+geometry is good enough to *read* as the road at our zooms, and the licence is ideal.
+
+Recommendation per country:
+
+- **Germany: Natural Earth geometry + NE's A tags**, corrected by a small hand-written
+  overrides file (segment → road id) for untagged parts, checked against two route
+  descriptions (Wikipedia list, Autobahn GmbH / BASt facts). For B roads later, evaluate
+  BKG's DLM250 (Datenlizenz Deutschland – Namensnennung 2.0, attribution only, M: verify the
+  version and terms) before considering anything else.
+- **France: Natural Earth geometry, numbered by hand** using NE's E-route and local tags as
+  a guide (E15 → A6/A7…), checked against two sources per route. Candidate upgrade: IGN data
+  under Etalab's Licence Ouverte 2.0 (attribution only, M: verify which IGN product still
+  carries road numbers and its current licence page). France's outline uses a fitted
+  projection, so roads, like its rivers, may sit a few px off: check against city dots.
+- **Peru: Natural Earth geometry, tagged by hand** from the MTC's route definitions (the
+  legal route classifier lists each route as a sequence of towns: facts, not expression),
+  falling back to a **hand-drawn course through towns** as for Peru's rivers where NE has
+  no line. MTC's own GIS layers would be better, but their licence is unknown (open question).
+- **Not usable:** OpenStreetMap (ODbL, share-alike: excluded without the owner's approval);
+  Google, Apple, Bing, Michelin or any commercial map, including tracing; GRIP (CC BY-SA).
+  OSM is listed as an open question only in case NE plus hand work proves insufficient for
+  minor classes; nothing in the pilot needs it.
+
+Every source goes in the country's `RESEARCH.md` with URL, licence, version and date;
+credits extend the existing Natural Earth line ("…state outlines, river courses and roads").
+Shields are our own SVG/CSS drawing (MIT), not sign files from Commons.
+
+### Bundle size
+
+Measured for NE motorways only, after line merging, coordinates rounded to 3 decimals:
+
+| Germany 66 A routes | raw | gzip |
+|---|---|---|
+| unsimplified | 68.6 KB | 22.1 KB |
+| Douglas–Peucker 0.01° (≈ 1 km) | 19.8 KB | 6.9 KB |
+| 0.03° (≈ 3 km) | 13.1 KB | 4.6 KB |
+
+France's 58 A routes: 17.6 KB raw / 6.2 KB gzip at 0.01°. Proposal: `roadCourses.json` at
+0.01° loads with the country (budget ≤ 15 KB gzip per country for classes 1–2); a
+`roadCoursesDetail.json` at 0.002° loads lazily on first zoom past 150 km wide and only if a
+class-3 set is offered. Generation: `npm run build:roads -- <country>` (or a `--roads` step
+in `build-outline.ts`) reads the cached NE files, clips to the country with a 5 km buffer
+(dropping neighbours' roads such as the Dutch N11 that leak into a naive clip), applies the
+overrides, merges, simplifies, rounds, and prints untagged segments and per-road length
+against the sourced `lengthKm` so gaps are visible.
+
 ## 5. Country locator map
+
+**Decision:** a small, non-interactive locator **beside the country picker**, the country
+filled in `--blue` on its continent in `--line` strokes over `--sea`, no labels. Desktop:
+64 × 48 px left of the "Country" label in the top-right header; phone: 44 × 36 px between
+the two pickers in the first row (the row has ≈ 100 px free at 390 px). Rationale: it
+belongs to the choice of country, stays out of the map, and costs no row on phones.
+Rejected: an inset in a map corner (covers the map, fights pan and the zoom buttons) and a
+side-panel card (below the map on phones, where nobody sees it).
+
+```text
+ Desktop header                                   Phone first row (390 px)
+ Germany map trainer      [▫▪] Country [Germany v]   [Германія v] [▫▪] [Беларуская v]
+                                Language [English v]
+```
+
+- Shows: the continent frame from data (Europe for France and Germany, South America for
+  Peru), neighbours as outlines, the country filled. France shows the metropolitan part.
+- Accessibility: `role="img"` with a localized name, e.g. "Germany on the map of Europe"
+  (`t()` key with `{country}` and `{area}`, `area` from `copy`). Hidden in print.
+- Data: Natural Earth `ne_110m_admin_0_countries` (public domain), projected and clipped by
+  `build-outline.ts` into a tiny per-country `locator.json` (viewBox + two paths), also for
+  France, whose main outline comes from npm. Measured:
+  Europe ≈ 26 KB raw / 9 KB gzip unclipped, South America ≈ 12 KB / 4 KB; a per-country frame
+  rounded to 1 px at 64 px wide should be ≤ 3 KB gzip. Credit: France's copy gains the
+  Natural Earth line; Peru's and Germany's already have it.
+- Both themes through tokens; no motion; it updates on country switch with the rest.
 
 ## 6. Pilot and delivery sequence
 
+**Recommend Germany, Autobahn class 1 (A1–A9) and class 2 (two-digit)**: the clearest
+numbering rule of the three countries, blue shields everywhere on coverage, the best Natural
+Earth tags, and an exact projection (no fitted-outline drift as in France). About 60 roads
+is enough for distractors. France's A roads are the natural second country (same engine,
+hand tagging); Peru's six longitudinals and selected transversals third, ideally after the
+costa / sierra / selva pilot so the cards can link the two.
+
+Issue-sized steps:
+
+1. **Owner answers** the open questions below.
+2. **Research** (geoguessr-pro): `data/germany/RESEARCH.md` roads section — kept routes,
+   termini, lengths, towns along each (GeoNames, as today), two sources each, sign notes.
+3. **Data tooling**: `build:roads` from Natural Earth with overrides, simplification and a
+   gap report; `roads.json`, `roadCourses.json`; the locator paths for all three countries.
+4. **Engine**: types, zod and referential checks, copy keys (en, be; Belarusian road terms
+   recorded in `i18n/README.md`), `StudySet` `road`, settings normalisation, pure services
+   with tests. Existing countries validate unchanged.
+5. **Locator UI** (small, independent): with React port stage 3 (header and map), or before
+   it in `index.html` if the owner wants it sooner.
+6. **Learn road layer** after React port stage 3: layer, thresholds, shields, picker, card.
+   Check light and dark, 1280 and 390 px, both languages, France and Peru unchanged.
+7. **Practice** after React port stage 4: find (search and click) and name, keyboard
+   crosshair, live region, smoke test extended to the new set and kinds.
+8. **Evaluate** with the owner, then France.
+
+Sequencing: do not build this inside `trainer.ts` before the port. Steps 2–4 do not touch the
+UI and can run in parallel with React stages 1–3 and with the visual-meta Peru research. The
+line hit-testing service (`nearestRoad`) is generic and should serve visual-meta's later
+`route` / `line` layers too; build it once. React hand-off: `RoadLayer`, `RoadShield`,
+`RoadCard`, `RoadPicker`, `LocatorMap` are view components; country data owns roads; settings
+own `road` / `roadClass`; progress storage owns Leitner records; round state owns the target,
+attempts and hint.
+
 ## Open questions for the owner
+
+1. **Pilot:** Germany Autobahn classes 1–2 first (recommended), or France A roads as in your
+   example?
+2. **Search at full view:** roads hidden until you zoom in, also in Practice (recommended:
+   the search is the exercise), or class 1 visible at the full view in Learn?
+3. **France N roads:** Learn-only and limited to current long trunks, given the 2006 and 2023
+   transfers — agreed? D roads stay a tip.
+4. **Germany B roads:** out of the pilot; later as a Learn-only minor class from a licensed
+   source (BKG DLM250 if its terms check out)?
+5. **Peru sources:** may we hand-tag Natural Earth geometry from the MTC's route
+   definitions? Should someone ask the MTC about the licence of its GIS layers?
+6. **OpenStreetMap:** stays excluded (recommended; not needed for classes 1–2). Ask again
+   only for minor classes?
+7. **Peru department route prefixes** (AR-, CU-…): worth a backlog drill like France's plate
+   numbers, once the full list is verified?
+8. **Neutral taps** (no road in reach, or zoomed out too far) cost no attempt — agreed?
+9. **Locator:** beside the country picker, decorative, no click (recommended) — or should
+   clicking it open a larger map / the country picker?
+10. **Km-marker kinds** (Peru PE-1 "km → place", Guatemala later): worth a follow-up spec?
