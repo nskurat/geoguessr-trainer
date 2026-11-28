@@ -55,6 +55,18 @@ alternative you rejected.
   region labels overlapping at full zoom; tiny units hard to hit.
 - Enclosed units (Berlin in Brandenburg): nudge the enclosing label with
   `departmentLabelOffsets`.
+- Roads (`docs/specs/roads.md`, owner decisions 2026-11-28): a study set, not an overlay.
+  Class 1 (trunk) is always drawn **with shields from the full view** (fewer, placement-limited);
+  deeper classes fade in as the player zooms (thresholds in visible km, `roadVisibility`). Find
+  ("Search and click") is pattern search: every other road keeps its shield, only the target
+  and 3–5 confusable **decoys** are unlabelled and drawn alike. Taps snap to the nearest road
+  within 12 px (mouse) / 20 px (touch); a tap with no road in reach, or before the target's
+  class is drawn, is **neutral** and costs no attempt. A wrong road flashes with its shield
+  ("That's the A 5"). After the second miss the **pattern hint** states the rule and the
+  neighbours ("odd numbers run north–south; the A 7 lies between the A 5 and the A 9") and
+  pulses the neighbours. **Speed is shown, not graded** ("Found in 4 s", median in the
+  summary). The country **locator** beside the picker is an informative image, **not
+  clickable**.
 
 ## What to design for
 

@@ -79,6 +79,36 @@ in RESEARCH.md.
 codes, `projectionRefLat`/`outline` from outline.json, `copy: { en, be }`). Register it in
 `trainer-app/src/data/countries.ts` and `scripts/validate-content.ts`.
 
+## 3b. Roads (optional study set)
+
+Roads are the study set `road`: numbered roads drilled as a **pattern** (spec
+`docs/specs/roads.md`). Decide with `geoguessr-pro` whether the country's numbering is worth it
+(a learnable rule, numbers on signs in coverage, enough covered routes) and which classes to
+keep. If yes:
+
+1. Research each kept route in RESEARCH.md (roads section): termini, length, towns in order
+   (GeoNames), the **numbering rule** it follows and its **neighbours in the pattern** (the
+   parallel roads either side, the main crossings), sign notes; two sources each, H/M/L.
+2. Write `roads.json` (our data only: networks with rule texts in our words, roads with `rules`,
+   `between`, `crosses`, towns, `codes`), then add the country to `COUNTRIES` in
+   `scripts/build-roads.ts` and run `npm run build:roads -- <id>`: Overpass (Geofabrik
+   fallback), clipped to the Natural Earth outline, simplified in km, with a Natural Earth
+   cross-check and a gap / ref-mismatch / size report (`.cache/osm/report-<id>.md`).
+3. OpenStreetMap licensing (`docs/licensing.md`, "OpenStreetMap road data (ODbL)"): OSM
+   geometry goes **only** into `roads.osm.json`, never into `roads.json`; record the extract in
+   RESEARCH.md (source, date, query, tags, tolerance, sizes); add "Roads © OpenStreetMap
+   contributors, ODbL" with the https://www.openstreetmap.org/copyright link to `credits` in
+   **every** `copy.<lang>.ts` (validate:data fails without it); README lists the ODbL files.
+4. Translate every network's label, sign and rule texts in `copy.<lang>.data.roadNetworks`.
+   Offer `road` in `sets` only once the road UI exists and every road has a course.
+5. If OSM is unreachable, stop and say so; never hand-draw geometry instead.
+
+Also run `npm run build:locator` for the new country (add it to `FRAMES` in
+`scripts/build-locator.ts`): the picker's locator map from Natural Earth admin-0.
+
+Countries with roads: Germany (Autobahn classes 1–2, `roads.json` only; courses pending the
+OSM extract, set not offered yet). France and Peru are next (spec §6).
+
 ## 4. Copy in every interface language
 
 One `copy.<lang>.ts` per language in `types/i18n.ts` `LANGS` (today `en`, `be`): country name,

@@ -20,7 +20,8 @@ decisive and concrete; say what to drill, what to skip and why.
 2. Know what the engine can express. Read `trainer-app/src/types/geo.ts` and
    `types/trainer.ts`. Study sets: `reg` (top-level regions), `dep` (second-level units),
    `city`, `riv` (rivers + towns on them), `tel` (landline area-code zones), `nom` (place-name
-   patterns). A country will enable only the sets that matter via a `sets` list in its data,
+   patterns), `road` (numbered roads, `docs/specs/roads.md`; kinds: search and click, which
+   road?). A country will enable only the sets that matter via a `sets` list in its data,
    with its own labels in `copy`. Question kinds: find on map, name it (multiple choice),
    place towns by distance, pick the dot.
 3. Research with web sources when available: Plonk It guides, GeoHints, community Geomastr
@@ -53,6 +54,17 @@ decisive and concrete; say what to drill, what to skip and why.
   "-sur-Seine"); Peru skips name endings (Quechua endings blanket the sierra) and keeps rivers
   only as road valleys; Germany skips phone and plates (zones cut across Länder) but rivers
   ("Frankfurt am Main") and endings (-ow/-itz, -ing, -ingen, -büll) are strong.
+- **Roads are a pattern, not a list of courses.** A road network is worth drilling when its
+  numbering follows a learnable rule (Germany: odd north–south, even east–west, the first digit
+  a regional band; France: radials from Paris), the numbers appear on signs in coverage (the
+  blue A shield at every junction), and the routes are covered. Judge a network on those three;
+  skip one whose numbers are rarely visible or follow no rule (keep it as a tip). Classes:
+  1 = trunk, always drawn with shields (A 1–A 9); 2 = regional, drawn as you zoom (two-digit
+  A); 3 = minor, Learn-only (B roads, French N). The find kind trains **pattern recognition**:
+  the player scans the labelled network and uses the rule and the neighbours to reach the
+  target fast, so every road needs its `rules` (most telling first) and its `between`
+  neighbours (the parallels either side) and `crosses`, not just a course. Decoys and wrong
+  answers come from the same class, nearby or parallel, same numbering band.
 - **Coverage-weighted.** Do not over-drill areas with no or trekker-only coverage; say so
   and down-weight those units (tier 2, fewer towns, or excluded).
 - **Honest uncertainty.** Myths are worse than gaps. Flag the commonly repeated claims that
@@ -88,6 +100,10 @@ decisive and concrete; say what to drill, what to skip and why.
      text or images).
    - Coverage-weighting applied; no tiers or towns in uncovered areas without a reason.
    - Spot-check ten random items on a map and against a second source.
+   - Roads: every kept route has a rule, sensible `between` neighbours (a road really lies
+     between them in the pattern) and crossings; the rule texts are our words and true for the
+     roads that cite them; exceptions to the rule are marked, not hidden; towns in order
+     from `from` to `to`; the OSM extract is recorded and its credit present (`review-agent-pr`).
 
 Write only the deliverable you were asked for (a brief, a recommendation, or a review).
 Keep it 2 to 4 pages. End your reply with a ~10-line summary.

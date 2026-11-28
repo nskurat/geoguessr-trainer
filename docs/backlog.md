@@ -24,6 +24,18 @@ visual design stays the artifact's (see Settled decisions); this is a structural
 - Road numbers as a study set (zoom-dependent road layer, search-and-click practice) and a
   country locator map: [roads spec](specs/roads.md) (approved 2026-11-28: pattern-based search on
   a labelled network; pilot Germany's Autobahns, after React port stages 3–4).
+  Part 1 done (issue #24): Germany's `roads.json` (64 Autobahns, rules, neighbours, towns),
+  `build:roads`, `build:locator` and `locator.json` for all four countries, the engine
+  (types, validation, `services/roads/`, settings, i18n keys). Open:
+  - **OSM extract for Germany**: overpass-api.de and Geofabrik were unreachable from the
+    agent's environment, so `roads.osm.json` does not exist yet. Run
+    `npm run build:roads -- germany` where OSM is reachable, check the report (gaps, ref
+    mismatches, ≤ 15 KB gzip), record the extract in `data/germany/RESEARCH.md` §7, add the
+    OSM credit to both `copy.<lang>.ts` and list the ODbL file in README. Re-check the two L
+    towns (A 37 Laatzen, A 94 Mühldorf/Altötting) against the courses.
+  - **Road UI** (spec §6 steps 5–7): locator in the header (then France's copy gains the
+    Natural Earth credit), Learn road layer, Practice kinds; then add `road` to Germany's
+    `sets` with labels and tips.
 - Peru department route prefixes (AR-, CU-…) as a possible drill, once the full list is
   verified (roads spec, owner decision 6). Km-marker question kinds: a follow-up spec after the
   Germany roads pilot (decision 9).
