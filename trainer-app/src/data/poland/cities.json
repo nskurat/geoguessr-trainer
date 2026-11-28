@@ -1,0 +1,690 @@
+[
+  {
+    "id": "c0",
+    "name": "Warszawa",
+    "code": "MZ",
+    "lat": 52.23,
+    "lon": 21.012,
+    "tier": 1
+  },
+  {
+    "id": "c1",
+    "name": "Kraków",
+    "code": "MA",
+    "lat": 50.061,
+    "lon": 19.937,
+    "tier": 1
+  },
+  {
+    "id": "c2",
+    "name": "Łódź",
+    "code": "LD",
+    "lat": 51.771,
+    "lon": 19.474,
+    "tier": 1
+  },
+  {
+    "id": "c3",
+    "name": "Wrocław",
+    "code": "DS",
+    "lat": 51.103,
+    "lon": 17.03,
+    "tier": 1
+  },
+  {
+    "id": "c4",
+    "name": "Poznań",
+    "code": "WP",
+    "lat": 52.407,
+    "lon": 16.93,
+    "tier": 1
+  },
+  {
+    "id": "c5",
+    "name": "Gdańsk",
+    "code": "PM",
+    "lat": 54.352,
+    "lon": 18.649,
+    "tier": 1
+  },
+  {
+    "id": "c6",
+    "name": "Szczecin",
+    "code": "ZP",
+    "lat": 53.429,
+    "lon": 14.553,
+    "tier": 1
+  },
+  {
+    "id": "c7",
+    "name": "Bydgoszcz",
+    "code": "KP",
+    "lat": 53.123,
+    "lon": 18.008,
+    "tier": 1
+  },
+  {
+    "id": "c8",
+    "name": "Toruń",
+    "code": "KP",
+    "lat": 53.014,
+    "lon": 18.598,
+    "tier": 1
+  },
+  {
+    "id": "c9",
+    "name": "Lublin",
+    "code": "LU",
+    "lat": 51.251,
+    "lon": 22.57,
+    "tier": 1
+  },
+  {
+    "id": "c10",
+    "name": "Białystok",
+    "code": "PD",
+    "lat": 53.133,
+    "lon": 23.164,
+    "tier": 1
+  },
+  {
+    "id": "c11",
+    "name": "Katowice",
+    "code": "SL",
+    "lat": 50.26,
+    "lon": 19.022,
+    "tier": 1
+  },
+  {
+    "id": "c12",
+    "name": "Rzeszów",
+    "code": "PK",
+    "lat": 50.041,
+    "lon": 21.999,
+    "tier": 1
+  },
+  {
+    "id": "c13",
+    "name": "Kielce",
+    "code": "SK",
+    "lat": 50.87,
+    "lon": 20.628,
+    "tier": 1
+  },
+  {
+    "id": "c14",
+    "name": "Olsztyn",
+    "code": "WN",
+    "lat": 53.784,
+    "lon": 20.493,
+    "tier": 1
+  },
+  {
+    "id": "c15",
+    "name": "Opole",
+    "code": "OP",
+    "lat": 50.671,
+    "lon": 17.926,
+    "tier": 1
+  },
+  {
+    "id": "c16",
+    "name": "Gorzów Wielkopolski",
+    "code": "LB",
+    "lat": 52.734,
+    "lon": 15.225,
+    "tier": 1
+  },
+  {
+    "id": "c17",
+    "name": "Zielona Góra",
+    "code": "LB",
+    "lat": 51.935,
+    "lon": 15.506,
+    "tier": 1
+  },
+  {
+    "id": "c18",
+    "name": "Częstochowa",
+    "code": "SL",
+    "lat": 50.796,
+    "lon": 19.124,
+    "tier": 1
+  },
+  {
+    "id": "c19",
+    "name": "Radom",
+    "code": "MZ",
+    "lat": 51.403,
+    "lon": 21.147,
+    "tier": 1
+  },
+  {
+    "id": "c20",
+    "name": "Gdynia",
+    "code": "PM",
+    "lat": 54.519,
+    "lon": 18.532,
+    "tier": 1
+  },
+  {
+    "id": "c21",
+    "name": "Wałbrzych",
+    "code": "DS",
+    "lat": 50.771,
+    "lon": 16.284,
+    "tier": 2
+  },
+  {
+    "id": "c22",
+    "name": "Legnica",
+    "code": "DS",
+    "lat": 51.21,
+    "lon": 16.162,
+    "tier": 2
+  },
+  {
+    "id": "c23",
+    "name": "Jelenia Góra",
+    "code": "DS",
+    "lat": 50.9,
+    "lon": 15.729,
+    "tier": 2
+  },
+  {
+    "id": "c24",
+    "name": "Lubin",
+    "code": "DS",
+    "lat": 51.401,
+    "lon": 16.201,
+    "tier": 2
+  },
+  {
+    "id": "c25",
+    "name": "Kłodzko",
+    "code": "DS",
+    "lat": 50.435,
+    "lon": 16.661,
+    "tier": 2
+  },
+  {
+    "id": "c26",
+    "name": "Zgorzelec",
+    "code": "DS",
+    "lat": 51.149,
+    "lon": 15.008,
+    "tier": 2
+  },
+  {
+    "id": "c27",
+    "name": "Włocławek",
+    "code": "KP",
+    "lat": 52.648,
+    "lon": 19.068,
+    "tier": 2
+  },
+  {
+    "id": "c28",
+    "name": "Grudziądz",
+    "code": "KP",
+    "lat": 53.484,
+    "lon": 18.754,
+    "tier": 2
+  },
+  {
+    "id": "c29",
+    "name": "Inowrocław",
+    "code": "KP",
+    "lat": 52.799,
+    "lon": 18.264,
+    "tier": 2
+  },
+  {
+    "id": "c30",
+    "name": "Piotrków Trybunalski",
+    "code": "LD",
+    "lat": 51.405,
+    "lon": 19.703,
+    "tier": 2
+  },
+  {
+    "id": "c31",
+    "name": "Tomaszów Mazowiecki",
+    "code": "LD",
+    "lat": 51.531,
+    "lon": 20.009,
+    "tier": 2
+  },
+  {
+    "id": "c32",
+    "name": "Sieradz",
+    "code": "LD",
+    "lat": 51.596,
+    "lon": 18.73,
+    "tier": 2
+  },
+  {
+    "id": "c33",
+    "name": "Zamość",
+    "code": "LU",
+    "lat": 50.723,
+    "lon": 23.252,
+    "tier": 2
+  },
+  {
+    "id": "c34",
+    "name": "Chełm",
+    "code": "LU",
+    "lat": 51.143,
+    "lon": 23.472,
+    "tier": 2
+  },
+  {
+    "id": "c35",
+    "name": "Puławy",
+    "code": "LU",
+    "lat": 51.417,
+    "lon": 21.969,
+    "tier": 2
+  },
+  {
+    "id": "c36",
+    "name": "Biała Podlaska",
+    "code": "LU",
+    "lat": 52.032,
+    "lon": 23.117,
+    "tier": 2
+  },
+  {
+    "id": "c37",
+    "name": "Żary",
+    "code": "LB",
+    "lat": 51.642,
+    "lon": 15.137,
+    "tier": 2
+  },
+  {
+    "id": "c38",
+    "name": "Nowa Sól",
+    "code": "LB",
+    "lat": 51.803,
+    "lon": 15.717,
+    "tier": 2
+  },
+  {
+    "id": "c39",
+    "name": "Słubice",
+    "code": "LB",
+    "lat": 52.351,
+    "lon": 14.561,
+    "tier": 2
+  },
+  {
+    "id": "c40",
+    "name": "Tarnów",
+    "code": "MA",
+    "lat": 50.014,
+    "lon": 20.987,
+    "tier": 2
+  },
+  {
+    "id": "c41",
+    "name": "Nowy Sącz",
+    "code": "MA",
+    "lat": 49.622,
+    "lon": 20.697,
+    "tier": 2
+  },
+  {
+    "id": "c42",
+    "name": "Zakopane",
+    "code": "MA",
+    "lat": 49.299,
+    "lon": 19.949,
+    "tier": 2
+  },
+  {
+    "id": "c43",
+    "name": "Oświęcim",
+    "code": "MA",
+    "lat": 50.034,
+    "lon": 19.21,
+    "tier": 2
+  },
+  {
+    "id": "c44",
+    "name": "Nowy Targ",
+    "code": "MA",
+    "lat": 49.478,
+    "lon": 20.032,
+    "tier": 2
+  },
+  {
+    "id": "c45",
+    "name": "Płock",
+    "code": "MZ",
+    "lat": 52.547,
+    "lon": 19.706,
+    "tier": 2
+  },
+  {
+    "id": "c46",
+    "name": "Siedlce",
+    "code": "MZ",
+    "lat": 52.168,
+    "lon": 22.29,
+    "tier": 2
+  },
+  {
+    "id": "c47",
+    "name": "Ostrołęka",
+    "code": "MZ",
+    "lat": 53.086,
+    "lon": 21.576,
+    "tier": 2
+  },
+  {
+    "id": "c48",
+    "name": "Ciechanów",
+    "code": "MZ",
+    "lat": 52.881,
+    "lon": 20.62,
+    "tier": 2
+  },
+  {
+    "id": "c49",
+    "name": "Nysa",
+    "code": "OP",
+    "lat": 50.474,
+    "lon": 17.334,
+    "tier": 2
+  },
+  {
+    "id": "c50",
+    "name": "Kędzierzyn-Koźle",
+    "code": "OP",
+    "lat": 50.35,
+    "lon": 18.226,
+    "tier": 2
+  },
+  {
+    "id": "c51",
+    "name": "Brzeg",
+    "code": "OP",
+    "lat": 50.861,
+    "lon": 17.467,
+    "tier": 2
+  },
+  {
+    "id": "c52",
+    "name": "Przemyśl",
+    "code": "PK",
+    "lat": 49.785,
+    "lon": 22.767,
+    "tier": 2
+  },
+  {
+    "id": "c53",
+    "name": "Krosno",
+    "code": "PK",
+    "lat": 49.689,
+    "lon": 21.771,
+    "tier": 2
+  },
+  {
+    "id": "c54",
+    "name": "Tarnobrzeg",
+    "code": "PK",
+    "lat": 50.573,
+    "lon": 21.679,
+    "tier": 2
+  },
+  {
+    "id": "c55",
+    "name": "Sanok",
+    "code": "PK",
+    "lat": 49.556,
+    "lon": 22.206,
+    "tier": 2
+  },
+  {
+    "id": "c56",
+    "name": "Mielec",
+    "code": "PK",
+    "lat": 50.287,
+    "lon": 21.424,
+    "tier": 2
+  },
+  {
+    "id": "c57",
+    "name": "Suwałki",
+    "code": "PD",
+    "lat": 54.112,
+    "lon": 22.931,
+    "tier": 2
+  },
+  {
+    "id": "c58",
+    "name": "Łomża",
+    "code": "PD",
+    "lat": 53.178,
+    "lon": 22.059,
+    "tier": 2
+  },
+  {
+    "id": "c59",
+    "name": "Augustów",
+    "code": "PD",
+    "lat": 53.843,
+    "lon": 22.98,
+    "tier": 2
+  },
+  {
+    "id": "c60",
+    "name": "Słupsk",
+    "code": "PM",
+    "lat": 54.464,
+    "lon": 17.029,
+    "tier": 2
+  },
+  {
+    "id": "c61",
+    "name": "Malbork",
+    "code": "PM",
+    "lat": 54.036,
+    "lon": 19.027,
+    "tier": 2
+  },
+  {
+    "id": "c62",
+    "name": "Sopot",
+    "code": "PM",
+    "lat": 54.442,
+    "lon": 18.56,
+    "tier": 2
+  },
+  {
+    "id": "c63",
+    "name": "Chojnice",
+    "code": "PM",
+    "lat": 53.696,
+    "lon": 17.557,
+    "tier": 2
+  },
+  {
+    "id": "c64",
+    "name": "Bielsko-Biała",
+    "code": "SL",
+    "lat": 49.822,
+    "lon": 19.047,
+    "tier": 2
+  },
+  {
+    "id": "c65",
+    "name": "Gliwice",
+    "code": "SL",
+    "lat": 50.298,
+    "lon": 18.677,
+    "tier": 2
+  },
+  {
+    "id": "c66",
+    "name": "Rybnik",
+    "code": "SL",
+    "lat": 50.097,
+    "lon": 18.542,
+    "tier": 2
+  },
+  {
+    "id": "c67",
+    "name": "Tychy",
+    "code": "SL",
+    "lat": 50.137,
+    "lon": 18.966,
+    "tier": 2
+  },
+  {
+    "id": "c68",
+    "name": "Sosnowiec",
+    "code": "SL",
+    "lat": 50.287,
+    "lon": 19.104,
+    "tier": 2
+  },
+  {
+    "id": "c69",
+    "name": "Cieszyn",
+    "code": "SL",
+    "lat": 49.751,
+    "lon": 18.632,
+    "tier": 2
+  },
+  {
+    "id": "c70",
+    "name": "Ostrowiec Świętokrzyski",
+    "code": "SK",
+    "lat": 50.929,
+    "lon": 21.385,
+    "tier": 2
+  },
+  {
+    "id": "c71",
+    "name": "Sandomierz",
+    "code": "SK",
+    "lat": 50.683,
+    "lon": 21.749,
+    "tier": 2
+  },
+  {
+    "id": "c72",
+    "name": "Elbląg",
+    "code": "WN",
+    "lat": 54.152,
+    "lon": 19.409,
+    "tier": 2
+  },
+  {
+    "id": "c73",
+    "name": "Ełk",
+    "code": "WN",
+    "lat": 53.828,
+    "lon": 22.365,
+    "tier": 2
+  },
+  {
+    "id": "c74",
+    "name": "Giżycko",
+    "code": "WN",
+    "lat": 54.038,
+    "lon": 21.764,
+    "tier": 2
+  },
+  {
+    "id": "c75",
+    "name": "Ostróda",
+    "code": "WN",
+    "lat": 53.697,
+    "lon": 19.965,
+    "tier": 2
+  },
+  {
+    "id": "c76",
+    "name": "Kalisz",
+    "code": "WP",
+    "lat": 51.761,
+    "lon": 18.091,
+    "tier": 2
+  },
+  {
+    "id": "c77",
+    "name": "Konin",
+    "code": "WP",
+    "lat": 52.223,
+    "lon": 18.251,
+    "tier": 2
+  },
+  {
+    "id": "c78",
+    "name": "Piła",
+    "code": "WP",
+    "lat": 53.151,
+    "lon": 16.738,
+    "tier": 2
+  },
+  {
+    "id": "c79",
+    "name": "Leszno",
+    "code": "WP",
+    "lat": 51.84,
+    "lon": 16.575,
+    "tier": 2
+  },
+  {
+    "id": "c80",
+    "name": "Gniezno",
+    "code": "WP",
+    "lat": 52.535,
+    "lon": 17.583,
+    "tier": 2
+  },
+  {
+    "id": "c81",
+    "name": "Koszalin",
+    "code": "ZP",
+    "lat": 54.194,
+    "lon": 16.172,
+    "tier": 2
+  },
+  {
+    "id": "c82",
+    "name": "Stargard",
+    "code": "ZP",
+    "lat": 53.337,
+    "lon": 15.05,
+    "tier": 2
+  },
+  {
+    "id": "c83",
+    "name": "Kołobrzeg",
+    "code": "ZP",
+    "lat": 54.176,
+    "lon": 15.583,
+    "tier": 2
+  },
+  {
+    "id": "c84",
+    "name": "Świnoujście",
+    "code": "ZP",
+    "lat": 53.911,
+    "lon": 14.247,
+    "tier": 2
+  },
+  {
+    "id": "c85",
+    "name": "Szczecinek",
+    "code": "ZP",
+    "lat": 53.708,
+    "lon": 16.699,
+    "tier": 2
+  }
+]

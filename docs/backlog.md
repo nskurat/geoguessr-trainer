@@ -35,6 +35,11 @@ visual design stays the artifact's (see Settled decisions); this is a structural
   area-code zones (the first digit cuts across the Länder, so no `tel` set) and Kreis plate
   codes. Both need district outlines (e.g. BKG VG2500 Kreise, dl-de/by-2-0). Also
   landscape, architecture, bollards, and Sorbian/Danish bilingual signs.
+- Poland signals that need sub-voivodeship units (see `data/poland/RESEARCH.md` §3): landline
+  area-code zones (50 two-digit zones named after towns, several per voivodeship, so no `tel`
+  set) and powiat plate codes (the first letter is shown per voivodeship in `plate`; the 2–3
+  letter county codes need powiat outlines). Also the 2022 extra first letters (V, J, A, Y, X, I)
+  should be re-checked against the Ministry regulation when isap.sejm.gov.pl is reachable.
 - Germany data gaps: Natural Earth's upper Spree is wrong (Bautzen left off it); the
   hand-drawn tails (Elbe to Cuxhaven, Weser to Bremerhaven, Ems to Emden) are approximate.
   The upper Lahn (above Marburg) is not drawn: NE's "Lahn" follows the Ohm there. The
@@ -99,6 +104,9 @@ The site is shared with the owner's Belarusian GeoGuessr community. Agreed plan:
   top-level grouping (Lima y Callao, Norte, Centro, Sur, Oriente) is a study grouping, not
   an official one. Plate letters are left out: the registry-zone letters are shared between
   regions, changed by 2024–2025 decrees, and blurred on Street View.
+- Poland: the 16 voivodeships are the departments, grouped into the seven official NUTS-1
+  macroregions. No phone set (zones are finer than voivodeships); the first plate letter is
+  shown per voivodeship. Three name patterns (-ice, -ów, -owo/-ewo) chosen from GeoNames counts.
 - France's local phone prefixes (0Z AB) are shown, never quizzed.
 - Germany: the 16 Länder are the departments, grouped into four study macro-regions (Nord,
   West, Süd, Ost = former GDR + Berlin). No phone codes or plates: area-code zones and
