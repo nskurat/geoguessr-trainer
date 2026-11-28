@@ -573,6 +573,8 @@ const regionOf = (u: string) =>
 
 const mix = (color: string, percent: number) => `color-mix(in srgb, ${color} ${percent}%, var(--land))`;
 const hueFill = (hue: number) => `hsl(${hue} var(--rs) var(--rl))`;
+/** Without regions, each department gets its own hue in learn mode (golden-angle steps). */
+const ownHue = (code: string) => (ix.departments.findIndex((d) => d.code === code) * 137.508) % 360;
 
 /** The departments a zone-set item covers: a phone zone, a pattern's area, or a town's pattern area. */
 function zoneOf(u: string): string[] {
@@ -616,7 +618,7 @@ function colorize(): void {
     const inScope = set === 'reg' || settings.scope === 'all' || region === settings.scope;
     let fill: string;
     if (!inScope) fill = 'var(--off)';
-    else if (learn && set !== 'city' && region) fill = hueFill(ix.regionByKey[region].hue);
+    else if (learn && set !== 'city') fill = hueFill(region ? ix.regionByKey[region].hue : ownHue(code));
     else fill = 'var(--land)';
     if (!learn && round && set !== 'city' && set !== 'riv') {
       const u = set === 'reg' ? (region ?? code) : code;

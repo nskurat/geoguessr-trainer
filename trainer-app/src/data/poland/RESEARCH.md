@@ -36,7 +36,7 @@ secondary reference and is marked **M**.
 
 | Set | Decision | Why |
 |---|---|---|
-| `reg` | **Enabled** — the 7 NUTS-1 macroregions (§4) | Official and checkable, and the groups are geographically coherent |
+| `reg` | **Skipped**, no grouping at all (§4) | The NUTS-1 macroregions are statistical units nobody sees; 16 voivodeships need no chunking |
 | `dep` | **Enabled** — the 16 voivodeships (Natural Earth admin-1) | The units players need; capitals as "seat" |
 | `city` | **Enabled** | Road signs name the next city |
 | `riv` | **Enabled** | Poland's big rivers are one-to-one with its regions (Vistula, Oder) and the towns on them are drillable |
@@ -72,26 +72,29 @@ secondary reference and is marked **M**.
 - **Department codes are hidden.** The ISO 3166-2 suffixes (DS, KP …) are only ids; the plate letter
   is shown on the info card instead.
 
-## 4. Grouping (regions.json)
+## 4. Grouping: none
 
-The 7 NUTS-1 macroregions as in the current NUTS classification (Eurostat; the Wikipedia article
-"NUTS statistical regions of Poland" lists the 16 voivodeships under them, checked). **H**.
+**Decision (2026-11-28, owner): Poland has no top-level grouping.** No `regions.json`, no `reg`
+set, no Area filter; the 16 voivodeships are the only areas, and every set works on the whole
+country.
 
-| Key | Name | Voivodeships | Capital shown |
-|---|---|---|---|
-| CEN | Centralny | Łódzkie, Świętokrzyskie | Łódź |
-| POL | Południowy | Małopolskie, Śląskie | Kraków |
-| WSC | Wschodni | Lubelskie, Podkarpackie, Podlaskie | Lublin |
-| PZ | Północno-Zachodni | Wielkopolskie, Zachodniopomorskie, Lubuskie | Poznań |
-| PDZ | Południowo-Zachodni | Dolnośląskie, Opolskie | Wrocław |
-| PN | Północny | Pomorskie, Kujawsko-Pomorskie, Warmińsko-Mazurskie | Gdańsk |
-| MAZ | Mazowieckie | Mazowieckie | Warszawa |
+An earlier version grouped the voivodeships into the 7 NUTS-1 macroregions (Centralny,
+Południowy, Wschodni, Północno-Zachodni, Południowo-Zachodni, Północny, Mazowieckie; Eurostat
+NUTS classification, checked against Wikipedia's "NUTS statistical regions of Poland", **H**).
+They were removed because they do not help placing yourself on Street View:
 
-Why this and not a looser study grouping: it is official, anyone can check it, and its groups are
-contiguous and similar in size (except Masovia, which stands alone: it is Poland's biggest unit and
-the capital's). The alternatives (four compass quarters) cut Masovia or Greater Poland in
-arbitrary places. Weakness: "Północny" mixes the Baltic coast with the Masurian lakes, and
-"Centralny" is just two units. Not a contested decision; flagged as a doubt in the PR.
+- They are EU statistical units with no administrative role: no council, no office, nothing
+  on signs, plates or phone numbers, and most Poles do not know them (owner's judgement, not
+  surveyed). **M**
+- They carry no Street View signal of their own. The real broad splits (the -ice / -ów /
+  -owo endings, Baltic coast and lakes in the north, uplands and Carpathians in the south)
+  cut across them and are drilled by `nom` and the voivodeships themselves.
+- 16 voivodeships is a short enough list to learn without chunking; a grouping added only to
+  chunk a list is against the trainer's rule (`docs/backlog.md`, Settled decisions).
+
+Saved settings that named a macroregion as the Area fall back to the whole country (the
+settings are normalised on load); progress records are per voivodeship and city, so they are
+untouched. Old `reg|…` progress records stay in localStorage, unused.
 
 ## 5. Name patterns (placeNames.json)
 
@@ -135,9 +138,9 @@ Góra" (the voivode sits in Bydgoszcz and Gorzów; the sejmik in Toruń and Ziel
 | Natural Earth 1:10m admin-1, rivers_lake_centerlines, rivers_europe (via github.com/nvkelso/natural-earth-vector) | Voivodeship outlines, river courses | Public domain | 2026-11-28 |
 | GeoNames `cities1000` (via github.com/lutangar/cities.json) | Town coordinates, place-name counts | CC BY 4.0 — credited in the footer of `copy.en.ts` and `copy.be.ts` | 2026-11-28 |
 | Wikipedia, "Vehicle registration plates of Poland" (wikitext) | Plate letters per voivodeship (a complete list of facts), the 2022 extra letters | CC BY-SA, used as a reference for facts only; no text, table or image copied | 2026-11-28 |
-| Wikipedia, "NUTS statistical regions of Poland" | Macroregion grouping | Same | 2026-11-28 |
+| Wikipedia, "NUTS statistical regions of Poland" | The former macroregion grouping, now removed (§4) | Same | 2026-11-28 |
 | Wikipedia, "List of rivers of Poland" | River lengths | Same | 2026-11-28 |
 | Google libphonenumber `geocoding/en/48.txt` (github.com/google/libphonenumber) | The list of Polish area codes, to justify skipping `tel` (not bundled) | Apache 2.0 | 2026-11-28 |
-| Own work | Tips, grouping rationale, name-pattern analysis, the hand-picked city and river-town lists | Author: this repository | 2026-11-28 |
+| Own work | Tips, the decision against a grouping, name-pattern analysis, the hand-picked city and river-town lists | Author: this repository | 2026-11-28 |
 
 No OpenStreetMap data, no Google imagery, nothing copied from plonkit or geohints.
