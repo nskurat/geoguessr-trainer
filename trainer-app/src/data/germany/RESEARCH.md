@@ -297,6 +297,53 @@ The two **L** entries (Laatzen at the A 37's Messe end, Mühldorf am Inn and Alt
 A 94) are from general knowledge and should be checked against the OSM course once the
 extract runs.
 
+### Other numbers (`altRefs`)
+
+A road keeps one primary `ref`: the A number, drilled and shown on the shield. Its other
+numbers are in `altRefs` and are never drilled. They show in the info card and the hint, and
+choosing one counts as right (spec §4 "Several numbers").
+
+- **European routes** (`european`, network `E`): white on green, often next to the A shield
+  on direction signs, but rarely on their own (Signs, above). Recorded for class 1 and the
+  A 10 and A 11, the routes whose de.wikipedia articles list E-routes. That is the infobox
+  `ENUMMER` fields, plus the "Abschnitte als Europastraße" section where there is one.
+  - **Stretches:** from that section or from the junction lists of the E-route articles
+    ("Europastraße 40", "Europastraße 52" …, read 2026-11-28). Each stretch is bounded by
+    the nearest of our towns.
+  - **`note`:** the exact junctions. It is a maintainer note, neither shown nor translated.
+  - **Left out:** stretches shorter than one town span (≈ 30 km or less): the A 1's E 42 at
+    Wittlich, the A 3's E 43 and E 44, the A 4's E 314 and E 55, the A 7's E 40, the A 9's
+    E 48, and the A 10's E 26 and E 51. Also left out: the E-routes on two-digit Autobahns
+    (A 14, A 24, A 44, A 45, A 61, A 67, A 70, A 81 …), whose route articles do not list them.
+    Both go in when the OSM `int_ref` suggestions (build:roads report) give a second source.
+- **Shared stretches** (`concurrent`): two A numbers on one carriageway, recorded on both
+  roads. Each is from the route article's text:
+  - A 1 / A 61, Dreieck Erfttal – Kreuz Bliesheim, at Erftstadt (A 1 article).
+  - A 3 / A 4, Kreuz Köln-Ost – Dreieck Köln-Heumar (A 3 and A 4 articles).
+  - A 7 / A 44, Kassel-Ost – Dreieck Kassel-Süd (A 7 article).
+
+  The A 8 / A 81 stretch at Leonberg is not stated in either article. It stays out until
+  the OSM report confirms it.
+- **Former numbers** (`former`): none recorded for Germany. The 1975 renumbering replaced
+  numbers that are no longer signed (the A 7 was signed as E 3 before), so they do not help
+  on Street View.
+
+| Road | Other numbers (stretch between our towns) | Source | Conf. |
+|---|---|---|---|
+| A 1 | E 47 Heiligenhafen–Lübeck; E 22 Lübeck–Bremen; E 37 Bremen–Köln; E 31 and E 29 Köln–Blankenheim; E 44 Blankenheim–Trier (in sections); E 422 Trier–Saarbrücken; A 61 at Köln–Blankenheim | A 1 article (section + infobox), E 29 / E 31 articles | H (E 44 M) |
+| A 2 | E 34 Oberhausen–Bielefeld; E 30 Bielefeld–Werder | A 2 article, E 30 article | H |
+| A 3 | E 35 Emmerich–Wiesbaden; E 34 Oberhausen–Duisburg; E 42 Frankfurt–Aschaffenburg; E 41 Aschaffenburg–Würzburg; E 45 Würzburg–Nürnberg; E 56 Nürnberg–Passau; A 4 at Köln | A 3 article (section), E 41 / E 56 articles | H |
+| A 4 | E 40 Aachen–Olpe and Eisenach–Görlitz; A 3 at Köln | E 40 article (German course list), A 4 article | H |
+| A 5 | E 40 Alsfeld–Gießen; E 451 Gießen–Darmstadt; E 35 Darmstadt–Weil am Rhein; E 52 Karlsruhe–Offenburg; E 54 Freiburg–Weil am Rhein | A 5 article (order N→S), E 40 / E 451 / E 52 / E 54 articles | M |
+| A 6 | E 50, the whole route | A 6 article ("auf ganzer Länge"), E 50 article | H |
+| A 7 | E 45 Flensburg–Würzburg; E 43 Würzburg–Ulm; E 532 Ulm–Füssen; A 44 at Kassel | A 7 article (section), E 45 article | H |
+| A 8 | E 52 Karlsruhe–Bad Reichenhall (round München on the A 99); E 29 Perl–Saarlouis; E 45 München–Rosenheim; E 60 Rosenheim–Bad Reichenhall | A 8 article (section), E 52 article | H |
+| A 9 | E 51 Michendorf–Nürnberg; E 49 Leipzig–Hof (to Schleiz); E 45 Nürnberg–München | E 51 / E 49 / E 45 articles (junction lists) | M |
+| A 10 | E 30 southern ring (Werder–Königs Wusterhausen); E 55 northern and eastern ring | A 10 infobox, E 30 / E 55 articles | M |
+| A 11 | E 28, the whole route | A 11 article, E 28 article | H |
+| A 44 | A 7 at Kassel | A 7 article | H |
+| A 61 | A 1 at Erftstadt | A 1 article | H |
+
 ### Courses: OpenStreetMap extract (ODbL)
 
 **Not yet extracted.** The courses come from OSM route relations
@@ -316,7 +363,8 @@ Extract record (to complete when the script runs; the script prints these values
 | Source | Overpass API (overpass-api.de), fallback Geofabrik `germany-latest.osm.pbf` + `osmium tags-filter` |
 | Date | pending |
 | Query | `[out:json][timeout:300];area["ISO3166-1"="DE"][admin_level=2]->.a;relation[type=route][route=road][network="BAB"](area.a);out geom;` |
-| Tags | `type=route`, `route=road`, `network=BAB`; matched to roads.json by `ref` (spaces normalised) |
+| Tags | `type=route`, `route=road`, `network=BAB`; matched to roads.json by `ref` (spaces normalised; a ";" list belongs to each road it names). `ref` and `int_ref` numbers not in roads.json are listed as suggested altRefs, never written |
+| Suggested altRefs | pending (review each against a second source before adding it to roads.json) |
 | Members | role `""` or `forward` (one carriageway), ways merged and oriented from → to |
 | Clip | Natural Earth 1:10m admin-0 outline of Germany, 5 km buffer |
 | Simplification | Douglas–Peucker in projected km, 1 km for classes 1–2; parts < 2 km dropped; 3 decimals |

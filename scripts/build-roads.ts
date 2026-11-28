@@ -27,6 +27,10 @@
  *    distance of each listed town from the Natural Earth line with the same number, gaps
  *    over 5 km, ref mismatches, roads without a relation, and the raw and gzip size of the
  *    course file against the budget. Written to stdout and .cache/osm/report-<country>.md.
+ *    Several numbers: a relation's `ref` may be a ";" list ("A 1;A 3") and `int_ref` holds
+ *    E-routes. A relation belongs to each road whose primary ref is in its `ref`; it is a
+ *    mismatch only when no number is a road's primary ref or known altRef. The other numbers
+ *    are reported as suggested altRefs and never written into roads.json.
  *
  * Without OSM (no endpoint and no cache) the Natural Earth part of the report is still
  * printed, nothing is written to data/, and the script exits with code 2.
@@ -36,7 +40,7 @@ import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { gzipSync } from 'node:zlib';
 import type { Position } from 'geojson';
-import { normalizeRef as normRef } from '../trainer-app/src/services/country/roads';
+import { normalizeRef as normRef, refMatchesRoad, splitRefs } from '../trainer-app/src/services/country/roads';
 import { RoadsFileSchema } from '../trainer-app/src/services/country/schema';
 import type { RoadClass, RoadCourses, RoadEntry, RoadsFile } from '../trainer-app/src/types/geo';
 import {
@@ -238,6 +242,8 @@ async function main() {
   const osmSources: string[] = [];
   let osmAvailable = true;
   const mismatches: string[] = [];
+  /** Numbers OSM puts on a road that roads.json does not list: suggestions for review, never written. */
+  const suggested = new Map<string, { road: string; ref: string; kind: string; relations: number[] }>();
   for (const net of cfg.networks) {
     const osm = input
       ? { file: input, data: JSON.parse(readFileSync(input, 'utf8')) as { elements: OverpassRelation[] } }
@@ -249,17 +255,32 @@ async function main() {
     }
     osmSources.push(osm.file);
     const relations = osm.data.elements.filter((e) => e.type === 'relation');
+    // A relation's `ref` may list several numbers ("A 1;A 3"), and `int_ref` holds E-routes
+    // ("E 45;E 43"). It belongs to every road whose primary ref is one of its `ref` numbers.
     const byRef = new Map<string, OverpassRelation[]>();
+    for (const r of relations)
+      for (const one of splitRefs(r.tags?.ref))
+        (byRef.get(normRef(one)) ?? byRef.set(normRef(one), []).get(normRef(one))!).push(r);
+    const netRoads = data.roads.filter((r) => r.network === net.id);
     for (const r of relations) {
-      const ref = r.tags?.ref;
-      if (!ref) continue;
-      for (const one of ref.split(';')) (byRef.get(normRef(one)) ?? byRef.set(normRef(one), []).get(normRef(one))!).push(r);
+      const refs = splitRefs(r.tags?.ref);
+      // A mismatch only when none of the numbers is a road's primary ref or known altRef.
+      if (refs.some((ref) => data.roads.some((road) => refMatchesRoad(ref, road)))) continue;
+      for (const ref of refs.filter((x) => /^\D+\s?\d{1,2}$/.test(x)))
+        mismatches.push(`OSM relation ${r.id} ref ${ref} has no road in roads.json`);
     }
-    const ours = new Set(data.roads.filter((r) => r.network === net.id).map((r) => normRef(r.ref)));
-    for (const ref of byRef.keys())
-      if (!ours.has(ref) && /^\D+\s?\d{1,2}$/.test(ref)) mismatches.push(`OSM relation ref ${ref} has no road in roads.json`);
-    for (const road of data.roads.filter((r) => r.network === net.id)) {
+    for (const road of netRoads) {
       const rels = byRef.get(normRef(road.ref)) ?? [];
+      for (const rel of rels)
+        for (const ref of [...splitRefs(rel.tags?.ref), ...splitRefs(rel.tags?.int_ref)]) {
+          if (refMatchesRoad(ref, road)) continue;
+          const other = data.roads.find((x) => x.id !== road.id && normRef(x.ref) === normRef(ref));
+          const kind = other ? 'concurrent' : /^E\s?\d+$/i.test(ref) ? 'european' : '?';
+          const key = `${road.ref}|${normRef(ref)}`;
+          const seen = suggested.get(key);
+          if (seen) seen.relations = [...new Set([...seen.relations, rel.id])];
+          else suggested.set(key, { road: road.ref, ref, kind, relations: [rel.id] });
+        }
       if (!rels.length) continue;
       const ways: Position[][] = [];
       for (const rel of rels)
@@ -276,7 +297,7 @@ async function main() {
         osm: {
           relations: rels.map((r) => r.id),
           // The one ref of a multi-valued tag ("A 1;A 3") that matched this road.
-          ref: rels[0].tags!.ref!.split(';').map((x) => x.trim()).find((x) => normRef(x) === normRef(road.ref))!,
+          ref: splitRefs(rels[0].tags?.ref).find((x) => normRef(x) === normRef(road.ref))!,
         },
         course: parts.map((p) =>
           p.map((q) => {
@@ -315,6 +336,15 @@ async function main() {
   if (osmAvailable) {
     log(`Roads without an OSM relation: ${missingOsm.join(', ') || 'none'}`);
     log(`Ref mismatches: ${mismatches.join('; ') || 'none'}`);
+    log();
+    log('Suggested altRefs (OSM `ref` / `int_ref` numbers not in roads.json; not written: check the');
+    log('stretch and a second source, then add them to roads.json and RESEARCH.md by hand):');
+    if (!suggested.size) log('none');
+    else {
+      log('| Road | Number | Kind (guess) | Relations |');
+      log('|---|---|---|---|');
+      for (const x of suggested.values()) log(`| ${x.road} | ${x.ref} | ${x.kind} | ${x.relations.join(', ')} |`);
+    }
   }
 
   if (!osmAvailable) {

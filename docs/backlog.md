@@ -32,7 +32,10 @@ visual design stays the artifact's (see Settled decisions); this is a structural
     `npm run build:roads -- germany` where OSM is reachable, check the report (gaps, ref
     mismatches, ≤ 15 KB gzip), record the extract in `data/germany/RESEARCH.md` §7, add the
     OSM credit to both `copy.<lang>.ts` and list the ODbL file in README. Re-check the two L
-    towns (A 37 Laatzen, A 94 Mühldorf/Altötting) against the courses.
+    towns (A 37 Laatzen, A 94 Mühldorf/Altötting) against the courses. Review the report's
+    "Suggested altRefs" (OSM `ref` / `int_ref`): E-routes on the two-digit Autobahns, which
+    de.wikipedia does not list, and the A 8 / A 81 shared stretch at Leonberg (left out,
+    unsourced). Add only the ones a second source confirms.
   - **Road UI** (spec §6 steps 5–7): locator in the header (then France's copy gains the
     Natural Earth credit), Learn road layer, Practice kinds; then add `road` to Germany's
     `sets` with labels and tips.

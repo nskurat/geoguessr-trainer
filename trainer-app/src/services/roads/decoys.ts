@@ -1,8 +1,12 @@
 import type { LatLon, Road } from '../../types/geo';
 import { shuffle, type Rng } from '../../utils/random';
+import { concurrentRoadIds } from './numbers';
 
 /** The fields of a road that decide how confusable it is with another. */
-export type DecoyRoad = Pick<Road, 'id' | 'network' | 'ref' | 'class' | 'codes' | 'between' | 'crosses'> & {
+export type DecoyRoad = Pick<
+  Road,
+  'id' | 'network' | 'ref' | 'altRefs' | 'class' | 'codes' | 'between' | 'crosses'
+> & {
   course?: LatLon[][];
 };
 
@@ -64,8 +68,9 @@ export function confusability(target: DecoyRoad, other: DecoyRoad): number {
 /**
  * Up to `count` road ids most confusable with `target`, best first: roads of the same
  * network and class, ranked by `confusability`, ties in random order; topped up from the
- * other classes only when the class is too small. Used for the find kind's unlabelled
- * decoys (3–5) and the name kind's wrong answers.
+ * other classes only when the class is too small. Roads sharing a stretch with the target
+ * (concurrent numbers) are never picked: on that stretch they are the target. Used for the
+ * find kind's unlabelled decoys (3–5) and the name kind's wrong answers.
  */
 export function pickRoadDecoys<R extends DecoyRoad>(target: R, roads: readonly R[], count: number, rng: Rng): string[] {
   const rank = (pool: R[]) =>
@@ -73,13 +78,19 @@ export function pickRoadDecoys<R extends DecoyRoad>(target: R, roads: readonly R
       .map((road) => ({ id: road.id, score: confusability(target, road) }))
       .sort((a, b) => b.score - a.score)
       .map((x) => x.id);
-  const others = roads.filter((r) => r.id !== target.id);
+  const shared = new Set(concurrentRoadIds(target, roads));
+  const others = roads.filter((r) => r.id !== target.id && !shared.has(r.id));
   const same = others.filter((r) => r.class === target.class && r.network === target.network);
   const rest = others.filter((r) => !same.includes(r));
   return [...rank(same), ...rank(rest)].slice(0, Math.max(0, count));
 }
 
-/** The name kind's options: the answer and `count - 1` confusable numbers, shuffled. */
+/**
+ * The name kind's options: the answer and `count - 1` confusable numbers, shuffled. Options
+ * show primary refs only, so none is another number of the target (its E-route or a road it
+ * shares a stretch with); such a number, typed or tapped elsewhere, counts as right
+ * (`refMatchesRoad`).
+ */
 export function pickRoadChoices<R extends DecoyRoad>(target: R, roads: readonly R[], rng: Rng, count = 4): string[] {
   return shuffle([target.id, ...pickRoadDecoys(target, roads, count - 1, rng)], rng);
 }

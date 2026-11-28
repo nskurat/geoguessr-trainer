@@ -96,6 +96,34 @@ describe('pickRoadDecoys', () => {
   });
 });
 
+describe('several numbers', () => {
+  const concurrent = (ref: string) => ({ ref, network: 'A', kind: 'concurrent' as const });
+
+  it('never offers a road that shares a stretch with the target, in either direction', () => {
+    const a7 = road('a7', 'A 7', { class: 1, altRefs: [concurrent('A 44')] });
+    const a44 = road('a44', 'A 44', { class: 1, altRefs: [concurrent('A 7')] });
+    const a45 = road('a45', 'A 45', { class: 1 });
+    const a5 = road('a5', 'A 5', { class: 1 });
+    const all = [a7, a44, a45, a5];
+    for (let i = 0; i < 10; i++) {
+      const rng = seq([i / 10, 0.3, 0.7]);
+      expect(pickRoadDecoys(a7, all, 3, rng)).not.toContain('a44');
+      expect(pickRoadDecoys(a44, all, 3, rng)).not.toContain('a7');
+      expect(pickRoadChoices(a7, all, rng)).not.toContain('a44');
+    }
+  });
+
+  it("keeps Germany's concurrent pairs apart in decoys and options", () => {
+    for (const target of germanyRoadEntries) {
+      const shared = germanyRoadEntries.filter((r) =>
+        (r.altRefs ?? []).some((a) => a.kind === 'concurrent' && a.ref === target.ref),
+      );
+      const options = pickRoadChoices(target, germanyRoadEntries, seq([0.1, 0.5, 0.9]));
+      for (const s of shared) expect(options).not.toContain(s.id);
+    }
+  });
+});
+
 describe('pickRoadChoices', () => {
   it('returns the answer and count − 1 others, without duplicates', () => {
     const roads = [road('a', 'A 40'), road('b', 'A 42'), road('c', 'A 43'), road('d', 'A 44'), road('e', 'A 45')];

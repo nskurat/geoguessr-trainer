@@ -1,4 +1,8 @@
 import type { Road } from '../../types/geo';
+import { alsoRefs } from './numbers';
+
+/** At most this many other numbers in the hint; the info card lists them all. */
+export const HINT_ALSO_MAX = 2;
 
 /** Localised sentence builders for the hint; refs are passed as signed ("A 7"). */
 export interface RoadHintText {
@@ -12,6 +16,8 @@ export interface RoadHintText {
   crosses: (ref: string, a: string) => string;
   /** Fallback for a road without a usable rule: "the A 7 runs through Hesse, Bavaria". */
   regions: (ref: string, codes: string[]) => string;
+  /** "the A 7 is also the E 45, E 43": the road's other numbers; omit to leave them out. */
+  also?: (ref: string, refs: string[]) => string;
   /** Joins the sentences, e.g. with "; ". */
   join: (parts: string[]) => string;
 }
@@ -26,9 +32,10 @@ export interface RoadHint {
  * The find kind's hint after the second miss: the pattern, not the place (spec §3.5). The
  * road's most telling rule and its neighbours in the pattern; a crossing when it has no
  * neighbours; only for a road with no usable rule and no neighbours, the regions it crosses.
+ * Then, when `text.also` is given, its first other numbers (E-routes, shared numbers).
  */
 export function roadPatternHint(
-  road: Pick<Road, 'ref' | 'rules' | 'between' | 'crosses' | 'codes'>,
+  road: Pick<Road, 'ref' | 'altRefs' | 'rules' | 'between' | 'crosses' | 'codes'>,
   roads: readonly Pick<Road, 'id' | 'ref'>[],
   text: RoadHintText,
 ): RoadHint {
@@ -52,5 +59,7 @@ export function roadPatternHint(
     }
   }
   if (!parts.length) parts.push(text.regions(road.ref, road.codes));
+  const also = alsoRefs(road).slice(0, HINT_ALSO_MAX);
+  if (text.also && also.length) parts.push(text.also(road.ref, also));
   return { text: text.join(parts), pulse };
 }

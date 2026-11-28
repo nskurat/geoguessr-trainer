@@ -101,6 +101,7 @@ blocked and are checked against the official-orthography Hunspell dictionary
 | ring road | кальцо | Hunspell be-official |
 | shield (road number sign) | шчыт | Hunspell be-official |
 | to cross (a road), to run (through, between) | перасякае; праходзіць (паміж, праз, побач з) | Hunspell be-official |
+| other numbers of a road (E 45 on the A 7); formerly | іншыя нумары; «{ref} — таксама {refs}»; раней | Hunspell be-official; refs undeclined as above, so the dash construction avoids a case |
 | median (time) | медыянны | Hunspell be-official; be.wikipedia article «Медыяна (статыстыка)» |
 | locator map | «{country} на карце: {area}» (area from the country's copy, nominative) | own wording, avoids declining the continent's name |
 

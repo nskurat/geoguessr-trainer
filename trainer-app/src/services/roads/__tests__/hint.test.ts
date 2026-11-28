@@ -32,6 +32,23 @@ describe('roadPatternHint', () => {
     expect(hint).toEqual({ text: 'The 40s are in the Ruhr; the A 7 runs next to the A 9', pulse: ['a9'] });
   });
 
+  it('adds the first other numbers when the text supports it, never a former one', () => {
+    const numbered = {
+      ...a7,
+      altRefs: [
+        { ref: 'A 3', network: 'A', kind: 'former' as const },
+        { ref: 'E 45', network: 'E', kind: 'european' as const },
+        { ref: 'E 43', network: 'E', kind: 'european' as const, from: 't28', to: 't63' },
+        { ref: 'E 532', network: 'E', kind: 'european' as const },
+      ],
+    };
+    const also = (ref: string, refs: string[]) => `the ${ref} is also the ${refs.join(', ')}`;
+    expect(roadPatternHint(numbered, roads, { ...text, also }).text).toBe(
+      'Odd numbers run north–south; the A 7 lies between the A 5 and the A 9; the A 7 is also the E 45, E 43',
+    );
+    expect(roadPatternHint(numbered, roads, text).text).not.toContain('also');
+  });
+
   it('falls back to a crossing when there are no neighbours', () => {
     expect(roadPatternHint({ ...a7, between: [] }, roads, text)).toEqual({
       text: 'Odd numbers run north–south; the A 7 crosses the A 4',

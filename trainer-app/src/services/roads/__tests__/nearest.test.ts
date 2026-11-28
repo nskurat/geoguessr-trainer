@@ -39,4 +39,15 @@ describe('tappedLine', () => {
     expect(tappedLine([60, 1], lines, 12, 'h')).toBe('h');
     expect(tappedLine([20, 30], lines, 12, 'h')).toBeUndefined();
   });
+
+  it('counts a tap on a shared stretch (two numbers, one carriageway) for whichever road is the target', () => {
+    // Both route relations hold the shared ways, so both courses run over x = 100…200.
+    const pair: LineItem[] = [
+      { id: 'a7', parts: [[[100, -100], [100, 0], [200, 0], [200, 100]]] },
+      { id: 'a44', parts: [[[0, 0], [100, 0], [200, 0], [300, -50]]] },
+    ];
+    expect(tappedLine([150, 2], pair, 12, 'a7')).toBe('a7');
+    expect(tappedLine([150, 2], pair, 12, 'a44')).toBe('a44');
+    expect(tappedLine([40, 2], pair, 12, 'a7')).toBe('a44');
+  });
 });

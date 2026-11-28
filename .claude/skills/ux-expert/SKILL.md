@@ -66,7 +66,12 @@ alternative you rejected.
   neighbours ("odd numbers run north–south; the A 7 lies between the A 5 and the A 9") and
   pulses the neighbours. **Speed is shown, not graded** ("Found in 4 s", median in the
   summary). The country **locator** beside the picker is an informative image, **not
-  clickable**.
+  clickable**. A road's **other numbers** (E-routes, shared stretches, former numbers):
+  - Only its primary number goes on the shield; no secondary (green E) shields on the map in
+    the pilot.
+  - They are listed in the info card ("Also numbered: E 45: Flensburg – Würzburg").
+  - The hint adds up to two ("also the E 45").
+  - A tap on a shared stretch counts for the target.
 
 ## What to design for
 

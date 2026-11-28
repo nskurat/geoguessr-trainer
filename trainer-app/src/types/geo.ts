@@ -144,6 +144,30 @@ export interface RoadNetwork {
 }
 
 /**
+ * What another number on a road means: an E-route signed on (part of) it, a stretch shared
+ * with another road of the data (two national numbers on one carriageway), or a number it
+ * used to carry.
+ */
+export type RoadAltRefKind = 'european' | 'concurrent' | 'former';
+
+/** Another number a road carries besides its primary `ref`; never drilled or put on its shield. */
+export interface RoadAltRef {
+  /** As signed, e.g. "E 45"; for `concurrent`, the other road's primary `ref`. */
+  ref: string;
+  /** Network id, e.g. "E"; for `concurrent`, the other road's network. Need not be in `networks`. */
+  network: string;
+  kind: RoadAltRefKind;
+  /**
+   * `towns` ids of this road bounding the stretch the number applies to (both or neither;
+   * equal for a short stretch at one town). Without them the number applies to the whole road.
+   */
+  from?: string;
+  to?: string;
+  /** Maintainer note in English (exact junctions, source detail); not shown or translated. */
+  note?: string;
+}
+
+/**
  * A numbered road as the trainer studies it: where it sits in the network's pattern (its
  * rules and neighbours) more than its exact course.
  */
@@ -152,8 +176,10 @@ export interface Road {
   id: string;
   /** `RoadNetwork.id`. */
   network: string;
-  /** As signed, e.g. "A 7"; never translated. */
+  /** As signed, e.g. "A 7"; never translated. The number drilled and shown on the shield. */
   ref: string;
+  /** Its other numbers (E-routes, shared stretches, former numbers), most relevant first. */
+  altRefs?: RoadAltRef[];
   class: RoadClass;
   /** `RoadData.towns` id of the start terminus (may be a border town). */
   from: string;

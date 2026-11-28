@@ -138,6 +138,7 @@ export const en = {
   'hint.roadNext': 'the {ref} runs next to the {a}',
   'hint.roadCrosses': 'the {ref} crosses the {a}',
   'hint.roadRegions': 'the {ref} runs through {areas}',
+  'hint.roadAlso': 'the {ref} is also the {refs}',
 
   // Round and progress
   'round.complete': 'Round complete',
@@ -185,6 +186,9 @@ export const en = {
   'info.roadBetween': 'Between the <b>{a}</b> and the <b>{b}</b>',
   'info.roadCrosses': 'Crosses: <b>{refs}</b>',
   'info.roadTowns': 'Towns on it, in order:',
+  'info.roadAlso': 'Also numbered:',
+  'info.roadAltStretch': '<b>{ref}</b>: {from} – {to}',
+  'info.roadFormer': 'Formerly: <b>{refs}</b>',
   'locator.label': '{country} on the map of {area}',
 } as const satisfies Record<string, Message>;
 

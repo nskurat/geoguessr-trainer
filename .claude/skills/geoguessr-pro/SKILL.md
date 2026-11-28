@@ -65,6 +65,19 @@ decisive and concrete; say what to drill, what to skip and why.
   target fast, so every road needs its `rules` (most telling first) and its `between`
   neighbours (the parallels either side) and `crosses`, not just a course. Decoys and wrong
   answers come from the same class, nearby or parallel, same numbering band.
+- **A road may carry several numbers.** Drill one: the primary `ref` on the shield the
+  player sees most (the A number, not the E number). Record the others in `altRefs`
+  (spec §4 "Several numbers"):
+  - `european`: an E-route, green; rare on German signs, beside the A number in France.
+  - `concurrent`: two national numbers on one carriageway, listed on **both** roads.
+  - `former`: renumbered or legacy numbers that still show on old signs or maps (Peru's older
+    route names, France's N → D transfers).
+
+  Give a stretch (`from` / `to` towns of the road) when a number covers only part of it, and
+  the exact junctions in `note`. Source each fact like any other. Leave out stretches too
+  short to matter rather than claim the whole road. Other numbers are never distractors and
+  count as right when named; OSM's `int_ref` / `ref;…` numbers are suggestions to verify,
+  never facts.
 - **Coverage-weighted.** Do not over-drill areas with no or trekker-only coverage; say so
   and down-weight those units (tier 2, fewer towns, or excluded).
 - **Honest uncertainty.** Myths are worse than gaps. Flag the commonly repeated claims that
@@ -103,7 +116,9 @@ decisive and concrete; say what to drill, what to skip and why.
    - Roads: every kept route has a rule, sensible `between` neighbours (a road really lies
      between them in the pattern) and crossings; the rule texts are our words and true for the
      roads that cite them; exceptions to the rule are marked, not hidden; towns in order
-     from `from` to `to`; the OSM extract is recorded and its credit present (`review-agent-pr`).
+     from `from` to `to`; the OSM extract is recorded and its credit present (`review-agent-pr`);
+     `altRefs` sourced with stretches, concurrencies on both roads, and the build:roads
+     suggested altRefs reviewed rather than copied.
 
 Write only the deliverable you were asked for (a brief, a recommendation, or a review).
 Keep it 2 to 4 pages. End your reply with a ~10-line summary.

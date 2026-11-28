@@ -46,6 +46,9 @@ plain words.
    file within its size budget (≤ 15 KB gzip for Germany); the `build:roads` report (gaps, ref
    mismatches, Natural Earth cross-check, sizes) in the PR description. Geometry drawn by hand
    where OSM was unreachable is a blocker. Spot-check `between` neighbours on the map.
+   `altRefs` (several numbers per road) must be sourced in RESEARCH.md with their stretches,
+   with concurrencies on both roads. The report's "suggested altRefs" must be verified, not
+   pasted in.
 
 ## Feedback and finishing
 

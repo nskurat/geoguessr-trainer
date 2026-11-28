@@ -144,6 +144,7 @@ export const be: Messages = {
   'hint.roadNext': '{ref} праходзіць побач з {a}',
   'hint.roadCrosses': '{ref} перасякае {a}',
   'hint.roadRegions': '{ref} праходзіць праз {areas}',
+  'hint.roadAlso': '{ref} — таксама {refs}',
 
   // Round and progress
   'round.complete': 'Раўнд скончаны',
@@ -192,5 +193,8 @@ export const be: Messages = {
   'info.roadBetween': 'Паміж <b>{a}</b> і <b>{b}</b>',
   'info.roadCrosses': 'Перасякае: <b>{refs}</b>',
   'info.roadTowns': 'Гарады на ёй па парадку:',
+  'info.roadAlso': 'Іншыя нумары:',
+  'info.roadAltStretch': '<b>{ref}</b>: {from} – {to}',
+  'info.roadFormer': 'Раней: <b>{refs}</b>',
   'locator.label': '{country} на карце: {area}',
 };

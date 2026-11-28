@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import type { Country, RoadCourses, RoadData, RoadsFile } from '../../types/geo';
+import type { Country, RoadCourses, RoadData, RoadEntry, RoadsFile } from '../../types/geo';
 import { LANGS, SOURCE_LANG } from '../../types/i18n';
 import { haversineKm } from '../geo/projection';
 import { ROAD_CLASS_THRESHOLDS } from '../roads/visibility';
-import { joinRoads, normalizeRef } from './roads';
+import { joinRoads, normalizeRef, osmRefMatches } from './roads';
 
 /*
  * Zod schemas mirroring `types/geo.ts`, plus `validateCountry`, which adds the
@@ -162,11 +162,21 @@ export const RoadNetworkSchema = z.object({
   rules: z.array(z.object({ id: roadId, text: nonEmpty }).strict()),
 }).strict();
 
+export const RoadAltRefSchema = z.object({
+  ref: nonEmpty,
+  network: roadId,
+  kind: z.enum(['european', 'concurrent', 'former']),
+  from: nonEmpty.optional(),
+  to: nonEmpty.optional(),
+  note: nonEmpty.optional(),
+}).strict();
+
 /** A road as stored in `roads.json`: strict, so a `course` (geometry, possibly OSM) is rejected. */
 export const RoadEntrySchema = z.object({
   id: roadId,
   network: nonEmpty,
   ref: nonEmpty,
+  altRefs: z.array(RoadAltRefSchema).optional(),
   class: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   from: nonEmpty,
   to: nonEmpty,
@@ -493,6 +503,7 @@ function roadErrors(
     }
     if (r.towns[0] !== r.from || r.towns[r.towns.length - 1] !== r.to)
       errors.push(`${at} must list from and to as its first and last town`);
+    errors.push(...altRefErrors(r, data, at));
     for (const code of r.codes) if (!departmentCodes.has(code)) errors.push(`${at} has unknown department ${code}`);
     if (!ROAD_CLASS_THRESHOLDS[r.class]) errors.push(`${at} has class ${r.class}, which is never drawn`);
 
@@ -548,6 +559,44 @@ function roadErrors(
   return { errors, warnings };
 }
 
+/**
+ * A road's other numbers (spec §4 "Several numbers"): none repeats its own `ref`; an E or
+ * former number is no other road's primary `ref`; a concurrent number is another road's
+ * primary `ref`, in that road's network, and that road lists this one back; a number listed
+ * twice needs a stretch each time; a stretch is bounded by two of the road's towns.
+ */
+function altRefErrors(road: RoadEntry, data: RoadData, at: string): string[] {
+  const errors: string[] = [];
+  const alts = road.altRefs ?? [];
+  const own = normalizeRef(road.ref);
+  for (const alt of alts) {
+    const ref = normalizeRef(alt.ref);
+    const other = data.roads.find((x) => x.id !== road.id && normalizeRef(x.ref) === ref);
+    if (ref === own) errors.push(`${at} lists its own ref ${alt.ref} in altRefs`);
+    else if (alt.kind !== 'concurrent' && other)
+      errors.push(`${at} altRef ${alt.ref} (${alt.kind}) is the primary ref of road ${other.id}; use kind concurrent`);
+    else if (alt.kind === 'concurrent') {
+      if (!other) errors.push(`${at} concurrent altRef ${alt.ref} is no other road's ref`);
+      else {
+        if (alt.network !== other.network)
+          errors.push(`${at} concurrent altRef ${alt.ref} has network ${alt.network}, not ${other.network}`);
+        if (!(other.altRefs ?? []).some((x) => x.kind === 'concurrent' && normalizeRef(x.ref) === own))
+          errors.push(`${at} shares a stretch with ${other.ref} but ${other.ref} does not list ${road.ref} as concurrent`);
+      }
+    }
+    if ((alt.from === undefined) !== (alt.to === undefined))
+      errors.push(`${at} altRef ${alt.ref} needs both from and to, or neither`);
+    for (const id of [alt.from, alt.to])
+      if (id !== undefined && !road.towns.includes(id)) errors.push(`${at} altRef ${alt.ref} stretch town ${id} is not on the road`);
+  }
+  for (const d of duplicates(alts, (x) => `${normalizeRef(x.ref)} ${x.from ?? ''}-${x.to ?? ''}`))
+    errors.push(`${at} lists altRef ${d.split(' ')[0]} twice for the same stretch`);
+  for (const d of duplicates(alts, (x) => normalizeRef(x.ref)))
+    if (alts.some((x) => normalizeRef(x.ref) === d && x.from === undefined))
+      errors.push(`${at} lists altRef ${d} several times; each needs a stretch`);
+  return errors;
+}
+
 /** The road files of one country, as read from `data/<country>/` (any may be missing). */
 export interface RoadFiles {
   /** `roads.json`: our own data. */
@@ -594,8 +643,8 @@ export function validateRoadFiles(country: Country, files: RoadFiles): Validatio
     for (const [id, entry] of Object.entries(courses ?? {})) {
       const road = byId.get(id);
       if (!road) errors.push(`${label} has a course for unknown road ${id}`);
-      else if (entry.osm && normalizeRef(entry.osm.ref) !== normalizeRef(road.ref))
-        errors.push(`${label} ref "${entry.osm.ref}" of ${id} differs from roads.json "${road.ref}"`);
+      else if (entry.osm && !osmRefMatches(entry.osm.ref, road))
+        errors.push(`${label} ref "${entry.osm.ref}" of ${id} has neither roads.json "${road.ref}" nor one of its altRefs`);
       if (label === 'roadCourses.json' && entry.osm) errors.push(`roadCourses.json ${id} has OSM provenance; move it to roads.osm.json`);
     }
   }

@@ -70,6 +70,16 @@
       "id": "a1",
       "network": "A",
       "ref": "A 1",
+      "altRefs": [
+        {"ref": "E 47", "network": "E", "kind": "european", "from": "t0", "to": "t1", "note": "Heiligenhafen to Kreuz Lübeck"},
+        {"ref": "E 22", "network": "E", "kind": "european", "from": "t1", "to": "t3", "note": "Kreuz Lübeck to Dreieck Stuhr, south of Bremen"},
+        {"ref": "E 37", "network": "E", "kind": "european", "from": "t3", "to": "t8", "note": "Dreieck Stuhr to Kreuz Köln-Nord"},
+        {"ref": "E 31", "network": "E", "kind": "european", "from": "t8", "to": "t9", "note": "Kreuz Köln-Nord to Kreuz Bliesheim, round Köln"},
+        {"ref": "E 29", "network": "E", "kind": "european", "from": "t8", "to": "t9", "note": "Kreuz Bliesheim to Blankenheim"},
+        {"ref": "E 44", "network": "E", "kind": "european", "from": "t9", "to": "t10", "note": "in sections, Dreieck Vulkaneifel to Dreieck Moseltal"},
+        {"ref": "E 422", "network": "E", "kind": "european", "from": "t10", "to": "t11", "note": "Dreieck Moseltal to Saarbrücken"},
+        {"ref": "A 61", "network": "A", "kind": "concurrent", "from": "t8", "to": "t9", "note": "Dreieck Erfttal to Kreuz Bliesheim, at Erftstadt"}
+      ],
       "class": 1,
       "from": "t0",
       "to": "t11",
@@ -84,6 +94,10 @@
       "id": "a2",
       "network": "A",
       "ref": "A 2",
+      "altRefs": [
+        {"ref": "E 34", "network": "E", "kind": "european", "from": "t12", "to": "t15", "note": "Oberhausen to Kreuz Bad Oeynhausen, east of Bielefeld"},
+        {"ref": "E 30", "network": "E", "kind": "european", "from": "t15", "to": "t20", "note": "Kreuz Bad Oeynhausen to Dreieck Werder"}
+      ],
       "class": 1,
       "from": "t12",
       "to": "t20",
@@ -98,6 +112,15 @@
       "id": "a3",
       "network": "A",
       "ref": "A 3",
+      "altRefs": [
+        {"ref": "E 35", "network": "E", "kind": "european", "from": "t21", "to": "t25", "note": "Elten border crossing to Mönchhof-Dreieck, past the Wiesbadener Kreuz"},
+        {"ref": "E 34", "network": "E", "kind": "european", "from": "t12", "to": "t22", "note": "Kreuz Oberhausen to Kreuz Kaiserberg"},
+        {"ref": "E 42", "network": "E", "kind": "european", "from": "t26", "to": "t27", "note": "Mönchhof-Dreieck to Seligenstädter Dreieck"},
+        {"ref": "E 41", "network": "E", "kind": "european", "from": "t27", "to": "t28", "note": "Seligenstädter Dreieck to Dreieck Würzburg-West"},
+        {"ref": "E 45", "network": "E", "kind": "european", "from": "t28", "to": "t29", "note": "Kreuz Biebelried to Kreuz Nürnberg"},
+        {"ref": "E 56", "network": "E", "kind": "european", "from": "t29", "to": "t32", "note": "Kreuz Nürnberg to the Pocking border crossing"},
+        {"ref": "A 4", "network": "A", "kind": "concurrent", "from": "t8", "to": "t8", "note": "Kreuz Köln-Ost to Dreieck Köln-Heumar"}
+      ],
       "class": 1,
       "from": "t21",
       "to": "t32",
@@ -112,6 +135,11 @@
       "id": "a4",
       "network": "A",
       "ref": "A 4",
+      "altRefs": [
+        {"ref": "E 40", "network": "E", "kind": "european", "from": "t33", "to": "t34", "note": "Kreuz Aachen to Kreuz Olpe-Süd"},
+        {"ref": "E 40", "network": "E", "kind": "european", "from": "t36", "to": "t43", "note": "Kirchheimer Dreieck to Görlitz"},
+        {"ref": "A 3", "network": "A", "kind": "concurrent", "from": "t8", "to": "t8", "note": "Kreuz Köln-Ost to Dreieck Köln-Heumar"}
+      ],
       "class": 1,
       "from": "t33",
       "to": "t43",
@@ -126,6 +154,13 @@
       "id": "a5",
       "network": "A",
       "ref": "A 5",
+      "altRefs": [
+        {"ref": "E 40", "network": "E", "kind": "european", "from": "t44", "to": "t45", "note": "Hattenbacher Dreieck to Reiskirchener Dreieck"},
+        {"ref": "E 451", "network": "E", "kind": "european", "from": "t45", "to": "t46", "note": "Reiskirchener Dreieck to Darmstädter Kreuz"},
+        {"ref": "E 35", "network": "E", "kind": "european", "from": "t46", "to": "t51", "note": "Darmstädter Kreuz to the Swiss border"},
+        {"ref": "E 52", "network": "E", "kind": "european", "from": "t48", "to": "t49", "note": "Dreieck Karlsruhe to Appenweier"},
+        {"ref": "E 54", "network": "E", "kind": "european", "from": "t50", "to": "t51", "note": "Dreieck Neuenburg to Dreieck Weil am Rhein"}
+      ],
       "class": 1,
       "from": "t44",
       "to": "t51",
@@ -140,6 +175,9 @@
       "id": "a6",
       "network": "A",
       "ref": "A 6",
+      "altRefs": [
+        {"ref": "E 50", "network": "E", "kind": "european", "note": "the whole route"}
+      ],
       "class": 1,
       "from": "t11",
       "to": "t57",
@@ -154,6 +192,12 @@
       "id": "a7",
       "network": "A",
       "ref": "A 7",
+      "altRefs": [
+        {"ref": "E 45", "network": "E", "kind": "european", "from": "t58", "to": "t28", "note": "Ellund to Kreuz Biebelried"},
+        {"ref": "E 43", "network": "E", "kind": "european", "from": "t28", "to": "t63", "note": "Kreuz Biebelried to Kreuz Memmingen, south of Ulm"},
+        {"ref": "E 532", "network": "E", "kind": "european", "from": "t63", "to": "t65", "note": "Kreuz Memmingen to Füssen"},
+        {"ref": "A 44", "network": "A", "kind": "concurrent", "from": "t61", "to": "t61", "note": "Kassel-Ost to Dreieck Kassel-Süd"}
+      ],
       "class": 1,
       "from": "t58",
       "to": "t65",
@@ -168,6 +212,12 @@
       "id": "a8",
       "network": "A",
       "ref": "A 8",
+      "altRefs": [
+        {"ref": "E 52", "network": "E", "kind": "european", "from": "t48", "to": "t75", "note": "Dreieck Karlsruhe to the Austrian border, except round München, where it follows the A 99"},
+        {"ref": "E 29", "network": "E", "kind": "european", "from": "t66", "to": "t67", "note": "Luxembourg border to Dreieck Saarlouis"},
+        {"ref": "E 45", "network": "E", "kind": "european", "from": "t73", "to": "t74", "note": "Kreuz München-Süd to Dreieck Inntal"},
+        {"ref": "E 60", "network": "E", "kind": "european", "from": "t74", "to": "t75", "note": "Dreieck Inntal to the Austrian border"}
+      ],
       "class": 1,
       "from": "t66",
       "to": "t75",
@@ -182,6 +232,11 @@
       "id": "a9",
       "network": "A",
       "ref": "A 9",
+      "altRefs": [
+        {"ref": "E 51", "network": "E", "kind": "european", "from": "t76", "to": "t29", "note": "Dreieck Potsdam to Kreuz Nürnberg"},
+        {"ref": "E 49", "network": "E", "kind": "european", "from": "t78", "to": "t79", "note": "Schkeuditzer Kreuz to Schleiz"},
+        {"ref": "E 45", "network": "E", "kind": "european", "from": "t29", "to": "t73", "note": "Kreuz Nürnberg to Kreuz München-Nord"}
+      ],
       "class": 1,
       "from": "t76",
       "to": "t73",
@@ -196,6 +251,10 @@
       "id": "a10",
       "network": "A",
       "ref": "A 10",
+      "altRefs": [
+        {"ref": "E 30", "network": "E", "kind": "european", "from": "t20", "to": "t83", "note": "southern ring, Dreieck Werder to Dreieck Spreeau"},
+        {"ref": "E 55", "network": "E", "kind": "european", "from": "t84", "to": "t83", "note": "northern and eastern ring, Dreieck Havelland to Schönefelder Kreuz"}
+      ],
       "class": 2,
       "from": "t82",
       "to": "t84",
@@ -210,6 +269,9 @@
       "id": "a11",
       "network": "A",
       "ref": "A 11",
+      "altRefs": [
+        {"ref": "E 28", "network": "E", "kind": "european", "note": "the whole route"}
+      ],
       "class": 2,
       "from": "t85",
       "to": "t82",
@@ -574,6 +636,9 @@
       "id": "a44",
       "network": "A",
       "ref": "A 44",
+      "altRefs": [
+        {"ref": "A 7", "network": "A", "kind": "concurrent", "from": "t61", "to": "t61", "note": "Kassel-Ost to Dreieck Kassel-Süd"}
+      ],
       "class": 2,
       "from": "t33",
       "to": "t177",
@@ -700,6 +765,9 @@
       "id": "a61",
       "network": "A",
       "ref": "A 61",
+      "altRefs": [
+        {"ref": "A 1", "network": "A", "kind": "concurrent", "from": "t210", "to": "t210", "note": "Dreieck Erfttal to Kreuz Bliesheim, at Erftstadt"}
+      ],
       "class": 2,
       "from": "t209",
       "to": "t216",

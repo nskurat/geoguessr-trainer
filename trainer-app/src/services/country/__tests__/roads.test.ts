@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { germany } from '../../../data/germany';
 import roadsJson from '../../../data/germany/roads.json';
 import type { Country, RoadCourses, RoadsFile } from '../../../types/geo';
-import { joinRoads, normalizeRef } from '../roads';
+import { joinRoads, normalizeRef, osmRefMatches, refMatchesRoad, splitRefs } from '../roads';
 import { validateCountry, validateRoadFiles } from '../schema';
 
 const file = (): RoadsFile => structuredClone(roadsJson) as RoadsFile;
@@ -41,6 +41,26 @@ describe('normalizeRef and joinRoads', () => {
     expect(joined.roads[0].course).toEqual([]);
     expect(joined.roads[1].course).toEqual([[[50, 8], [51, 8]]]);
     expect(joined.networks).toBe(f.networks);
+  });
+});
+
+describe('several numbers per road', () => {
+  const a7 = { ref: 'A 7', altRefs: [{ ref: 'E 45', network: 'E', kind: 'european' as const }] };
+
+  it('splits OSM multi-value refs', () => {
+    expect(splitRefs('A 7;E 45')).toEqual(['A 7', 'E 45']);
+    expect(splitRefs(' A 7 ; ')).toEqual(['A 7']);
+    expect(splitRefs(undefined)).toEqual([]);
+  });
+
+  it('matches the primary ref or a known other number, never an unknown one alone', () => {
+    expect(refMatchesRoad('A7', a7)).toBe(true);
+    expect(refMatchesRoad('e 45', a7)).toBe(true);
+    expect(refMatchesRoad('E 43', a7)).toBe(false);
+    expect(osmRefMatches('A 7;E 45', a7)).toBe(true);
+    expect(osmRefMatches('E 45', a7)).toBe(true);
+    expect(osmRefMatches('A 7;E 99', a7)).toBe(true);
+    expect(osmRefMatches('A 70;E 99', a7)).toBe(false);
   });
 });
 
@@ -128,9 +148,56 @@ describe('validateRoadFiles on broken data', () => {
     osm.zz = { course: [[[50, 8], [51, 8]]] };
     const own = { a9: townCourses(f).a9 };
     const { errors } = validateRoadFiles(withOsmCredit(), { roads: f, osm, own });
-    expect(errors).toContain('roads.osm.json ref "A 70" of a7 differs from roads.json "A 7"');
+    expect(errors).toContain('roads.osm.json ref "A 70" of a7 has neither roads.json "A 7" nor one of its altRefs');
     expect(errors).toContain('roads.osm.json has a course for unknown road zz');
     expect(errors).toContain('road a9 has a course in both roads.osm.json and roadCourses.json');
+  });
+
+  it('accepts an OSM ref list that holds the primary ref or a known altRef', () => {
+    const f = file();
+    const osm = townCourses(f, true);
+    osm.a7.osm!.ref = 'A 7;E 45';
+    osm.a1.osm!.ref = 'E 47';
+    expect(f.roads[0].altRefs?.some((a) => a.ref === 'E 47')).toBe(true);
+    expect(validateRoadFiles(withOsmCredit(), { roads: f, osm }).errors).toEqual([]);
+  });
+
+  it('checks altRefs: own ref, other roads, concurrency both ways, stretches', () => {
+    const errors = errorsOf((f) => {
+      const [a1, a2, a3, a4, a5] = f.roads;
+      a1.altRefs = [{ ref: 'A1', network: 'A', kind: 'former' }];
+      a2.altRefs = [{ ref: 'A 3', network: 'A', kind: 'european' }];
+      a3.altRefs = [
+        { ref: 'A 4', network: 'A', kind: 'concurrent', from: 't8', to: 't8' },
+        { ref: 'A 99 X', network: 'A', kind: 'concurrent' },
+      ];
+      a4.altRefs = [{ ref: 'A 5', network: 'B', kind: 'concurrent', from: 't8' }];
+      a5.altRefs = [
+        { ref: 'E 40', network: 'E', kind: 'european', from: 't44', to: 'ghost' },
+        { ref: 'E 40', network: 'E', kind: 'european' },
+      ];
+    });
+    expect(errors).toContain('road A 1 (a1) lists its own ref A1 in altRefs');
+    expect(errors).toContain('road A 2 (a2) altRef A 3 (european) is the primary ref of road a3; use kind concurrent');
+    expect(errors).toContain('road A 3 (a3) shares a stretch with A 4 but A 4 does not list A 3 as concurrent');
+    expect(errors).toContain('road A 3 (a3) concurrent altRef A 99 X is no other road\'s ref');
+    expect(errors).toContain('road A 4 (a4) concurrent altRef A 5 has network B, not A');
+    expect(errors).toContain('road A 4 (a4) altRef A 5 needs both from and to, or neither');
+    expect(errors).toContain('road A 5 (a5) altRef E 40 stretch town ghost is not on the road');
+    expect(errors).toContain('road A 5 (a5) lists altRef E40 several times; each needs a stretch');
+  });
+
+  it('accepts one number on two stretches and a reciprocal concurrency', () => {
+    const errors = errorsOf((f) => {
+      const [, , a3, a4] = f.roads;
+      a3.altRefs = [{ ref: 'A 4', network: 'A', kind: 'concurrent', from: 't8', to: 't8' }];
+      a4.altRefs = [
+        { ref: 'A 3', network: 'A', kind: 'concurrent', from: 't8', to: 't8' },
+        { ref: 'E 40', network: 'E', kind: 'european', from: 't33', to: 't34' },
+        { ref: 'E 40', network: 'E', kind: 'european', from: 't36', to: 't43' },
+      ];
+    });
+    expect(errors).toEqual([]);
   });
 
   it('requires the OSM credit in every language when roads.osm.json exists', () => {
