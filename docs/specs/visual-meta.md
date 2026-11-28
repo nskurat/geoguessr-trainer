@@ -1,6 +1,7 @@
 # Visual meta: teaching what the map looks like
 
-**Status:** proposal for owner review, not an implementation or approved data.
+**Status:** approved by the owner on 2026-11-28 (see "Owner decisions" at the end); not an
+implementation or approved data.
 GeoGuessr-pro owns signal selection and evidence; UX-expert owns presentation and
 interaction. The trainer assumes the country is already known. Existing sets teach
 names attached to administrative areas, points or lines; none can represent an
@@ -29,7 +30,7 @@ variable, needs local verification; L = hypothesis, do not quiz yet.
 | Zones: architecture / languages | Breton bilingual signs in Brittany (M); southern building styles (L) | Titicaca-area brick / blue glass (M) | Northern brick, southern Alpine buildings; Sorbian/Danish signs (L in existing research) | Styles travel and signs are local, not exclusive. Establish distribution and counterexamples from cultural/language sources and multiple dated observations; show “often”, never a guarantee. Sources: [France guide](https://www.plonkit.net/france), [Peru research](../../trainer-app/src/data/peru/RESEARCH.md), [Germany research §1, §7](../../trainer-app/src/data/germany/RESEARCH.md). |
 | Point/line: landmarks, roads, coverage | Alpine peaks or motorway route markers (M) | Southern volcanoes, numbered highways / kilometre markers and Iquitos coverage island (M) | Alpine landmarks, Autobahn routes / markers (M) | A landmark has a position and a visibility range, not a zone; a road number is meaningful only along its actual route and km numbering system. Use official road/volcano inventories plus a second map and dated road observations. Coverage is time-dependent and is not a land-use polygon: verify current official coverage and distinguish car, trekker and gaps; never infer that Iquitos is the only island. Sources: [Peru research §1, §8](../../trainer-app/src/data/peru/RESEARCH.md), [France](https://www.plonkit.net/france), [Peru](https://www.plonkit.net/peru), [Germany](https://www.plonkit.net/germany) player guides. |
 | Per-unit facts: road furniture, poles, plates | Département number on some plates (M); selectable and often blurred, not proof of location | Moquegua bollard and pole stickers (M) | Bollard variants (L); Kreis plate codes are finer than Länder | Attach only if a cue is demonstrably associated with the whole unit or explicitly says “seen in / common in”, with all acceptable units and exceptions recorded. Verify with a road authority/operator or registry and repeated dated player observations. Peru's bollard uniqueness and stickers require re-checking; Germany's coarse Länder are unsuitable for Kreis codes. [Peru research §1, §8](../../trainer-app/src/data/peru/RESEARCH.md); [Germany research §7](../../trainer-app/src/data/germany/RESEARCH.md); [France guide](https://www.plonkit.net/france). |
-| Country-wide identifiers | French plate format (H) | Black-and-white striped signposts (M) | Common black-and-white bollards (M) | Useful for identifying a country, not locating within it. Keep at most a short, sourced country tip; **no regional study set** unless a verified variant splits the country. Similar designs exist elsewhere; a national standard does not imply local exclusivity. [France](https://www.plonkit.net/france), [Peru](https://www.plonkit.net/peru), [Germany](https://www.plonkit.net/germany) player guides. |
+| Country-wide identifiers | French plate format (H) | Peruvian plate format (H); see `data/peru/RESEARCH.md` §4 | Common black-and-white bollards (M) | Useful for identifying a country, not locating within it. Keep at most a short, sourced country tip; **no regional study set** unless a verified variant splits the country. Similar designs exist elsewhere; a national standard does not imply local exclusivity. [France](https://www.plonkit.net/france), [Peru](https://www.plonkit.net/peru), [Germany](https://www.plonkit.net/germany) player guides. |
 
 Use the [Peru research](../../trainer-app/src/data/peru/RESEARCH.md) as a starting
 point, not a licence to copy guide images. The [Germany research](../../trainer-app/src/data/germany/RESEARCH.md)
@@ -308,19 +309,23 @@ the active question and feedback. Pure geometry and answer validation belong in
 tested services. Preview the design against the port rather than assuming this
 wireframe is a pixel-perfect rendering.
 
-## Open questions for the owner
+## Owner decisions (2026-11-28)
 
-1. Approve Peru's three broad zones as the first pilot, and are hand-drawn,
-   deliberately fuzzy boundaries acceptable?
-2. Are original schematic drawings sufficient for launch, and who will create
-   and license them? Should cleared photos be a later milestone?
-3. Is the proposed image budget acceptable, including for mobile connections?
-4. Should multiple-answer clues ever be graded, or remain Learn-only until a
-   complete list of possible units can be verified?
-5. What source and review threshold should make a changing coverage or road
-   furniture fact eligible for practice, and how often should it be rechecked?
-6. Should visual facts later be additional sets or contextual cards in existing
-   sets, once the Peru pilot has been evaluated?
-7. If an important signal has only CC BY-SA images, should the owner approve
-   an exception or keep that signal image-free? BY-SA remains excluded unless
-   the owner decides otherwise.
+1. **Pilot:** Peru's three broad zones (costa / sierra / selva) are the first pilot.
+   Hand-drawn, deliberately fuzzy boundaries are acceptable, as long as Practice only asks
+   about points well inside a zone.
+2. **Images at launch:** our own schematic drawings only (simple SVGs, which an agent may
+   draw and the owner reviews), released under MIT as our own work. Cleared photos (CC0 or
+   CC BY 4.0) are a later milestone.
+3. **Budget:** the proposed image budget is accepted (≤ 150 KB compressed for all pilot
+   images, ≤ 50 KB per asset).
+4. **Multiple-answer clues:** Learn-only until the complete list of units is verified;
+   grading an incomplete list would teach wrong answers.
+5. **Changing facts** (road furniture, coverage): eligible for Practice only with two
+   independent sources, confidence H and a "checked on" date; rechecked once a year or
+   whenever coverage changes. M and L facts stay Learn-only.
+6. **Sets versus cards:** decide after the Peru pilot is evaluated. The leaning is one
+   Landscape set per country plus contextual cards on existing units for per-unit clues
+   (bollards and similar), so the set menu does not grow with every signal.
+7. **CC BY-SA images:** no exception. A signal whose only images are BY-SA stays image-free,
+   with our own drawing and a link to the source (`docs/licensing.md`).

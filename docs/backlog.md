@@ -19,8 +19,8 @@ visual design stays the artifact's (see Settled decisions); this is a structural
 
 ## Multi-country follow-ups
 
-- Design proposal for landscape and other visual signals: [visual meta spec](specs/visual-meta.md)
-  (owner decisions pending; no implementation yet).
+- Design for landscape and other visual signals: [visual meta spec](specs/visual-meta.md)
+  (approved 2026-11-28; Peru costa / sierra / selva pilot after React port stages 1–3).
 - Peru signals the engine can't express yet (see `data/peru/RESEARCH.md` §8): landscape
   zones (costa / sierra / selva and sub-zones), highway numbers and km markers, coverage
   gaps (Iquitos is an isolated island of coverage), pole stickers, the Moquegua bollard,
