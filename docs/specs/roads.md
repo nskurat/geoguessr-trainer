@@ -90,7 +90,187 @@ sourced (§3, later kinds).
 
 ## 2. Learn: a zoom-dependent road layer
 
+**Decision:** a new study set **Roads** (`road`), offered only by countries whose data has
+roads. In it the map shows roads by class as you zoom, like a road atlas: none at the full
+country view, motorway-class roads first, smaller classes deeper. The land is drawn in plain
+`--land` (no region hues) so the roads, not the regions, carry colour. Rejected: an overlay
+toggle on every set (clutter, a new toolbar control; kept as a later idea), and showing all
+roads at the full view (no search left for Practice, unreadable on a phone).
+
+### Zoom thresholds
+
+Thresholds are in **visible map width in km** (from the projection), so they mean the same
+on every country and screen; a class is drawn when the view is narrower than its threshold
+*and* zoomed at least 1.3× past the full country view (so nothing shows at full view, even
+for a small country):
+
+| Class | Meaning (per country data) | Drawn when view width ≤ | Shields when ≤ |
+|---|---|---|---|
+| 1 | Trunk: A1–A9, French Paris radials, PE-1/3/5 | 700 km | 450 km |
+| 2 | Regional: two-digit A, Peru transversals | 300 km | 200 km |
+| 3 | Minor (later): B roads, French N | 120 km | 80 km |
+
+At the full view the card says "Zoom in to see roads" next to the zoom buttons' hint; the
+first zoom step on Germany (about 640 km wide) already shows class 1. A class fades in over
+150 ms (none under `prefers-reduced-motion`). The **selected road is always drawn**,
+whatever the zoom, with its shields.
+
+### Look
+
+Roads are cased lines, distinct from rivers (single blue line, italic label): a dark
+casing and a light core, wider for class 1. Strokes use `vector-effect: non-scaling-stroke`
+so they keep their screen width without per-element rescaling. Labels are **shields**
+modelled on the real sign colours, which are themselves the recognition cue (§1): a small
+rounded rectangle with the number (`A 7`, `PE-1N`) in Archivo bold 11 px (10 px on phones).
+The shield colour is a generic style named in data (`blue`, `red`, `yellow`, `green`,
+`white`), never a country in code. Placement: along the line, one shield per ≥ 220 px of
+on-screen length (≥ 160 px on phones), at most 12 on screen (8 on phones), placed by
+priority (selected road > class 1 > class 2) and dropped when they would overlap a tier-1
+city label or another shield. Towns on the selected road are drawn as river towns are.
+
+### Interaction
+
+- **Road picker** in the control bar, in the slot the River picker uses: "All roads" then
+  the roads grouped by class (`<optgroup>` per network label, e.g. "Autobahn — trunk").
+  Choosing one zooms to it (like a river) and selects it.
+- **Tap or click a road** (screen tolerance §3) to select it. Hover on desktop shows a
+  tooltip "A 7 · Flensburg – Füssen". Drag never selects.
+- **Info card** (side panel, below the map on phones): shield and number, the network label
+  and its sign description ("blue shield, white number"), endpoints, towns along it in
+  order (the river-card pattern), length, regions it crosses, and the numbering rule that
+  applies ("odd: north–south; two digits 4x: Rhine-Ruhr to Frankfurt"). Card text comes
+  from data and `copy`, never literals.
+- The Area filter is hidden for Roads in Learn (roads cross areas); the `labels` setting
+  `off` hides shields, `auto` follows the table above.
+
+### Performance
+
+Roads are a few hundred paths at most (Germany's 66 A routes are ≈ 7 KB gzip at 1 km
+tolerance, §4). Draw each road once as one path per part inside one `<g>` per class and
+toggle the group's `display` on zoom; no re-render on pan. Shield placement runs after a
+zoom ends (debounced, ~100 ms) on projected points cached in map units. A finer geometry
+file loads lazily the first time the view is narrower than 150 km (§4).
+
+### Wireframes
+
+Desktop, 1280 px, Learn, zoomed on western Germany with the A 7 selected:
+
+```text
+ Germany map trainer                       Country [Germany v]  Language [English v]
+ [Macro-regions][States][Cities][Rivers][Name endings][Roads]
+ [Learn | Practice]   Road [A 7 v]
+ +--------------------------------------------+  +---------------------------+
+ |        ══[A 1]══        ║                  |  | LEARN · ROADS             |
+ |  ════════[A 2]══════════╬═══════           |  | [A 7]  Autobahn, trunk    |
+ |                         ║[A 7]             |  | Blue shield, white number |
+ |   ══[A 44]══            ║                  |  | Flensburg – Füssen, 960 km|
+ |          ══════[A 4]════╬═════             |  | Odd = north–south; higher |
+ |                     • Kassel               |  |   numbers further east    |
+ |                         ║                  |  | Towns: Hamburg · Hannover |
+ |                         ║            [+]   |  |   · Kassel · Würzburg …   |
+ |                    • Fulda           [−]   |  | Crosses: SH, HH, NI, HE…  |
+ |                         ║            [⤢]   |  +---------------------------+
+ +--------------------------------------------+   [Germany ▫ locator §5]
+```
+
+Phone, 390 px, dark, Learn: preferences-first header, controls wrap, map then card.
+
+```text
+ [Германія v] [▫] [Беларуская v]
+ Германія: трэнажор па карце
+ [Макрарэгіёны][Землі][Гарады]
+ [Рэкі][Заканчэнні назваў][Дарогі]
+ [Вывучэнне | Практыка]
+ Дарога [Усе дарогі v]
+ +------------------------------+
+ |  ══[A 2]══════╬═════         |
+ |               ║[A 7]         |
+ |    ═════[A 4]═╬════          |
+ |               ║          [+] |
+ |                        [−]   |
+ |                          [⤢] |
+ +------------------------------+
+ [A 7] Autobahn · Flensburg – Füssen
+ (card: towns, rule, Länder …)
+```
+
+States: loading (map skeleton, Road picker disabled); a country without roads (no Roads
+button at all, saved `road` settings normalised to the first offered set); no road
+selected (card says how to explore); fine geometry failing to load (keep the coarse one,
+no error shown); light and dark use the tokens in §2 "Visual tokens" below.
+
+### Visual tokens
+
+New tokens, both themes, checked to WCAG 2.2 AA non-text contrast (3:1) against `--land`:
+`--road-casing` (light `#3b3f4a`, dark `#0b0f19`), `--road-core` (light `#ffffff`, dark
+`#c9d1e3`), `--road-sel` = `--hl` for the selected or target road. Shield fills
+`--shield-blue|red|yellow|green|white` keep the real sign colours in both themes (the
+colour is the cue), with a 1 px `--border` outline so a white or yellow shield stays
+visible on dark land; text on each passes 4.5:1. Reuse `--ok` / `--red` for outcomes, with
+text and an icon, never colour alone.
+
 ## 3. Practice: search and click
+
+**Decision:** two kinds on the Roads set, reusing the existing kind ids so settings,
+rounds and Leitner need no new machinery: **find** labelled "Search and click"
+("Find the A 7") and **name** labelled "Which road?" (a highlighted road → its number).
+Rejected: a list of numbers to pick from for find (gives the answer away), and a
+time limit (not the trainer's tone).
+
+### Find: "Find the A 7"
+
+1. The prompt shows the target as a shield (`A 7`), no endpoints. The map starts at the
+   full country view (or the Area scope) with **no road numbers** anywhere; roads appear by
+   class as the player zooms (§2 thresholds), all drawn alike, unlabelled.
+2. The player pans and zooms. A tap counts only when it is **within the screen tolerance
+   of a visible road**: 12 px for a mouse, 20 px for a coarse pointer (a 40 px band, the
+   tap-target minimum). The road nearest to the tap point wins; if the target is within
+   tolerance at all, it counts as a hit (concurrent or crossing roads favour the player).
+3. **Neutral taps** cost no attempt: a tap with no road in tolerance ("Tap on a road"), or
+   a tap while the target's class is not yet drawn ("Zoom in — roads appear as you zoom").
+   A drag or pinch never answers.
+4. **Wrong road:** the tapped road flashes `--red` for 650 ms with its own shield and the
+   line "That's the A 5", so a miss still teaches. Three attempts, as today.
+5. **Hint after the second miss:** the regions the target crosses pulse once in `--hl`
+   outline and the prompt adds "It crosses Hesse and Bavaria". No hint after the first miss
+   (the wrong road's number is already information).
+6. **After the third miss:** the map zooms to the target, which blinks with its shields;
+   the player taps it (or presses Enter / "Next") to continue — the existing reveal rule.
+7. Outcome: 0 right first try, 1 second, 2 third, 3 revealed — the existing `Outcome`, so
+   scoring, round summary and Leitner boxes are unchanged. Auto-advance timings as today.
+
+### Name: "Which road is this?"
+
+The map zooms to the highlighted road (drawn in `--road-sel`, others faint and unlabelled)
+and offers four or five numbers. Distractors are **genuinely confusable**: same class and
+nearby (shares a region or runs parallel within ~100 km), plus a same-band number (A 45 for
+A 44; PE-28A for PE-26), never random. Keys 1–5 pick, as today; the reveal shows the right
+shield on the road. This is also the accessible kind (below).
+
+### Later kinds (not in the pilot)
+
+- "Which road links Hamburg and Basel?" (text only, number choices).
+- Peru class 1: "km 450 on PE-1S is near…" (place the point; needs sourced km anchors).
+
+### Round, scope and scheduling
+
+Pool = the country's roads of the classes in a new setting **Road class**
+(`roadClass: 'all' | '1' | '2' …`, only shown when the data has more than one class) and
+crossing the Area scope. Progress key `road|<road id>` in the existing
+`geotrainer_<country>_progress`; find and name share the record (one road, one box), as
+other sets do. Round size, due-first priority and miss requeues are the existing
+`services/practice` code; distractors and road hit-testing are new pure services.
+
+### Keyboard and screen readers
+
+- Map focusable; arrows pan, `+`/`−` zoom, and a crosshair appears at the map centre while
+  it has keyboard focus; **Enter answers at the crosshair** with the same tolerance rule.
+  Focus ring per the existing styles.
+- The find kind is visual by nature; its description says so, and the **name kind is the
+  screen-reader path** (the choices are buttons). The kind control stays reachable.
+- A live region announces the question ("Find the A 7"), neutral nudges, "Wrong: that is
+  the A 5", the hint and the reveal; outcomes use words and an icon, not colour alone.
+- Touch-only devices hide keyboard hints, as today.
 
 ## 4. Data model and sources
 
