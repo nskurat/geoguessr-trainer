@@ -21,7 +21,9 @@ A road layer must read differently from rivers at a glance and add no new toolba
 system), [Bundesstraße](https://en.wikipedia.org/wiki/Bundesstra%C3%9Fe), [Highways in Peru](https://en.wikipedia.org/wiki/Highways_in_Peru)
 (which cites the MTC's route pages), `data/peru/RESEARCH.md` §8, and a measurement of
 Natural Earth's `ne_10m_roads` (v5, GitHub master) clipped to each country with
-`ne_10m_admin_0_countries` (§4). Player guides (plonkit) were blocked from this session
+`ne_10m_admin_0_countries` (§4). OpenStreetMap (approved for road data on 2026-11-28)
+could not be queried from this session and is specified as the pipeline's first
+measurement. Player guides (plonkit) were blocked from this session
 (HTTP 403), so the "seen on Street View" claims below are from the research notes and
 general player knowledge and are marked M at best until re-checked. Wikipedia is used for
 facts only (route numbers and termini), never copied text (`docs/licensing.md`).
@@ -58,7 +60,7 @@ boundary, not a national origin (M), so they do not place you nationally: no dri
 | **Autobahn** single-digit (A1–A9) | White number on a blue shield; blue direction signs (H) | Long trunks across the country; even numbers run east–west and increase north to south, odd numbers run north–south and increase west to east (H, Wikipedia, numbering since 1974) | **In, class 1.** Nine routes: learn them by heart with the parity rule. |
 | **Autobahn** two-digit (A10–A99) | As above | First digit = region: 1x east (Berlin, Brandenburg, Saxony-Anhalt, parts of Saxony); 2x north and north-east; 3x Lower Saxony and Thuringia; 4x Rhine-Ruhr to Frankfurt; 5x Lower Rhine to Cologne; 6x Rhineland-Palatinate, Saarland, Hesse, northern Baden-Württemberg; 7x Thuringia, northern Bavaria, parts of Saxony; 8x Baden-Württemberg; 9x southern Bavaria (98 in Baden-Württemberg) (H, Wikipedia) | **In, class 2.** The best rule-based clue in this spec: a two-digit number narrows to a band of Länder. |
 | **Autobahn** three-digit (A100, A555…) | As above | Short city links, first digit follows the region rule | **Out**; the region rule covers them as a tip. |
-| **B** Bundesstraßen (≈ 40,000 km) | Yellow rectangle, black number (H, Wikipedia); yellow direction signs | Numbered by law in 1932 and largely kept; low numbers are old long-distance routes (B1 Aachen–Berlin area); higher numbers have only a loose regional pattern (L) | **Learn-only later**, class 3. Very common on signs, but 40,000 km of geometry and no clean rule; revisit with a licensed source (§4). |
+| **B** Bundesstraßen (≈ 40,000 km) | Yellow rectangle, black number (H, Wikipedia); yellow direction signs | Numbered by law in 1932 and largely kept; low numbers are old long-distance routes (B1 Aachen–Berlin area); higher numbers have only a loose regional pattern (L) | **Learn-only later**, class 3. Very common on signs, but 40,000 km of geometry and no clean rule; OSM covers them when wanted (§4). |
 | **L / K** Landes-, Kreisstraßen | Numbers rarely on direction signs; on small station markers (M) | Per state / district | **Out.** |
 | **E** routes | Seldom signed in Germany (M) | Pan-European | **Out.** |
 
@@ -326,9 +328,20 @@ other sets do. Round size, due-first priority and miss requeues are the existing
 
 ### Types (proposal, not final API)
 
-Same pattern as rivers: metadata and towns in `roads.json`, generated geometry in
-`roadCourses.json`, merged in the country's `index.ts`. Nothing in the trainer names a
-country or a network; classes, shield styles and labels are data.
+Same pattern as rivers (`rivers.json` + generated `riverCourses.json`), with the licence
+boundary of `docs/licensing.md` "OpenStreetMap road data (ODbL)" built in:
+
+- `roads.json` — **our own data** (MIT): networks, the curated list of roads with class,
+  sign ref, termini, towns along them (GeoNames, as for rivers), departments crossed, notes.
+- `roads.osm.json` — **OSM-derived only** (ODbL): per road id, the simplified course and the
+  OSM `ref` and relation id it came from. Nothing of ours goes in it, and nothing from it is
+  copied into `roads.json`; the two are joined at load time in the country's `index.ts`
+  (as `riverCourses.json` is today), so the combined object exists only in memory.
+- `roadCourses.json` — only for a country whose geometry comes from Natural Earth or is
+  hand-drawn (public domain / our own), same shape as `roads.osm.json`.
+
+Nothing in the trainer names a country or a network; classes, shield styles and labels are
+data.
 
 ```ts
 // types/trainer.ts
@@ -351,7 +364,8 @@ export interface Road {
   class: RoadClass;
   from: string;          // RoadData.towns id of the start terminus (may be a border town)
   to: string;            // … of the end terminus
-  course: LatLon[][];    // parts, each ordered from `from` towards `to`
+  course: LatLon[][];    // parts, each ordered from `from` towards `to`; joined in from
+                         // roads.osm.json / roadCourses.json, never stored in roads.json
   towns: string[];       // RoadData.towns ids, in order along the road
   codes: string[];       // departments it crosses (hints, Area scope)
   lengthKm?: number;     // sourced; whole route
@@ -370,8 +384,20 @@ export interface RoadData { networks: RoadNetwork[]; roads: Road[]; towns: RoadT
 // i18n/en.ts and be.ts, not country copy.
 ```
 
-Zod and `validateCountry` additions: unique ids without `|`; `network` exists; `ref`
-non-empty and unique within the country; each course part ≥ 2 distinct finite points inside
+```ts
+// roads.osm.json (ODbL), generated by scripts/build-roads.ts, never hand-edited
+type RoadCourses = Record<roadId, {
+  osm: { relation?: number; ways?: number[]; ref: string };  // provenance
+  course: [number, number][][];                               // [lat, lon] parts
+}>;
+```
+
+Zod and `validateCountry` additions: unique ids without `|`; every road in `roads.json`
+has exactly one course entry (in `roads.osm.json` or `roadCourses.json`, not both) and every
+course entry a road; the OSM `ref` agrees with `roads.json` `ref` after normalising spaces
+(a mismatch means OSM renumbered or we did: an error to review, not to auto-fix); a country
+with any `*.osm.json` file must have the OSM credit in every language's `credits`;
+`network` exists; `ref` non-empty and unique within the country; each course part ≥ 2 distinct finite points inside
 the country's bounding box (with a small margin); `from`, `to`, `towns` and `codes`
 reference existing ids, and `from` / `to` lie within a few km of the course ends;
 every road's class is drawn by some threshold; `sets` containing `road` requires `roads`
@@ -389,8 +415,16 @@ road whose number changes gets a **new id** (old records stay harmless), as visu
 
 ### Sources and licensing
 
-Measured on 2026-11-28 by clipping Natural Earth `ne_10m_roads` (v5, public domain) to each
-country's `ne_10m_admin_0_countries` polygon (metropolitan France only), lengths approximate:
+The owner approved OpenStreetMap for **road geometry and road numbers** on 2026-11-28
+(`docs/licensing.md`, "OpenStreetMap road data (ODbL)"). OSM is the **recommended source**
+for every country where Natural Earth is too coarse or unnumbered, which is all three; Natural
+Earth stays as the public-domain fallback and as an independent cross-check. Other OSM data
+(places, boundaries, land use) is still not approved: towns come from GeoNames, the outline
+and the locator (§5) from Natural Earth.
+
+**Natural Earth, measured** on 2026-11-28 by clipping `ne_10m_roads` (v5, public domain) to
+each country's `ne_10m_admin_0_countries` polygon (metropolitan France only), lengths
+approximate:
 
 | Country | NE road length | Features with a national number | What is there |
 |---|---|---|---|
@@ -409,38 +443,75 @@ places):
 | NE tagged, km | 681 | 523 | 509 | 238 | 379 | 442 | 754 | 506 | 175 |
 | Route, km | ≈ 750 | ≈ 490 | ≈ 770 | ≈ 600 (two parts) | ≈ 445 | ≈ 480 | ≈ 960 | ≈ 500 | ≈ 530 |
 
-So A3, A4 and A9 need their untagged NE segments assigned by hand, and every route needs the
-gap report of step 3 (§6) before the pilot's scope is final. For Peru the whole numbering is
-hand work; the gap report must show each kept route as continuous NE geometry or name the
-stretch to draw through towns.
+NE's roads layer is old (its European features carry version 1.x edit notes) and coarse;
+even Germany would need A3, A4 and A9 tagged by hand, France most of its A roads, and Peru
+every route.
 
-NE's roads layer is old (its European features carry version 1.x edit notes) and coarse, but its
-geometry is good enough to *read* as the road at our zooms, and the licence is ideal.
+**OpenStreetMap versus Natural Earth.** OSM's download and query servers (Overpass,
+Geofabrik) were blocked from this session, so OSM could not be measured here; the comparison
+below is what the pipeline must confirm, with confidence marks, and step 3 (§6) prints the
+real numbers per route before the pilot's scope is final.
 
-Recommendation per country:
+| | Natural Earth (measured) | OpenStreetMap (expected, to measure) |
+|---|---|---|
+| Numbers | Patchy (above); none for Peru | Route **relations** with `ref` for every motorway and national road in all three countries (H for Germany and France, M for Peru's PE routes) |
+| Currency | Years old; misses A99, recent openings and the French N→D transfers | Current; also records old numbers in `old_ref`, useful for "you may see the old N 7 on older imagery" tips (M) |
+| Geometry | One line per road, ≈ 1:1M, good enough at our zooms | Survey-grade, both carriageways as separate ways: the pipeline keeps one direction |
+| Raw size | 50 MB for the world file | Per country: one Overpass query per network returns a few MB (M); a Geofabrik extract is GBs for France and Germany (M), so Overpass is preferred |
+| After simplification | Germany's A routes ≈ 7 KB gzip at ≈ 1 km | Should match NE to within ~1.5× at the same tolerance, because tolerance, not source detail, sets the point count (M; measure) |
+| Licence | Public domain, credit as good practice | ODbL: separate `*.osm.json`, credit in every language, `RESEARCH.md` record |
 
-- **Germany: Natural Earth geometry + NE's A tags**, corrected by a small hand-written
-  overrides file (segment → road id) for untagged parts, checked against two route
-  descriptions (Wikipedia list, Autobahn GmbH / BASt facts). For B roads later, evaluate
-  BKG's DLM250 (Datenlizenz Deutschland – Namensnennung 2.0, attribution only, M: verify the
-  version and terms) before considering anything else.
-- **France: Natural Earth geometry, numbered by hand** using NE's E-route and local tags as
-  a guide (E15 → A6/A7…), checked against two sources per route. Candidate upgrade: IGN data
-  under Etalab's Licence Ouverte 2.0 (attribution only, M: verify which IGN product still
-  carries road numbers and its current licence page). France's outline uses a fitted
-  projection, so roads, like its rivers, may sit a few px off: check against city dots.
-- **Peru: Natural Earth geometry, tagged by hand** from the MTC's route definitions (the
-  legal route classifier lists each route as a sequence of towns: facts, not expression),
-  falling back to a **hand-drawn course through towns** as for Peru's rivers where NE has
-  no line. MTC's own GIS layers would be better, but their licence is unknown (open question).
-- **Not usable:** OpenStreetMap (ODbL, share-alike: excluded without the owner's approval);
-  Google, Apple, Bing, Michelin or any commercial map, including tracing; GRIP (CC BY-SA).
-  OSM is listed as an open question only in case NE plus hand work proves insufficient for
-  minor classes; nothing in the pilot needs it.
+Recommendation per country (every route still checked against two sources for its ref and
+termini, as any data):
 
-Every source goes in the country's `RESEARCH.md` with URL, licence, version and date;
-credits extend the existing Natural Earth line ("…state outlines, river courses and roads").
-Shields are our own SVG/CSS drawing (MIT), not sign files from Commons.
+- **Germany: OSM** relations `type=route` + `route=road` + `network=BAB` (Autobahn), later
+  `network=BS` (Bundesstraßen) (M: confirm the network values on a sample). NE is the
+  cross-check; BKG DLM250 (dl-de/by-2-0) is no longer needed for B roads.
+- **France: OSM** relations with `network=FR:A-road` and `FR:N-road` (M: confirm), which also
+  settles the current N network after the 2006 and 2023 transfers. France's outline uses a
+  fitted projection, so roads, like its rivers, may sit a few px off: check against city dots.
+- **Peru: OSM** relations or, if relations are incomplete, ways with `highway=trunk|primary`
+  and `ref~"^PE-"` (M: Peru's relations are less complete than Europe's; measure), checked
+  against the MTC's route definitions (each route as a sequence of towns). Any stretch OSM
+  lacks is **hand-drawn through towns** into `roadCourses.json`, never mixed into the OSM file.
+- **Still not usable:** Google, Apple, Bing, Michelin or any commercial map, including
+  tracing; GRIP (CC BY-SA); MTC GIS layers until their licence is known.
+
+Every source goes in the country's `RESEARCH.md` with URL, licence, version and date; for OSM
+the extract record the licence requires (below). Credits: "Roads © OpenStreetMap
+contributors, ODbL" linking <https://www.openstreetmap.org/copyright>, in every
+`copy.<lang>.ts` (Belarusian: "Дарогі © удзельнікі OpenStreetMap, ODbL"), next to the
+existing Natural Earth and GeoNames lines. Shields are our own SVG/CSS drawing (MIT), not
+sign files from Commons.
+
+### Extract and simplification pipeline
+
+`scripts/build-roads.ts`, run as `npm run build:roads -- <country>`, alongside
+`build-outline.ts` and sharing its cache (`.cache/`, git-ignored) and projection helpers:
+
+1. **Input:** the country's road list from `roads.json` (id, network, ref) and a per-country
+   entry in the script (like `COUNTRIES` in `build-outline.ts`): the OSM network tags, the
+   Overpass area (ISO 3166-1 code) and the simplification tolerance.
+2. **Extract:** one Overpass query per network, `relation[type=route][route=road][network=…]
+   (area); out geom;`, cached as `.cache/osm-<country>-<network>-<date>.json`. The cache
+   file name carries the date; `--refresh` re-queries. A Geofabrik `.osm.pbf` extract is the
+   fallback if Overpass is unavailable (same filters with `osmium tags-filter`).
+3. **Assemble:** per relation, keep members with role `""` or `forward` (one carriageway),
+   merge ways into ordered lines, orient from the `from` town to the `to` town in
+   `roads.json`, and clip to the country's Natural Earth outline with a 5 km buffer (drops
+   the parts of cross-border routes abroad).
+4. **Simplify:** Douglas–Peucker in projected km (not degrees, so tolerance is even across
+   latitudes): 1 km for classes 1–2, 0.2 km for the lazy detail file; drop parts shorter than
+   2 km; round to 3 decimals (≈ 100 m).
+5. **Write** `roads.osm.json` (and `roads.detail.osm.json` when a class-3 set exists) with
+   `osm.relation`, `osm.ref` and the course, nothing else.
+6. **Report:** per road, OSM length versus the sourced `lengthKm`, NE length for the same ref,
+   gaps longer than 5 km, ref mismatches, roads in `roads.json` with no relation; plus total
+   raw and gzip size against the budget. The report goes into the PR, and its summary
+   (date, query, tags, tolerance, sizes) into `RESEARCH.md` as the licence requires.
+
+Without network access the script runs from the cache; it never writes outside
+`data/<country>/` and `.cache/`.
 
 ### Bundle size
 
@@ -452,14 +523,10 @@ Measured for NE motorways only, after line merging, coordinates rounded to 3 dec
 | Douglas–Peucker 0.01° (≈ 1 km) | 19.8 KB | 6.9 KB |
 | 0.03° (≈ 3 km) | 13.1 KB | 4.6 KB |
 
-France's 58 A routes: 17.6 KB raw / 6.2 KB gzip at 0.01°. Proposal: `roadCourses.json` at
-0.01° loads with the country (budget ≤ 15 KB gzip per country for classes 1–2); a
-`roadCoursesDetail.json` at 0.002° loads lazily on first zoom past 150 km wide and only if a
-class-3 set is offered. Generation: `npm run build:roads -- <country>` (or a `--roads` step
-in `build-outline.ts`) reads the cached NE files, clips to the country with a 5 km buffer
-(dropping neighbours' roads such as the Dutch N11 that leak into a naive clip), applies the
-overrides, merges, simplifies, rounds, and prints untagged segments and per-road length
-against the sourced `lengthKm` so gaps are visible.
+France's 58 A routes: 17.6 KB raw / 6.2 KB gzip at 0.01°. OSM at the same tolerance is
+expected in the same range (to be measured by the report). Budget: the course file for
+classes 1–2 loads with the country, ≤ 15 KB gzip per country; the detail file loads lazily
+on first zoom past 150 km wide and only if a class-3 set is offered.
 
 ## 5. Country locator map
 
@@ -492,10 +559,10 @@ side-panel card (below the map on phones, where nobody sees it).
 ## 6. Pilot and delivery sequence
 
 **Recommend Germany, Autobahn class 1 (A1–A9) and class 2 (two-digit)**: the clearest
-numbering rule of the three countries, blue shields everywhere on coverage, the best Natural
-Earth tags, and an exact projection (no fitted-outline drift as in France). About 60 roads
-is enough for distractors. France's A roads are the natural second country (same engine,
-hand tagging); Peru's six longitudinals and selected transversals third, ideally after the
+numbering rule of the three countries, blue shields everywhere on coverage, well-tagged
+data in both OSM and Natural Earth (so the cross-check works), and an exact projection (no
+fitted-outline drift as in France). About 60 roads is enough for distractors. France's A
+roads are the natural second country (same engine and pipeline, another network tag); Peru's six longitudinals and selected transversals third, ideally after the
 costa / sierra / selva pilot so the cards can link the two.
 
 Issue-sized steps:
@@ -503,8 +570,10 @@ Issue-sized steps:
 1. **Owner answers** the open questions below.
 2. **Research** (geoguessr-pro): `data/germany/RESEARCH.md` roads section — kept routes,
    termini, lengths, towns along each (GeoNames, as today), two sources each, sign notes.
-3. **Data tooling**: `build:roads` from Natural Earth with overrides, simplification and a
-   gap report; `roads.json`, `roadCourses.json`; the locator paths for all three countries.
+3. **Data tooling**: `scripts/build-roads.ts` (§4 pipeline) from OSM via Overpass, with the
+   NE cross-check and the gap and size report; `roads.json` (ours) and `roads.osm.json`
+   (ODbL), the OSM extract recorded in `RESEARCH.md`, the OSM credit in both languages; the
+   locator paths for all three countries (Natural Earth).
 4. **Engine**: types, zod and referential checks, copy keys (en, be; Belarusian road terms
    recorded in `i18n/README.md`), `StudySet` `road`, settings normalisation, pure services
    with tests. Existing countries validate unchanged.
@@ -532,15 +601,12 @@ attempts and hint.
    the search is the exercise), or class 1 visible at the full view in Learn?
 3. **France N roads:** Learn-only and limited to current long trunks, given the 2006 and 2023
    transfers — agreed? D roads stay a tip.
-4. **Germany B roads:** out of the pilot; later as a Learn-only minor class from a licensed
-   source (BKG DLM250 if its terms check out)?
-5. **Peru sources:** may we hand-tag Natural Earth geometry from the MTC's route
-   definitions? Should someone ask the MTC about the licence of its GIS layers?
-6. **OpenStreetMap:** stays excluded (recommended; not needed for classes 1–2). Ask again
-   only for minor classes?
-7. **Peru department route prefixes** (AR-, CU-…): worth a backlog drill like France's plate
+4. **Germany B roads:** out of the pilot; later as a Learn-only minor class from OSM?
+5. **Peru gaps:** where OSM lacks a PE route, may we hand-draw it through towns from the
+   MTC's route definitions? Should someone ask the MTC about the licence of its GIS layers?
+6. **Peru department route prefixes** (AR-, CU-…): worth a backlog drill like France's plate
    numbers, once the full list is verified?
-8. **Neutral taps** (no road in reach, or zoomed out too far) cost no attempt — agreed?
-9. **Locator:** beside the country picker, informative image, no click (recommended) — or should
+7. **Neutral taps** (no road in reach, or zoomed out too far) cost no attempt — agreed?
+8. **Locator:** beside the country picker, informative image, no click (recommended) — or should
    clicking it open a larger map / the country picker?
-10. **Km-marker kinds** (Peru PE-1 "km → place", Guatemala later): worth a follow-up spec?
+9. **Km-marker kinds** (Peru PE-1 "km → place", Guatemala later): worth a follow-up spec?
