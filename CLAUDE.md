@@ -96,7 +96,8 @@ trainer-app/
 - **Only MIT-compatible content is bundled** (outlines, data, images, fonts, text): public
   domain / CC0, CC BY 4.0 with credit, permissive code licences, or our own work. Never
   Google Street View / Maps, NC or ND, unlicensed images, or share-alike (CC BY-SA, ODbL)
-  without the owner's approval. Full policy: `docs/licensing.md`.
+  without the owner's approval; the one approved exception is OpenStreetMap road data, in
+  separate `*.osm.json` files with the OSM credit. Full policy: `docs/licensing.md`.
 - The app is served from the `/geoguessr-trainer/` sub-path (`vite.config.js` `base`;
   `VITE_BASE_PATH` overrides). Never hardcode paths.
 - Progress and settings live in the user's localStorage, per country
