@@ -57,6 +57,14 @@ tips written in someone else's words, tables copied wholesale, their images or t
 Write tips in our own words, and build geometry from allowed data (Natural Earth, `@svg-maps`)
 or draw it yourself from several sources, never by tracing one copyrighted map.
 
+**Complete lists of facts are fine.** A list that simply records every item of an official
+system in its natural order (all area codes of a country, all plate letters, all regions)
+has no creative selection or arrangement to protect, so it may match a Wikipedia table
+entry for entry. Cite the **primary source** (the regulator's numbering plan, the official
+registry or decree) in `RESEARCH.md`, with Wikipedia as a secondary reference. What is not
+allowed is copying someone's own selection, commentary or layout: a curated "most useful
+towns" list, explanatory notes, or the table's prose.
+
 ## Wikimedia Commons
 
 Commons hosts files under many licences; Commons itself is not a licence. Check each file's
