@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { france } from '../../../data/france';
 import { germany } from '../../../data/germany';
 import { peru } from '../../../data/peru';
+import { poland } from '../../../data/poland';
 import type { Country } from '../../../types/geo';
 import { RiverSchema, validateCountry } from '../schema';
 
@@ -36,6 +37,9 @@ describe('country attribution', () => {
     expect(germany.copy[lang].credits).toContain('https://www.naturalearthdata.com/');
     expect(germany.copy[lang].credits).toContain('https://www.geonames.org/');
     expect(germany.copy[lang].credits).toContain('https://creativecommons.org/licenses/by/4.0/');
+    expect(poland.copy[lang].credits).toContain('https://www.naturalearthdata.com/');
+    expect(poland.copy[lang].credits).toContain('https://www.geonames.org/');
+    expect(poland.copy[lang].credits).toContain('https://creativecommons.org/licenses/by/4.0/');
   });
 });
 
